@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}وكالة أبو منية — حجوزاتي{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">📋 حجوزاتي</h1>
+      <a href="{% url 'vols:home' %}" class="btn btn-primary btn-sm">+ رحلة جديدة</a>
+    </div>
+
+    {% if bookings %}
+    <div class="bookings-list">
+      {% for booking in bookings %}
+      <div class="booking-card">
+        <div class="booking-ref">
+          <span class="ref-label">المرجع</span>
+          <span class="ref-code-small">{{ booking.booking_reference }}</span>
+        </div>
+        <div class="booking-route">
+          <span class="route-city-lg">{{ booking.origin }}</span>
+          <span class="route-arrow">→</span>
+          <span class="route-city-lg">{{ booking.destination }}</span>
+        </div>
+        <div class="booking-meta">
+          <span>📅 {{ booking.departure_date }}</span>
+          <span>✈ {{ booking.airline|default:"غير متوفر" }}</span>
+          <span>👤 {{ booking.passengers.count }} مسافر{{ booking.passengers.count|pluralize }}</span>
+        </div>
+        <div class="booking-amount">
+          <span class="gold">{{ booking.total_amount|floatformat:2 }} {{ booking.currency }}</span>
+        </div>
+        <div class="booking-status">
+          <span class="badge badge-success">مؤكد</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">🎫</div>
+      <h3>لا توجد حجوزات</h3>
+      <p>ليس لديك أي حجوزات في الوقت الحالي.</p>
+      <a href="{% url 'vols:home' %}" class="btn btn-primary">ابحث عن رحلة</a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

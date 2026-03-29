@@ -1,0 +1,446 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}وكالة أبو منية — نتائج البحث{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+
+    <!-- Search Summary Bar -->
+    <div class="results-header">
+      <div class="route-pill">
+        {% if search.trip_type == 'oneway' %}
+            <span class="route-city">{{ search.slices.0.origin }}</span>
+            <span class="route-arrow">→</span>
+            <span class="route-city">{{ search.slices.0.destination }}</span>
+        {% elif search.trip_type == 'roundtrip' %}
+            <span class="route-city">{{ search.slices.0.origin }}</span>
+            <span class="route-arrow">⇄</span>
+            <span class="route-city">{{ search.slices.0.destination }}</span>
+        {% else %}
+            <!-- Multi-city -->
+            {% for s in search.slices %}
+                <span class="route-city">{{ s.origin }}</span>
+                {% if not forloop.last %}<span class="route-arrow">→</span>{% endif %}
+            {% endfor %}
+            <span class="route-arrow">→</span>
+            <span class="route-city">{{ search.slices.last.destination }}</span>
+        {% endif %}
+      </div>
+      <div class="route-meta">
+        <span>📅 {{ search.slices.0.departure_date }}
+          {% if search.trip_type == 'roundtrip' %} - {{ search.slices.1.departure_date }}{% endif %}
+        </span>
+        <span>👤 {{ search.passengers }} مسافر{{ search.passengers|pluralize }}</span>
+        <span>💺 {{ search.cabin_class|capfirst }}</span>
+      </div>
+      <button type="button" id="toggleSearchBtn" class="btn btn-ghost btn-sm">← تعديل</button>
+    </div>
+
+    <div id="inlineSearchForm" style="display: none; margin-bottom: 24px;">
+        {% include 'vols/includes/search_form.html' %}
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+        <!-- Results count -->
+        <p class="results-count" style="margin-bottom: 0;">
+          {% if offers %}
+            <strong class="gold" id="visibleCount">{{ offers|length }}</strong> عرض/عروض وُجدت
+          {% else %}
+            لم يتم العثور على أي عروض لهذا البحث المعقد.
+          {% endif %}
+        </p>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <!-- Stops Filter dropdown -->
+            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
+                <label for="stopsFilter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">عدد التوقفات</label>
+                <select id="stopsFilter" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
+                    <option value="all">جميع الرحلات</option>
+                    <option value="direct">مباشر</option>
+                    <option value="1">محطة واحدة</option>
+                    <option value="2plus">محطتان أو أكثر</option>
+                </select>
+            </div>
+
+            {% if airlines and offers|length > 0 %}
+            <!-- Airline Filter dropdown -->
+            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
+                <label for="airlineFilter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">الشركة</label>
+                <select id="airlineFilter" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
+                    <option value="all">جميع الشركات</option>
+                    {% for airline in airlines %}
+                    <option value="{{ airline }}">{{ airline }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <!-- Sort dropdown -->
+            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
+                <label for="priceSort" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">ترتيب حسب السعر</label>
+                <select id="priceSort" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
+                    <option value="none">المقترح</option>
+                    <option value="asc">الأقل إلى الأعلى</option>
+                    <option value="desc">الأعلى إلى الأقل</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    {% if search.add_hotel %}
+    <div style="background: linear-gradient(135deg, var(--gold), #d4af37); padding: 16px 24px; border-radius: 12px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; color: #fff; box-shadow: 0 4px 12px rgba(212,175,55,0.3); flex-wrap: wrap; gap: 16px;">
+        <div>
+            <h3 style="margin: 0 0 4px 0; color: #fff; font-size: 1.25rem; font-family: 'Tajawal', sans-serif;">🏨 اكتشف أجمل الفنادق لرحلتك</h3>
+            <p style="margin: 0; font-size: 0.95rem; opacity: 0.9;">بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة. احجز فندقك الآن بسهولة!</p>
+        </div>
+        <form action="{% url 'vols:hotel_search' %}" method="post" style="margin: 0;">
+            {% csrf_token %}
+            <!-- Try to pre-fill the form with flight destination -->
+            <input type="hidden" name="hotel_city_name" value="{{ search.slices.last.destination }}">
+            <input type="hidden" name="hotel_city_id" value="">
+            <input type="hidden" name="check_in" value="{{ search.slices.0.departure_date }}">
+            {% if search.trip_type == 'roundtrip' %}
+                <input type="hidden" name="check_out" value="{{ search.slices.1.departure_date }}">
+            {% else %}
+                <input type="hidden" name="check_out" value="{{ search.slices.0.departure_date }}">
+            {% endif %}
+            <input type="hidden" name="adults" value="{{ search.passengers }}">
+            <input type="hidden" name="rooms" value="1">
+            <button type="submit" class="btn" style="background: #fff; color: var(--gold); padding: 10px 24px; border-radius: 999px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                ابحث عن فندق لهذه الرحلة
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if offers %}
+    <div class="offers-list">
+      {% for offer in offers %}
+      <div class="offer-card" id="offer-{{ forloop.counter }}" data-stops="{% for slice in offer.slices %}{{ slice.segments|length|add:'-1' }},{% endfor %}" data-price="{{ offer.total_amount }}" onclick="openModal('modal-{{ forloop.counter }}')" style="cursor: pointer; position: relative; transition: all 0.3s ease;">
+
+        <!-- Slices container (Loops over Outbound, Return, or Multi-city flights) -->
+        <div class="offer-slices">
+            {% for slice in offer.slices %}
+            {% with segment=slice.segments.0 last_seg=slice.segments|last %}
+            <div class="slice-details">
+                <!-- Airline logo & name -->
+                <div class="offer-airline">
+                    {% if segment.marketing_carrier.logo_symbol_url %}
+                        <img src="{{ segment.marketing_carrier.logo_symbol_url }}" alt="{{ segment.marketing_carrier.name }}" class="airline-logo">
+                    {% else %}
+                        <div class="airline-logo-placeholder">✈</div>
+                    {% endif %}
+                    <div>
+                        <div class="airline-name">{{ segment.marketing_carrier.name|default:"الشركة" }}</div>
+                        <div class="flight-number">رحلة: {{ segment.marketing_carrier.iata_code }}{{ segment.marketing_carrier_flight_number|default:"" }}</div>
+                    </div>
+                </div>
+
+                <!-- Route & times -->
+                <div class="offer-route">
+                    <div class="route-time">
+                        <div class="time">{{ segment.departing_at|slice:"11:16" }}</div>
+                        <div class="airport">{{ segment.origin.iata_code }}</div>
+                        <div class="airport" style="font-weight:400; font-size:10px;">{{ slice.departure_date|slice:"5:" }}</div>
+                    </div>
+                    
+                    <div class="route-line">
+                        <div class="line-dur">{{ slice.duration_fmt }}</div>
+                        <div class="line-bar">
+                            <div class="line"></div>
+                            <div class="plane-icon">✈</div>
+                        </div>
+                        <div class="line-stops">
+                            {% if slice.segments|length > 1 %}
+                                {{ slice.segments|length|add:"-1" }} توقف{{ slice.segments|length|add:"-1"|pluralize }}
+                            {% else %}
+                                مباشر
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="route-time">
+                        <div class="time">{{ last_seg.arriving_at|slice:"11:16" }}</div>
+                        <div class="airport">{{ last_seg.destination.iata_code }}</div>
+                    </div>
+                </div>
+            </div>
+            {% if not forloop.last %}<hr style="border:0; height:1px; background:var(--border); margin:12px 0;">{% endif %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+
+        <!-- Price & CTA (Total per person) -->
+        <div class="offer-price">
+          <div class="price-amount" data-eur="{{ offer.total_amount }}">
+            {{ offer.total_amount|floatformat:0 }}
+            <span class="price-currency">{{ offer.total_currency }}</span>
+          </div>
+          <div class="price-per">المجموع ({{ search.passengers }} مسافرون)</div>
+          {% if offer.available_services %}
+            <div style="font-size: 0.78rem; color: var(--danger); font-weight: 700; margin-top: 6px;">🔴 توفر محدود</div>
+          {% else %}
+            <div style="font-size: 0.78rem; color: var(--success); font-weight: 700; margin-top: 6px;">🟢 متاح</div>
+          {% endif %}
+          {% if offer.payment_requirements.payment_required_by %}
+            <div style="font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600">⏰ آخر موعد دفع: {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</div>
+          {% endif %}
+          <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm" style="margin-top: 8px;" onclick="event.stopPropagation();">
+            احجز ←
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Modal for this Offer -->
+      <div class="modal-overlay" id="modal-{{ forloop.counter }}" onclick="if(event.target===this) closeModal('modal-{{ forloop.counter }}')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+          <button class="modal-close" onclick="closeModal('modal-{{ forloop.counter }}')">&times;</button>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+              <h2 style="margin: 0; color: var(--text);">تفاصيل الرحلة</h2>
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                  {% if offer.available_services %}
+                      <span style="font-size: 0.85rem; background: rgba(220,53,69,0.1); color: var(--danger); padding: 4px 12px; border-radius: 999px; font-weight: 700;">🔴 توفر محدود</span>
+                  {% else %}
+                      <span style="font-size: 0.85rem; background: rgba(27,164,90,0.1); color: var(--success); padding: 4px 12px; border-radius: 999px; font-weight: 700;">🟢 مقاعد متاحة</span>
+                  {% endif %}
+                  {% if offer.payment_requirements.payment_required_by %}
+                      <span style="font-size: 0.78rem; color: var(--gold); font-weight: 600;">⏰ آخر موعد دفع: {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</span>
+                  {% endif %}
+                  {% if offer.payment_requirements.require_passengers_date_of_birth or offer.passenger_identity_documents_required %}
+                      <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">🪪 الهوية مطلوبة</span>
+                  {% endif %}
+              </div>
+          </div>
+          
+          {% for slice in offer.slices %}
+              <div style="margin-bottom: 24px; padding: 20px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                      <h4 style="color: var(--primary); margin: 0; font-family: 'Tajawal', sans-serif;">رحلة {{ forloop.counter }}</h4>
+                      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">⏱ {{ slice.duration_fmt }}</span>
+                  </div>
+                  
+                  {% for segment in slice.segments %}
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                          <div style="flex: 1; text-align: right;">
+                              <strong style="font-size: 1.1rem; color: var(--text);">{{ segment.origin.iata_code }}</strong><br>
+                              <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">{{ segment.origin.city_name|default:segment.origin.name }}</span><br>
+                              <span style="font-size: 0.9rem; color: var(--primary); font-weight: bold;">{{ segment.departing_at|slice:"11:16" }}</span><br>
+                              <span style="font-size: 0.8rem; color: var(--text-muted);">{{ segment.departing_at|slice:"0:10" }}</span>
+                              {% if segment.origin_terminal %}<br><span style="font-size: 0.85rem; font-weight: 600; color: var(--text);">مبنى (Terminal) {{ segment.origin_terminal }}</span>{% endif %}
+                          </div>
+                          
+                          <div style="flex: 1; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 0 10px;">
+                              <div>{{ segment.duration|slice:"2:"|default:segment.duration }}</div>
+                              <div class="line-bar" style="max-width: 80px; margin: 4px auto;"><div class="line"></div><div class="plane-icon" style="top: -8px;">✈</div></div>
+                              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{{ segment.marketing_carrier.name }}">{{ segment.marketing_carrier.name }} {{ segment.marketing_carrier_flight_number }}</div>
+                              {% if segment.operating_carrier and segment.operating_carrier.iata_code != segment.marketing_carrier.iata_code %}
+                                  <div style="font-size: 10px; color: var(--gold); border-top: 1px solid var(--border); padding-top: 4px; margin-top: 4px;">تشغيل: {{ segment.operating_carrier.name|default:segment.operating_carrier.iata_code }}</div>
+                              {% endif %}
+                              {% if segment.distance %}<div style="font-size: 10px; color: var(--text-muted);">المسافة: {{ segment.distance }}</div>{% endif %}
+                              {% if segment.aircraft %}<div style="font-size: 10px;">طائرة: {{ segment.aircraft.name|default:segment.aircraft.iata_code }}</div>{% endif %}
+                          </div>
+                          
+                          <div style="flex: 1; text-align: left;">
+                              <strong style="font-size: 1.1rem; color: var(--text);">{{ segment.destination.iata_code }}</strong><br>
+                              <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">{{ segment.destination.city_name|default:segment.destination.name }}</span><br>
+                              <span style="font-size: 0.9rem; color: var(--primary); font-weight: bold;">{{ segment.arriving_at|slice:"11:16" }}</span><br>
+                              <span style="font-size: 0.8rem; color: var(--text-muted);">{{ segment.arriving_at|slice:"0:10" }}</span>
+                              {% if segment.destination_terminal %}<br><span style="font-size: 0.85rem; font-weight: 600; color: var(--text);">مبنى (Terminal) {{ segment.destination_terminal }}</span>{% endif %}
+                          </div>
+                      </div>
+                      
+                      <!-- Baggage & Cabin Info -->
+                      <div style="font-size: 0.85rem; color: var(--text-muted); padding: 8px 12px; margin-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 24px; align-items: center; background: rgba(0,0,0,0.02); border-radius: 8px; flex-wrap: wrap;">
+                          {% with p=segment.passengers.0 %}
+                          <span>💺 الدرجة: <strong style="color: var(--text);">{{ p.cabin_class_marketing_name|default:p.cabin_class|title }}</strong></span>
+                          <span style="display: flex; gap: 16px; flex-wrap: wrap;">
+                              {% for bag in p.baggages %}
+                                  <span>
+                                      {% if bag.type == 'checked' %}🧳 شحن ({{ bag.quantity }} قطعة{% if bag.weight %}, {{ bag.weight }}{% endif %})
+                                      {% elif bag.type == 'carry_on' %}🎒 يد ({{ bag.quantity }} قطعة{% if bag.weight %}, {{ bag.weight }}{% endif %})
+                                      {% endif %}
+                                  </span>
+                              {% empty %}
+                                  <span>🎒 لا توجد تفاصيل معدات</span>
+                              {% endfor %}
+                          </span>
+                          {% endwith %}
+                      </div>
+                      
+                      {% if not forloop.last %}
+                          <div style="text-align: center; font-size: 0.8rem; color: var(--gold); margin: 16px 0; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); padding: 8px 0; background: var(--surface-h); border-radius: 8px; font-weight: 600;">
+                              محطة توقف (تغيير طائرة في {{ segment.destination.city_name|default:segment.destination.name }})
+                          </div>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+          {% endfor %}
+
+          <!-- Ticket Conditions -->
+          <div style="margin-top: 16px; padding: 16px; background: rgba(27, 164, 186, 0.04); border-radius: 12px; font-size: 0.9rem; border: 1px solid var(--border-h);">
+              <h5 style="color: var(--primary); margin: 0 0 12px 0; font-size: 1.05rem; font-family: 'Tajawal', sans-serif;">شروط التذكرة</h5>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                  {% if offer.conditions.refund_before_departure %}
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <span style="color: var(--text-muted);">استرداد قبل المغادرة:</span>
+                          {% if offer.conditions.refund_before_departure.allowed %}
+                              <strong style="color: var(--success);">✅ مسموح {% if offer.conditions.refund_before_departure.penalty_amount %}(غرامة {{ offer.conditions.refund_before_departure.penalty_amount }} {{ offer.conditions.refund_before_departure.penalty_currency|default:offer.total_currency }}){% endif %}</strong>
+                          {% else %}
+                              <strong style="color: var(--danger);">❌ غير مسموح</strong>
+                          {% endif %}
+                      </div>
+                  {% endif %}
+                  {% if offer.conditions.change_before_departure %}
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <span style="color: var(--text-muted);">تغيير قبل المغادرة:</span>
+                          {% if offer.conditions.change_before_departure.allowed %}
+                              <strong style="color: var(--success);">✅ مسموح {% if offer.conditions.change_before_departure.penalty_amount %}(غرامة {{ offer.conditions.change_before_departure.penalty_amount }} {{ offer.conditions.change_before_departure.penalty_currency|default:offer.total_currency }}){% endif %}</strong>
+                          {% else %}
+                              <strong style="color: var(--danger);">❌ غير مسموح</strong>
+                          {% endif %}
+                      </div>
+                  {% endif %}
+              </div>
+          </div>
+
+          <!-- Price & CTA Bottom of Modal -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+              <div>
+                  <div style="font-size: 1.8rem; font-weight: 800; color: var(--text);" data-eur="{{ offer.total_amount }}">
+                      {{ offer.total_amount|floatformat:0 }} <span style="font-size: 1rem; color: var(--text-muted);">{{ offer.total_currency }}</span>
+                  </div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">المجموع ({{ search.passengers }} مسافر{{ search.passengers|pluralize }})</div>
+              </div>
+              <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding: 12px 32px; font-size: 1.1rem; font-weight: 700;">حجز الآن ←</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>لا توجد رحلات متاحة</h3>
+      <p>جرب تواريخ أو مدن أخرى أو اعكس الوجهات.</p>
+      <a href="{% url 'vols:home' %}" class="btn btn-primary">بحث جديد</a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4); z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+  background: var(--bg-2); border-radius: var(--radius-lg); width: 90%; max-width: 600px;
+  max-height: 85vh; overflow-y: auto; padding: 32px; position: relative;
+  transform: translateY(20px) scale(0.95); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.1);
+}
+.modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 20px; left: 24px; background: none; border: none;
+  font-size: 2rem; cursor: pointer; color: var(--text-muted); line-height: 1; transition: 0.2s;
+}
+.modal-close:hover { color: var(--danger); transform: scale(1.1); }
+.offer-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--border-h); }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+{% include 'vols/includes/search_scripts.html' %}
+<script>
+  function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+  }
+
+  document.getElementById('toggleSearchBtn').addEventListener('click', () => {
+      const f = document.getElementById('inlineSearchForm');
+      f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+      const airlineFilter = document.getElementById("airlineFilter");
+      const stopsFilter = document.getElementById("stopsFilter");
+      const priceSort = document.getElementById("priceSort");
+      const offerCards = document.querySelectorAll(".offer-card");
+      const offersContainer = document.querySelector(".offers-list");
+      
+      function applyFilters() {
+          const selectedAirline = airlineFilter ? airlineFilter.value : "all";
+          const selectedStops = stopsFilter ? stopsFilter.value : "all";
+          const selectedSort = priceSort ? priceSort.value : "none";
+          let visibleCount = 0;
+          
+          // 1. Filter Pass
+          offerCards.forEach(card => {
+              let airlineMatch = true;
+              let stopsMatch = true;
+
+              if (selectedAirline !== "all") {
+                  const airlinesInCard = Array.from(card.querySelectorAll(".airline-name")).map(el => el.textContent.trim());
+                  airlineMatch = airlinesInCard.includes(selectedAirline);
+              }
+
+              if (selectedStops !== "all") {
+                  const stopsRaw = card.getAttribute("data-stops") || "";
+                  const stopsArr = stopsRaw.split(',').filter(s => s !== '').map(Number);
+                  
+                  stopsMatch = stopsArr.every(stopCount => {
+                      if (selectedStops === "direct") return stopCount === 0;
+                      if (selectedStops === "1") return stopCount === 1;
+                      if (selectedStops === "2plus") return stopCount >= 2;
+                      return true;
+                  });
+              }
+
+              if (airlineMatch && stopsMatch) {
+                  card.style.display = "";
+                  visibleCount++;
+              } else {
+                  card.style.display = "none";
+              }
+          });
+          
+          // Update string count
+          const countEl = document.getElementById("visibleCount");
+          if (countEl) countEl.textContent = visibleCount;
+
+          // 2. Sort Pass
+          if (offersContainer && selectedSort !== "none") {
+              const visibleCardsArray = Array.from(offerCards).filter(c => c.style.display !== "none");
+              const hiddenCardsArray = Array.from(offerCards).filter(c => c.style.display === "none");
+              
+              visibleCardsArray.sort((a, b) => {
+                  const priceA = parseFloat(a.getAttribute("data-price") || 0);
+                  const priceB = parseFloat(b.getAttribute("data-price") || 0);
+                  if (selectedSort === "asc") return priceA - priceB;
+                  return priceB - priceA;
+              });
+
+              visibleCardsArray.forEach(card => offersContainer.appendChild(card));
+              hiddenCardsArray.forEach(card => offersContainer.appendChild(card));
+          }
+      }
+
+      if (airlineFilter) airlineFilter.addEventListener("change", applyFilters);
+      if (stopsFilter) stopsFilter.addEventListener("change", applyFilters);
+      if (priceSort) priceSort.addEventListener("change", applyFilters);
+  });
+</script>
+{% endblock %}

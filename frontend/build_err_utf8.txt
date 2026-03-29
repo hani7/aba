@@ -1,0 +1,45 @@
+﻿
+> frontend@0.1.0 build
+> next build
+
+  Ôû▓ Next.js 14.2.5
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+cmd : 
+At line:1 char:1
++ cmd /c npm run build > build_err.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:S 
+   tring) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandErro 
+   r
+ 
+> Build error occurred
+Error: Page "/confirmation/[bookingId]" is 
+missing "generateStaticParams()" so it cannot 
+be used with "output: export" config.
+    at C:\Users\PC\Desktop\test\frontend\node_mo
+dules\next\dist\build\index.js:1294:59
+    at process.processTicksAndRejections 
+(node:internal/process/task_queues:104:5)
+    at async Span.traceAsyncFn (C:\Users\PC\Desk
+top\test\frontend\node_modules\next\dist\trace\t
+race.js:154:20)
+    at async Promise.all (index 8)
+    at async C:\Users\PC\Desktop\test\frontend\n
+ode_modules\next\dist\build\index.js:1172:17
+    at async Span.traceAsyncFn (C:\Users\PC\Desk
+top\test\frontend\node_modules\next\dist\trace\t
+race.js:154:20)
+    at async C:\Users\PC\Desktop\test\frontend\n
+ode_modules\next\dist\build\index.js:1095:124
+    at async Span.traceAsyncFn (C:\Users\PC\Desk
+top\test\frontend\node_modules\next\dist\trace\t
+race.js:154:20)
+    at async build (C:\Users\PC\Desktop\test\fro
+ntend\node_modules\next\dist\build\index.js:366:
+9)

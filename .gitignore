@@ -1,0 +1,20 @@
+# Node.js
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+
+# Python / Django
+__pycache__/
+*.pyc
+env/
+venv/
+db.sqlite3
+
+# Logs & output
+*.log
+output.txt
+frontend/build_err.txt
+frontend/build_err_utf8.txt
+frontend/build_log.txt
+frontend/build_out.txt

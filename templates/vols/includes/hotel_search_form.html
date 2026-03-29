@@ -1,0 +1,125 @@
+{% load i18n %}
+<form action="{% url 'vols:hotel_search' %}" method="post" class="search-card" id="hotelSearchForm">
+  {% csrf_token %}
+
+  <div class="search-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr; align-items: flex-end;">
+    <!-- Destination (Autocomplete) -->
+    <div class="form-field autocomplete-wrapper">
+      <label class="field-label">{% trans "الوجهة أو الفندق" %}</label>
+      <div class="input-icon-wrap">
+        <span class="fi">📍</span>
+        <input type="text" name="hotel_city_name" id="hotel_city_name" placeholder="{% trans 'مثل: دبي، باريس' %}" required class="field-input" autocomplete="off" value="{{ request.session.hotel_search.city_name|default:'' }}">
+        <input type="hidden" name="hotel_city_id" id="hotel_city_id" value="{{ request.session.hotel_search.city_id|default:'' }}">
+      </div>
+      <div class="autocomplete-dropdown" id="dropdown_hotel_city" style="display: none;"></div>
+    </div>
+
+    <!-- Check-in Date -->
+    <div class="form-field">
+      <label class="field-label">{% trans "تاريخ الوصول" %}</label>
+      <div class="input-icon-wrap">
+        <span class="fi">📅</span>
+        <input type="date" name="check_in" id="check_in" required class="field-input date-input" value="{{ request.session.hotel_search.check_in|default:'' }}">
+      </div>
+    </div>
+
+    <!-- Check-out Date -->
+    <div class="form-field">
+      <label class="field-label">{% trans "تاريخ المغادرة" %}</label>
+      <div class="input-icon-wrap">
+        <span class="fi">📅</span>
+        <input type="date" name="check_out" id="check_out" required class="field-input date-input" value="{{ request.session.hotel_search.check_out|default:'' }}">
+      </div>
+    </div>
+
+    <!-- Adults & Rooms -->
+    <div class="form-field">
+      <label class="field-label">{% trans "الضيوف الغرف" %}</label>
+      <div class="input-icon-wrap" style="display:flex; gap:5px;">
+        <select name="adults" class="field-input" style="padding-left:5px; padding-right:5px;">
+          <option value="1" {% if request.session.hotel_search.adults == 1 %}selected{% endif %}>{% trans "1 بالغ" %}</option>
+          <option value="2" {% if request.session.hotel_search.adults == 2 or not request.session.hotel_search %}selected{% endif %}>{% trans "2 بالغين" %}</option>
+          <option value="3" {% if request.session.hotel_search.adults == 3 %}selected{% endif %}>{% trans "3 بالغين" %}</option>
+          <option value="4" {% if request.session.hotel_search.adults == 4 %}selected{% endif %}>{% trans "4 بالغين" %}</option>
+        </select>
+        <select name="rooms" class="field-input" style="padding-left:5px; padding-right:5px;">
+          <option value="1" {% if request.session.hotel_search.rooms == 1 or not request.session.hotel_search %}selected{% endif %}>{% trans "1 غرفة" %}</option>
+          <option value="2" {% if request.session.hotel_search.rooms == 2 %}selected{% endif %}>{% trans "2 غرف" %}</option>
+          <option value="3" {% if request.session.hotel_search.rooms == 3 %}selected{% endif %}>{% trans "3 غرف" %}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions-submit">
+      <button type="submit" class="btn btn-primary btn-large search-submit" id="hotelSearchBtn" style="background: linear-gradient(135deg, var(--gold), #d4af37);">
+        <span class="btn-text">🔍 {% trans "ابحث عن فنادق" %}</span>
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('hotel_city_name');
+  const hiddenId = document.getElementById('hotel_city_id');
+  const dropdown = document.getElementById('dropdown_hotel_city');
+  let timeout = null;
+
+  input.addEventListener('input', function() {
+    clearTimeout(timeout);
+    const query = this.value.trim();
+    if (query.length < 2) {
+      dropdown.style.display = 'none';
+      hiddenId.value = '';
+      return;
+    }
+    
+    timeout = setTimeout(() => {
+      fetch(`/api/hotel-destinations/?q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          dropdown.innerHTML = '';
+          if (data.results && data.results.length > 0) {
+            data.results.forEach(item => {
+              const div = document.createElement('div');
+              div.className = 'autocomplete-item';
+              div.innerHTML = `<strong>${item.name_ar || item.city_name}</strong> <span style="font-size:0.85em;color:#666;">${item.country_name}</span>`;
+              div.onclick = () => {
+                input.value = item.name_ar || item.city_name;
+                hiddenId.value = item.city_id;
+                dropdown.style.display = 'none';
+              };
+              dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+          } else {
+            dropdown.style.display = 'none';
+          }
+        })
+        .catch(err => {
+          console.error('Autocomplete error:', err);
+          dropdown.style.display = 'none';
+        });
+    }, 300);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Set min dates
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('check_in').setAttribute('min', today);
+  document.getElementById('check_in').addEventListener('change', function() {
+    const minOut = new Date(this.value);
+    minOut.setDate(minOut.getDate() + 1);
+    document.getElementById('check_out').setAttribute('min', minOut.toISOString().split('T')[0]);
+    if (document.getElementById('check_out').value <= this.value) {
+      document.getElementById('check_out').value = minOut.toISOString().split('T')[0];
+    }
+  });
+});
+</script>

@@ -1,0 +1,209 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'en' %}ltr{% else %}rtl{% endif %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}وكالة أبو منية — حجز رحلات الطيران{% endblock %}</title>
+    <meta
+      name="description"
+      content="احجز رحلاتك بأفضل الأسعار مع وكالة أبو منية، بدعم من Duffel."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <!-- ── NAVBAR ─────────────────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="container" style="display:flex; align-items:center; justify-content:space-between; height:68px; position:relative; max-width:1200px; margin:0 auto; padding:0 28px;">
+
+        <!-- Logo -->
+        <a href="{% url 'vols:home' %}" style="display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0; z-index:2;">
+          <img src="{% static 'img/logo.jpg' %}" alt="Abu Monya Logo" style="height:46px; width:auto; object-fit:contain; border-radius:6px;">
+          <span style="font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:800; color:#fff; white-space:nowrap;">
+            {% trans "وكالة" %} <span style="color:#f7bc35;">{% trans "أبو منية" %}</span>
+          </span>
+        </a>
+
+        <!-- Center Nav Links -->
+        <ul style="position:absolute; left:50%; transform:translateX(-50%); display:flex; gap:0; align-items:center; list-style:none; margin:0; padding:0; z-index:1; white-space:nowrap;">
+          <li><a href="{% url 'vols:home' %}" class="nav-link" style="padding:8px 14px; border-radius:8px; font-size:.88rem; font-weight:600; color:rgba(255,255,255,0.8); text-decoration:none; transition:all .2s; display:block;">{% trans "الرئيسية" %}</a></li>
+          <li><a href="{% url 'vols:about_us' %}" class="nav-link" style="padding:8px 14px; border-radius:8px; font-size:.88rem; font-weight:600; color:rgba(255,255,255,0.8); text-decoration:none; transition:all .2s; display:block;">{% trans "من نحن" %}</a></li>
+          <li><a href="{% url 'vols:services' %}" class="nav-link" style="padding:8px 14px; border-radius:8px; font-size:.88rem; font-weight:600; color:rgba(255,255,255,0.8); text-decoration:none; transition:all .2s; display:block;">{% trans "خدماتنا" %}</a></li>
+          <li><a href="{% url 'vols:contact' %}" class="nav-link" style="padding:8px 14px; border-radius:8px; font-size:.88rem; font-weight:600; color:rgba(255,255,255,0.8); text-decoration:none; transition:all .2s; display:block;">{% trans "تواصل معنا" %}</a></li>
+        </ul>
+
+        <!-- Right Actions -->
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0; z-index:2;">
+
+          <!-- Language toggle -->
+          <form action="{% url 'set_language' %}" method="post" id="langForm" style="margin:0;">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path|default:'/' }}" />
+            {% if LANGUAGE_CODE == 'ar' %}
+              <input type="hidden" name="language" value="en" />
+              <button type="submit" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:0 14px; height:34px; color:#fff; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:700; cursor:pointer; white-space:nowrap;">
+                🌐 EN
+              </button>
+            {% else %}
+              <input type="hidden" name="language" value="ar" />
+              <button type="submit" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:0 14px; height:34px; color:#fff; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:700; cursor:pointer; white-space:nowrap;">
+                🌐 ع
+              </button>
+            {% endif %}
+          </form>
+
+          <!-- Currency -->
+          <button onclick="toggleCurrency()" style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.18); padding:0 14px; height:34px; border-radius:999px; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:5px; white-space:nowrap;">
+            💲 <span id="currencyLabel">USD</span>
+          </button>
+
+          <!-- Account -->
+          <div class="nav-account" style="position:relative;">
+            {% if user.is_authenticated %}
+            <button class="nav-avatar" onclick="toggleAccountMenu()" title="حسابي">
+              <span class="avatar-initial">{{ user.first_name.0|upper|default:user.username.0|upper }}</span>
+            </button>
+            <div class="account-dropdown" id="accountDropdown">
+              <div class="account-dropdown-header">
+                <strong>{{ user.get_full_name|default:user.username }}</strong>
+                <span>{{ user.email }}</span>
+              </div>
+              <a href="{% url 'vols:my_bookings' %}" class="account-dropdown-item">📄 {% trans "حجوزاتي" %}</a>
+              <a href="{% url 'vols:logout' %}" class="account-dropdown-item account-dropdown-logout">🚪 {% trans "تسجيل الخروج" %}</a>
+            </div>
+            {% else %}
+            <a href="{% url 'vols:signup' %}" style="display:flex; align-items:center; gap:5px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:0 14px; height:34px; color:#fff; font-family:'Tajawal',sans-serif; font-size:.85rem; font-weight:700; text-decoration:none;">
+              <span>👤</span><span>{% trans "حساب" %}</span>
+            </a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <script>
+      // Currency conversion config — base currency is EUR (Duffel default)
+      const RATES = { USD: 1.08, SDG: 2200 };
+      const SYMBOLS = { USD: 'USD', SDG: 'ج.س' };
+      const CURRENCIES = ['USD', 'SDG'];
+      let currentCurrency = localStorage.getItem('currency') || 'USD';
+
+      function formatWithDots(num) {
+        // Format number with dot as thousands separator, e.g. 1.234.567
+        return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function applyConversion() {
+        document.getElementById('currencyLabel').textContent = currentCurrency;
+        document.querySelectorAll('[data-eur]').forEach(el => {
+          const eurVal = parseFloat(el.getAttribute('data-eur'));
+          const converted = formatWithDots(eurVal * RATES[currentCurrency]);
+          el.textContent = converted + ' ' + SYMBOLS[currentCurrency];
+        });
+      }
+
+      function toggleCurrency() {
+        const idx = CURRENCIES.indexOf(currentCurrency);
+        currentCurrency = CURRENCIES[(idx + 1) % CURRENCIES.length];
+        localStorage.setItem('currency', currentCurrency);
+        applyConversion();
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        currentCurrency = localStorage.getItem('currency') || 'USD';
+        document.getElementById('currencyLabel').textContent = currentCurrency;
+        applyConversion();
+      });
+    </script>
+
+    <script>
+      // ── Account dropdown toggle ──────────────────────────────
+      function toggleAccountMenu() {
+        const dd = document.getElementById('accountDropdown');
+        if (dd) dd.classList.toggle('open');
+      }
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        const dd = document.getElementById('accountDropdown');
+        if (!dd) return;
+        if (!e.target.closest('.nav-account')) dd.classList.remove('open');
+      });
+    </script>
+
+    <!-- ── MESSAGES ───────────────────────────────────────────────── -->
+    {% if messages %}
+    <div class="messages-wrapper container">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        <span class="alert-icon"
+          >{% if 'error' in message.tags %}⚠{% else %}✓{% endif %}</span
+        >
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── MAIN ───────────────────────────────────────────────────── -->
+    <main>{% block content %}{% endblock %}</main>
+
+    <!-- ── FOOTER ────────────────────────────────────────────────────────────── -->
+    <footer style="background: #0b1437; color: #fff; padding: 40px 0 24px;">
+      <div class="container" style="max-width:1200px; margin:0 auto; padding:0 28px;">
+        <!-- Top row: Brand + Social -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-bottom:28px; border-bottom:1px solid rgba(255,255,255,0.1);">
+          <span style="font-family:'Tajawal',sans-serif; font-size:1.2rem; font-weight:800;">
+            {% blocktrans %}وكالة <span style="color:#f7bc35;">أبو منية</span> للسفر والسياحة{% endblocktrans %}
+          </span>
+          <!-- Social Icons -->
+          <div style="display:flex; align-items:center; gap:12px;">
+            <a href="https://www.instagram.com/abumonyaagency" target="_blank" rel="noopener noreferrer"
+               style="width:40px; height:40px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .25s; color:#fff; text-decoration:none;"
+               onmouseover="this.style.background='linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'; this.style.borderColor='transparent';"
+               onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)';">
+              <!-- Instagram SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/abumonyaagency" target="_blank" rel="noopener noreferrer"
+               style="width:40px; height:40px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .25s; color:#fff; text-decoration:none;"
+               onmouseover="this.style.background='#1877f2'; this.style.borderColor='#1877f2';"
+               onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)';">
+              <!-- Facebook SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/abumonyaagency" target="_blank" rel="noopener noreferrer"
+               style="width:40px; height:40px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .25s; color:#fff; text-decoration:none;"
+               onmouseover="this.style.background='#000'; this.style.borderColor='#000';"
+               onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)';">
+              <!-- X / Twitter SVG -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Bottom row: Copyright -->
+        <p style="text-align:center; color:rgba(255,255,255,0.45); font-size:.82rem; margin-top:20px; font-family:'Tajawal',sans-serif;">
+          {% blocktrans %}بدعم من <a href="https://duffel.com" target="_blank" style="color:#f7bc35; text-decoration:none;">Duffel API</a> &copy; 2026 — جميع الحقوق محفوظة لوكالة أبو منية{% endblocktrans %}
+        </p>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+
+
+
+  </body>
+</html>

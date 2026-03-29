@@ -1,0 +1,269 @@
+import os
+import polib
+
+def build_po(lang_code, translations_dict, is_arabic=False):
+    locale_dir = os.path.join("locale", lang_code, "LC_MESSAGES")
+    os.makedirs(locale_dir, exist_ok=True)
+    po_path = os.path.join(locale_dir, "django.po")
+    mo_path = os.path.join(locale_dir, "django.mo")
+
+    po = polib.POFile()
+    po.metadata = {
+        'Project-Id-Version': '1.0',
+        'Report-Msgid-Bugs-To': '',
+        'POT-Creation-Date': '2026-03-29 12:00+0200',
+        'PO-Revision-Date': '2026-03-29 12:00+0200',
+        'Language': lang_code,
+        'MIME-Version': '1.0',
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Content-Transfer-Encoding': '8bit',
+    }
+
+    for msgid, msgstr in translations_dict.items():
+        entry = polib.POEntry(
+            msgid=msgid,
+            msgstr=msgid if is_arabic else msgstr
+        )
+        po.append(entry)
+
+    po.save(po_path)
+    po.save_as_mofile(mo_path)
+    print(f"Saved {po_path} and {mo_path}")
+
+# Master dictionary: Key is Arabic -> Value is a tuple of (English, French)
+master_translations = {
+    # Navbar & Globals
+    "وكالة": ("Agency", "Agence"),
+    "أبو منية": ("Abu Monya", "Abu Monya"),
+    "الرئيسية": ("Home", "Accueil"),
+    "فنادق": ("Hotels", "Hôtels"),
+    "حجوزات الطيران": ("Flight Bookings", "Réservations de Vols"),
+    "حجوزات الفنادق": ("Hotel Bookings", "Réservations d'Hôtels"),
+    "خدماتنا": ("Services", "Nos Services"),
+    "من نحن": ("About Us", "À Propos"),
+    "تواصل معنا": ("Contact Us", "Contactez-nous"),
+    "GET IN TOUCH": ("GET IN TOUCH", "NOUS CONTACTER"),
+    "Name": ("Name", "Nom"),
+    "Your Name": ("Your Name", "Votre nom"),
+    "E-mail": ("E-mail", "E-mail"),
+    "your@email.com": ("your@email.com", "votre@email.com"),
+    "Subject": ("Subject", "Sujet"),
+    "Message Subject": ("Message Subject", "Objet du message"),
+    "Message": ("Message", "Message"),
+    "Write your message here...": ("Write your message here...", "Écrivez votre message ici..."),
+    "SEND MESSAGE": ("SEND MESSAGE", "ENVOYER"),
+    "الخرطوم السوق العربي. تقاطع شارع الحرية مع شارع مصطفى الأمين، غرب مستشفى الراهبات، عمارة عامر العقارية الطابق الثاني، شقة رقم 3": ("Khartoum, Arab Market. Intersection of Al-Hurriya St. and Mustafa Al-Amin St., west of Al-Rahabat Hospital, Amer Real Estate Building, 2nd Floor, Apt. No. 3", "Khartoum, Marché Arabe. Intersection des rues Al-Hurriya et Mustafa Al-Amin, à l'ouest de l'hôpital Al-Rahabat, Immeuble Amer, 2ème étage, Apt. No. 3"),
+
+    # Home Hero
+    "السفر يبدأ هنا": ("Your Journey Starts Here", "Votre Voyage Commence Ici"),
+    "ابحثوا الآن": ("Search Now", "Rechercher Maintenant"),
+    "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة.": ("Compare thousands of deals from top airlines — with guaranteed prices and an easy experience.", "Comparez des milliers d'offres des meilleures compagnies aériennes avec des prix garantis et une expérience fluide."),
+    "رحلات الطيران": ("Flights", "Vols"),
+    
+    # Flight Form
+    "ذهاب فقط": ("One-way", "Aller simple"),
+    "ذهاب وعودة": ("Round Trip", "Aller-retour"),
+    "وجهات متعددة": ("Multi-city", "Multi-destinations"),
+    "المغادرة": ("From", "De"),
+    "الوجهة": ("To", "À"),
+    "مثل: باريس، LHR، JFK": ("e.g., Paris, LHR, JFK", "ex. Paris, LHR, JFK"),
+    "مثل: لندن، DXB": ("e.g., London, DXB", "ex. Londres, DXB"),
+    "تاريخ (الذهاب)": ("Departure Date", "Date de départ"),
+    "تاريخ (العودة)": ("Return Date", "Date de retour"),
+    "إضافة رحلة": ("Add Flight", "Ajouter un vol"),
+    "المسافرون": ("Passengers", "Passagers"),
+    "بالغ واحد": ("1 Adult", "1 Adulte"),
+    "بالغان": ("2 Adults", "2 Adultes"),
+    "3 بالغين": ("3 Adults", "3 Adultes"),
+    "4 بالغين": ("4 Adults", "4 Adultes"),
+    "5 بالغين": ("5 Adults", "5 Adultes"),
+    "الدرجة": ("Cabin Class", "Classe"),
+    "سياحية": ("Economy", "Économique"),
+    "سياحية ممتازة": ("Premium Economy", "Économique Premium"),
+    "أعمال": ("Business", "Affaires"),
+    "أولى": ("First", "Première"),
+    "أضف فندقاً لرحلتي": ("Add a hotel to my trip", "Ajouter un hôtel à mon voyage"),
+    "ابحث عن رحلات": ("Search Flights", "Rechercher des Vols"),
+    "جاري البحث...": ("Searching...", "Recherche en cours..."),
+
+    # Hotel Form
+    "الوجهة أو الفندق": ("Destination or Hotel", "Destination ou Hôtel"),
+    "تاريخ الوصول": ("Check-in Date", "Date d'arrivée"),
+    "تاريخ المغادرة": ("Check-out Date", "Date de départ"),
+    "الضيوف الغرف": ("Guests & Rooms", "Invités et Chambres"),
+    "مثل: دبي، باريس": ("e.g., Dubai, Paris", "ex. Dubaï, Paris"),
+    "1 بالغ": ("1 Adult", "1 Adulte"),
+    "2 بالغين": ("2 Adults", "2 Adultes"),
+    "1 غرفة": ("1 Room", "1 Chambre"),
+    "2 غرف": ("2 Rooms", "2 Chambres"),
+    "3 غرف": ("3 Rooms", "3 Chambres"),
+    "ابحث عن فنادق": ("Search Hotels", "Rechercher des Hôtels"),
+
+    # About Us Page Text
+    "وكالة أبو منية للسفر والسياحة": ("Abu Monya Travel and Tourism Agency", "Agence de voyages et de tourisme Abu Monya"),
+    "وكالة أبومنية للسفر والسياحة وكالة وطنية تعمل في مجال السفر والسياحة الداخلية والخارجية وفق قانون تنظيم العمل السياحي وتنظيم عمل سلطة الطيران المدني في السودان.": ("Abu Monya Travel and Tourism Agency is a national agency operating in the field of domestic and international travel and tourism in accordance with the law organizing tourism work and the civil aviation authority in Sudan.", "L'agence de voyage et de tourisme Abu Monya est une agence nationale opérant dans le domaine des voyages et du tourisme nationaux et internationaux conformément à la loi régissant le travail touristique et à l'autorité de l'aviation civile au Soudan."),
+    "رؤيتنا": ("Our Vision", "Notre Vision"),
+    "نتطلع لأن تكون وكالة ابومنية للسفر والسياحة الأولي و المحرك الفاعل للسفر وللسياحة محليا وإقليميا ودوليا .": ("We aspire for Abu Monya Travel and Tourism Agency to be the first and active engine for travel and tourism locally, regionally, and internationally.", "Nous aspirons à ce que l'agence de voyage et de tourisme Abu Monya soit le premier moteur actif pour les voyages et le tourisme à l'échelle locale, régionale et internationale."),
+    "مهمتنا": ("Our Mission", "Notre Mission"),
+    "تلبية احتياجات عملائنا وفق رؤية إستراتيجية تلبي طموحاتهم و احتياجاتهم في مجال السفر والسياحة. وتعظيم الميزة النسبية والتنافسية للسودان كمنطقه جذب سياحي.": ("Meeting our clients' needs according to a strategic vision that meets their ambitions and needs in the travel and tourism sector. And maximizing the comparative and competitive advantage of Sudan as a tourist attraction area.", "Répondre aux besoins de nos clients selon une vision stratégique qui répond à leurs ambitions et besoins dans le secteur des voyages et du tourisme. Et maximiser l'avantage comparatif et concurrentiel du Soudan en tant que zone d'attraction touristique."),
+    "أهدافنا": ("Our Goals", "Nos Objectifs"),
+    "الريادة في مجال السفر والسياحة محليا ودولياً.": ("Leadership in the field of travel and tourism locally and internationally.", "Leadership dans le domaine des voyages et du tourisme aux niveaux local et international."),
+    "استخدام النظم الاكترونيه والمعلوماتية عبر كافة الوسائط لتقديم أجود أنواع الخدمات.": ("Using electronic and information systems across all mediums to provide the highest quality services.", "Utiliser les systèmes électroniques et informatiques à travers tous les supports pour fournir des services de la plus haute qualité."),
+    "ابتكار أنشطة سياحية وخدمات تلبي احتياجات عملائنا الكرام .": ("Innovating tourism activities and services that meet the needs of our valued clients.", "Innover des activités et services touristiques répondant aux besoins de nos chers clients."),
+    "للسفر والسياحة": ("for Travel and Tourism", "pour les Voyages et le Tourisme"),
+    "منذ سنوات ونحن نقدم لعملائنا أفضل تجارب السفر الجوي بأسعار تنافسية وخدمة شخصية. بفضل شراكتنا مع منصة Duffel العالمية، نوفر لكم وصولاً فورياً لأكثر من 300 شركة طيران حول العالم.": ("For years we have been providing our clients with the best air travel experiences at competitive prices and personalized service. Thanks to our partnership with the global Duffel platform, we offer you instant access to over 300 airlines worldwide.", "Depuis des années, nous offrons à nos clients les meilleures expériences de voyage en avion à des prix compétitifs et un service personnalisé. Grâce à notre partenariat avec Duffel, nous vous offrons un accès instantané à plus de 300 compagnies."),
+    "شركة طيران": ("Airlines", "Compagnies Aériennes"),
+    "وجهة عالمية": ("Global Destinations", "Destinations Internationales"),
+    "دعم العملاء": ("Customer Support", "Support Client"),
+    "أسعار مضمونة": ("Guaranteed Prices", "Prix Garantis"),
+    "دفع آمن": ("Secure Payment", "Paiement Sécurisé"),
+    "شامل لجميع الدول": ("Worldwide Coverage", "Couverture Mondiale"),
+    "حجز فوري": ("Instant Booking", "Réservation Instantanée"),
+    "وجهات عالمية": ("Global Destinations", "Destinations Globales"),
+    "من الجزائر إلى أي مكان في العالم": ("From Algeria to anywhere in the world", "D'Algérie vers partout dans le monde"),
+    "جميع الدرجات": ("All Cabin Classes", "Toutes les Classes"),
+    "اقتصادية · أعمال · أولى": ("Economy · Business · First", "Économique · Affaires · Première"),
+    "تفاصيل الأمتعة": ("Baggage Details", "Détails des Bagages"),
+    "الوزن المسموح به لكل رحلة": ("Allowed weight per flight", "Poids autorisé par vol"),
+
+    # Services Header
+    "في أبومنية نسعد بتقديم أميز الخدمات التي تلبي طموحكم وعروض دورية خاصة للعملاء": ("At Abu Monya, we are happy to provide the most distinguished services that meet your ambitions alongside special periodic offers for customers.", "Chez Abu Monya, nous sommes ravis de fournir les services les plus distingués qui répondent à vos ambitions, avec des offres périodiques spéciales."),
+    
+    # 8 Services Titles & Descriptions
+    "سياحة علاجية": ("Medical Tourism", "Tourisme Médical"),
+    "نقوم بتقديم كافة الحلول الخاصة بالسياحة العلاجية وخدمات طبية عالمية المستوى، يقوم موظفي السياحة العلاجية في أبومنية بتقديم خيارات عديدة للعلاج بالخارج بجودة عالية وأسعار تنافسية.": ("We provide comprehensive global standard medical tourism solutions; our specialized staff offers multiple high-quality and competitively priced options for treatment abroad.", "Nous fournissons des solutions complètes de tourisme médical de norme mondiale; notre personnel offre de multiples options de haute qualité pour les traitements à l'étranger."),
+    
+    "سياحة عالمية": ("Global Tourism", "Tourisme Mondial"),
+    "أكتشف العالم عبر الرحلات السياحية.. نحن نقدم لكم عروض وباقات سياحية متكاملة وبأسعار هي الافضل حسب ميزانيتك وبخدمة عالية الجودة. نقوم بتأمين حجوزات مكان الاقامة للأفراد والعائلات والمجموعات السياحية حسب رغبة العميل.": ("Discover the world through tourism trips.. We offer integrated tourism packages with the best prices for your budget with high quality service. We secure accommodation bookings for individuals, families, and groups according to the customer's wishes.", "Découvrez le monde à travers des voyages.. Nous offrons des forfaits intégrés aux meilleurs prix avec un service de haute qualité. Nous assurons les réservations d'hébergement pour individus, familles et groupes selon les souhaits du client."),
+    
+    "سياحة محلية": ("Local Tourism", "Tourisme Local"),
+    "يزخر السودان بالكثير من المناطق السياحية المحلية كوجهة سياحية أصيلة ومثيرة ومميزة... من خلال قسم السياحة في وكالة أبومنية نقوم بتقديم بكجات وجولات سياحية مختلفة.": ("Sudan is rich with many local tourist areas acting as an authentic, exciting, and distinctive destination... Through the tourism department at Abu Monya Agency, we offer various packages and tours.", "Le Soudan regorge de nombreuses zones touristiques agissant comme une destination authentique et distinctive... À travers le département du tourisme, nous offrons divers forfaits et excursions."),
+
+    "سفر داخلي وعالمي": ("Domestic & International Travel", "Voyage National & International"),
+    "نقوم بتصميم رحلتك بما يتناسب رؤيتك بأسعار تنافسية وفريق عمل مؤهل لخدمتك.. نقوم بإصدار التذاكر الجوية الداخلية والعالمية حيث نالت الوكالة عضوية الاياتا وأصبحت مؤهلة لإصدار التذاكر الجوية على جميع الخطوط المنضوية تحت نظام الاياتا والبي اس بي.": ("We design your flight according to your vision at competitive prices with a qualified team. We issue domestic and international flight tickets as an accredited IATA agency, qualified to issue tickets across all airlines under the BSP system.", "Nous concevons votre vol selon votre vision à des prix compétitifs avec une équipe qualifiée. Nous émettons des billets nationaux et internationaux en tant qu'agence IATA accréditée, qualifiée pour émettre des billets via le système BSP."),
+
+    "تذاكر بصات": ("Bus Tickets", "Billets de Bus"),
+    "نقدم خدمات النقل البري الداخلي والخارجي عبر أكبر شركات الميناء البري حيث نوفر أحدث موديلات البصات السفرية الشحن البري.": ("We offer domestic and international overland transport services through the largest bus port companies, providing the latest models of travel and cargo buses.", "Nous offrons des services de transport terrestre par le biais des plus grandes compagnies de gares routières, en fournissant les derniers modèles de bus de voyage."),
+
+    "تذاكر طيران": ("Flight Tickets", "Billets d'Avion"),
+    "حلق معنا حول العالم...خيارات أكثر ومتنوعة عبر شركات خطوط الطيران العالمية. صمم رحلتك إلكترونيا وقدم طلب عبر نافذه احجز الآن.": ("Fly with us around the world... More diverse options across global airlines. Design your trip electronically and submit requests via the Book Now window.", "Volez avec nous autour du monde... Des options variées via les compagnies aériennes mondiales. Concevez votre voyage par voie électronique et achetez vis la fenêtre Réserver."),
+
+    "حج وعمرة": ("Hajj & Umrah", "Hajj et Omra"),
+    "خدمتهم شرف لنا 😊 نقدم عروض العمره لزوار وضيوف الرحمن.. تفويج وفود و حجز فندقي للحج والعمره بأسعار تناسب الجميع. وخدمات خاصة لكبار الزوار وخدماتنا هي الأفضل بإذن الله....VIP وأسعارنا هي الأنسب.": ("Serving them is our honor 😊 We offer Umrah packages for visitors and guests of the Merciful.. Dispatching delegations and hotel booking for Hajj and Umrah at prices suiting everyone. Special VIP services for senior visitors; our services are the best God willing.. and our prices the most suitable.", "Les servir est notre honneur 😊 Nous offrons des forfaits Omra pour les visiteurs.. Répartition des délégations et réservation d'hôtels pour Hajj et Omra à des prix convenant à tous. Services VIP spéciaux.. nos services sont les meilleurs si Dieu le veut, avec les prix les plus adaptés."),
+
+    "تأشيرات": ("Visas", "Visas"),
+    "تتيح هذه الخدمة إمكانية تقديم وإدارة المعاملات الخاصة بالتأشيرات وإجراءات الجوازات والإقامات لجميع السفارات بكل سهولة وكفائة.": ("This service enables the submission and management of transactions related to visas, passport procedures, and residencies for all embassies with ease and efficiency.", "Ce service permet la soumission et la gestion des transactions liées aux visas, procédures de passeport et résidences pour toutes les ambassades avec facilité et efficacité."),
+    
+    # Missing Home strings
+    "وكالة أبو منية — ابحث عن رحلتك": ("Abu Monya Agency — Search for your flight", "Agence Abu Monya — Recherchez votre vol"),
+    "أكثر من 10,000 مسار جوي": ("Over 10,000 flight routes", "Plus de 10 000 itinéraires de vol"),
+    "شركاؤنا من شركات الطيران": ("Our Airline Partners", "Nos Compagnies Aériennes Partenaires"),
+    "أبرز الوجهات ✈": ("Top Destinations ✈", "Destinations Principales ✈"),
+    "الوجهات الأكثر طلباً هذا الموسم": ("Most requested destinations this season", "Les destinations les plus demandées cette saison"),
+    "عروض متاحة": ("Offers available", "Offres disponibles"),
+    "لماذا تختار وكالة <span class=\"gold\">أبو منية</span>؟": ("Why choose <span class=\"gold\">Abu Monya</span> Agency?", "Pourquoi choisir l'agence <span class=\"gold\">Abu Monya</span>?"),
+    "نتائج فورية": ("Instant Results", "Résultats Instantanés"),
+    "آلاف العروض في الوقت الفعلي بفضل واجهة Duffel API المتقدمة.": ("Thousands of real-time offers thanks to the advanced Duffel API.", "Des milliers d'offres en temps réel grâce à l'API avancée de Duffel."),
+    "بحث ذكي بالعربية": ("Smart Search in Arabic", "Recherche Intelligente en Arabe"),
+    "ابحث بالعربية أو الإنجليزية — النظام يترجم تلقائياً.": ("Search in Arabic or English — the system translates automatically.", "Recherchez en arabe ou en anglais — le système traduit automatiquement."),
+    "وجهات متعددة": ("Multi-city", "Multi-destinations"),
+    "أنشئ رحلات ذهاباً وإياباً أو متعددة الوجهات بسهولة.": ("Create round trips or multi-city flights easily.", "Créez facilement des vols aller-retour ou multi-destinations."),
+    "عملات متعددة": ("Multiple Currencies", "Devises Multiples"),
+    "اعرض الأسعار بالدولار الأمريكي أو الجنيه السوداني بضغطة واحدة.": ("View prices in US Dollars or Sudanese Pounds with one click.", "Affichez les prix en dollars américains ou en livres soudanaises en un clic."),
+    
+    # Footer in base.html
+    "وكالة <span style=\"color:#f7bc35;\">أبو منية</span> للسفر والسياحة": ("<span style=\"color:#f7bc35;\">Abu Monya</span> Travel Agency", "Agence de Voyages <span style=\"color:#f7bc35;\">Abu Monya</span>"),
+    "بدعم من <a href=\"https://duffel.com\" target=\"_blank\" style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — جميع الحقوق محفوظة لوكالة أبو منية": ("Powered by <a href=\"https://duffel.com\" target=\"_blank\" style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — All rights reserved to Abu Monya Agency", "Propulsé par <a href=\"https://duffel.com\" target=\"_blank\" style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — Tous droits réservés à l'Agence Abu Monya"),
+
+    # Destinations
+    "القاهرة": ("Cairo", "Le Caire"),
+    "🇪🇬 مصر": ("🇪🇬 Egypt", "🇪🇬 Égypte"),
+    "CAI · أهرامات الجيزة": ("CAI · Pyramids of Giza", "CAI · Pyramides de Gizeh"),
+
+    "باريس": ("Paris", "Paris"),
+    "🇫🇷 فرنسا": ("🇫🇷 France", "🇫🇷 France"),
+    "CDG · برج إيفل": ("CDG · Eiffel Tower", "CDG · Tour Eiffel"),
+
+    "دبي": ("Dubai", "Dubaï"),
+    "🇦🇪 الإمارات": ("🇦🇪 UAE", "🇦🇪 EAU"),
+    "DXB · برج خليفة": ("DXB · Burj Khalifa", "DXB · Burj Khalifa"),
+
+    "إسطنبول": ("Istanbul", "Istanbul"),
+    "🇹🇷 تركيا": ("🇹🇷 Turkey", "🇹🇷 Turquie"),
+    "IST · المسجد الأزرق": ("IST · Blue Mosque", "IST · Mosquée Bleue"),
+
+    "لندن": ("London", "Londres"),
+    "🇬🇧 المملكة المتحدة": ("🇬🇧 UK", "🇬🇧 Royaume-Uni"),
+    "LHR · بيغ بن": ("LHR · Big Ben", "LHR · Big Ben"),
+
+    "روما": ("Rome", "Rome"),
+    "🇮🇹 إيطاليا": ("🇮🇹 Italy", "🇮🇹 Italie"),
+    "FCO · الكولوسيوم": ("FCO · Colosseum", "FCO · Colisée"),
+
+    "الدوحة": ("Doha", "Doha"),
+    "🇶🇦 قطر": ("🇶🇦 Qatar", "🇶🇦 Qatar"),
+    "DOH · أفق المدينة": ("DOH · City Skyline", "DOH · Skyline de la Ville"),
+
+    "مدريد": ("Madrid", "Madrid"),
+    "🇪🇸 إسبانيا": ("🇪🇸 Spain", "🇪🇸 Espagne"),
+    "MAD · القصر الملكي": ("MAD · Royal Palace", "MAD · Palais Royal"),
+
+    "مراكش": ("Marrakech", "Marrakech"),
+    "🇲🇦 المغرب": ("🇲🇦 Morocco", "🇲🇦 Maroc"),
+    "CMN · المدينة العتيقة": ("CMN · Medina", "CMN · Médina"),
+
+    "نيويورك": ("New York", "New York"),
+    "🇺🇸 الولايات المتحدة": ("🇺🇸 USA", "🇺🇸 États-Unis"),
+    "JFK · مانهاتن": ("JFK · Manhattan", "JFK · Manhattan"),
+
+    "طوكيو": ("Tokyo", "Tokyo"),
+    "🇯🇵 اليابان": ("🇯🇵 Japan", "🇯🇵 Japon"),
+    "NRT · برج طوكيو": ("NRT · Tokyo Tower", "NRT · Tour de Tokyo"),
+
+    "برشلونة": ("Barcelona", "Barcelone"),
+    "BCN · ساغرادا فاميليا": ("BCN · Sagrada Familia", "BCN · Sagrada Familia"),
+
+    "أمستردام": ("Amsterdam", "Amsterdam"),
+    "🇳🇱 هولندا": ("🇳🇱 Netherlands", "🇳🇱 Pays-Bas"),
+    "AMS · القنوات التاريخية": ("AMS · Historic Canals", "AMS · Canaux Historiques"),
+
+    "الرياض": ("Riyadh", "Riyad"),
+    "🇸🇦 السعودية": ("🇸🇦 Saudi Arabia", "🇸🇦 Arabie Saoudite"),
+    "RUH · المملكة العربية": ("RUH · Saudi Kingdom", "RUH · Royaume Saoudien"),
+
+    "أديس أبابا": ("Addis Ababa", "Addis-Abeba"),
+    "🇪🇹 إثيوبيا": ("🇪🇹 Ethiopia", "🇪🇹 Éthiopie"),
+    "ADD · القلب الأفريقي": ("ADD · The African Heart", "ADD · Le Cœur Africain"),
+
+    "الكويت": ("Kuwait", "Koweït"),
+    "🇰🇼 الكويت": ("🇰🇼 Kuwait", "🇰🇼 Koweït"),
+    "KWI · أبراج الكويت": ("KWI · Kuwait Towers", "KWI · Tours de Koweït"),
+
+    "سنغافورة": ("Singapore", "Singapour"),
+    "🇸🇬 سنغافورة": ("🇸🇬 Singapore", "🇸🇬 Singapour"),
+    "SIN · مارينا باي": ("SIN · Marina Bay", "SIN · Marina Bay"),
+
+    "كوالالمبور": ("Kuala Lumpur", "Kuala Lumpur"),
+    "🇲🇾 ماليزيا": ("🇲🇾 Malaysia", "🇲🇾 Malaisie"),
+    "KUL · برجا بتروناس": ("KUL · Petronas Twin Towers", "KUL · Tours Jumelles Petronas"),
+
+    "بانكوك": ("Bangkok", "Bangkok"),
+    "🇹🇭 تايلاند": ("🇹🇭 Thailand", "🇹🇭 Thaïlande"),
+    "BKK · وات أرون": ("BKK · Wat Arun", "BKK · Wat Arun"),
+
+    "جدة": ("Jeddah", "Djeddah"),
+    "JED · نافورة الملك فهد": ("JED · King Fahd's Fountain", "JED · Fontaine du roi Fahd"),
+
+    "عمّان": ("Amman", "Amman"),
+    "🇯🇴 الأردن": ("🇯🇴 Jordan", "🇯🇴 Jordanie"),
+    "AMM · المدرج الروماني": ("AMM · Roman Theatre", "AMM · Théâtre Romain")
+}
+
+
+en_dict = {k: v[0] for k, v in master_translations.items()}
+fr_dict = {k: v[1] for k, v in master_translations.items()}
+ar_dict = {k: k for k, v in master_translations.items()}
+
+build_po("en", en_dict, is_arabic=False)
+build_po("fr", fr_dict, is_arabic=False)
+build_po("ar", ar_dict, is_arabic=True)

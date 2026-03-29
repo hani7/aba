@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}فنادق {{ search.city_name }} — وكالة أبو منية{% endblock %}
+
+{% block content %}
+
+<style>
+  /* ── HERO BANNER ── */
+  .hotel-hero {
+    background: linear-gradient(135deg, #0f2340 0%, #1a3a6b 60%, #10304e 100%);
+    padding: 2.5rem 0 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hotel-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&h=400&fit=crop') center/cover no-repeat;
+    opacity: 0.12;
+  }
+  .hotel-hero-content { position: relative; z-index: 1; text-align: center; color: #fff; }
+  .hotel-hero h1 { font-size: 2.4rem; font-weight: 900; margin: 0 0 8px; }
+  .hotel-hero h1 span { color: var(--gold); }
+  .hotel-hero-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 14px; }
+  .hero-meta-pill {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ── HOTEL CARDS ── */
+  .hotels-grid { display: flex; flex-direction: column; gap: 1.5rem; margin: 2.5rem 0 5rem; }
+
+  .hotel-card {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    background: var(--bg-2, #fff);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid var(--border, #eee);
+  }
+  .hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  }
+
+  /* Image panel */
+  .hotel-img-wrap { position: relative; height: 100%; min-height: 240px; overflow: hidden; }
+  .hotel-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .hotel-card:hover .hotel-img-wrap img { transform: scale(1.05); }
+  .hotel-img-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(0,0,0,0.55);
+    color: #fff; padding: 5px 12px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 700;
+    backdrop-filter: blur(6px);
+  }
+  .hotel-img-score {
+    position: absolute; bottom: 14px; left: 14px;
+    background: var(--gold);
+    color: #fff; padding: 6px 13px; border-radius: 8px;
+    font-size: 1.05rem; font-weight: 800;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  }
+
+  /* Info panel */
+  .hotel-info-wrap { padding: 1.6rem 1.8rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .hotel-name-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .hotel-name { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--text, #111); }
+  .hotel-stars { color: #ffc107; font-size: 1.05rem; white-space: nowrap; }
+
+  .hotel-address { color: var(--text-muted, #888); font-size: 0.9rem; margin-top: 6px; }
+  .hotel-rating-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .rating-badge {
+    background: linear-gradient(135deg, var(--primary, #1b4d8c), #1668c4);
+    color: #fff; padding: 5px 10px; border-radius: 8px;
+    font-size: 1rem; font-weight: 800;
+  }
+  .rating-label { font-size: 0.88rem; color: var(--text-muted, #888); }
+
+  /* Amenities */
+  .amenities-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .amenity-tag {
+    background: rgba(27, 164, 186, 0.08);
+    color: var(--primary, #1b4d8c);
+    border: 1px solid rgba(27, 164, 186, 0.2);
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+
+  /* Price footer */
+  .hotel-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border, #eee); flex-wrap: wrap; gap: 12px; }
+  .hotel-price-block {}
+  .hotel-price-original { font-size: 0.82rem; color: #aaa; text-decoration: line-through; }
+  .hotel-price-main { font-size: 2rem; font-weight: 900; color: var(--primary, #1b4d8c); line-height: 1; }
+  .hotel-price-main span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted, #888); }
+  .hotel-price-nights { font-size: 0.78rem; color: #888; margin-top: 3px; }
+  .hotel-savings { color: #22c55e; font-size: 0.82rem; font-weight: 700; margin-top: 2px; }
+
+  .btn-choose {
+    background: linear-gradient(135deg, var(--gold), #d4af37);
+    color: #fff; padding: 13px 28px; border-radius: 10px;
+    text-decoration: none; font-weight: 800; font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+    white-space: nowrap;
+  }
+  .btn-choose:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.4); }
+
+  /* Empty State */
+  .empty-hotels {
+    text-align: center; padding: 5rem 2rem;
+    background: var(--bg-2, #fff); border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .empty-hotels-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .empty-hotels h2 { color: var(--primary, #1b4d8c); }
+
+  @media (max-width: 768px) {
+    .hotel-card { grid-template-columns: 1fr; }
+    .hotel-img-wrap { height: 200px; }
+    .hotel-name { font-size: 1.2rem; }
+    .hotel-price-main { font-size: 1.5rem; }
+  }
+</style>
+
+<!-- ── HERO BANNER ── -->
+<div class="hotel-hero">
+  <div class="container hotel-hero-content">
+    <div style="font-size:2rem; margin-bottom:6px;">🏨</div>
+    <h1>أفضل الفنادق في <span>{{ search.city_name }}</span></h1>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px; font-size:0.95rem;">أسعار شاملة مع هامش ربح وكالة أبو منية</p>
+    <div class="hotel-hero-meta">
+      <div class="hero-meta-pill">📅 {{ search.check_in }} — {{ search.check_out }}</div>
+      <div class="hero-meta-pill">👤 {{ search.adults }} بالغ</div>
+      <div class="hero-meta-pill">🛏 {{ search.rooms }} غرفة</div>
+      {% if hotels %}
+      <div class="hero-meta-pill" style="background:rgba(255,193,7,0.2); border-color:rgba(255,193,7,0.4);">✨ {{ hotels|length }} فندق متاح</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- ── HOTELS LIST ── -->
+<div class="container">
+  <div class="hotels-grid">
+    {% if hotels %}
+      {% for hotel in hotels %}
+      <article class="hotel-card">
+
+        <!-- Image -->
+        <div class="hotel-img-wrap">
+          <img src="{{ hotel.imageUrl|default:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop' }}" alt="{{ hotel.hotelName }}" loading="lazy">
+          <div class="hotel-img-badge">
+            {% for i in "12345"|make_list %}{% if forloop.counter <= hotel.starRating %}★{% endif %}{% endfor %}
+          </div>
+          {% if hotel.reviewScore %}
+          <div class="hotel-img-score">{{ hotel.reviewScore }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Info -->
+        <div class="hotel-info-wrap">
+          <div>
+            <div class="hotel-name-row">
+              <h2 class="hotel-name">{{ hotel.hotelName }}</h2>
+              <div class="hotel-stars">
+                {% for i in "12345"|make_list %}{% if forloop.counter <= hotel.starRating %}★{% else %}☆{% endif %}{% endfor %}
+              </div>
+            </div>
+            <p class="hotel-address">📍 {{ hotel.address|default:hotel.cityName }}</p>
+
+            <div class="hotel-rating-row">
+              <div class="rating-badge">{{ hotel.reviewScore|default:"8.0" }}</div>
+              <div class="rating-label">
+                {% if hotel.reviewScore >= 9 %}ممتاز{% elif hotel.reviewScore >= 8 %}جيد جداً{% elif hotel.reviewScore >= 7 %}جيد{% else %}مقبول{% endif %}
+                • {{ hotel.reviewCount|default:"100" }} تقييم
+              </div>
+            </div>
+
+            {% if hotel.amenities %}
+            <div class="amenities-row">
+              {% for amenity in hotel.amenities|slice:":5" %}
+              <span class="amenity-tag">✓ {{ amenity }}</span>
+              {% empty %}
+              <span class="amenity-tag">✓ واي فاي مجاني</span>
+              <span class="amenity-tag">✓ مسبح</span>
+              {% endfor %}
+              {% if hotel.amenities|length > 5 %}
+              <span class="amenity-tag" style="background:rgba(0,0,0,0.04); border-color:#ddd; color:#888;">+{{ hotel.amenities|length|add:"-5" }} أكثر</span>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="hotel-footer">
+            <div class="hotel-price-block">
+              <div class="hotel-price-original">{{ hotel.pricing.original_price|floatformat:0 }} USD</div>
+              <div class="hotel-price-main" data-eur="{{ hotel.pricing.customer_price|floatformat:2 }}">
+                {{ hotel.pricing.customer_price|floatformat:0 }}
+                <span>USD</span>
+              </div>
+              <div class="hotel-price-nights">للإجمالي / {{ hotel.nights|default:"1" }} ليلة</div>
+              <div class="hotel-savings">💰 تشمل هامش خدمة الوكالة {{ hotel.pricing.markup_pct|floatformat:0 }}%</div>
+            </div>
+
+            <a href="{% url 'vols:hotel_detail' hotel.hotelId %}" class="btn-choose">
+              اختر غرفتك →
+            </a>
+          </div>
+        </div>
+
+      </article>
+      {% endfor %}
+
+    {% else %}
+      <div class="empty-hotels">
+        <div class="empty-hotels-icon">🔍</div>
+        <h2>لا توجد فنادق متاحة</h2>
+        <p style="color:#666; margin-bottom:24px;">لم نتمكن من العثور على فنادق في <strong>{{ search.city_name }}</strong> للتواريخ المحددة.</p>
+        <a href="{% url 'vols:home' %}#hotels" class="btn-choose" style="display:inline-block;">← بحث جديد</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

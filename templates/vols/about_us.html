@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "وكالة أبو منية" %} — {% trans "من نحن" %}{% endblock %}
+
+{% block content %}
+<section class="about-hero" style="background: linear-gradient(135deg, #0b1437, #162050); padding: 80px 0; text-align: center; color: white;">
+    <div class="container">
+        <h1 style="font-size: 3rem; margin-bottom: 20px;">{% trans "وكالة أبو منية للسفر والسياحة" %}</h1>
+        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+            {% trans "وكالة أبومنية للسفر والسياحة وكالة وطنية تعمل في مجال السفر والسياحة الداخلية والخارجية وفق قانون تنظيم العمل السياحي وتنظيم عمل سلطة الطيران المدني في السودان." %}
+        </p>
+    </div>
+</section>
+
+<section class="about-content" style="padding: 80px 0; background: #fbfbfb;">
+    <div class="container">
+        <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 60px;">
+            
+            <div class="card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--gold);"></div>
+                <div class="icon" style="font-size: 3rem; margin-bottom: 20px; color: var(--gold);">🎯</div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #0b1437;">{% trans "رؤيتنا" %}</h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    {% trans "نتطلع لأن تكون وكالة ابومنية للسفر والسياحة الأولي و المحرك الفاعل للسفر وللسياحة محليا وإقليميا ودوليا ." %}
+                </p>
+            </div>
+
+            <div class="card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--gold);"></div>
+                <div class="icon" style="font-size: 3rem; margin-bottom: 20px; color: var(--gold);">💎</div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #0b1437;">{% trans "مهمتنا" %}</h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05rem;">
+                    {% trans "تلبية احتياجات عملائنا وفق رؤية إستراتيجية تلبي طموحاتهم و احتياجاتهم في مجال السفر والسياحة. وتعظيم الميزة النسبية والتنافسية للسودان كمنطقه جذب سياحي." %}
+                </p>
+            </div>
+
+        </div>
+
+        <div style="background: white; padding: 60px 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 style="font-size: 1.8rem; color: #0b1437;">{% trans "أهدافنا" %}</h3>
+                <div style="width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0;"></div>
+            </div>
+            
+            <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                <li style="display: flex; gap: 15px; align-items: flex-start;">
+                    <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">✔️</span>
+                    <span style="color: #444; font-size: 1.05rem; line-height: 1.7;">
+                        {% trans "الريادة في مجال السفر والسياحة محليا ودولياً." %}
+                    </span>
+                </li>
+                <li style="display: flex; gap: 15px; align-items: flex-start;">
+                    <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">✔️</span>
+                    <span style="color: #444; font-size: 1.05rem; line-height: 1.7;">
+                        {% trans "استخدام النظم الاكترونيه والمعلوماتية عبر كافة الوسائط لتقديم أجود أنواع الخدمات." %}
+                    </span>
+                </li>
+                <li style="display: flex; gap: 15px; align-items: flex-start;">
+                    <span style="color: var(--gold); font-size: 1.5rem; line-height: 1;">✔️</span>
+                    <span style="color: #444; font-size: 1.05rem; line-height: 1.7;">
+                        {% trans "ابتكار أنشطة سياحية وخدمات تلبي احتياجات عملائنا الكرام ." %}
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

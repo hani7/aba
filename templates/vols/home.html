@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "وكالة أبو منية — ابحث عن رحلتك" %}{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-plane">✈️</div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge"><span>✈</span> {% trans "أكثر من 10,000 مسار جوي" %}</div>
+    <h1 class="hero-title">
+      {% trans "السفر يبدأ هنا" %} — <span class="gold">{% trans "ابحثوا الآن" %}</span>
+    </h1>
+    <p class="hero-subtitle">
+      {% trans "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة." %}
+    </p>
+    <div class="search-tabs" style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;" id="hotels">
+      <button class="btn search-tab active" id="tab-flights" onclick="switchTab('flights')" style="background:var(--primary); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer;">✈ {% trans "رحلات الطيران" %}</button>
+      <button class="btn search-tab" id="tab-hotels" onclick="switchTab('hotels')" style="background:rgba(255,255,255,0.2); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer; backdrop-filter:blur(10px);">🏨 {% trans "فنادق" %}</button>
+    </div>
+    
+    <div id="flights-tab">
+      {% include 'vols/includes/search_form.html' %}
+    </div>
+    <div id="hotels-tab" style="display:none;">
+      {% include 'vols/includes/hotel_search_form.html' %}
+    </div>
+  </div>
+</section>
+
+<!-- ══ AIRLINES CAROUSEL ══════════════════════════════════════ -->
+<section class="airlines-section">
+  <div class="container">
+    <p class="airlines-label">{% trans "شركاؤنا من شركات الطيران" %}</p>
+    <div class="airlines-grid">
+      {% for airline in airlines_list %}
+      <div class="airline-chip">
+        <img src="{{ airline.logo }}" alt="{{ airline.name }}" class="airline-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="airline-chip-icon" style="display:none; background:{{ airline.color }}">
+          <span class="airline-chip-flag">{{ airline.flag }}</span>
+          <span class="airline-chip-iata">{{ airline.iata }}</span>
+        </div>
+        <span class="airline-chip-name">{{ airline.name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ DESTINATIONS CAROUSEL ══════════════════════════════════ -->
+<section class="destinations-section">
+  <div class="container">
+    <div class="dest-header">
+      <div>
+        <h2 class="section-title" style="margin-bottom:8px;">{% trans "أبرز الوجهات ✈" %}</h2>
+        <p style="color:var(--text-muted); font-size:.9rem;">{% trans "الوجهات الأكثر طلباً هذا الموسم" %}</p>
+      </div>
+    <!-- dest-nav removed because we are using an infinite auto-scroll loop -->
+    </div>
+    <div class="dest-grid">
+      {% for dest in destinations_list %}
+      <div class="dest-card" onclick="prefillSearch('KRT', '{{ dest.iata }}')">
+        <div class="dest-img" style="background-image:url('{{ dest.image }}')">
+          <div class="dest-img-overlay"></div>
+          <span class="dest-country-badge">{{ dest.badge }}</span>
+        </div>
+        <div class="dest-info">
+          <strong>{{ dest.name_ar }}</strong>
+          <span>{{ dest.desc }}</span>
+          <span class="dest-price-hint">{% trans "عروض متاحة" %}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ═══════════════════════════════════════════════ -->
+<section class="features section">
+  <div class="container">
+    <h2 class="section-title text-center">{% blocktrans %}لماذا تختار وكالة <span class="gold">أبو منية</span>؟{% endblocktrans %}</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>{% trans "نتائج فورية" %}</h3>
+        <p>{% trans "آلاف العروض في الوقت الفعلي بفضل واجهة Duffel API المتقدمة." %}</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>{% trans "بحث ذكي بالعربية" %}</h3>
+        <p>{% trans "ابحث بالعربية أو الإنجليزية — النظام يترجم تلقائياً." %}</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>{% trans "وجهات متعددة" %}</h3>
+        <p>{% trans "أنشئ رحلات ذهاباً وإياباً أو متعددة الوجهات بسهولة." %}</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💱</div>
+        <h3>{% trans "عملات متعددة" %}</h3>
+        <p>{% trans "اعرض الأسعار بالدولار الأمريكي أو الجنيه السوداني بضغطة واحدة." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% include 'vols/includes/search_scripts.html' %}
+<script>
+/* ── PRE-FILL SEARCH ── */
+function prefillSearch(origin, dest) {
+  const o = document.getElementById('origin_0');
+  const d = document.getElementById('destination_0');
+  if (o && d) {
+    switchTab('flights');
+    o.value = origin;
+    d.value = dest;
+    o.focus();
+    window.scrollTo({ top: document.querySelector('.hero').offsetTop, behavior: 'smooth' });
+  }
+}
+
+/* ── SEARCH TABS ── */
+function switchTab(tab) {
+  const fTab = document.getElementById('flights-tab');
+  const hTab = document.getElementById('hotels-tab');
+  const fBtn = document.getElementById('tab-flights');
+  const hBtn = document.getElementById('tab-hotels');
+  
+  const activeStyle = 'background:var(--primary); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer;';
+  const inactiveStyle = 'background:rgba(255,255,255,0.2); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer; backdrop-filter:blur(10px);';
+
+  if (tab === 'flights') {
+    fTab.style.display = 'block';
+    hTab.style.display = 'none';
+    fBtn.style = activeStyle;
+    hBtn.style = inactiveStyle;
+  } else {
+    hTab.style.display = 'block';
+    fTab.style.display = 'none';
+    hBtn.style = activeStyle;
+    fBtn.style = inactiveStyle;
+  }
+}
+
+// Auto-switch to hotels tab if url has #hotels
+if (window.location.hash === '#hotels') {
+  switchTab('hotels');
+}
+</script>
+{% endblock %}

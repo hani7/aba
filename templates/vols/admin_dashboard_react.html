@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Abu Monya Agency</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Vue.js / React Dependencies -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #f9fbfd;
+            --bg-2: #ffffff;
+            --surface: rgba(255, 255, 255, 0.7);
+            --border: rgba(0, 0, 0, 0.05);
+            --gold: #d4a000;
+            --text: #111827;
+            --text-muted: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius: 20px;
+            --font: 'Inter', sans-serif;
+            --transition: 0.3s;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            direction: rtl;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* Dashboard Layout */
+        .admin-container { display: flex; min-height: 100vh; }
+        .glass-panel { background: var(--surface); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.8); }
+        
+        /* Sidebar */
+        .admin-sidebar { width: 260px; display: flex; flex-direction: column; border-left: 1px solid var(--border); background: #0b1437; }
+        .admin-brand { padding: 30px 24px; font-size: 1.4rem; font-weight: 800; color: var(--gold); margin: 0; display: flex; align-items: center; gap: 10px; }
+        .sidebar-nav { padding: 0 16px; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        .nav-link { 
+            padding: 14px 20px; border-radius: 12px; font-weight: 600; color: #9ca3af; 
+            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: var(--transition); text-decoration: none;
+        }
+        .nav-link:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
+        .nav-link.active { background: rgba(212, 160, 0, 0.15); color: var(--gold); }
+        
+        /* Content Area */
+        .admin-main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .admin-header { height: 70px; padding: 0 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: #fff; justify-content: space-between; }
+        .admin-content { padding: 40px; }
+        
+        .page-header h1 { margin: 0 0 5px; font-size: 2rem; font-weight: 800; }
+        .page-header p { margin: 0; color: var(--text-muted); }
+
+        /* Login */
+        .login-input { width: 100%; border: 1px solid var(--border); padding: 12px 15px; border-radius: 8px; font-family: var(--font); margin-bottom: 15px; outline: none; }
+        .login-input:focus { border-color: var(--gold); }
+        .login-btn { width: 100%; background: var(--gold); color: #fff; border: none; padding: 12px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font); font-size: 1rem; }
+        .login-btn:hover { background: #b38600; }
+
+        /* KPI Cards */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 40px; margin-top: 30px; }
+        .kpi-card { padding: 24px; border-radius: var(--radius); background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .kpi-icon { font-size: 2rem; margin-bottom: 15px; }
+        .kpi-card h3 { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 10px; }
+        .kpi-value { font-size: 1.8rem; font-weight: 800; margin: 0; }
+
+        /* Tables */
+        .table-wrapper { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; text-align: right; }
+        th { text-align: right; padding: 16px 24px; background: #f9fbfc; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+        td { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+        tr:hover td { background: #fdfdfd; }
+
+        /* Status & Buttons */
+        .badge { padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: bold; }
+        .bg-ok { background: rgba(16,185,129,0.1); color: #0d9668; }
+        .bg-err { background: rgba(239,68,68,0.1); color: #b91c1c; }
+        .bg-vip { background: rgba(212,160,0,0.1); color: var(--gold); }
+        .btn-cancel { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-cancel:hover { background: var(--danger); color: #fff; }
+        .btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .loader { text-align: center; padding: 60px; color: var(--gold); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="react-root"></div>
+
+    <!-- Our React Application -->
+    {% verbatim %}
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- COMPONENTS --- //
+
+        // 1. Dashboard Stats View
+        const StatsView = () => {
+            const [stats, setStats] = useState(null);
+            
+            useEffect(() => {
+                fetch('/api/admin/stats/')
+                    .then(res => res.json())
+                    .then(data => setStats(data));
+            }, []);
+
+            if (!stats) return <div className="loader">جاري التحميل...</div>;
+
+            return (
+                <div>
+                    <div className="page-header">
+                        <h1>نظرة عامة</h1>
+                        <p>أداء ومقاييس الموقع.</p>
+                    </div>
+                    <div className="kpi-grid">
+                        <div className="kpi-card" style={{borderTop: '4px solid var(--success)'}}>
+                            <div className="kpi-icon">💰</div>
+                            <h3>الإيرادات الإجمالية</h3>
+                            <p className="kpi-value">$ {stats.total_revenue}</p>
+                            <small style={{color:'var(--success)', fontWeight:'bold'}}>الربح الصافي: $ {stats.total_profit}</small>
+                        </div>
+                        <div className="kpi-card" style={{borderTop: '4px solid var(--gold)'}}>
+                            <div className="kpi-icon">✈️</div>
+                            <h3>حجوزات الطيران</h3>
+                            <p className="kpi-value">{stats.flight_bookings}</p>
+                            <small>$ {stats.flight_revenue} إيرادات</small>
+                        </div>
+                        <div className="kpi-card" style={{borderTop: '4px solid #3b82f6'}}>
+                            <div className="kpi-icon">🏨</div>
+                            <h3>حجوزات الفنادق</h3>
+                            <p className="kpi-value">{stats.hotel_bookings}</p>
+                            <small>$ {stats.hotel_revenue} إيرادات</small>
+                        </div>
+                        <div className="kpi-card" style={{borderTop: '4px solid #8b5cf6'}}>
+                            <div className="kpi-icon">👥</div>
+                            <h3>العملاء الفريدون</h3>
+                            <p className="kpi-value">{stats.total_clients}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 2. Bookings View
+        const BookingsView = () => {
+            const [bookings, setBookings] = useState([]);
+            const [loader, setLoader] = useState(true);
+            const [canceling, setCanceling] = useState(null);
+
+            const fetchBookings = () => {
+                fetch('/api/admin/bookings/')
+                    .then(r => r.json())
+                    .then(d => { setBookings(d.results); setLoader(false); });
+            };
+
+            useEffect(() => { fetchBookings(); }, []);
+
+            const handleCancel = async (id) => {
+                if(!confirm("هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى Duffel؟")) return;
+                setCanceling(id);
+                try {
+                    const res = await fetch(`/api/admin/bookings/${id}/cancel/`, { method: 'POST' });
+                    const data = await res.json();
+                    if(data.error) alert(data.error);
+                    else { alert("تم الإلغاء بنجاح"); fetchBookings(); }
+                } catch(e) { alert("خطأ في السيرفر"); }
+                setCanceling(null);
+            };
+
+            if (loader) return <div className="loader">جاري استرداد رحلات الطيران...</div>;
+
+            return (
+                <div>
+                    <div className="page-header">
+                        <h1>الحجوزات</h1>
+                        <p>لوحة تحكم إدارة الرحلات.</p>
+                    </div>
+                    <div className="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم الحجز (PNR)</th>
+                                    <th>المسافر</th>
+                                    <th>المسار</th>
+                                    <th>التواريخ</th>
+                                    <th>المبلغ</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {bookings.map(b => (
+                                    <tr key={b.id}>
+                                        <td><strong>{b.reference}</strong></td>
+                                        <td>{b.client}</td>
+                                        <td><span dir="ltr">{b.itinerary}</span></td>
+                                        <td><span dir="ltr">{b.date}</span></td>
+                                        <td>$ {b.amount}</td>
+                                        <td>
+                                            <span className={`badge ${b.status === 'confirmed' ? 'bg-ok' : 'bg-err'}`}>
+                                                {b.status === 'confirmed' ? 'مؤكد' : 'ملغى'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {b.status === 'confirmed' && (
+                                                <button className="btn-cancel" disabled={canceling === b.id} onClick={() => handleCancel(b.id)}>
+                                                    {canceling === b.id ? '...' : 'إلغاء 🗑'}
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Clients View
+        const ClientsView = () => {
+            const [clients, setClients] = useState([]);
+            useEffect(() => {
+                fetch('/api/admin/clients/')
+                    .then(r => r.json())
+                    .then(d => setClients(d.results));
+            }, []);
+
+            return (
+                <div>
+                    <div className="page-header">
+                        <h1>قاعدة العملاء</h1>
+                        <p>المسافرون والزوار الدائمون.</p>
+                    </div>
+                    <div className="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>اسم العميل</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>عدد الحجوزات</th>
+                                    <th>الفئة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {clients.map((c, i) => (
+                                    <tr key={i}>
+                                        <td><strong>{c.name}</strong></td>
+                                        <td>{c.email}</td>
+                                        <td>{c.bookings_count} رحلات</td>
+                                        <td>
+                                            {c.bookings_count > 2 ? <span className="badge bg-vip">VIP ✨</span> : 'عادي'}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- LOGIN COMPONENT --- //
+        const LoginView = ({ onLogin }) => {
+            const [user, setUser] = useState('');
+            const [pwd, setPwd] = useState('');
+            const [err, setErr] = useState('');
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (user.trim() === 'farouk' && pwd === 'farouk2020++') {
+                    onLogin();
+                } else {
+                    setErr("اسم المستخدم أو كلمة المرور غير صحيحة");
+                }
+            };
+
+            return (
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh', background:'var(--bg)'}}>
+                    <form onSubmit={handleLogin} className="glass-panel" style={{padding:'40px', borderRadius:'15px', width:'100%', maxWidth:'360px', textAlign:'center', background:'#fff', boxShadow:'0 10px 30px rgba(0,0,0,0.05)'}}>
+                        <img src="/static/img/logo.jpg" alt="Abu Monya Logo" style={{maxHeight:'80px', marginBottom:'20px'}} />
+                        <h2 style={{marginTop:0, marginBottom:'20px', color:'var(--gold)'}}>تسجيل الدخول للإدارة</h2>
+                        {err && <div style={{color:'var(--danger)', marginBottom:'15px', fontSize:'0.9rem'}}>{err}</div>}
+                        <input className="login-input" type="text" placeholder="اسم المستخدم" value={user} onChange={e=>setUser(e.target.value)} required />
+                        <input className="login-input" type="password" placeholder="كلمة المرور" value={pwd} onChange={e=>setPwd(e.target.value)} required />
+                        <button className="login-btn" type="submit">دخول</button>
+                    </form>
+                </div>
+            );
+        };
+
+        // --- MAIN APP (ROUTER) --- //
+        const App = () => {
+            // Check local storage for session
+            const [isAuth, setIsAuth] = useState(localStorage.getItem('admin_fa_auth') === 'true');
+            const [view, setView] = useState('stats');
+
+            const handleLoginSuccess = () => {
+                setIsAuth(true);
+                localStorage.setItem('admin_fa_auth', 'true');
+            };
+
+            const handleLogout = () => {
+                setIsAuth(false);
+                localStorage.removeItem('admin_fa_auth');
+            };
+
+            if (!isAuth) {
+                return <LoginView onLogin={handleLoginSuccess} />;
+            }
+
+            return (
+                <div className="admin-container">
+                    
+                    {/* Sidebar */}
+                    <aside className="admin-sidebar glass-panel">
+                        <div className="admin-brand" style={{justifyContent: 'center', padding: '20px'}}>
+                            <img src="/static/img/logo.jpg" alt="Logo" style={{maxHeight: '75px', backgroundColor: '#fff', padding: '10px', borderRadius: '12px', width: '100%', objectFit: 'contain'}} />
+                        </div>
+                        <nav className="sidebar-nav">
+                            <a className={`nav-link ${view === 'stats' ? 'active' : ''}`} onClick={() => setView('stats')}>
+                                <span style={{marginLeft:'10px'}}>📊</span> نظرة عامة
+                            </a>
+                            <a className={`nav-link ${view === 'bookings' ? 'active' : ''}`} onClick={() => setView('bookings')}>
+                                <span style={{marginLeft:'10px'}}>✈️</span> الحجوزات والإلغاءات
+                            </a>
+                            <a className={`nav-link ${view === 'clients' ? 'active' : ''}`} onClick={() => setView('clients')}>
+                                <span style={{marginLeft:'10px'}}>👥</span> قاعدة العملاء
+                            </a>
+                            <a className="nav-link" href="/" style={{marginTop: 'auto', marginBottom: '20px'}}>
+                                <span style={{marginLeft:'10px'}}>🏠</span> العودة للموقع
+                            </a>
+                        </nav>
+                    </aside>
+
+                    {/* Main Content Pane */}
+                    <main className="admin-main">
+                        <header className="admin-header glass-panel">
+                            <strong>{/* Header Title Removed as Requested */}</strong>
+                            <button onClick={handleLogout} className="btn-cancel" style={{borderColor:'transparent', color:'var(--text-muted)'}}>تسجيل خروج 🚪</button>
+                        </header>
+                        <div className="admin-content">
+                            {view === 'stats' && <StatsView />}
+                            {view === 'bookings' && <BookingsView />}
+                            {view === 'clients' && <ClientsView />}
+                        </div>
+                    </main>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('react-root'));
+        root.render(<App />);
+    </script>
+    {% endverbatim %}
+</body>
+</html>

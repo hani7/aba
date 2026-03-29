@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}وكالة أبو منية — معلومات المسافر(ين){% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+
+    <!-- Recap Card (Multi-city / Return compatible) -->
+    <div class="recap-card" style="flex-direction: column; align-items: flex-start;">
+      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 16px;">
+          <div class="recap-meta" style="font-size: 1.1rem;">
+            <span>💰 <strong class="gold" data-eur="{{ offer.total_amount }}">{{ offer.total_amount }} {{ offer.total_currency }}</strong></span>
+            <span>💺 {{ offer.cabin_class|capfirst }}</span>
+            <span>👤 {{ search.passengers }} مسافر{{ search.passengers|pluralize }}</span>
+          </div>
+      </div>
+      
+      {% for slice in offer.slices %}
+      <div class="recap-route" style="margin-bottom: 8px;">
+        <span class="gold" style="font-size: 0.9rem; margin-right: 12px;">رحلة {{ forloop.counter }}</span>
+        <span class="recap-city" style="font-size: 1.2rem;">{{ slice.origin.iata_code }}</span>
+        <span class="route-arrow">→</span>
+        <span class="recap-city" style="font-size: 1.2rem;">{{ slice.destination.iata_code }}</span>
+        <span style="color: var(--text-muted); font-size: 0.9rem; margin-left:16px;">📅 {{ slice.segments.0.departing_at|slice:":10" }} — 🕐 {{ slice.duration_fmt }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h2 class="section-title">معلومات المسافر{{ search.passengers|pluralize }}</h2>
+
+    <form action="{% url 'vols:confirm_booking' %}" method="post" id="passengerForm">
+      {% csrf_token %}
+      <input type="hidden" name="offer_id" value="{{ offer.id }}">
+
+      {% for i in num_passengers %}
+      <div class="passenger-card">
+        <div class="passenger-header">
+          <span class="passenger-badge">مسافر {{ i }}</span>
+        </div>
+
+        <div class="form-grid">
+          <!-- Prénom -->
+          <div class="form-field">
+            <label class="field-label">الاسم الأول (باللغة الإنجليزية كما في الجواز) *</label>
+            <input type="text" name="first_name_{{ i }}" required class="field-input" placeholder="MOHAMMED" pattern="[A-Za-z\s]+" title="يجب كتابة الاسم بحروف إنجليزية فقط">
+          </div>
+          <!-- Nom -->
+          <div class="form-field">
+            <label class="field-label">اسم العائلة (باللغة الإنجليزية) *</label>
+            <input type="text" name="last_name_{{ i }}" required class="field-input" placeholder="AHMED" pattern="[A-Za-z\s]+" title="يجب كتابة الاسم بحروف إنجليزية فقط">
+          </div>
+          <!-- Date de naissance -->
+          <div class="form-field">
+            <label class="field-label">تاريخ الميلاد *</label>
+            <input type="date" name="born_on_{{ i }}" required class="field-input" max="2005-01-01">
+          </div>
+          <!-- Genre -->
+          <div class="form-field">
+            <label class="field-label">الجنس *</label>
+            <div class="input-icon-wrap">
+              <select name="gender_{{ i }}" class="field-input">
+                <option value="m">ذكر</option>
+                <option value="f">أنثى</option>
+              </select>
+            </div>
+          </div>
+          <!-- Email -->
+          <div class="form-field">
+            <label class="field-label">البريد الإلكتروني *</label>
+            <input type="email" name="email_{{ i }}" required class="field-input" placeholder="mohammed@email.com">
+          </div>
+          <!-- Téléphone -->
+          <div class="form-field">
+            <label class="field-label">رقم الهاتف (مع رمز الدولة) *</label>
+            <input type="tel" name="phone_{{ i }}" required class="field-input" placeholder="+249 91 234 5678">
+          </div>
+          <!-- Passport Number -->
+          <div class="form-field form-field-wide">
+            <label class="field-label">رقم جواز السفر *</label>
+            <input type="text" name="passport_{{ i }}" required class="field-input" placeholder="مثال: A1234567" style="text-transform: uppercase;">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Price Summary -->
+      <div class="price-summary">
+        <div class="price-row">
+          <span>المجموع الفرعي ({{ search.passengers }} مسافر{{ search.passengers|pluralize }})</span>
+          <span class="gold" data-eur="{{ offer.total_amount }}">{{ offer.total_amount }} {{ offer.total_currency }}</span>
+        </div>
+        <div class="price-row price-total">
+          <span>المجموع</span>
+          <span class="gold price-big" data-eur="{{ offer.total_amount }}">{{ offer.total_amount }} {{ offer.total_currency }}</span>
+        </div>
+        <div style="margin-top: 10px; padding: 10px 14px; background: rgba(27,164,186,0.06); border-radius: 8px; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+          <span>💡</span>
+          <span>يظهر السعر بعملة <strong id="currentCurrencyNote" style="color: var(--primary);">USD</strong> حسب اختيارك. يمكنك تغييرها من الشريط العلوي.</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a href="javascript:history.back()" class="btn btn-ghost">← العودة إلى العروض</a>
+        <button type="submit" class="btn btn-primary btn-large" id="bookBtn">
+          <span class="btn-text">💳 المتابعة للدفع الآمن</span>
+          <span class="btn-loader" style="display:none;">⏳ التحويل لبوابة الدفع...</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.getElementById('passengerForm').addEventListener('submit', () => {
+    document.querySelector('.btn-text').style.display = 'none';
+    document.querySelector('.btn-loader').style.display = 'inline';
+    setTimeout(() => { document.getElementById('bookBtn').disabled = true; }, 50);
+  });
+
+  // Apply saved currency on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('currency') || 'USD';
+    const noteEl = document.getElementById('currentCurrencyNote');
+    if (noteEl) noteEl.textContent = saved;
+    if (typeof applyConversion === 'function') applyConversion();
+  });
+</script>
+{% endblock %}

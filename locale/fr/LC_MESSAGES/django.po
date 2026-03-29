@@ -1,0 +1,647 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-29 12:00+0200\n"
+"PO-Revision-Date: 2026-03-29 12:00+0200\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "وكالة"
+msgstr "Agence"
+
+msgid "أبو منية"
+msgstr "Abu Monya"
+
+msgid "الرئيسية"
+msgstr "Accueil"
+
+msgid "فنادق"
+msgstr "Hôtels"
+
+msgid "حجوزات الطيران"
+msgstr "Réservations de Vols"
+
+msgid "حجوزات الفنادق"
+msgstr "Réservations d'Hôtels"
+
+msgid "خدماتنا"
+msgstr "Nos Services"
+
+msgid "من نحن"
+msgstr "À Propos"
+
+msgid "تواصل معنا"
+msgstr "Contactez-nous"
+
+msgid "GET IN TOUCH"
+msgstr "NOUS CONTACTER"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Your Name"
+msgstr "Votre nom"
+
+msgid "E-mail"
+msgstr "E-mail"
+
+msgid "your@email.com"
+msgstr "votre@email.com"
+
+msgid "Subject"
+msgstr "Sujet"
+
+msgid "Message Subject"
+msgstr "Objet du message"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Write your message here..."
+msgstr "Écrivez votre message ici..."
+
+msgid "SEND MESSAGE"
+msgstr "ENVOYER"
+
+msgid ""
+"الخرطوم السوق العربي. تقاطع شارع الحرية مع شارع مصطفى الأمين، غرب مستشفى "
+"الراهبات، عمارة عامر العقارية الطابق الثاني، شقة رقم 3"
+msgstr ""
+"Khartoum, Marché Arabe. Intersection des rues Al-Hurriya et Mustafa Al-Amin,"
+" à l'ouest de l'hôpital Al-Rahabat, Immeuble Amer, 2ème étage, Apt. No. 3"
+
+msgid "السفر يبدأ هنا"
+msgstr "Votre Voyage Commence Ici"
+
+msgid "ابحثوا الآن"
+msgstr "Rechercher Maintenant"
+
+msgid "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة."
+msgstr ""
+"Comparez des milliers d'offres des meilleures compagnies aériennes avec des "
+"prix garantis et une expérience fluide."
+
+msgid "رحلات الطيران"
+msgstr "Vols"
+
+msgid "ذهاب فقط"
+msgstr "Aller simple"
+
+msgid "ذهاب وعودة"
+msgstr "Aller-retour"
+
+msgid "وجهات متعددة"
+msgstr "Multi-destinations"
+
+msgid "المغادرة"
+msgstr "De"
+
+msgid "الوجهة"
+msgstr "À"
+
+msgid "مثل: باريس، LHR، JFK"
+msgstr "ex. Paris, LHR, JFK"
+
+msgid "مثل: لندن، DXB"
+msgstr "ex. Londres, DXB"
+
+msgid "تاريخ (الذهاب)"
+msgstr "Date de départ"
+
+msgid "تاريخ (العودة)"
+msgstr "Date de retour"
+
+msgid "إضافة رحلة"
+msgstr "Ajouter un vol"
+
+msgid "المسافرون"
+msgstr "Passagers"
+
+msgid "بالغ واحد"
+msgstr "1 Adulte"
+
+msgid "بالغان"
+msgstr "2 Adultes"
+
+msgid "3 بالغين"
+msgstr "3 Adultes"
+
+msgid "4 بالغين"
+msgstr "4 Adultes"
+
+msgid "5 بالغين"
+msgstr "5 Adultes"
+
+msgid "الدرجة"
+msgstr "Classe"
+
+msgid "سياحية"
+msgstr "Économique"
+
+msgid "سياحية ممتازة"
+msgstr "Économique Premium"
+
+msgid "أعمال"
+msgstr "Affaires"
+
+msgid "أولى"
+msgstr "Première"
+
+msgid "أضف فندقاً لرحلتي"
+msgstr "Ajouter un hôtel à mon voyage"
+
+msgid "ابحث عن رحلات"
+msgstr "Rechercher des Vols"
+
+msgid "جاري البحث..."
+msgstr "Recherche en cours..."
+
+msgid "الوجهة أو الفندق"
+msgstr "Destination ou Hôtel"
+
+msgid "تاريخ الوصول"
+msgstr "Date d'arrivée"
+
+msgid "تاريخ المغادرة"
+msgstr "Date de départ"
+
+msgid "الضيوف الغرف"
+msgstr "Invités et Chambres"
+
+msgid "مثل: دبي، باريس"
+msgstr "ex. Dubaï, Paris"
+
+msgid "1 بالغ"
+msgstr "1 Adulte"
+
+msgid "2 بالغين"
+msgstr "2 Adultes"
+
+msgid "1 غرفة"
+msgstr "1 Chambre"
+
+msgid "2 غرف"
+msgstr "2 Chambres"
+
+msgid "3 غرف"
+msgstr "3 Chambres"
+
+msgid "ابحث عن فنادق"
+msgstr "Rechercher des Hôtels"
+
+msgid "وكالة أبو منية للسفر والسياحة"
+msgstr "Agence de voyages et de tourisme Abu Monya"
+
+msgid ""
+"وكالة أبومنية للسفر والسياحة وكالة وطنية تعمل في مجال السفر والسياحة "
+"الداخلية والخارجية وفق قانون تنظيم العمل السياحي وتنظيم عمل سلطة الطيران "
+"المدني في السودان."
+msgstr ""
+"L'agence de voyage et de tourisme Abu Monya est une agence nationale opérant"
+" dans le domaine des voyages et du tourisme nationaux et internationaux "
+"conformément à la loi régissant le travail touristique et à l'autorité de "
+"l'aviation civile au Soudan."
+
+msgid "رؤيتنا"
+msgstr "Notre Vision"
+
+msgid ""
+"نتطلع لأن تكون وكالة ابومنية للسفر والسياحة الأولي و المحرك الفاعل للسفر "
+"وللسياحة محليا وإقليميا ودوليا ."
+msgstr ""
+"Nous aspirons à ce que l'agence de voyage et de tourisme Abu Monya soit le "
+"premier moteur actif pour les voyages et le tourisme à l'échelle locale, "
+"régionale et internationale."
+
+msgid "مهمتنا"
+msgstr "Notre Mission"
+
+msgid ""
+"تلبية احتياجات عملائنا وفق رؤية إستراتيجية تلبي طموحاتهم و احتياجاتهم في "
+"مجال السفر والسياحة. وتعظيم الميزة النسبية والتنافسية للسودان كمنطقه جذب "
+"سياحي."
+msgstr ""
+"Répondre aux besoins de nos clients selon une vision stratégique qui répond "
+"à leurs ambitions et besoins dans le secteur des voyages et du tourisme. Et "
+"maximiser l'avantage comparatif et concurrentiel du Soudan en tant que zone "
+"d'attraction touristique."
+
+msgid "أهدافنا"
+msgstr "Nos Objectifs"
+
+msgid "الريادة في مجال السفر والسياحة محليا ودولياً."
+msgstr ""
+"Leadership dans le domaine des voyages et du tourisme aux niveaux local et "
+"international."
+
+msgid ""
+"استخدام النظم الاكترونيه والمعلوماتية عبر كافة الوسائط لتقديم أجود أنواع "
+"الخدمات."
+msgstr ""
+"Utiliser les systèmes électroniques et informatiques à travers tous les "
+"supports pour fournir des services de la plus haute qualité."
+
+msgid "ابتكار أنشطة سياحية وخدمات تلبي احتياجات عملائنا الكرام ."
+msgstr ""
+"Innover des activités et services touristiques répondant aux besoins de nos "
+"chers clients."
+
+msgid "للسفر والسياحة"
+msgstr "pour les Voyages et le Tourisme"
+
+msgid ""
+"منذ سنوات ونحن نقدم لعملائنا أفضل تجارب السفر الجوي بأسعار تنافسية وخدمة "
+"شخصية. بفضل شراكتنا مع منصة Duffel العالمية، نوفر لكم وصولاً فورياً لأكثر من"
+" 300 شركة طيران حول العالم."
+msgstr ""
+"Depuis des années, nous offrons à nos clients les meilleures expériences de "
+"voyage en avion à des prix compétitifs et un service personnalisé. Grâce à "
+"notre partenariat avec Duffel, nous vous offrons un accès instantané à plus "
+"de 300 compagnies."
+
+msgid "شركة طيران"
+msgstr "Compagnies Aériennes"
+
+msgid "وجهة عالمية"
+msgstr "Destinations Internationales"
+
+msgid "دعم العملاء"
+msgstr "Support Client"
+
+msgid "أسعار مضمونة"
+msgstr "Prix Garantis"
+
+msgid "دفع آمن"
+msgstr "Paiement Sécurisé"
+
+msgid "شامل لجميع الدول"
+msgstr "Couverture Mondiale"
+
+msgid "حجز فوري"
+msgstr "Réservation Instantanée"
+
+msgid "وجهات عالمية"
+msgstr "Destinations Globales"
+
+msgid "من الجزائر إلى أي مكان في العالم"
+msgstr "D'Algérie vers partout dans le monde"
+
+msgid "جميع الدرجات"
+msgstr "Toutes les Classes"
+
+msgid "اقتصادية · أعمال · أولى"
+msgstr "Économique · Affaires · Première"
+
+msgid "تفاصيل الأمتعة"
+msgstr "Détails des Bagages"
+
+msgid "الوزن المسموح به لكل رحلة"
+msgstr "Poids autorisé par vol"
+
+msgid ""
+"في أبومنية نسعد بتقديم أميز الخدمات التي تلبي طموحكم وعروض دورية خاصة "
+"للعملاء"
+msgstr ""
+"Chez Abu Monya, nous sommes ravis de fournir les services les plus "
+"distingués qui répondent à vos ambitions, avec des offres périodiques "
+"spéciales."
+
+msgid "سياحة علاجية"
+msgstr "Tourisme Médical"
+
+msgid ""
+"نقوم بتقديم كافة الحلول الخاصة بالسياحة العلاجية وخدمات طبية عالمية المستوى،"
+" يقوم موظفي السياحة العلاجية في أبومنية بتقديم خيارات عديدة للعلاج بالخارج "
+"بجودة عالية وأسعار تنافسية."
+msgstr ""
+"Nous fournissons des solutions complètes de tourisme médical de norme "
+"mondiale; notre personnel offre de multiples options de haute qualité pour "
+"les traitements à l'étranger."
+
+msgid "سياحة عالمية"
+msgstr "Tourisme Mondial"
+
+msgid ""
+"أكتشف العالم عبر الرحلات السياحية.. نحن نقدم لكم عروض وباقات سياحية متكاملة "
+"وبأسعار هي الافضل حسب ميزانيتك وبخدمة عالية الجودة. نقوم بتأمين حجوزات مكان "
+"الاقامة للأفراد والعائلات والمجموعات السياحية حسب رغبة العميل."
+msgstr ""
+"Découvrez le monde à travers des voyages.. Nous offrons des forfaits "
+"intégrés aux meilleurs prix avec un service de haute qualité. Nous assurons "
+"les réservations d'hébergement pour individus, familles et groupes selon les"
+" souhaits du client."
+
+msgid "سياحة محلية"
+msgstr "Tourisme Local"
+
+msgid ""
+"يزخر السودان بالكثير من المناطق السياحية المحلية كوجهة سياحية أصيلة ومثيرة "
+"ومميزة... من خلال قسم السياحة في وكالة أبومنية نقوم بتقديم بكجات وجولات "
+"سياحية مختلفة."
+msgstr ""
+"Le Soudan regorge de nombreuses zones touristiques agissant comme une "
+"destination authentique et distinctive... À travers le département du "
+"tourisme, nous offrons divers forfaits et excursions."
+
+msgid "سفر داخلي وعالمي"
+msgstr "Voyage National & International"
+
+msgid ""
+"نقوم بتصميم رحلتك بما يتناسب رؤيتك بأسعار تنافسية وفريق عمل مؤهل لخدمتك.. "
+"نقوم بإصدار التذاكر الجوية الداخلية والعالمية حيث نالت الوكالة عضوية الاياتا"
+" وأصبحت مؤهلة لإصدار التذاكر الجوية على جميع الخطوط المنضوية تحت نظام "
+"الاياتا والبي اس بي."
+msgstr ""
+"Nous concevons votre vol selon votre vision à des prix compétitifs avec une "
+"équipe qualifiée. Nous émettons des billets nationaux et internationaux en "
+"tant qu'agence IATA accréditée, qualifiée pour émettre des billets via le "
+"système BSP."
+
+msgid "تذاكر بصات"
+msgstr "Billets de Bus"
+
+msgid ""
+"نقدم خدمات النقل البري الداخلي والخارجي عبر أكبر شركات الميناء البري حيث "
+"نوفر أحدث موديلات البصات السفرية الشحن البري."
+msgstr ""
+"Nous offrons des services de transport terrestre par le biais des plus "
+"grandes compagnies de gares routières, en fournissant les derniers modèles "
+"de bus de voyage."
+
+msgid "تذاكر طيران"
+msgstr "Billets d'Avion"
+
+msgid ""
+"حلق معنا حول العالم...خيارات أكثر ومتنوعة عبر شركات خطوط الطيران العالمية. "
+"صمم رحلتك إلكترونيا وقدم طلب عبر نافذه احجز الآن."
+msgstr ""
+"Volez avec nous autour du monde... Des options variées via les compagnies "
+"aériennes mondiales. Concevez votre voyage par voie électronique et achetez "
+"vis la fenêtre Réserver."
+
+msgid "حج وعمرة"
+msgstr "Hajj et Omra"
+
+msgid ""
+"خدمتهم شرف لنا 😊 نقدم عروض العمره لزوار وضيوف الرحمن.. تفويج وفود و حجز "
+"فندقي للحج والعمره بأسعار تناسب الجميع. وخدمات خاصة لكبار الزوار وخدماتنا هي"
+" الأفضل بإذن الله....VIP وأسعارنا هي الأنسب."
+msgstr ""
+"Les servir est notre honneur 😊 Nous offrons des forfaits Omra pour les "
+"visiteurs.. Répartition des délégations et réservation d'hôtels pour Hajj et"
+" Omra à des prix convenant à tous. Services VIP spéciaux.. nos services sont"
+" les meilleurs si Dieu le veut, avec les prix les plus adaptés."
+
+msgid "تأشيرات"
+msgstr "Visas"
+
+msgid ""
+"تتيح هذه الخدمة إمكانية تقديم وإدارة المعاملات الخاصة بالتأشيرات وإجراءات "
+"الجوازات والإقامات لجميع السفارات بكل سهولة وكفائة."
+msgstr ""
+"Ce service permet la soumission et la gestion des transactions liées aux "
+"visas, procédures de passeport et résidences pour toutes les ambassades avec"
+" facilité et efficacité."
+
+msgid "وكالة أبو منية — ابحث عن رحلتك"
+msgstr "Agence Abu Monya — Recherchez votre vol"
+
+msgid "أكثر من 10,000 مسار جوي"
+msgstr "Plus de 10 000 itinéraires de vol"
+
+msgid "شركاؤنا من شركات الطيران"
+msgstr "Nos Compagnies Aériennes Partenaires"
+
+msgid "أبرز الوجهات ✈"
+msgstr "Destinations Principales ✈"
+
+msgid "الوجهات الأكثر طلباً هذا الموسم"
+msgstr "Les destinations les plus demandées cette saison"
+
+msgid "عروض متاحة"
+msgstr "Offres disponibles"
+
+msgid "لماذا تختار وكالة <span class=\"gold\">أبو منية</span>؟"
+msgstr "Pourquoi choisir l'agence <span class=\"gold\">Abu Monya</span>?"
+
+msgid "نتائج فورية"
+msgstr "Résultats Instantanés"
+
+msgid "آلاف العروض في الوقت الفعلي بفضل واجهة Duffel API المتقدمة."
+msgstr "Des milliers d'offres en temps réel grâce à l'API avancée de Duffel."
+
+msgid "بحث ذكي بالعربية"
+msgstr "Recherche Intelligente en Arabe"
+
+msgid "ابحث بالعربية أو الإنجليزية — النظام يترجم تلقائياً."
+msgstr ""
+"Recherchez en arabe ou en anglais — le système traduit automatiquement."
+
+msgid "أنشئ رحلات ذهاباً وإياباً أو متعددة الوجهات بسهولة."
+msgstr "Créez facilement des vols aller-retour ou multi-destinations."
+
+msgid "عملات متعددة"
+msgstr "Devises Multiples"
+
+msgid "اعرض الأسعار بالدولار الأمريكي أو الجنيه السوداني بضغطة واحدة."
+msgstr ""
+"Affichez les prix en dollars américains ou en livres soudanaises en un clic."
+
+msgid "وكالة <span style=\"color:#f7bc35;\">أبو منية</span> للسفر والسياحة"
+msgstr "Agence de Voyages <span style=\"color:#f7bc35;\">Abu Monya</span>"
+
+msgid ""
+"بدعم من <a href=\"https://duffel.com\" target=\"_blank\" "
+"style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — "
+"جميع الحقوق محفوظة لوكالة أبو منية"
+msgstr ""
+"Propulsé par <a href=\"https://duffel.com\" target=\"_blank\" "
+"style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — "
+"Tous droits réservés à l'Agence Abu Monya"
+
+msgid "القاهرة"
+msgstr "Le Caire"
+
+msgid "🇪🇬 مصر"
+msgstr "🇪🇬 Égypte"
+
+msgid "CAI · أهرامات الجيزة"
+msgstr "CAI · Pyramides de Gizeh"
+
+msgid "باريس"
+msgstr "Paris"
+
+msgid "🇫🇷 فرنسا"
+msgstr "🇫🇷 France"
+
+msgid "CDG · برج إيفل"
+msgstr "CDG · Tour Eiffel"
+
+msgid "دبي"
+msgstr "Dubaï"
+
+msgid "🇦🇪 الإمارات"
+msgstr "🇦🇪 EAU"
+
+msgid "DXB · برج خليفة"
+msgstr "DXB · Burj Khalifa"
+
+msgid "إسطنبول"
+msgstr "Istanbul"
+
+msgid "🇹🇷 تركيا"
+msgstr "🇹🇷 Turquie"
+
+msgid "IST · المسجد الأزرق"
+msgstr "IST · Mosquée Bleue"
+
+msgid "لندن"
+msgstr "Londres"
+
+msgid "🇬🇧 المملكة المتحدة"
+msgstr "🇬🇧 Royaume-Uni"
+
+msgid "LHR · بيغ بن"
+msgstr "LHR · Big Ben"
+
+msgid "روما"
+msgstr "Rome"
+
+msgid "🇮🇹 إيطاليا"
+msgstr "🇮🇹 Italie"
+
+msgid "FCO · الكولوسيوم"
+msgstr "FCO · Colisée"
+
+msgid "الدوحة"
+msgstr "Doha"
+
+msgid "🇶🇦 قطر"
+msgstr "🇶🇦 Qatar"
+
+msgid "DOH · أفق المدينة"
+msgstr "DOH · Skyline de la Ville"
+
+msgid "مدريد"
+msgstr "Madrid"
+
+msgid "🇪🇸 إسبانيا"
+msgstr "🇪🇸 Espagne"
+
+msgid "MAD · القصر الملكي"
+msgstr "MAD · Palais Royal"
+
+msgid "مراكش"
+msgstr "Marrakech"
+
+msgid "🇲🇦 المغرب"
+msgstr "🇲🇦 Maroc"
+
+msgid "CMN · المدينة العتيقة"
+msgstr "CMN · Médina"
+
+msgid "نيويورك"
+msgstr "New York"
+
+msgid "🇺🇸 الولايات المتحدة"
+msgstr "🇺🇸 États-Unis"
+
+msgid "JFK · مانهاتن"
+msgstr "JFK · Manhattan"
+
+msgid "طوكيو"
+msgstr "Tokyo"
+
+msgid "🇯🇵 اليابان"
+msgstr "🇯🇵 Japon"
+
+msgid "NRT · برج طوكيو"
+msgstr "NRT · Tour de Tokyo"
+
+msgid "برشلونة"
+msgstr "Barcelone"
+
+msgid "BCN · ساغرادا فاميليا"
+msgstr "BCN · Sagrada Familia"
+
+msgid "أمستردام"
+msgstr "Amsterdam"
+
+msgid "🇳🇱 هولندا"
+msgstr "🇳🇱 Pays-Bas"
+
+msgid "AMS · القنوات التاريخية"
+msgstr "AMS · Canaux Historiques"
+
+msgid "الرياض"
+msgstr "Riyad"
+
+msgid "🇸🇦 السعودية"
+msgstr "🇸🇦 Arabie Saoudite"
+
+msgid "RUH · المملكة العربية"
+msgstr "RUH · Royaume Saoudien"
+
+msgid "أديس أبابا"
+msgstr "Addis-Abeba"
+
+msgid "🇪🇹 إثيوبيا"
+msgstr "🇪🇹 Éthiopie"
+
+msgid "ADD · القلب الأفريقي"
+msgstr "ADD · Le Cœur Africain"
+
+msgid "الكويت"
+msgstr "Koweït"
+
+msgid "🇰🇼 الكويت"
+msgstr "🇰🇼 Koweït"
+
+msgid "KWI · أبراج الكويت"
+msgstr "KWI · Tours de Koweït"
+
+msgid "سنغافورة"
+msgstr "Singapour"
+
+msgid "🇸🇬 سنغافورة"
+msgstr "🇸🇬 Singapour"
+
+msgid "SIN · مارينا باي"
+msgstr "SIN · Marina Bay"
+
+msgid "كوالالمبور"
+msgstr "Kuala Lumpur"
+
+msgid "🇲🇾 ماليزيا"
+msgstr "🇲🇾 Malaisie"
+
+msgid "KUL · برجا بتروناس"
+msgstr "KUL · Tours Jumelles Petronas"
+
+msgid "بانكوك"
+msgstr "Bangkok"
+
+msgid "🇹🇭 تايلاند"
+msgstr "🇹🇭 Thaïlande"
+
+msgid "BKK · وات أرون"
+msgstr "BKK · Wat Arun"
+
+msgid "جدة"
+msgstr "Djeddah"
+
+msgid "JED · نافورة الملك فهد"
+msgstr "JED · Fontaine du roi Fahd"
+
+msgid "عمّان"
+msgstr "Amman"
+
+msgid "🇯🇴 الأردن"
+msgstr "🇯🇴 Jordanie"
+
+msgid "AMM · المدرج الروماني"
+msgstr "AMM · Théâtre Romain"

@@ -1,0 +1,116 @@
+{% load i18n %}
+    <form action="{% url 'vols:search_results' %}" method="post" class="search-card" id="searchForm">
+      {% csrf_token %}
+
+      <!-- Trip Type Selector -->
+      <div class="trip-type-selector">
+        <label class="radio-tab">
+          <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %}>
+          <span>{% trans "ذهاب فقط" %}</span>
+        </label>
+        <label class="radio-tab">
+          <input type="radio" name="trip_type" value="roundtrip" {% if search.trip_type == 'roundtrip' %}checked{% endif %}>
+          <span>{% trans "ذهاب وعودة" %}</span>
+        </label>
+        <label class="radio-tab">
+          <input type="radio" name="trip_type" value="multicity" {% if search.trip_type == 'multicity' %}checked{% endif %}>
+          <span>{% trans "وجهات متعددة" %}</span>
+        </label>
+      </div>
+
+      <!-- Slices Container (Dynamic) -->
+      <div id="slices-container">
+        <!-- Slice 0 (Always present) -->
+        <div class="slice-row search-grid" id="slice_0">
+          
+          <div class="form-field autocomplete-wrapper">
+            <label class="field-label">{% trans "المغادرة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">🛫</span>
+              <input type="text" name="origin_0" id="origin_0" placeholder="{% trans 'مثل: باريس، LHR، JFK' %}" required class="field-input autocomplete-input" autocomplete="off" value="{{ search.slices.0.origin|default:'' }}">
+            </div>
+            <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
+          </div>
+
+          <button type="button" class="swap-btn" id="swapBtn_0" title="Invertir">⇄</button>
+
+          <div class="form-field autocomplete-wrapper">
+            <label class="field-label">{% trans "الوجهة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">🛬</span>
+              <input type="text" name="destination_0" id="destination_0" placeholder="{% trans 'مثل: لندن، DXB' %}" required class="field-input autocomplete-input" autocomplete="off" value="{{ search.slices.0.destination|default:'' }}">
+            </div>
+            <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">{% trans "تاريخ (الذهاب)" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">📅</span>
+              <input type="date" name="departure_date_0" id="departure_date_0" required class="field-input date-input" value="{{ search.slices.0.departure_date|default:'' }}">
+            </div>
+          </div>
+
+          <!-- Return Date (Hidden by default, shown for Round-trip) -->
+          <div class="form-field" id="return_date_wrapper" style="display: none;">
+            <label class="field-label">{% trans "تاريخ (العودة)" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">📅</span>
+              <input type="date" name="return_date" id="return_date" class="field-input date-input" value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Add Flight Button (Hidden by default, shown for Multi-city) -->
+      <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display: none; margin-bottom: 24px;">
+        + {% trans "إضافة رحلة" %}
+      </button>
+
+      <hr class="form-divider">
+
+      <!-- Passengers & Cabin -->
+      <div class="search-grid search-bottom">
+        <div class="form-field">
+          <label class="field-label">{% trans "المسافرون" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">👤</span>
+            <select name="passengers" class="field-input">
+              <option value="1" {% if search.passengers == '1' %}selected{% endif %}>{% trans "بالغ واحد" %}</option>
+              <option value="2" {% if search.passengers == '2' %}selected{% endif %}>{% trans "بالغان" %}</option>
+              <option value="3" {% if search.passengers == '3' %}selected{% endif %}>{% trans "3 بالغين" %}</option>
+              <option value="4" {% if search.passengers == '4' %}selected{% endif %}>{% trans "4 بالغين" %}</option>
+              <option value="5" {% if search.passengers == '5' %}selected{% endif %}>{% trans "5 بالغين" %}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">{% trans "الدرجة" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">💺</span>
+            <select name="cabin_class" class="field-input">
+              <option value="economy" {% if search.cabin_class == 'economy' %}selected{% endif %}>{% trans "سياحية" %}</option>
+              <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
+              <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
+              <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field" style="display:flex; align-items:center;  padding-top:1.5rem;">
+          <label class="checkbox-container" style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:bold; color:var(--text-dark);">
+            <input type="checkbox" name="add_hotel" value="yes" style="width:20px; height:20px; accent-color:var(--gold);" {% if search.add_hotel %}checked{% endif %}>
+            🏨 {% trans "أضف فندقاً لرحلتي" %}
+          </label>
+        </div>
+        
+        <div class="form-actions-submit">
+            <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
+                <span class="btn-text">🔍 {% trans "ابحث عن رحلات" %}</span>
+                <span class="btn-loader" style="display: none">⏳ {% trans "جاري البحث..." %}</span>
+            </button>
+        </div>
+      </div>
+    </form>
