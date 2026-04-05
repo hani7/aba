@@ -114,7 +114,7 @@ class HotelBooking(models.Model):
         ('cancelled', 'Annulé'),
     ]
     status     = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    agoda_ref  = models.CharField(max_length=100, blank=True)
+    partner_ref= models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -10,6 +10,654 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "جميع المطارات"
+msgstr "Tous les aéroports"
+
+msgid "آخر موعد دفع"
+msgstr "Date limite de paiement"
+
+msgid "أحمد"
+msgstr "Ahmed"
+
+msgid "أداء ومقاييس الموقع"
+msgstr "Performances et métriques du site"
+
+msgid "أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز"
+msgstr ""
+"Envoyez le reçu de virement via WhatsApp dès son achèvement pour confirmer "
+"la réservation"
+
+msgid "أرقام"
+msgstr "Nombres"
+
+msgid "أسعار شاملة مع هامش ربح وكالة أبو منية"
+msgstr "Prix TTC incluant la marge de l'agence Abu Monya"
+
+msgid "أفضل الفنادق في"
+msgstr "Meilleurs hôtels à"
+
+msgid "أنثى"
+msgstr "Femme"
+
+msgid "أهلاً بعودتك! سجّل دخولك لعرض حجوزاتك"
+msgstr "Bon retour ! Connectez-vous pour voir vos réservations"
+
+msgid "أهم المرافق"
+msgstr "Principaux équipements"
+
+msgid "إتمام الحجز"
+msgstr "Finaliser la réservation"
+
+msgid "إرسال"
+msgstr "Envoyer"
+
+msgid "إلغاء"
+msgstr "Annuler"
+
+msgid "إنشاء الحساب"
+msgstr "Créer un compte"
+
+msgid "إنشاء حساب"
+msgstr "Créer un compte"
+
+msgid "إنشاء حساب جديد"
+msgstr "Créer un nouveau compte"
+
+msgid "إنشاء حساب مجاني"
+msgstr "Créer un compte gratuit"
+
+msgid "إيرادات"
+msgstr "Revenus"
+
+msgid "إيميل"
+msgstr "Email"
+
+msgid "ابحث عن رحلة"
+msgstr "Rechercher un vol"
+
+msgid "ابحث عن فندق لهذه الرحلة"
+msgstr "Rechercher un hôtel pour ce voyage"
+
+msgid "احجز رحلاتك بأفضل الأسعار مع وكالة أبو منية، بدعم من"
+msgstr ""
+"Réservez vos vols aux meilleurs prix avec l'Agence Abu Monya, propulsé par"
+
+msgid "احجز فندقك الآن بسهولة"
+msgstr "Réservez votre hôtel facilement dès maintenant"
+
+msgid "احمد فاروق"
+msgstr "Ahmed Farouq"
+
+msgid "اختر غرفتك"
+msgstr "Choisissez votre chambre"
+
+msgid "استرداد قبل المغادرة"
+msgstr "Remboursement avant le départ"
+
+msgid "استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية"
+msgstr ""
+"Profitez des meilleures installations et d'un service répondant aux plus "
+"hautes normes mondiales"
+
+msgid "اسم الحساب"
+msgstr "Nom du compte"
+
+msgid "اسم الضيف"
+msgstr "Nom de l'invité"
+
+msgid "اسم العائلة"
+msgstr "Nom de famille"
+
+msgid "اسم العائلة (باللغة الإنجليزية"
+msgstr "Nom de famille (en anglais"
+
+msgid "اسم العميل"
+msgstr "Nom du client"
+
+msgid "اسم المستخدم"
+msgstr "Nom d'utilisateur"
+
+msgid "اسم المستخدم أو كلمة المرور غير صحيحة"
+msgstr "Nom d'utilisateur ou mot de passe incorrect"
+
+msgid "اكتشف أجمل الفنادق لرحلتك"
+msgstr "Découvrez les meilleurs hôtels pour votre voyage"
+
+msgid "الأعلى إلى الأقل"
+msgstr "Du plus haut au plus bas"
+
+msgid "الأقل إلى الأعلى"
+msgstr "Du plus bas au plus haut"
+
+msgid "الإجراءات"
+msgstr "Actions"
+
+msgid "الإيرادات الإجمالية"
+msgstr "Revenus totaux"
+
+msgid "الاسم الأول"
+msgstr "Prénom"
+
+msgid "الاسم الأول (باللغة الإنجليزية كما في الجواز"
+msgstr "Prénom (en anglais comme sur le passeport"
+
+msgid "الاسم الكامل (كما في جواز السفر"
+msgstr "Nom complet (comme sur le passeport"
+
+msgid "البريد الإلكتروني"
+msgstr "Adresse e-mail"
+
+msgid "البنك"
+msgstr "Banque"
+
+msgid "التحويل لبوابة الدفع"
+msgstr "Redirection vers la passerelle de paiement"
+
+msgid "التذكرة"
+msgstr "Billet"
+
+msgid "التواريخ"
+msgstr "Dates"
+
+msgid "الجنس"
+msgstr "Sexe"
+
+msgid "الحالة"
+msgstr "Statut"
+
+msgid "الحجوزات"
+msgstr "Réservations"
+
+msgid "الحجوزات والإلغاءات"
+msgstr "Réservations et annulations"
+
+msgid "الربح الصافي"
+msgstr "Bénéfice net"
+
+msgid "السعر الإجمالي"
+msgstr "Prix total"
+
+msgid "السعر لـ"
+msgstr "Prix pour"
+
+msgid "الشركة"
+msgstr "Compagnie"
+
+msgid "العملاء الفريدون"
+msgstr "Clients uniques"
+
+msgid "العودة إلى التسجيل"
+msgstr "Retour à l'inscription"
+
+msgid "العودة إلى العروض"
+msgstr "Retour aux offres"
+
+msgid "العودة إلى نتائج البحث"
+msgstr "Retour aux résultats de recherche"
+
+msgid "العودة للموقع"
+msgstr "Retour au site"
+
+msgid "الغرف المتاحة"
+msgstr "Chambres disponibles"
+
+msgid "الفئة"
+msgstr "Catégorie"
+
+msgid "المبلغ"
+msgstr "Montant"
+
+msgid "المبلغ المستحق"
+msgstr "Montant dû"
+
+msgid "المبلغ المستحق للدفع"
+msgstr "Montant dû pour le paiement"
+
+msgid "المتابعة للدفع الآمن"
+msgstr "Passer au paiement sécurisé"
+
+msgid "المجموع الفرعي"
+msgstr "Sous-total"
+
+msgid "المرجع"
+msgstr "Référence"
+
+msgid "المسار"
+msgstr "Itinéraire"
+
+msgid "المسافة"
+msgstr "Distance"
+
+msgid "المسافرون والزوار الدائمون"
+msgstr "Passagers fréquents et visiteurs"
+
+msgid "المقترح"
+msgstr "Suggéré"
+
+msgid "الهوية مطلوبة"
+msgstr "Pièce d'identité requise"
+
+msgid "انضم إلى آلاف المسافرين واحجز رحلتك بكل سهولة"
+msgstr ""
+"Rejoignez des milliers de voyageurs et réservez votre voyage en toute "
+"simplicité"
+
+msgid "بحث جديد"
+msgstr "Nouvelle recherche"
+
+msgid "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة"
+msgstr ""
+"Basé sur votre sélection, nous avons trouvé de superbes options "
+"d'hébergement pour vous"
+
+msgid "بنك الخليج الدولي"
+msgstr "Banque Internationale du Golfe"
+
+msgid "بوابة الدفع لإتمام الحجز الخاصة بوكالة أبو منية"
+msgstr "Passerelle de paiement de réservation de l'Agence Abu Monya"
+
+msgid "بوابة الدفع والإيداع"
+msgstr "Passerelle de paiement et de dépôt"
+
+msgid "تأكيد"
+msgstr "Confirmer"
+
+msgid "تأكيد البريد الإلكتروني"
+msgstr "Vérifier l'e-mail"
+
+msgid "تأكيد الحجز"
+msgstr "Confirmation de réservation"
+
+msgid "تأكيد كلمة المرور"
+msgstr "Confirmer le mot de passe"
+
+msgid "تأكيد والمتابعة للدفع"
+msgstr "Confirmer et procéder au paiement"
+
+msgid "تاريخ الطلب"
+msgstr "Date de commande"
+
+msgid "تاريخ الميلاد"
+msgstr "Date de naissance"
+
+msgid "تحويل بنكي أو إيداع نقدي"
+msgstr "Virement bancaire ou dépôt d'espèces"
+
+msgid "تذكرة رحلتك"
+msgstr "Votre billet de vol"
+
+msgid "ترتيب حسب السعر"
+msgstr "Trier par prix"
+
+msgid "تسجيل الدخول"
+msgstr "Connexion"
+
+msgid "تسجيل الدخول للإدارة"
+msgstr "Connexion Admin"
+
+msgid "تسجيل خروج"
+msgstr "Déconnexion"
+
+msgid "تشغيل"
+msgstr "Opéré par"
+
+msgid "تشمل هامش خدمة الوكالة"
+msgstr "Inclut la marge de service de l'agence"
+
+msgid "تعديل"
+msgstr "Modifier"
+
+msgid "تغيير قبل المغادرة"
+msgstr "Changement avant le départ"
+
+msgid "تفاصيل الرحلة"
+msgstr "Détails du vol"
+
+msgid "تفعيل الحساب"
+msgstr "Activer le compte"
+
+msgid "تقييم"
+msgstr "Évaluation"
+
+msgid "تكييف"
+msgstr "Climatisation"
+
+msgid "تم الإلغاء بنجاح"
+msgstr "Annulé avec succès"
+
+msgid ""
+"تم تأكيد حجزك وإصدار تذاكر الطيران، ويمكنك استخدام الرقم المرجعي أعلاه في "
+"المطار"
+msgstr ""
+"Votre réservation est confirmée et les billets émis. Vous pouvez utiliser le"
+" numéro de référence ci-dessus à l'aéroport"
+
+msgid "تم تسجيل حجزك المبدئي بنجاح برقم"
+msgstr ""
+"Votre réservation préliminaire a été enregistrée avec succès sous le numéro"
+
+msgid "تمت عملية الدفع الإلكتروني بنجاح"
+msgstr "Paiement électronique effectué avec succès"
+
+msgid "توفر محدود"
+msgstr "Disponibilité limitée"
+
+msgid "توقف"
+msgstr "Escale"
+
+msgid "جاري استرداد رحلات الطيران"
+msgstr "Récupération des vols en cours..."
+
+msgid "جاري التحميل"
+msgstr "Chargement..."
+
+msgid "جرب تواريخ أو مدن أخرى أو اعكس الوجهات"
+msgstr "Essayez d'autres dates ou villes, ou inversez les destinations"
+
+msgid "جميع الرحلات"
+msgstr "Tous les vols"
+
+msgid "جميع الشركات"
+msgstr "Toutes les compagnies"
+
+msgid "جيد"
+msgstr "Bon"
+
+msgid "جيد جداً"
+msgstr "Très bien"
+
+msgid "حجز رحلات الطيران"
+msgstr "Réservation de vol"
+
+msgid "حجوزات الفنادق السابقة"
+msgstr "Anciennes réservations d'hôtels"
+
+msgid "حجوزاتي"
+msgstr "Mes réservations"
+
+msgid "حسابي"
+msgstr "Mon compte"
+
+msgid "حسب اختيارك"
+msgstr "Selon votre choix"
+
+msgid "حفظ التذكرة"
+msgstr "Enregistrer le billet"
+
+msgid "خدمة الغرف"
+msgstr "Service d'étage"
+
+msgid "خطأ في السيرفر"
+msgstr "Erreur du serveur"
+
+msgid "دخول"
+msgstr "Entrer"
+
+msgid "ذكر"
+msgstr "Homme"
+
+msgid "رحلات كحد أقصى"
+msgstr "vols maximum"
+
+msgid "رحلة جديدة"
+msgstr "Nouveau Vol"
+
+msgid "رقم الايبان"
+msgstr "Numéro IBAN"
+
+msgid "رقم الحجز"
+msgstr "Numéro de réservation"
+
+msgid "رقم الحساب"
+msgstr "Numéro de compte"
+
+msgid "رقم الهاتف"
+msgstr "Numéro de téléphone"
+
+msgid "رقم الهاتف (مع رمز الدولة"
+msgstr "Numéro de téléphone (avec indicatif"
+
+msgid "رقم جواز السفر"
+msgstr "Numéro de passeport"
+
+msgid "رمز التفعيل"
+msgstr "Code d'activation"
+
+msgid "سأقوم بالتحويل البنكي"
+msgstr "Je ferai un virement bancaire"
+
+msgid "شروط التذكرة"
+msgstr "Conditions du billet"
+
+msgid "طائرة"
+msgstr "Appareil"
+
+msgid "عادي"
+msgstr "Normal"
+
+msgid "عدد الأشخاص (الحد الأقصى"
+msgstr "Nombre de personnes (Max"
+
+msgid "عدد التوقفات"
+msgstr "Nombre d'escales"
+
+msgid "عدد الحجوزات"
+msgstr "Nombre de réservations"
+
+msgid "عدد الغرف"
+msgstr "Nombre de chambres"
+
+msgid "عرض التفاصيل وتحميل التذكرة"
+msgstr "Voir les détails et télécharger le billet"
+
+msgid "عرض/عروض وُجدت"
+msgstr "offre(s) trouvée(s)"
+
+msgid "عن الفندق"
+msgstr "À propos de l'hôtel"
+
+msgid "غير متوفر"
+msgstr "Non disponible"
+
+msgid "غير مسموح"
+msgstr "Non autorisé"
+
+msgid "فتح"
+msgstr "Ouvrir"
+
+msgid "فندق متاح"
+msgstr "hôtel disponible"
+
+msgid "قاعدة العملاء"
+msgstr "Base de clients"
+
+msgid "قطعة"
+msgstr "pièce"
+
+msgid ""
+"قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب "
+"لتأكيد حجزك"
+msgstr ""
+"Transférez le montant sur l'un de nos comptes et envoyez le reçu via "
+"WhatsApp pour confirmer"
+
+msgid "كلمة المرور"
+msgstr "Mot de passe"
+
+msgid "لا توجد تفاصيل معدات"
+msgstr "Aucun détail d'équipement"
+
+msgid "لا توجد حجوزات"
+msgstr "Aucune réservation trouvée"
+
+msgid "لا توجد رحلات متاحة"
+msgstr "Aucun vol disponible"
+
+msgid "لا توجد غرف متاحة لهذا الفندق للتواريخ المحددة"
+msgstr "Aucune chambre disponible pour cet hôtel aux dates sélectionnées"
+
+msgid "لا توجد فنادق متاحة"
+msgstr "Aucun hôtel disponible"
+
+msgid "لا توجد نتائج"
+msgstr "Aucun résultat trouvé"
+
+msgid "لتحميل التذكرة"
+msgstr "Pour télécharger le billet"
+
+msgid "لديك حساب بالفعل؟"
+msgstr "Vous avez déjà un compte ?"
+
+msgid "لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني"
+msgstr "Nous avons envoyé un code d'activation à votre e-mail"
+
+msgid "للإجمالي"
+msgstr "pour le total"
+
+msgid "للتواريخ المحددة"
+msgstr "pour les dates sélectionnées"
+
+msgid "لم نتمكن من العثور على فنادق في"
+msgstr "Nous n'avons trouvé aucun hôtel à"
+
+msgid "لم يتم العثور على أي عروض لهذا البحث المعقد"
+msgstr "Aucune offre trouvée pour cette recherche"
+
+msgid "لوحة تحكم إدارة الرحلات"
+msgstr "Tableau de bord de gestion des vols"
+
+msgid "ليالي"
+msgstr "nuits"
+
+msgid "ليس لديك أي حجوزات في الوقت الحالي"
+msgstr "Vous n'avez pas de réservations pour le moment"
+
+msgid "ليس لديك حجوزات فنادق حالياً"
+msgstr "Vous n'avez aucune réservation d'hôtel actuelle"
+
+msgid "ليس لديك حساب؟"
+msgstr "Vous n'avez pas de compte ?"
+
+msgid "ليلة"
+msgstr "nuit"
+
+msgid "مؤكد"
+msgstr "Confirmé"
+
+msgid "مباشر"
+msgstr "Direct"
+
+msgid "مبنى"
+msgstr "Terminal"
+
+msgid "مثال"
+msgstr "Exemple"
+
+msgid "محطة توقف (تغيير طائرة في"
+msgstr "Escale (changement d'avion à"
+
+msgid "محطة واحدة"
+msgstr "1 Escale"
+
+msgid "محطتان أو أكثر"
+msgstr "2+ Escales"
+
+msgid "محمد"
+msgstr "Mohammed"
+
+msgid "مرحباً"
+msgstr "Bienvenue"
+
+msgid "مسبح"
+msgstr "Piscine"
+
+msgid "معلومات المسافر"
+msgstr "Informations du passager"
+
+msgid "معلومات المسافر(ين"
+msgstr "Informations des passagers"
+
+msgid "مقاعد متاحة"
+msgstr "Sièges disponibles"
+
+msgid "مقبول"
+msgstr "Acceptable"
+
+msgid "ملخص الرحلة"
+msgstr "Résumé du vol"
+
+msgid "ملغى"
+msgstr "Annulé"
+
+msgid "نتائج البحث"
+msgstr "Résultats de recherche"
+
+msgid "نتمنى لكم رحلة سعيدة"
+msgstr "Nous vous souhaitons un agréable vol"
+
+msgid "نظرة عامة"
+msgstr "Aperçu"
+
+msgid "نوع السرير"
+msgstr "Type de lit"
+
+msgid "هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى"
+msgstr "Voulez-vous vraiment annuler définitivement ce vol chez"
+
+msgid "واي فاي مجاني"
+msgstr "Wi-Fi gratuit"
+
+msgid "يجب كتابة الاسم بحروف إنجليزية فقط"
+msgstr "Le nom doit être écrit en caractères anglais uniquement"
+
+msgid "يرجى إتمام التحويل البنكي لتفعيل تذكرتك"
+msgstr "Veuillez effectuer le virement bancaire pour activer votre billet"
+
+msgid "يرجى إتمام عملية الدفع لإصدار التذاكر الإلكترونية"
+msgstr "Veuillez finaliser le paiement pour émettre les billets électroniques"
+
+msgid "يرجى إدخال بيانات الضيف الأساسي لتأكيد الحجز"
+msgstr "Veuillez entrer les détails de l'invité principal pour confirmer"
+
+msgid "يرجى تسجيل الدخول أولاً للوصول إلى هذه الصفحة"
+msgstr "Veuillez vous connecter pour accéder à cette page"
+
+msgid "يرجى تصحيح الأخطاء أدناه"
+msgstr "Veuillez corriger les erreurs ci-dessous"
+
+msgid "يرجى ملء جميع الحقول المطلوبة"
+msgstr "Veuillez remplir tous les champs obligatoires"
+
+msgid "يسعدنا إرسال رابط تذكرتكم"
+msgstr "Nous sommes heureux d'envoyer le lien de votre billet"
+
+msgid "يسعدنا في وكالة أبو منية إرسال تذكرتكم الإلكترونية لرحلة"
+msgstr ""
+"L'agence Abu Monya est heureuse d'envoyer votre billet électronique pour le "
+"vol"
+
+msgid "يظهر السعر بعملة"
+msgstr "Le prix est affiché en"
+
+msgid ""
+"يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات "
+"المتميزة لضمان إقامة لا تُنسى"
+msgstr ""
+"Cet hôtel prestigieux est stratégiquement situé, offrant confort et "
+"excellents services pour un séjour inoubliable"
+
+msgid "يمكنك تغييرها من الشريط العلوي"
+msgstr "Vous pouvez le changer dans la barre supérieure"
+
+msgid "يُسمح بـ"
+msgstr "Autorisé"
+
+msgid "(غرامة"
+msgstr "(Pénalité"
+
+msgid "(واتساب"
+msgstr "(WhatsApp"
+
 msgid "وكالة"
 msgstr "Agence"
 

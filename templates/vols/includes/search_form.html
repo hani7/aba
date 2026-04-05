@@ -99,17 +99,10 @@
           </div>
         </div>
 
-        <div class="form-field" style="display:flex; align-items:center;  padding-top:1.5rem;">
-          <label class="checkbox-container" style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:bold; color:var(--text-dark);">
-            <input type="checkbox" name="add_hotel" value="yes" style="width:20px; height:20px; accent-color:var(--gold);" {% if search.add_hotel %}checked{% endif %}>
-            🏨 {% trans "أضف فندقاً لرحلتي" %}
-          </label>
-        </div>
-        
+
         <div class="form-actions-submit">
             <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
-                <span class="btn-text">🔍 {% trans "ابحث عن رحلات" %}</span>
-                <span class="btn-loader" style="display: none">⏳ {% trans "جاري البحث..." %}</span>
+                🔍 {% trans "ابحث عن رحلات" %}
             </button>
         </div>
       </div>

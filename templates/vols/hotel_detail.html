@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}{{ hotel.hotelName }} — وكالة أبو منية{% endblock %}
+{% block title %}{{ hotel.hotelName }} — {% trans "وكالة أبو منية" %}{% endblock %}
 
 {% block content %}
 <div class="hotel-detail-container container" style="margin-top:2rem; margin-bottom:4rem;">
   <!-- Back link -->
   <a href="{% url 'vols:hotel_results' %}" style="display:inline-block; margin-bottom:1rem; color:var(--primary); text-decoration:none; font-weight:bold;">
-    ← العودة إلى نتائج البحث
+    ← {% trans "العودة إلى نتائج البحث" %}
   </a>
 
   <!-- Header -->
@@ -24,7 +24,7 @@
     
     <div style="text-align:left;">
       <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end;">
-        <span style="color:#666;">جيد جداً ({{ hotel.reviewCount|default:"100" }} تقييم)</span>
+        <span style="color:#666;">{% trans "جيد جداً" %} ({{ hotel.reviewCount|default:"100" }} {% trans "تقييم" %})</span>
         <span style="background:var(--primary); color:#fff; padding:6px 12px; border-radius:8px; font-weight:700; font-size:1.2rem;">{{ hotel.reviewScore|default:"8.0" }}</span>
       </div>
     </div>
@@ -38,30 +38,30 @@
   <!-- Description & Amenities -->
   <div class="hotel-info-grid" style="display:grid; grid-template-columns:2fr 1fr; gap:2rem; margin-bottom:3rem;">
     <div>
-      <h3 style="color:var(--primary); margin-bottom:1rem;">عن الفندق</h3>
+      <h3 style="color:var(--primary); margin-bottom:1rem;">{% trans "عن الفندق" %}</h3>
       <p style="color:#555; line-height:1.8; font-size:1.05rem;">
-        {{ hotel.description|default:"يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات المتميزة لضمان إقامة لا تُنسى. استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية." }}
+        {{ hotel.description|default:"{% trans 'يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات المتميزة لضمان إقامة لا تُنسى' %}. {% trans "استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية" %}." }}
       </p>
     </div>
     
     <div style="background:#f8f9fa; padding:1.5rem; border-radius:12px;">
-      <h3 style="color:var(--primary); margin-bottom:1rem;">أهم المرافق</h3>
+      <h3 style="color:var(--primary); margin-bottom:1rem;">{% trans "أهم المرافق" %}</h3>
       <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
         {% for amenity in hotel.amenities %}
         <li style="color:#555; display:flex; align-items:center; gap:8px;">
           <span style="color:var(--gold);">✓</span> {{ amenity }}
         </li>
         {% empty %}
-        <li style="color:#555;"><span style="color:var(--gold);">✓</span> واي فاي مجاني</li>
-        <li style="color:#555;"><span style="color:var(--gold);">✓</span> تكييف</li>
-        <li style="color:#555;"><span style="color:var(--gold);">✓</span> خدمة الغرف</li>
+        <li style="color:#555;"><span style="color:var(--gold);">✓</span> {% trans "واي فاي مجاني" %}</li>
+        <li style="color:#555;"><span style="color:var(--gold);">✓</span> {% trans "تكييف" %}</li>
+        <li style="color:#555;"><span style="color:var(--gold);">✓</span> {% trans "خدمة الغرف" %}</li>
         {% endfor %}
       </ul>
     </div>
   </div>
 
   <!-- Rooms Table -->
-  <h2 style="color:var(--primary); margin-bottom:1.5rem; border-bottom:2px solid #eee; padding-bottom:10px;">الغرف المتاحة</h2>
+  <h2 style="color:var(--primary); margin-bottom:1.5rem; border-bottom:2px solid #eee; padding-bottom:10px;">{% trans "الغرف المتاحة" %}</h2>
   
   <div class="rooms-container" style="display:flex; flex-direction:column; gap:1rem;">
     {% for room in hotel.rooms %}
@@ -69,12 +69,12 @@
       
       <div class="room-info" style="flex:1;">
         <h3 style="margin:0 0 10px 0; color:var(--primary); font-size:1.3rem;">{{ room.roomName }}</h3>
-        <p style="color:#666; margin:0 0 5px 0;">عدد الأشخاص (الحد الأقصى): <strong>{{ room.capacity }}</strong></p>
-        <p style="color:#666; margin:0;">نوع السرير: <strong>{{ room.bedType }}</strong></p>
+        <p style="color:#666; margin:0 0 5px 0;">{% trans "عدد الأشخاص (الحد الأقصى" %}): <strong>{{ room.capacity }}</strong></p>
+        <p style="color:#666; margin:0;">{% trans "نوع السرير" %}: <strong>{{ room.bedType }}</strong></p>
       </div>
       
       <div class="room-price" style="text-align:left; padding-right:2rem; border-right:1px solid #eee;">
-        <p style="font-size:0.9rem; color:#666; margin:0 0 5px 0;">السعر لـ {{ hotel.nights }} ليالي</p>
+        <p style="font-size:0.9rem; color:#666; margin:0 0 5px 0;">{% trans "السعر لـ" %} {{ hotel.nights }} {% trans "ليالي" %}</p>
         <h3 style="margin:0 0 15px 0; font-size:1.8rem; color:var(--primary);" data-eur="{{ room.pricing.customer_price|floatformat:2 }}">{{ room.pricing.customer_price|floatformat:2 }} USD</h3>
         
         <!-- Booking Form -->
@@ -87,7 +87,7 @@
           <input type="hidden" name="customer_price" value="{{ room.pricing.customer_price }}">
           
           <button type="button" class="btn-primary" onclick="openBookingModal(this)" style="background:var(--primary); color:#fff; border:none; padding:10px 24px; border-radius:6px; font-weight:bold; cursor:pointer; width:100%;">
-            احجز الآن
+            {% trans "احجز الآن" %}
           </button>
 
           <!-- Hidden Modal Fields (to be picked up by the modal) -->
@@ -96,7 +96,7 @@
       </div>
     </div>
     {% empty %}
-    <p>لا توجد غرف متاحة لهذا الفندق للتواريخ المحددة.</p>
+    <p>{% trans "لا توجد غرف متاحة لهذا الفندق للتواريخ المحددة" %}.</p>
     {% endfor %}
   </div>
 </div>
@@ -104,16 +104,16 @@
 <!-- Booking Details Modal -->
 <div id="bookingModal" class="modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
   <div class="modal-content" style="background:#fff; padding:2rem; border-radius:12px; width:90%; max-width:500px; box-shadow:0 10px 30px rgba(0,0,0,0.2);">
-    <h2 style="color:var(--primary); margin-top:0;">إتمام الحجز</h2>
-    <p style="color:#666; margin-bottom:1.5rem;">يرجى إدخال بيانات الضيف الأساسي لتأكيد الحجز.</p>
+    <h2 style="color:var(--primary); margin-top:0;">{% trans "إتمام الحجز" %}</h2>
+    <p style="color:#666; margin-bottom:1.5rem;">{% trans "يرجى إدخال بيانات الضيف الأساسي لتأكيد الحجز" %}.</p>
     
     <div id="modalFormContainer">
       <!-- The form will be cloned here via JS -->
     </div>
     
     <div style="margin-top:1.5rem; text-align:left;">
-      <button type="button" onclick="closeBookingModal()" style="background:#eee; color:#333; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; margin-left:10px;">إلغاء</button>
-      <button type="button" onclick="submitBooking()" style="background:var(--gold); color:#fff; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">تأكيد والمتابعة للدفع</button>
+      <button type="button" onclick="closeBookingModal()" style="background:#eee; color:#333; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; margin-left:10px;">{% trans "إلغاء" %}</button>
+      <button type="button" onclick="submitBooking()" style="background:var(--gold); color:#fff; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">{% trans "تأكيد والمتابعة للدفع" %}</button>
     </div>
   </div>
 </div>
@@ -130,15 +130,15 @@
     // Create guest input fields
     const html = `
       <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">الاسم الكامل (كما في جواز السفر)</label>
+        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "الاسم الكامل (كما في جواز السفر" %})</label>
         <input type="text" id="guest_name" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box;">
       </div>
       <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">البريد الإلكتروني</label>
+        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "البريد الإلكتروني" %}</label>
         <input type="email" id="guest_email" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box;">
       </div>
       <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">رقم الهاتف</label>
+        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "رقم الهاتف" %}</label>
         <input type="tel" id="guest_phone" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box; text-align:left;" dir="ltr" placeholder="+XXX XXXXXXXX">
       </div>
     `;
@@ -160,7 +160,7 @@
     const phone = document.getElementById('guest_phone').value;
     
     if (!name || !email || !phone) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('{% trans "يرجى ملء جميع الحقول المطلوبة" %}');
       return;
     }
     

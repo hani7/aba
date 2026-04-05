@@ -51,11 +51,7 @@ export default function Results() {
       <div className="container">
         
         <div className="results-header">
-          <div className="route-pill">
-              <span className="route-city">{mockSearch.slices[0].origin}</span>
-              <span className="route-arrow">→</span>
-              <span className="route-city">{mockSearch.slices[0].destination}</span>
-          </div>
+
           <div className="route-meta">
             <span>📅 2026-04-10</span>
             <span>👤 {mockSearch.passengers} مسافرون</span>

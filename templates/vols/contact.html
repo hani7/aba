@@ -11,7 +11,7 @@
       {% trans "تواصل معنا" %}
     </h1>
 
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:60px; align-items:start;">
+    <div class="contact-grid" style="gap:60px; align-items:start;">
 
       <!-- LEFT: Contact Form -->
       <div style="background: linear-gradient(145deg, #0b1437, #f7bc35 180%); border-radius:20px; padding:50px 40px; color:white; box-shadow: 0 20px 60px rgba(11,20,55,0.3);">
@@ -20,7 +20,7 @@
         </h2>
         <form method="post" action="">
           {% csrf_token %}
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+          <div class="contact-form-row" style="gap:20px; margin-bottom:20px;">
             <div style="border-bottom:1.5px solid rgba(255,255,255,0.5); padding-bottom:10px;">
               <label style="font-size:0.8rem; color:rgba(255,255,255,0.7); display:block; margin-bottom:6px;">{% trans "Name" %}</label>
               <input type="text" name="name" placeholder="{% trans 'Your Name' %}" style="background:transparent; border:none; outline:none; color:#fff; font-size:0.95rem; width:100%; font-family:'Tajawal',sans-serif;">

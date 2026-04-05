@@ -227,6 +227,28 @@ main { flex: 1; }
   position: relative;
   overflow: hidden;
 }
+@media (max-width: 600px) {
+  .search-card {
+    padding: 18px 14px !important;
+    border-radius: 14px;
+  }
+  .trip-type-selector {
+    margin-bottom: 14px !important;
+    padding-bottom: 12px !important;
+  }
+  .radio-tab span {
+    padding: 6px 12px !important;
+    font-size: .78rem !important;
+  }
+  .form-divider { margin: 0 -14px 14px !important; }
+  .field-input {
+    padding: 10px 12px !important;
+    font-size: .88rem !important;
+  }
+  .search-submit { height: 42px !important; font-size: .9rem !important; }
+  .search-bottom { grid-template-columns: 1fr 1fr !important; }
+  .form-actions-submit { grid-column: 1 / -1; }
+}
 .search-card::before {
   content: '';
   position: absolute;
@@ -265,13 +287,18 @@ main { flex: 1; }
 
 .search-grid { display: grid; gap: 14px; align-items: end; margin-bottom: 20px; }
 .slice-row { align-items: flex-end; }
+.hotel-search-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; align-items: flex-end; }
 @media (max-width: 800px) {
   .slice-row.search-grid { grid-template-columns: 1fr !important; }
+  .hotel-search-grid { grid-template-columns: 1fr 1fr !important; }
   .swap-btn { display: none; }
   .invisible-spacer { display: none; }
 }
+@media (max-width: 600px) {
+  .hotel-search-grid { grid-template-columns: 1fr !important; }
+}
 .search-bottom { grid-template-columns: 1fr 1fr 2fr; margin-bottom: 0; }
-@media (max-width: 650px) { .search-bottom { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .search-bottom { grid-template-columns: 1fr 1fr; } }
 .form-divider { border: 0; height: 1.5px; background: var(--border); margin: 0 -36px 22px; }
 
 /* ── Inputs ────────────────────────────────────────────────── */
@@ -1337,5 +1364,157 @@ input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity
   animation-timing-function: linear;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   BAGGAGE ROW RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .baggage-row {
+    justify-content: center !important;
+    padding: 10px 14px 16px !important;
+  }
+  .baggage-inner {
+    width: 100%;
+    justify-content: center;
+  }
+  .baggage-label {
+    border-left: none !important;
+    border-bottom: 1px dashed var(--border);
+    padding-left: 0 !important;
+    padding-bottom: 6px;
+    margin-left: 0 !important;
+    margin-bottom: 4px;
+    white-space: normal !important;
+    width: 100%;
+    text-align: center;
+  }
+}
 
+.mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; color: #fff; align-items: center; justify-content: center; }
 
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL MOBILE RESPONSIVENESS (ALL PAGES)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 950px) {
+  .mobile-menu-toggle { display: inline-flex; }
+  .account-text { display: none !important; }
+
+  .navbar .container {
+    height: auto !important;
+    min-height: 68px;
+    justify-content: space-between !important;
+    padding: 10px 16px !important;
+  }
+  
+  .nav-desktop-menu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    background: var(--navy);
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0 !important;
+    display: none !important;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  
+  .nav-desktop-menu.open {
+    display: flex !important;
+    animation: fade-down 0.2s ease forwards;
+  }
+  
+  .nav-desktop-menu li {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .nav-desktop-menu .nav-link {
+    padding: 14px 16px !important;
+    display: block;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT PAGE RESPONSIVENESS
+   ═══════════════════════════════════════════════════════════════ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.contact-form-row { display: grid; grid-template-columns: 1fr 1fr; }
+
+@media (max-width: 800px) {
+  .contact-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+  .contact-form-row { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 1.9rem !important; }
+  .section { padding: 32px 0 !important; }
+  .container { padding: 0 16px !important; }
+  
+  /* Details & Forms */
+  .detail-card { padding: 16px !important; }
+  .recap-card { padding: 16px !important; flex-direction: column; align-items: flex-start !important; }
+  .passenger-card { padding: 16px !important; }
+  .form-actions { flex-direction: column; width: 100%; }
+  .form-actions button { width: 100%; justify-content: center; }
+  
+  /* Results */
+  .offer-price {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "status price" "btn btn";
+    gap: 12px;
+    align-items: center;
+    border-right: none !important;
+    border-top: 1.5px solid var(--border);
+    width: 100%;
+    padding: 16px !important;
+  }
+  .offer-price::after { display: none !important; }
+  .price-wrap { grid-area: price; text-align: left; }
+  .status-wrap { grid-area: status; text-align: right; }
+  .status-wrap > div { margin-top: 4px !important; }
+  .offer-btn { grid-area: btn; width: 100%; justify-content: center; margin-top: 4px !important; margin-bottom: 0 !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+.footer-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .footer-top-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  .footer-brand {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  footer .container > p {
+    text-align: center !important;
+  }
+}

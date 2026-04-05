@@ -12,7 +12,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from .services import duffel_service
-from .services import agoda_service
+from .services import travelpayouts_service
 from .models import Booking, Passenger, HotelBooking
 
 
@@ -70,6 +70,45 @@ DESTINATIONS_LIST = [
     {'iata': 'AMM', 'name_ar': _('عمّان'),    'badge': _('🇯🇴 الأردن'),          'desc': _('AMM · المدرج الروماني'),   'image': 'https://images.unsplash.com/photo-1588693959821-b0db4dece907?w=600&h=300&fit=crop&q=80'},
 ]
 
+# Fixed exchange rates to USD (approximate 2025 rates)
+CURRENCY_TO_USD = {
+    'USD': 1.0,
+    'EUR': 1.08,
+    'GBP': 1.27,
+    'DZD': 0.0074,
+    'MAD': 0.099,
+    'TND': 0.32,
+    'AED': 0.272,
+    'SAR': 0.267,
+    'QAR': 0.274,
+    'KWD': 3.25,
+    'BHD': 2.65,
+    'OMR': 2.60,
+    'EGP': 0.021,
+    'TRY': 0.031,
+    'CHF': 1.12,
+    'CAD': 0.74,
+    'AUD': 0.65,
+    'JPY': 0.0067,
+    'CNY': 0.138,
+    'INR': 0.012,
+    'MYR': 0.226,
+    'SGD': 0.74,
+    'THB': 0.028,
+    'ZAR': 0.054,
+    'NOK': 0.093,
+    'SEK': 0.096,
+    'DKK': 0.145,
+}
+
+def convert_to_usd(amount, currency):
+    """Convert amount to USD using fixed rates. Returns rounded string."""
+    try:
+        rate = CURRENCY_TO_USD.get((currency or '').upper(), 1.0)
+        return round(float(amount) * rate, 2)
+    except (TypeError, ValueError):
+        return None
+
 def apply_flight_markup(offer):
     original_str = str(offer.get('total_amount', '0'))
     original_price = float(original_str)
@@ -82,7 +121,17 @@ def apply_flight_markup(offer):
     
     # Overwrite total_amount to show customer the higher fee
     offer['total_amount'] = f"{new_price:.2f}"
+
+    # Pre-convert penalty amounts to USD for display
+    conditions = offer.get('conditions') or {}
+    for key in ('refund_before_departure', 'change_before_departure'):
+        cond = conditions.get(key)
+        if cond and cond.get('penalty_amount'):
+            usd = convert_to_usd(cond['penalty_amount'], cond.get('penalty_currency', 'USD'))
+            cond['penalty_amount_usd'] = usd
+
     return offer
+
 
 def home(request):
     return render(request, 'vols/home.html', {
@@ -263,21 +312,22 @@ def api_places(request):
                 if pid in seen_ids:
                     continue
                 seen_ids.add(pid)
-                iata = p.get('iata_code') or p.get('iata_city_code', '')
+                iata = p.get('iata_code') or p.get('iata_city_code') or ''
+                city_name = p.get('city_name') or ''
                 all_results.append({
                     'id': pid,
-                    'name': p.get('name'),
+                    'name': p.get('name') or '',
                     'type': p.get('type'),
                     'iata_code': iata,
-                    'city_name': p.get('city_name', ''),
+                    'city_name': city_name,
                     # Reverse-lookup Arabic name for display
                     'arabic_name': next((ar for ar, en in ARABIC_CITY_MAP.items()
                                         if en.lower() in [
                                             (p.get('name') or '').lower(),
-                                            (p.get('city_name') or '').lower()
+                                            city_name.lower()
                                         ]), ''),
                 })
-        return JsonResponse({'results': all_results[:12]})
+        return JsonResponse({'results': all_results[:15]})
     except Exception as e:
         print(f"Places API Error: {e}")
         return JsonResponse({'results': []})
@@ -359,6 +409,19 @@ def search_results(request):
 
         try:
             offers = duffel_service.search_flights(slices, passengers, cabin_class)
+
+            # --- Exclude Duffel Airways (virtual/sandbox carrier) ---
+            def has_duffel_airways(offer):
+                for sl in offer.get('slices', []):
+                    for seg in sl.get('segments', []):
+                        carrier_name = (seg.get('marketing_carrier') or {}).get('name', '')
+                        if 'duffel airways' in carrier_name.lower():
+                            return True
+                return False
+
+            offers = [o for o in offers if not has_duffel_airways(o)]
+            # --------------------------------------------------------
+
             # Enrich offers with formatted duration and 10% markup
             for offer in offers:
                 apply_flight_markup(offer)
@@ -669,7 +732,7 @@ def api_hotel_destinations(request):
     if not query:
         return JsonResponse({'results': []})
     
-    destinations = agoda_service.search_destinations(query)
+    destinations = travelpayouts_service.search_destinations(query)
     
     results = []
     for d in destinations:
@@ -700,7 +763,7 @@ def hotel_search(request):
         return redirect('vols:home')
 
     try:
-        hotels = agoda_service.search_hotels(
+        hotels = travelpayouts_service.search_hotels(
             city_id=int(city_id),
             check_in=check_in,
             check_out=check_out,
@@ -749,7 +812,7 @@ def hotel_detail(request, hotel_id):
         return redirect('vols:home')
 
     try:
-        hotel = agoda_service.get_hotel(
+        hotel = travelpayouts_service.get_hotel(
             hotel_id=hotel_id,
             check_in=search_crit['check_in'],
             check_out=search_crit['check_out'],
@@ -809,7 +872,7 @@ def hotel_book(request):
         rooms=search_crit.get('rooms', 1),
         
         cost_price=room_price,
-        markup_pct=agoda_service.AGODA_MARKUP_PCT,
+        markup_pct=travelpayouts_service.TRAVELPAYOUTS_MARKUP_PCT,
         markup_amount=markup_amount,
         customer_price=customer_price,
         currency='USD',
@@ -820,8 +883,8 @@ def hotel_book(request):
         status='pending'
     )
     
-    # Generate the Agoda deep-link
-    booking_url = agoda_service.get_booking_url(
+    # Generate the Travelpayouts deep-link
+    booking_url = travelpayouts_service.get_booking_url(
         hotel_id=hotel_id,
         check_in=check_in,
         check_out=check_out,
@@ -882,16 +945,25 @@ def api_admin_bookings(request):
     bookings = Booking.objects.prefetch_related('passengers').order_by('-created_at')
     data = []
     for b in bookings:
-        passengers = list(b.passengers.values('first_name', 'last_name', 'email'))
+        passengers = list(b.passengers.values('first_name', 'last_name', 'email', 'phone_number', 'title', 'gender', 'born_on'))
         client_name = f"{passengers[0]['first_name']} {passengers[0]['last_name']}" if passengers else "Inconnu"
+        client_phone = passengers[0]['phone_number'] if passengers else ""
+        client_email = passengers[0]['email'] if passengers else ""
         
         data.append({
             'id': b.id,
             'reference': b.booking_reference,
             'itinerary': f"{b.origin} ✈ {b.destination}",
+            'origin': b.origin,
+            'destination': b.destination,
             'date': b.departure_date.strftime('%Y-%m-%d') if b.departure_date else '',
             'airline': b.airline,
+            'flight_number': getattr(b, 'flight_number', ''),
+            'cabin_class': getattr(b, 'cabin_class', ''),
             'client': client_name,
+            'client_phone': client_phone,
+            'client_email': client_email,
+            'passengers': passengers,
             'amount': float(b.total_amount),
             'currency': b.currency,
             'status': b.status,
@@ -941,3 +1013,257 @@ def api_admin_cancel_booking(request, booking_id):
 def react_dashboard_view(request):
     """Serves the standalone Vanilla React dashboard."""
     return render(request, 'vols/admin_dashboard_react.html')
+
+
+def generate_ticket_pdf(request, booking_id):
+    """Generates and returns a downloadable A4 PDF e-ticket for a booking — full Emirates style."""
+    from django.http import HttpResponse
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+    from reportlab.lib.units import cm
+    from reportlab.platypus import (SimpleDocTemplate, Table, TableStyle,
+                                     Paragraph, Spacer, HRFlowable)
+    from reportlab.lib.styles import ParagraphStyle
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+    import io, os
+
+    booking  = get_object_or_404(Booking, id=booking_id)
+    passengers = list(booking.passengers.all())
+    lead = passengers[0] if passengers else None
+
+    # ── Colors ──────────────────────────────────────────────────────────────
+    DARK     = colors.HexColor('#0b1437')
+    GREY_HDR = colors.HexColor('#b0b0b0')
+    NAVY_HDR = colors.HexColor('#0b1437')
+    LIGHT_BG = colors.HexColor('#f8fafc')
+    WHITE    = colors.white
+
+    # ── Styles ───────────────────────────────────────────────────────────────
+    def S(name, **kw):
+        defaults = dict(fontName='Helvetica', fontSize=9, leading=12, textColor=DARK)
+        defaults.update(kw)
+        return ParagraphStyle(name, **defaults)
+
+    title_s   = S('T',  fontName='Helvetica-Bold', fontSize=20, textColor=DARK)
+    sub_s     = S('Su', fontSize=9,  textColor=colors.grey)
+    lbl_s     = S('Lb', fontSize=7,  textColor=colors.grey, leading=9)
+    val_s     = S('Va', fontName='Helvetica-Bold', fontSize=9, textColor=DARK, leading=12)
+    sec_s     = S('Sh', fontName='Helvetica-Bold', fontSize=9, textColor=WHITE, leading=13)
+    small_s   = S('Sm', fontSize=7,  textColor=colors.grey, leading=9)
+    note_s    = S('No', fontSize=7,  textColor=colors.grey, alignment=TA_CENTER)
+    footer_s  = S('Fo', fontSize=8,  textColor=colors.grey, alignment=TA_CENTER)
+
+    # ── Full page width ──────────────────────────────────────────────────────
+    PAGE_W = A4[0] - 3*cm   # usable width after margins
+
+    def section_hdr(title, bg=GREY_HDR):
+        tbl = Table([[Paragraph(title, sec_s)]], colWidths=[PAGE_W])
+        tbl.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), bg),
+            ('LEFTPADDING', (0,0), (-1,-1), 8),
+            ('TOPPADDING', (0,0), (-1,-1), 4),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ]))
+        return tbl
+
+    def info_grid(rows_of_pairs):
+        """Render a list of [(label,value), ...] rows in a 3-column grid."""
+        all_rows = []
+        for pairs in rows_of_pairs:
+            col_w = PAGE_W / len(pairs)
+            lbls = [Paragraph(l, lbl_s) for l, _ in pairs]
+            vals = [Paragraph(str(v), val_s) for _, v in pairs]
+            t = Table([lbls, vals], colWidths=[col_w]*len(pairs))
+            t.setStyle(TableStyle([
+                ('BACKGROUND', (0,0), (-1,-1), LIGHT_BG),
+                ('LEFTPADDING', (0,0), (-1,-1), 5),
+                ('RIGHTPADDING', (0,0), (-1,-1), 5),
+                ('TOPPADDING', (0,0), (-1,-1), 3),
+                ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+                ('LINEBELOW', (0,1), (-1,1), 0.3, colors.HexColor('#e2e8f0')),
+            ]))
+            all_rows.append(t)
+        return all_rows
+
+    # ── Build story ──────────────────────────────────────────────────────────
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buffer, pagesize=A4,
+        rightMargin=1.5*cm, leftMargin=1.5*cm,
+        topMargin=1.5*cm, bottomMargin=1.5*cm,
+        title=f"e-Ticket {booking.booking_reference}"
+    )
+    story = []
+
+    eticket_num = f"176{booking.id:06d}"
+    cabin_map   = {'economy':'ECONOMY', 'business':'BUSINESS', 'first':'FIRST CLASS'}
+    cabin       = cabin_map.get(booking.cabin_class, (booking.cabin_class or '').upper())
+    dep_date    = booking.departure_date.strftime('%d %b %Y').upper() if booking.departure_date else 'N/A'
+    created_str = booking.created_at.strftime('%d %b %Y').upper()
+
+    # ─── HEADER ──────────────────────────────────────────────────────────────
+    logo_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'logo.jpg')
+    if os.path.exists(logo_path):
+        from reportlab.platypus import Image as RLImage
+        logo = RLImage(logo_path, width=3*cm, height=1.8*cm)
+        hdr_data = [[logo, Paragraph('e-Ticket Receipt & Itinerary', title_s)]]
+        hdr_tbl = Table(hdr_data, colWidths=[3.5*cm, PAGE_W - 3.5*cm])
+    else:
+        hdr_tbl = Table([[Paragraph('e-Ticket Receipt & Itinerary', title_s)]])
+    hdr_tbl.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'MIDDLE'),
+                                  ('LEFTPADDING',(0,0),(-1,-1),0)]))
+    story.append(hdr_tbl)
+    story.append(Paragraph(f'Booking Reference (PNR): <b>{booking.booking_reference}</b>', sub_s))
+    story.append(HRFlowable(width='100%', thickness=2, color=DARK, spaceAfter=8))
+
+    # ─── LEGAL ───────────────────────────────────────────────────────────────
+    story.append(Paragraph(
+        "Your electronic ticket is stored in our computer reservation system. This e-Ticket receipt / itinerary "
+        "is your record of your electronic ticket and forms part of your contract of carriage. You may need to "
+        "show this receipt at the airport and/or to prove return or onward travel to customs and immigration officials.",
+        small_s))
+    story.append(Spacer(1, 0.1*cm))
+    story.append(Paragraph(
+        "<b>Economy Class passengers</b> should report to check-in desks 3 hours prior to departure. "
+        "<b>Business/First Class</b> passengers should report not later than 1 hour prior to departure. "
+        "Boarding begins at least 35 minutes before scheduled departure time. Gates close 15 minutes prior.",
+        small_s))
+    story.append(Spacer(1, 0.25*cm))
+
+    # ─── SECTION 1: PASSENGER & TICKET INFO ──────────────────────────────────
+    story.append(section_hdr("PASSENGER AND TICKET INFORMATION"))
+    story.append(Spacer(1, 0.08*cm))
+
+    for p in passengers:
+        pax_name = f"{p.last_name.upper()}/{p.first_name.upper()} {p.title.upper()}"
+        for t in info_grid([
+            [("PASSENGER NAME", pax_name), ("E-TICKET NUMBER", eticket_num), ("BOOKING REFERENCE", booking.booking_reference)],
+            [("DATE OF BIRTH", str(p.born_on)), ("GENDER", "MALE" if p.gender == 'm' else "FEMALE"), ("PASSPORT NUMBER", "TBD AT CHECK-IN")],
+            [("EMAIL", p.email or "N/A"), ("PHONE", p.phone_number or "N/A"), ("ISSUED BY/DATE", f"ABU MONYA AGENCY / {created_str}")],
+        ]):
+            story.append(t)
+            story.append(Spacer(1, 0.05*cm))
+
+    if not passengers:
+        for t in info_grid([
+            [("PASSENGER NAME", "N/A"), ("E-TICKET NUMBER", eticket_num), ("BOOKING REFERENCE", booking.booking_reference)],
+            [("PASSPORT NUMBER", "TBD AT CHECK-IN"), ("ISSUED BY/DATE", f"ABU MONYA AGENCY / {created_str}"), ("", "")],
+        ]):
+            story.append(t)
+            story.append(Spacer(1, 0.05*cm))
+
+    story.append(Spacer(1, 0.2*cm))
+
+    # ─── SECTION 2: TRAVEL INFORMATION ───────────────────────────────────────
+    story.append(section_hdr("TRAVEL INFORMATION"))
+    story.append(Spacer(1, 0.08*cm))
+
+    col_w = [2.8*cm, 2.8*cm, 4.5*cm, 2.4*cm, 2.4*cm, 3.6*cm]
+    travel_hdrs = [Paragraph(h, lbl_s) for h in
+                   ['FLIGHT', 'DEPART/ARRIVE', 'AIRPORT/TERMINAL', 'CHECK-IN OPENS', 'CLASS', 'COUPON VALIDITY']]
+    travel_row1 = [
+        Paragraph(f"<b>{booking.airline} {booking.flight_number}</b><br/>CONFIRMED", val_s),
+        Paragraph(f"{dep_date}<br/>TBD", val_s),
+        Paragraph(f"{booking.origin} INTNL ({booking.origin})<br/>TERMINAL TBD", val_s),
+        Paragraph(f"{dep_date}<br/>TBD", val_s),
+        Paragraph(f"{cabin}<br/>SEAT", val_s),
+        Paragraph("NOT BEFORE<br/>NOT AFTER", small_s),
+    ]
+    travel_row2 = [
+        Paragraph("", small_s),
+        Paragraph(f"{dep_date}<br/>TBD", small_s),
+        Paragraph(f"{booking.destination} INTNL ({booking.destination})", small_s),
+        Paragraph("", small_s),
+        Paragraph("BAGGAGE<br/>ALLOW. 30KGS", small_s),
+        Paragraph("", small_s),
+    ]
+    travel_tbl = Table([travel_hdrs, travel_row1, travel_row2], colWidths=col_w)
+    travel_tbl.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), LIGHT_BG),
+        ('LINEBELOW', (0,1), (-1,1), 0.5, DARK),
+        ('LINEBELOW', (0,2), (-1,2), 0.3, colors.HexColor('#e2e8f0')),
+        ('LEFTPADDING', (0,0), (-1,-1), 4),
+        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+    ]))
+    story.append(travel_tbl)
+    story.append(Spacer(1, 0.2*cm))
+
+    # ─── SECTION 3: FARE INFO ─────────────────────────────────────────────────
+    story.append(section_hdr("FARE AND ADDITIONAL INFORMATION"))
+    story.append(Spacer(1, 0.08*cm))
+
+    fare_left = [
+        [Paragraph("FARE", lbl_s),        Paragraph(f"{booking.currency} {booking.total_amount}", val_s)],
+        [Paragraph("TAXES/FEES/CHARGES", lbl_s), Paragraph("INCLUDED IN FARE", val_s)],
+        [Paragraph("TOTAL", lbl_s),        Paragraph(f"<b>{booking.currency} {booking.total_amount}</b>", val_s)],
+        [Paragraph("FORM OF PAYMENT", lbl_s), Paragraph("ONLINE / BANK TRANSFER", val_s)],
+    ]
+    fare_right = [
+        [Paragraph("ADDITIONAL INFORMATION", lbl_s)],
+        [Paragraph("NON-END/REFUND RESTRICTIONS APPLY", small_s)],
+        [Paragraph("VALID ON FLIGHT DATE ONLY", small_s)],
+        [Paragraph("", small_s)],
+    ]
+    fare_left_tbl  = Table(fare_left,  colWidths=[3.8*cm, 5.2*cm])
+    fare_right_tbl = Table(fare_right, colWidths=[8.5*cm])
+    for t in [fare_left_tbl, fare_right_tbl]:
+        t.setStyle(TableStyle([
+            ('LEFTPADDING',(0,0),(-1,-1),4), ('RIGHTPADDING',(0,0),(-1,-1),4),
+            ('TOPPADDING',(0,0),(-1,-1),2),  ('BOTTOMPADDING',(0,0),(-1,-1),2),
+        ]))
+
+    fare_outer = Table([[fare_left_tbl, fare_right_tbl]], colWidths=[9*cm, 9.5*cm])
+    fare_outer.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), LIGHT_BG),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+    ]))
+    story.append(fare_outer)
+    story.append(Paragraph("* AT CHECK-IN YOU MAY NEED TO PRESENT THE PROOF OF PAYMENT *", note_s))
+    story.append(Spacer(1, 0.15*cm))
+
+    # ─── SECTION 4: FARE CALCULATIONS ─────────────────────────────────────────
+    story.append(section_hdr("FARE CALCULATIONS"))
+    story.append(Spacer(1, 0.05*cm))
+    calc_text = (f"{booking.origin} AIRLINE {booking.destination} "
+                 f"{booking.total_amount:.2f} {booking.currency} END ROE 1.0000")
+    story.append(Table([[Paragraph(calc_text, small_s)]], colWidths=[PAGE_W],
+                        style=[('BACKGROUND',(0,0),(-1,-1),LIGHT_BG),
+                               ('LEFTPADDING',(0,0),(-1,-1),6),
+                               ('TOPPADDING',(0,0),(-1,-1),4),
+                               ('BOTTOMPADDING',(0,0),(-1,-1),4)]))
+    story.append(Spacer(1, 0.2*cm))
+
+    # ─── SECTION 5: CLIENT CONTACT ────────────────────────────────────────────
+    story.append(section_hdr("CLIENT CONTACT INFORMATION", bg=NAVY_HDR))
+    story.append(Spacer(1, 0.08*cm))
+
+    client_name  = lead.first_name + ' ' + lead.last_name if lead else 'N/A'
+    client_email = lead.email if lead else 'N/A'
+    client_phone = lead.phone_number if lead else 'N/A'
+    pdf_url = request.build_absolute_uri(f'/api/admin/ticket/{booking.id}/pdf/')
+
+    for t in info_grid([
+        [("CLIENT NAME", client_name), ("EMAIL", client_email), ("PHONE", client_phone)],
+        [("BOOKING STATUS", booking.status.upper()), ("TICKET CREATED", created_str), ("PDF LINK", pdf_url[:60] + '...' if len(pdf_url) > 60 else pdf_url)],
+    ]):
+        story.append(t)
+        story.append(Spacer(1, 0.05*cm))
+
+    story.append(Spacer(1, 0.4*cm))
+
+    # ─── FOOTER ───────────────────────────────────────────────────────────────
+    story.append(HRFlowable(width='100%', thickness=0.5, color=colors.lightgrey))
+    story.append(Spacer(1, 0.1*cm))
+    story.append(Paragraph(
+        f"© {booking.created_at.year} Abu Monya Agency. All rights reserved. &nbsp;|&nbsp; Page 1 of 1",
+        footer_s))
+
+    doc.build(story)
+    buffer.seek(0)
+
+    response = HttpResponse(buffer, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="eticket_{booking.booking_reference}.pdf"'
+    return response

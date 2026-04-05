@@ -28,7 +28,8 @@ def search_flights(slices_data, passengers=1, cabin_class='economy'):
         formatted_slices.append({
             'origin': s['origin'].upper(),
             'destination': s['destination'].upper(),
-            'departure_date': s['departure_date']
+            'departure_date': s['departure_date'],
+            'max_connections': 1
         })
 
     payload = {

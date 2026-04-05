@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}فنادق {{ search.city_name }} — وكالة أبو منية{% endblock %}
+{% block title %}{% trans "فنادق" %} {{ search.city_name }} — {% trans "وكالة أبو منية" %}{% endblock %}
 
 {% block content %}
 
@@ -135,14 +135,14 @@
 <div class="hotel-hero">
   <div class="container hotel-hero-content">
     <div style="font-size:2rem; margin-bottom:6px;">🏨</div>
-    <h1>أفضل الفنادق في <span>{{ search.city_name }}</span></h1>
-    <p style="color:rgba(255,255,255,0.7); margin-top:6px; font-size:0.95rem;">أسعار شاملة مع هامش ربح وكالة أبو منية</p>
+    <h1>{% trans "أفضل الفنادق في" %} <span>{{ search.city_name }}</span></h1>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px; font-size:0.95rem;">{% trans "أسعار شاملة مع هامش ربح وكالة أبو منية" %}</p>
     <div class="hotel-hero-meta">
       <div class="hero-meta-pill">📅 {{ search.check_in }} — {{ search.check_out }}</div>
-      <div class="hero-meta-pill">👤 {{ search.adults }} بالغ</div>
-      <div class="hero-meta-pill">🛏 {{ search.rooms }} غرفة</div>
+      <div class="hero-meta-pill">👤 {{ search.adults }} {% trans "بالغ" %}</div>
+      <div class="hero-meta-pill">🛏 {{ search.rooms }} {% trans "غرفة" %}</div>
       {% if hotels %}
-      <div class="hero-meta-pill" style="background:rgba(255,193,7,0.2); border-color:rgba(255,193,7,0.4);">✨ {{ hotels|length }} فندق متاح</div>
+      <div class="hero-meta-pill" style="background:rgba(255,193,7,0.2); border-color:rgba(255,193,7,0.4);">✨ {{ hotels|length }} {% trans "فندق متاح" %}</div>
       {% endif %}
     </div>
   </div>
@@ -180,8 +180,8 @@
             <div class="hotel-rating-row">
               <div class="rating-badge">{{ hotel.reviewScore|default:"8.0" }}</div>
               <div class="rating-label">
-                {% if hotel.reviewScore >= 9 %}ممتاز{% elif hotel.reviewScore >= 8 %}جيد جداً{% elif hotel.reviewScore >= 7 %}جيد{% else %}مقبول{% endif %}
-                • {{ hotel.reviewCount|default:"100" }} تقييم
+                {% if hotel.reviewScore >= 9 %}{% trans "ممتاز" %}{% elif hotel.reviewScore >= 8 %}{% trans "جيد جداً" %}{% elif hotel.reviewScore >= 7 %}{% trans "جيد" %}{% else %}{% trans "مقبول" %}{% endif %}
+                • {{ hotel.reviewCount|default:"100" }} {% trans "تقييم" %}
               </div>
             </div>
 
@@ -190,11 +190,11 @@
               {% for amenity in hotel.amenities|slice:":5" %}
               <span class="amenity-tag">✓ {{ amenity }}</span>
               {% empty %}
-              <span class="amenity-tag">✓ واي فاي مجاني</span>
-              <span class="amenity-tag">✓ مسبح</span>
+              <span class="amenity-tag">✓ {% trans "واي فاي مجاني" %}</span>
+              <span class="amenity-tag">✓ {% trans "مسبح" %}</span>
               {% endfor %}
               {% if hotel.amenities|length > 5 %}
-              <span class="amenity-tag" style="background:rgba(0,0,0,0.04); border-color:#ddd; color:#888;">+{{ hotel.amenities|length|add:"-5" }} أكثر</span>
+              <span class="amenity-tag" style="background:rgba(0,0,0,0.04); border-color:#ddd; color:#888;">+{{ hotel.amenities|length|add:"-5" }} {% trans "أكثر" %}</span>
               {% endif %}
             </div>
             {% endif %}
@@ -207,12 +207,12 @@
                 {{ hotel.pricing.customer_price|floatformat:0 }}
                 <span>USD</span>
               </div>
-              <div class="hotel-price-nights">للإجمالي / {{ hotel.nights|default:"1" }} ليلة</div>
-              <div class="hotel-savings">💰 تشمل هامش خدمة الوكالة {{ hotel.pricing.markup_pct|floatformat:0 }}%</div>
+              <div class="hotel-price-nights">{% trans "للإجمالي" %} / {{ hotel.nights|default:"1" }} {% trans "ليلة" %}</div>
+              <div class="hotel-savings">💰 {% trans "تشمل هامش خدمة الوكالة" %} {{ hotel.pricing.markup_pct|floatformat:0 }}%</div>
             </div>
 
             <a href="{% url 'vols:hotel_detail' hotel.hotelId %}" class="btn-choose">
-              اختر غرفتك →
+              {% trans "اختر غرفتك" %} →
             </a>
           </div>
         </div>
@@ -223,9 +223,9 @@
     {% else %}
       <div class="empty-hotels">
         <div class="empty-hotels-icon">🔍</div>
-        <h2>لا توجد فنادق متاحة</h2>
-        <p style="color:#666; margin-bottom:24px;">لم نتمكن من العثور على فنادق في <strong>{{ search.city_name }}</strong> للتواريخ المحددة.</p>
-        <a href="{% url 'vols:home' %}#hotels" class="btn-choose" style="display:inline-block;">← بحث جديد</a>
+        <h2>{% trans "لا توجد فنادق متاحة" %}</h2>
+        <p style="color:#666; margin-bottom:24px;">{% trans "لم نتمكن من العثور على فنادق في" %} <strong>{{ search.city_name }}</strong> {% trans "للتواريخ المحددة" %}.</p>
+        <a href="{% url 'vols:home' %}#hotels" class="btn-choose" style="display:inline-block;">← {% trans "بحث جديد" %}</a>
       </div>
     {% endif %}
   </div>

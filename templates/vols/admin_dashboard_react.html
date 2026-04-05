@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -91,6 +92,62 @@
         .btn-cancel:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .loader { text-align: center; padding: 60px; color: var(--gold); font-weight: bold; }
+
+        /* Modals & Ticket Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { background: #fff; width: 95%; max-width: 600px; border-radius: var(--radius); padding: 30px; position: relative; max-height: 95vh; overflow-y: auto; text-align: right; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .modal-close { position: absolute; top: 15px; left: 15px; background: #eee; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #555; transition: 0.2s; }
+        .modal-close:hover { background: #ff4d4f; color: #fff; }
+        
+        .btn-primary { background: var(--gold); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font); font-size: 1rem; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem; font-family: var(--font); }
+        .btn-outline:hover { background: var(--gold); color: #fff; }
+
+        /* Emirates Style E-Ticket */
+        .emirates-ticket { background: #fff; padding: 40px; color: #000; font-family: Arial, Helvetica, sans-serif; text-align: left; direction: ltr; border: 1px solid #ccc; font-size: 11px; margin-bottom: 20px; }
+        .et-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 15px; }
+        .et-header-left { display: flex; align-items: baseline; gap: 15px; }
+        .et-logo { height: 90px; object-fit: contain; }
+        .et-title { font-size: 24px; font-weight: normal; margin: 0; padding-top: 20px; }
+        .et-header-right { text-align: right; }
+        .et-scan-text { font-size: 9px; line-height: 1.2; margin-bottom: 8px; }
+        .et-barcode-container { display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 5px; }
+        .et-barcode { height: 40px; width: 200px; background: repeating-linear-gradient(90deg, #000, #000 2px, transparent 2px, transparent 4px, #000 4px, #000 8px, transparent 8px, transparent 10px, #000 10px, #000 12px); border-right: 2px solid #000; }
+        .et-number { font-size: 20px; margin-top: 5px; }
+        
+        .et-legal { margin-bottom: 20px; }
+        .et-legal p { margin: 0 0 8px 0; line-height: 1.3; }
+        
+        .et-section { margin-bottom: 20px; }
+        .et-section-header { background: #b0b0b0; color: #fff; font-weight: bold; padding: 4px 10px; font-size: 11px; margin-bottom: 4px; }
+        
+        .et-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; padding: 6px 10px; }
+        .et-info-grid > div { display: flex; gap: 15px; }
+        .et-info-grid span { display: block; width: 130px; font-size: 10px; color: #555; text-transform: uppercase; flex-shrink: 0; }
+        .et-info-grid strong { display: block; font-size: 10px; font-weight: bold; }
+        
+        .et-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        .et-table th { text-align: left; padding: 4px 10px; font-size: 9px; font-weight: bold; border-bottom: 1px solid #000; background: #fff; color: #000; text-transform: uppercase; }
+        .et-table td { padding: 10px; vertical-align: top; font-size: 10px; }
+        .table-hr { border-bottom: 1px solid #000; }
+        
+        .et-fare-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 10px; padding: 10px; }
+        .et-fare-line { display: flex; }
+        .et-fare-line span { display: inline-block; width: 150px; font-size: 10px; color: #333; }
+        .et-fare-line strong { font-size: 10px; flex: 1; text-align: left; }
+        
+        .et-footer { display: flex; justify-content: space-between; border-top: 1px solid #ccc; padding-top: 10px; margin-top: 30px; font-size: 10px; }
+
+        @media print {
+            @page { size: auto; margin: 5mm; }
+            body, html { margin: 0; padding: 0; height: 100%; background: #fff; }
+            body * { visibility: hidden; }
+            .modal-content, .modal-content * { visibility: visible; }
+            .modal-content { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; border: none; box-shadow: none; overflow: visible; display: block; }
+            .emirates-ticket { margin: 0 !important; padding: 0 !important; border: none !important; width: 100%; page-break-inside: avoid; page-break-after: auto; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -104,6 +161,344 @@
 
         // --- COMPONENTS --- //
 
+        const TicketModal = ({ booking, onClose }) => {
+            if (!booking) return null;
+            
+            // Generate ticket formatting matching the screenshot style
+            const eTicketNum = `176 ${booking.id.toString().padStart(6, '0')}${Math.floor(Math.random() * 90) + 10}`;
+            
+            // Format date to e.g. "17 FEB 11"
+            const formatDate = (dateString) => {
+                if(!dateString) return '';
+                const parts = dateString.split('-');
+                if(parts.length !== 3) return dateString;
+                const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                return `${parts[2]} ${months[parseInt(parts[1])-1]} ${parts[0].slice(-2)}`;
+            };
+            
+            const deptDate = formatDate(booking.date);
+            const classDisplay = booking.cabin_class === 'economy' ? 'ECONOMY' : 
+                                 booking.cabin_class === 'business' ? 'BUSINESS' : 
+                                 booking.cabin_class === 'first' ? 'FIRST' : booking.cabin_class.toUpperCase();
+
+            return (
+                <div className="modal-overlay" onClick={onClose}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()} style={{maxWidth: '900px', padding: '0', background: 'transparent', boxShadow: 'none'}}>
+                        <button className="modal-close no-print" onClick={onClose} style={{right:'-40px', left:'auto', zIndex:100}}>✕</button>
+                        
+                        <div className="emirates-ticket" id="printable-ticket">
+                            
+                            {/* Header */}
+                            <div className="et-header">
+                                <div className="et-header-left">
+                                    <img src="/static/img/logo.jpg" alt="Logo" className="et-logo" />
+                                    <h1 className="et-title">e-Ticket Receipt & Itinerary</h1>
+                                </div>
+                                <div className="et-header-right">
+                                    <div className="et-scan-text">Scan the barcode above or use the e-ticket<br/>number below for self service kiosk check-in</div>
+                                    <div className="et-barcode-container">
+                                        <div className="et-barcode"></div>
+                                    </div>
+                                    <div className="et-number">{eTicketNum.replace(/\s/g, '')}</div>
+                                </div>
+                            </div>
+                            
+                            {/* Legal text */}
+                            <div className="et-legal">
+                                <p>Your electronic ticket is stored in our computer reservation system. This e-Ticket receipt / itinerary is your record of your electronic ticket and forms part of your contract of carriage. You may need to show this receipt to enter the airport and/or to prove return or onward travel to customs and immigration officials.</p>
+                                <p>Your attention is drawn to the Conditions of Contract and Other Important Notices set out in the attached document. Please visit us on www.example.com to check-in online and for more information.</p>
+                                <p>Economy Class passengers should report to check-in desks 3 hours prior to departure of all flights. First and Business Class passengers should report to check-in desks not later than 1 hour prior to departure. Boarding for your flight begins at least 35 minutes before your scheduled departure time. Gates close 15 minutes prior to departure.</p>
+                                <p><strong>Please check with departure airport for restrictions on the carriage of liquids, aerosols and gels in hand baggage.</strong></p>
+                                <br/>
+                                <p>Below are the details of your electronic ticket. Note: all timings are local.</p>
+                            </div>
+
+                            {/* Section 1: Passenger */}
+                            <div className="et-section">
+                                <div className="et-section-header">PASSENGER AND TICKET INFORMATION</div>
+                                
+                                {booking.passengers && booking.passengers.length > 0 ? booking.passengers.map((p, i) => (
+                                    <div className="et-info-grid" key={i}>
+                                        <div><span>PASSENGER NAME</span><strong>{p.last_name.toUpperCase()}/{p.first_name.toUpperCase()} {p.title.toUpperCase()}</strong></div>
+                                        <div><span>FREQUENT FLYER</span><strong>---</strong></div>
+                                        <div><span>E-TICKET NUMBER</span><strong>{eTicketNum}</strong></div>
+                                        <div><span>BOOKING REFERENCE</span><strong>{booking.reference}</strong></div>
+                                        <div><span>PASSPORT NUMBER</span><strong>TBD AT CHECK-IN</strong></div>
+                                        <div><span>ISSUED BY/DATE</span><strong>ABU MONYA AGENCY <br/> {formatDate(booking.created_at.split(' ')[0])}</strong></div>
+                                    </div>
+                                )) : (
+                                    <div className="et-info-grid">
+                                        <div><span>PASSENGER NAME</span><strong>{booking.client.toUpperCase()}</strong></div>
+                                        <div><span>FREQUENT FLYER</span><strong>---</strong></div>
+                                        <div><span>E-TICKET NUMBER</span><strong>{eTicketNum}</strong></div>
+                                        <div><span>BOOKING REFERENCE</span><strong>{booking.reference}</strong></div>
+                                        <div><span>PASSPORT NUMBER</span><strong>TBD AT CHECK-IN</strong></div>
+                                        <div><span>ISSUED BY/DATE</span><strong>ABU MONYA AGENCY <br/> {formatDate(booking.created_at.split(' ')[0])}</strong></div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Section 2: Travel */}
+                            <div className="et-section">
+                                <div className="et-section-header">TRAVEL INFORMATION</div>
+                                <table className="et-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{width:'15%'}}>FLIGHT</th>
+                                            <th style={{width:'20%'}}>DEPART/ARRIVE</th>
+                                            <th style={{width:'30%'}}>AIRPORT/TERMINAL</th>
+                                            <th style={{width:'12%'}}>CHECK-IN OPENS</th>
+                                            <th style={{width:'12%'}}>CLASS</th>
+                                            <th style={{width:'11%'}}>COUPON VALIDITY</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong>{booking.airline} {booking.flight_number}</strong><br/>
+                                                CONFIRMED
+                                            </td>
+                                            <td>
+                                                {deptDate}<br/>
+                                                TBD
+                                            </td>
+                                            <td>
+                                                {booking.origin} INTNL ({booking.origin})<br/>
+                                                TERMINAL TBD
+                                            </td>
+                                            <td>
+                                                {deptDate}<br/>
+                                                TBD
+                                            </td>
+                                            <td>
+                                                {classDisplay}<br/>
+                                                SEAT
+                                            </td>
+                                            <td>
+                                                NOT BEFORE<br/>
+                                                NOT AFTER<br/>
+                                            </td>
+                                        </tr>
+                                        <tr className="table-hr">
+                                            <td></td>
+                                            <td>
+                                                {deptDate}<br/>
+                                                TBD
+                                            </td>
+                                            <td>
+                                                {booking.destination} INTNL ({booking.destination})
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                BAGGAGE<br/>ALLOWANCE 30KGS
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Section 3: Fare */}
+                            <div className="et-section">
+                                <div className="et-section-header">FARE AND ADDITIONAL INFORMATION</div>
+                                <div className="et-fare-grid">
+                                    <div>
+                                        <div className="et-fare-line"><span>FARE</span><strong>{booking.currency} {booking.amount}</strong></div>
+                                        <div className="et-fare-line"><span>TAXES/FEES/CHARGES</span><strong>INCLUDED IN FARE</strong></div>
+                                        <div className="et-fare-line"><span>TOTAL</span><strong>{booking.currency} {booking.amount}</strong></div>
+                                        <div className="et-fare-line" style={{marginTop:'5px'}}><span>FORM OF PAYMENT</span><strong>CREDIT CARD / ONLINE</strong></div>
+                                    </div>
+                                    <div>
+                                        <div className="et-fare-line"><span>ADDITIONAL INFORMATION</span></div>
+                                        <div className="et-fare-line"><strong>NON-END/REFUND RESTRICTIONS APPLY / VALID ON FLIGHT DATE ONLY</strong></div>
+                                    </div>
+                                </div>
+                                <p style={{textAlign:'center', fontSize:'8px', marginTop:'15px'}}>*AT CHECK-IN YOU MAY NEED TO PRESENT THE CREDIT CARD USED FOR PAYMENT OF THIS TICKET*</p>
+                            </div>
+                            
+                            {/* Section 4: Fare Calculations */}
+                            <div className="et-section">
+                                <div className="et-section-header">FARE CALCULATIONS</div>
+                                <p style={{padding:'10px', margin:0, background:'#f8f8f8', border:'1px dotted #ccc', fontSize:'10px'}}>{booking.origin} AIRLINE {booking.destination}{booking.amount}.00{booking.currency} END ROE1.0000</p>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="et-footer">
+                                <div>© {new Date().getFullYear()} Abu Monya Agency. All rights reserved.</div>
+                                <div>Page 1 of 1</div>
+                            </div>
+                        </div>
+                        
+                        <div className="no-print" style={{textAlign: 'center', marginTop: '10px', backgroundColor:'#f8fafc', padding:'15px', borderRadius:'0 0 12px 12px', borderTop:'1px solid #e2e8f0'}}>
+                            <button className="btn-primary" onClick={() => window.print()} style={{borderRadius:'999px'}}>🖨️ {% trans "حفظ التذكرة" %} (PDF)</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const ContactModal = ({ booking, onClose }) => {
+            if (!booking) return null;
+            
+            let phone = booking.client_phone || "";
+            let waPhone = phone.replace(/[^0-9\+]/g, ''); 
+            if (waPhone.startsWith('00')) waPhone = '+' + waPhone.substring(2);
+            waPhone = waPhone.replace('+', '');
+
+            const pdfUrl = `${window.location.origin}/api/admin/ticket/${booking.id}/pdf/`;
+            let msg = `{% trans "مرحباً" %} ${booking.client}،\n\n{% trans "يسعدنا في وكالة أبو منية إرسال تذكرتكم الإلكترونية لرحلة" %}:\n✈️ ${booking.origin} → ${booking.destination}\n📅 ${booking.date}\n🔖 {% trans "رقم الحجز" %}: ${booking.reference}\n\n📄 {% trans "لتحميل التذكرة" %} (PDF):\n${pdfUrl}\n\n{% trans "نتمنى لكم رحلة سعيدة" %}! 🌟\n{% trans "وكالة أبو منية" %}`;
+            let waLink = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+
+            const eTicketNum = `176${String(booking.id).padStart(6,'0')}`;
+            const formatDate = (d) => {
+                if (!d) return '';
+                const p = d.split('-');
+                if (p.length !== 3) return d;
+                const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+                return `${p[2]} ${months[parseInt(p[1])-1]} ${p[0].slice(-2)}`;
+            };
+            const deptDate = formatDate(booking.date);
+            const classDisplay = booking.cabin_class === 'economy' ? 'ECONOMY' :
+                                 booking.cabin_class === 'business' ? 'BUSINESS' :
+                                 booking.cabin_class === 'first' ? 'FIRST' : (booking.cabin_class || '').toUpperCase();
+            
+            return (
+                <div className="modal-overlay" onClick={onClose}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()} style={{maxWidth:'920px', padding:'0', background:'transparent', boxShadow:'none'}}>
+                        <button className="modal-close no-print" onClick={onClose} style={{right:'-40px', left:'auto', zIndex:100}}>\u2715</button>
+                        
+                        {/* Full Emirates-style ticket */}
+                        <div className="emirates-ticket">
+                            
+                            {/* Header */}
+                            <div className="et-header">
+                                <div className="et-header-left">
+                                    <img src="/static/img/logo.jpg" alt="Logo" className="et-logo" />
+                                    <h1 className="et-title">e-Ticket Receipt & Itinerary</h1>
+                                </div>
+                                <div className="et-header-right">
+                                    <div className="et-scan-text">Scan the barcode above or use the e-ticket<br/>number below for self service kiosk check-in</div>
+                                    <div className="et-barcode-container"><div className="et-barcode"></div></div>
+                                    <div className="et-number">{eTicketNum}</div>
+                                </div>
+                            </div>
+
+                            <div className="et-legal">
+                                <p>Your electronic ticket is stored in our computer reservation system. This e-Ticket receipt / itinerary is your record of your electronic ticket and forms part of your contract of carriage.</p>
+                                <p><strong>Economy Class passengers</strong> should report 3 hours prior to departure. <strong>Business/First Class</strong> — 1 hour prior.</p>
+                            </div>
+
+                            {/* Passenger Info */}
+                            <div className="et-section">
+                                <div className="et-section-header">PASSENGER AND TICKET INFORMATION</div>
+                                {booking.passengers && booking.passengers.length > 0 ? booking.passengers.map((p, i) => (
+                                    <div className="et-info-grid" key={i}>
+                                        <div><span>PASSENGER NAME</span><strong>{p.last_name.toUpperCase()}/{p.first_name.toUpperCase()} {p.title.toUpperCase()}</strong></div>
+                                        <div><span>E-TICKET NUMBER</span><strong>{eTicketNum}</strong></div>
+                                        <div><span>BOOKING REFERENCE</span><strong>{booking.reference}</strong></div>
+                                        <div><span>DATE OF BIRTH</span><strong>{p.born_on}</strong></div>
+                                        <div><span>PASSPORT NUMBER</span><strong>TBD AT CHECK-IN</strong></div>
+                                        <div><span>ISSUED BY/DATE</span><strong>ABU MONYA AGENCY / {formatDate(booking.created_at ? booking.created_at.split(' ')[0] : booking.date)}</strong></div>
+                                    </div>
+                                )) : (
+                                    <div className="et-info-grid">
+                                        <div><span>PASSENGER NAME</span><strong>{booking.client.toUpperCase()}</strong></div>
+                                        <div><span>E-TICKET NUMBER</span><strong>{eTicketNum}</strong></div>
+                                        <div><span>BOOKING REFERENCE</span><strong>{booking.reference}</strong></div>
+                                        <div><span>PASSPORT NUMBER</span><strong>TBD AT CHECK-IN</strong></div>
+                                        <div><span>ISSUED BY/DATE</span><strong>ABU MONYA AGENCY</strong></div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Travel Info */}
+                            <div className="et-section">
+                                <div className="et-section-header">TRAVEL INFORMATION</div>
+                                <table className="et-table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{width:'15%'}}>FLIGHT</th>
+                                            <th style={{width:'20%'}}>DEPART/ARRIVE</th>
+                                            <th style={{width:'30%'}}>AIRPORT/TERMINAL</th>
+                                            <th style={{width:'12%'}}>CHECK-IN OPENS</th>
+                                            <th style={{width:'12%'}}>CLASS</th>
+                                            <th style={{width:'11%'}}>COUPON VALIDITY</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>{booking.airline} {booking.flight_number}</strong><br/>CONFIRMED</td>
+                                            <td>{deptDate}<br/>TBD</td>
+                                            <td>{booking.origin} INTNL ({booking.origin})<br/>TERMINAL TBD</td>
+                                            <td>{deptDate}<br/>TBD</td>
+                                            <td>{classDisplay}<br/>SEAT</td>
+                                            <td>NOT BEFORE<br/>NOT AFTER</td>
+                                        </tr>
+                                        <tr className="table-hr">
+                                            <td></td>
+                                            <td>{deptDate}<br/>TBD</td>
+                                            <td>{booking.destination} INTNL ({booking.destination})</td>
+                                            <td></td>
+                                            <td>BAGGAGE<br/>ALLOWANCE 30KGS</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Fare */}
+                            <div className="et-section">
+                                <div className="et-section-header">FARE AND ADDITIONAL INFORMATION</div>
+                                <div className="et-fare-grid">
+                                    <div>
+                                        <div className="et-fare-line"><span>FARE</span><strong>{booking.currency} {booking.amount}</strong></div>
+                                        <div className="et-fare-line"><span>TAXES/CHARGES</span><strong>INCLUDED IN FARE</strong></div>
+                                        <div className="et-fare-line"><span>TOTAL</span><strong>{booking.currency} {booking.amount}</strong></div>
+                                        <div className="et-fare-line"><span>FORM OF PAYMENT</span><strong>ONLINE / BANK TRANSFER</strong></div>
+                                    </div>
+                                    <div>
+                                        <div className="et-fare-line"><span>ADDITIONAL INFORMATION</span></div>
+                                        <div className="et-fare-line"><strong>NON-END / REFUND RESTRICTIONS APPLY</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* ─── Client Contact Section ──────────────────── */}
+                            <div className="et-section" style={{marginTop:'15px'}}>
+                                <div className="et-section-header" style={{background:'#0b1437'}}>CLIENT CONTACT & SEND TICKET</div>
+                                <div style={{padding:'15px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px 20px', fontSize:'11px'}}>
+                                    <div><span style={{color:'#888', display:'block', fontSize:'9px', textTransform:'uppercase'}}>CLIENT NAME</span><strong>{booking.client}</strong></div>
+                                    <div><span style={{color:'#888', display:'block', fontSize:'9px', textTransform:'uppercase'}}>BOOKING REF</span><strong style={{color:'#0b1437'}}>{booking.reference}</strong></div>
+                                    <div><span style={{color:'#888', display:'block', fontSize:'9px', textTransform:'uppercase'}}>EMAIL</span><a href={`mailto:${booking.client_email}`} style={{color:'#3b82f6', fontWeight:'600', fontSize:'11px'}}>{booking.client_email || 'N/A'}</a></div>
+                                    <div><span style={{color:'#888', display:'block', fontSize:'9px', textTransform:'uppercase'}}>PHONE</span><strong dir="ltr">{booking.client_phone || 'N/A'}</strong></div>
+                                    <div><span style={{color:'#888', display:'block', fontSize:'9px', textTransform:'uppercase'}}>PDF TICKET LINK</span><a href={pdfUrl} target="_blank" style={{color:'#10b981', fontWeight:'600', fontSize:'10px'}}>Open PDF ↗</a></div>
+                                </div>
+                            </div>
+
+                            <div className="et-footer">
+                                <div>© {new Date().getFullYear()} Abu Monya Agency. All rights reserved.</div>
+                                <div>Page 1 of 1</div>
+                            </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="no-print" style={{display:'flex', gap:'12px', padding:'15px', background:'#fff', borderRadius:'0 0 12px 12px', flexWrap:'wrap', justifyContent:'center', borderTop:'1px solid #e2e8f0'}}>
+                            <button onClick={() => window.open(waLink, '_blank')} className="btn-primary" style={{background:'#25D366', border:'none', display:'flex', alignItems:'center', gap:'8px', flex:1, justifyContent:'center', minWidth:'160px', borderRadius:'999px'}}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                                {% trans "إرسال" %} + PDF {% trans "(واتساب" %})
+                            </button>
+                            <a href={pdfUrl} target="_blank" className="btn-outline" style={{display:'flex', alignItems:'center', gap:'8px', justifyContent:'center', minWidth:'120px', borderRadius:'999px'}}>
+                                📄 {% trans "فتح" %} PDF
+                            </a>
+                            <a href={`mailto:${booking.client_email}?subject={% trans "تذكرة رحلتك" %} ${booking.reference}&body=${encodeURIComponent(`{% trans "مرحباً" %} ${booking.client}،\n\n{% trans "يسعدنا إرسال رابط تذكرتكم" %}:\n${pdfUrl}`)}`} className="btn-outline" style={{display:'flex', alignItems:'center', gap:'8px', justifyContent:'center', minWidth:'120px', borderRadius:'999px'}}>
+                                ✉️ {% trans "إيميل" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         // 1. Dashboard Stats View
         const StatsView = () => {
             const [stats, setStats] = useState(null);
@@ -114,36 +509,36 @@
                     .then(data => setStats(data));
             }, []);
 
-            if (!stats) return <div className="loader">جاري التحميل...</div>;
+            if (!stats) return <div className="loader">{% trans "جاري التحميل" %}...</div>;
 
             return (
                 <div>
                     <div className="page-header">
-                        <h1>نظرة عامة</h1>
-                        <p>أداء ومقاييس الموقع.</p>
+                        <h1>{% trans "نظرة عامة" %}</h1>
+                        <p>{% trans "أداء ومقاييس الموقع" %}.</p>
                     </div>
                     <div className="kpi-grid">
                         <div className="kpi-card" style={{borderTop: '4px solid var(--success)'}}>
                             <div className="kpi-icon">💰</div>
-                            <h3>الإيرادات الإجمالية</h3>
+                            <h3>{% trans "الإيرادات الإجمالية" %}</h3>
                             <p className="kpi-value">$ {stats.total_revenue}</p>
-                            <small style={{color:'var(--success)', fontWeight:'bold'}}>الربح الصافي: $ {stats.total_profit}</small>
+                            <small style={{color:'var(--success)', fontWeight:'bold'}}>{% trans "الربح الصافي" %}: $ {stats.total_profit}</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid var(--gold)'}}>
                             <div className="kpi-icon">✈️</div>
-                            <h3>حجوزات الطيران</h3>
+                            <h3>{% trans "حجوزات الطيران" %}</h3>
                             <p className="kpi-value">{stats.flight_bookings}</p>
-                            <small>$ {stats.flight_revenue} إيرادات</small>
+                            <small>$ {stats.flight_revenue} {% trans "إيرادات" %}</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid #3b82f6'}}>
                             <div className="kpi-icon">🏨</div>
-                            <h3>حجوزات الفنادق</h3>
+                            <h3>{% trans "حجوزات الفنادق" %}</h3>
                             <p className="kpi-value">{stats.hotel_bookings}</p>
-                            <small>$ {stats.hotel_revenue} إيرادات</small>
+                            <small>$ {stats.hotel_revenue} {% trans "إيرادات" %}</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid #8b5cf6'}}>
                             <div className="kpi-icon">👥</div>
-                            <h3>العملاء الفريدون</h3>
+                            <h3>{% trans "العملاء الفريدون" %}</h3>
                             <p className="kpi-value">{stats.total_clients}</p>
                         </div>
                     </div>
@@ -156,6 +551,10 @@
             const [bookings, setBookings] = useState([]);
             const [loader, setLoader] = useState(true);
             const [canceling, setCanceling] = useState(null);
+            
+            // New UI States
+            const [activeTicket, setActiveTicket] = useState(null);
+            const [activeContact, setActiveContact] = useState(null);
 
             const fetchBookings = () => {
                 fetch('/api/admin/bookings/')
@@ -166,36 +565,36 @@
             useEffect(() => { fetchBookings(); }, []);
 
             const handleCancel = async (id) => {
-                if(!confirm("هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى Duffel؟")) return;
+                if(!confirm("{% trans 'هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى' %} Duffel؟")) return;
                 setCanceling(id);
                 try {
                     const res = await fetch(`/api/admin/bookings/${id}/cancel/`, { method: 'POST' });
                     const data = await res.json();
                     if(data.error) alert(data.error);
-                    else { alert("تم الإلغاء بنجاح"); fetchBookings(); }
-                } catch(e) { alert("خطأ في السيرفر"); }
+                    else { alert("{% trans 'تم الإلغاء بنجاح' %}"); fetchBookings(); }
+                } catch(e) { alert("{% trans 'خطأ في السيرفر' %}"); }
                 setCanceling(null);
             };
 
-            if (loader) return <div className="loader">جاري استرداد رحلات الطيران...</div>;
+            if (loader) return <div className="loader">{% trans "جاري استرداد رحلات الطيران" %}...</div>;
 
             return (
                 <div>
                     <div className="page-header">
-                        <h1>الحجوزات</h1>
-                        <p>لوحة تحكم إدارة الرحلات.</p>
+                        <h1>{% trans "الحجوزات" %}</h1>
+                        <p>{% trans "لوحة تحكم إدارة الرحلات" %}.</p>
                     </div>
                     <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>رقم الحجز (PNR)</th>
-                                    <th>المسافر</th>
-                                    <th>المسار</th>
-                                    <th>التواريخ</th>
-                                    <th>المبلغ</th>
-                                    <th>الحالة</th>
-                                    <th>الإجراءات</th>
+                                    <th>{% trans "رقم الحجز" %} (PNR)</th>
+                                    <th>{% trans "المسافر" %}</th>
+                                    <th>{% trans "المسار" %}</th>
+                                    <th>{% trans "التواريخ" %}</th>
+                                    <th>{% trans "المبلغ" %}</th>
+                                    <th>{% trans "الحالة" %}</th>
+                                    <th>{% trans "الإجراءات" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -208,13 +607,24 @@
                                         <td>$ {b.amount}</td>
                                         <td>
                                             <span className={`badge ${b.status === 'confirmed' ? 'bg-ok' : 'bg-err'}`}>
-                                                {b.status === 'confirmed' ? 'مؤكد' : 'ملغى'}
+                                                {b.status === 'confirmed' ? '{% trans "مؤكد" %}' : '{% trans "ملغى" %}'}
                                             </span>
                                         </td>
-                                        <td>
+                                        <td style={{display:'flex', gap:'8px', flexWrap:'wrap', justifyContent:'flex-end'}}>
+                                            {b.status === 'confirmed' && (
+                                                <>
+                                                    <button className="btn-cancel" style={{borderColor:'#10b981', color:'#10b981'}} onClick={() => setActiveTicket(b)}>
+                                                        {% trans "التذكرة" %} 🎫
+                                                    </button>
+                                                    <button className="btn-cancel" style={{borderColor:'#3b82f6', color:'#3b82f6'}} onClick={() => setActiveContact(b)}>
+                                                        {% trans "العميل" %} 👨‍💼
+                                                    </button>
+                                                </>
+                                            )}
+                                            {/* Cancel stays for everyone (or specifically confirmed/pending) */}
                                             {b.status === 'confirmed' && (
                                                 <button className="btn-cancel" disabled={canceling === b.id} onClick={() => handleCancel(b.id)}>
-                                                    {canceling === b.id ? '...' : 'إلغاء 🗑'}
+                                                    {canceling === b.id ? '...' : '{% trans "إلغاء" %} 🗑'}
                                                 </button>
                                             )}
                                         </td>
@@ -223,6 +633,10 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    {/* Render Modals if Active */}
+                    {activeTicket && <TicketModal booking={activeTicket} onClose={() => setActiveTicket(null)} />}
+                    {activeContact && <ContactModal booking={activeContact} onClose={() => setActiveContact(null)} onOpenTicket={(b) => { setActiveContact(null); setActiveTicket(b); }} />}
                 </div>
             );
         };
@@ -239,17 +653,17 @@
             return (
                 <div>
                     <div className="page-header">
-                        <h1>قاعدة العملاء</h1>
-                        <p>المسافرون والزوار الدائمون.</p>
+                        <h1>{% trans "قاعدة العملاء" %}</h1>
+                        <p>{% trans "المسافرون والزوار الدائمون" %}.</p>
                     </div>
                     <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>اسم العميل</th>
-                                    <th>البريد الإلكتروني</th>
-                                    <th>عدد الحجوزات</th>
-                                    <th>الفئة</th>
+                                    <th>{% trans "اسم العميل" %}</th>
+                                    <th>{% trans "البريد الإلكتروني" %}</th>
+                                    <th>{% trans "عدد الحجوزات" %}</th>
+                                    <th>{% trans "الفئة" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -257,9 +671,9 @@
                                     <tr key={i}>
                                         <td><strong>{c.name}</strong></td>
                                         <td>{c.email}</td>
-                                        <td>{c.bookings_count} رحلات</td>
+                                        <td>{c.bookings_count} {% trans "رحلات" %}</td>
                                         <td>
-                                            {c.bookings_count > 2 ? <span className="badge bg-vip">VIP ✨</span> : 'عادي'}
+                                            {c.bookings_count > 2 ? <span className="badge bg-vip">VIP ✨</span> : '{% trans "عادي" %}'}
                                         </td>
                                     </tr>
                                 ))}
@@ -281,7 +695,7 @@
                 if (user.trim() === 'farouk' && pwd === 'farouk2020++') {
                     onLogin();
                 } else {
-                    setErr("اسم المستخدم أو كلمة المرور غير صحيحة");
+                    setErr("{% trans 'اسم المستخدم أو كلمة المرور غير صحيحة' %}");
                 }
             };
 
@@ -289,11 +703,11 @@
                 <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh', background:'var(--bg)'}}>
                     <form onSubmit={handleLogin} className="glass-panel" style={{padding:'40px', borderRadius:'15px', width:'100%', maxWidth:'360px', textAlign:'center', background:'#fff', boxShadow:'0 10px 30px rgba(0,0,0,0.05)'}}>
                         <img src="/static/img/logo.jpg" alt="Abu Monya Logo" style={{maxHeight:'80px', marginBottom:'20px'}} />
-                        <h2 style={{marginTop:0, marginBottom:'20px', color:'var(--gold)'}}>تسجيل الدخول للإدارة</h2>
+                        <h2 style={{marginTop:0, marginBottom:'20px', color:'var(--gold)'}}>{% trans "تسجيل الدخول للإدارة" %}</h2>
                         {err && <div style={{color:'var(--danger)', marginBottom:'15px', fontSize:'0.9rem'}}>{err}</div>}
-                        <input className="login-input" type="text" placeholder="اسم المستخدم" value={user} onChange={e=>setUser(e.target.value)} required />
-                        <input className="login-input" type="password" placeholder="كلمة المرور" value={pwd} onChange={e=>setPwd(e.target.value)} required />
-                        <button className="login-btn" type="submit">دخول</button>
+                        <input className="login-input" type="text" placeholder="{% trans 'اسم المستخدم' %}" value={user} onChange={e=>setUser(e.target.value)} required />
+                        <input className="login-input" type="password" placeholder="{% trans 'كلمة المرور' %}" value={pwd} onChange={e=>setPwd(e.target.value)} required />
+                        <button className="login-btn" type="submit">{% trans "دخول" %}</button>
                     </form>
                 </div>
             );
@@ -329,16 +743,16 @@
                         </div>
                         <nav className="sidebar-nav">
                             <a className={`nav-link ${view === 'stats' ? 'active' : ''}`} onClick={() => setView('stats')}>
-                                <span style={{marginLeft:'10px'}}>📊</span> نظرة عامة
+                                <span style={{marginLeft:'10px'}}>📊</span> {% trans "نظرة عامة" %}
                             </a>
                             <a className={`nav-link ${view === 'bookings' ? 'active' : ''}`} onClick={() => setView('bookings')}>
-                                <span style={{marginLeft:'10px'}}>✈️</span> الحجوزات والإلغاءات
+                                <span style={{marginLeft:'10px'}}>✈️</span> {% trans "الحجوزات والإلغاءات" %}
                             </a>
                             <a className={`nav-link ${view === 'clients' ? 'active' : ''}`} onClick={() => setView('clients')}>
-                                <span style={{marginLeft:'10px'}}>👥</span> قاعدة العملاء
+                                <span style={{marginLeft:'10px'}}>👥</span> {% trans "قاعدة العملاء" %}
                             </a>
                             <a className="nav-link" href="/" style={{marginTop: 'auto', marginBottom: '20px'}}>
-                                <span style={{marginLeft:'10px'}}>🏠</span> العودة للموقع
+                                <span style={{marginLeft:'10px'}}>🏠</span> {% trans "العودة للموقع" %}
                             </a>
                         </nav>
                     </aside>
@@ -347,7 +761,7 @@
                     <main className="admin-main">
                         <header className="admin-header glass-panel">
                             <strong>{/* Header Title Removed as Requested */}</strong>
-                            <button onClick={handleLogout} className="btn-cancel" style={{borderColor:'transparent', color:'var(--text-muted)'}}>تسجيل خروج 🚪</button>
+                            <button onClick={handleLogout} className="btn-cancel" style={{borderColor:'transparent', color:'var(--text-muted)'}}>{% trans "تسجيل خروج" %} 🚪</button>
                         </header>
                         <div className="admin-content">
                             {view === 'stats' && <StatsView />}

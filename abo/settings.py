@@ -81,7 +81,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe API Key Configuration
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', 'pk_test_TYooMQauvdEDq54NiTphI7jx')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_REMOVED_FOR_SECURITY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_4eC39HqLyjWDarjtT1zdp7dc')
 STRIPE_WEBHOOK_SECRET = '' # Optional, used if we switch to async webhooks
 
 
@@ -152,7 +152,6 @@ USE_LIVE_DUFFEL = False  # ⚠️ Change this to True to start real bookings
 
 DUFFEL_TEST_KEY = os.environ.get('DUFFEL_TEST_KEY', 'duffel_test_REMOVED_FOR_SECURITY')
 DUFFEL_LIVE_KEY = os.environ.get('DUFFEL_LIVE_KEY', 'duffel_live_REMOVED_FOR_SECURITY')
-
 DEFAULT_DUFFEL_KEY = DUFFEL_LIVE_KEY if USE_LIVE_DUFFEL else DUFFEL_TEST_KEY
 DUFFEL_API_KEY = os.environ.get('DUFFEL_API_KEY', DEFAULT_DUFFEL_KEY)
 DUFFEL_API_URL = 'https://api.duffel.com'

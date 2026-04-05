@@ -1,3 +1,4 @@
+{% load i18n %}
 <script>
   // Setup dates - using local timezone offset to get correct YYYY-MM-DD
   const userNow = new Date();
@@ -16,6 +17,11 @@
   const slicesContainer = document.getElementById('slices-container');
   let sliceCount = 1;
 
+  // Responsive grid helper — on mobile, always use 1 column
+  function setSliceGrid(el, desktopCols) {
+    el.style.gridTemplateColumns = window.innerWidth <= 800 ? '1fr' : desktopCols;
+  }
+
   function updateUI() {
     const type = document.querySelector('input[name="trip_type"]:checked').value;
     
@@ -25,31 +31,33 @@
         extra.forEach(el => el.remove());
         sliceCount = 1;
         addSliceBtn.style.display = 'none';
-        
         // Reset grid structure
-        document.getElementById('slice_0').style.gridTemplateColumns = '1fr auto 1fr 1fr 1fr';
+        setSliceGrid(document.getElementById('slice_0'), '1fr auto 1fr 1fr 1fr');
     }
 
     if (type === 'oneway') {
       returnWrapper.style.display = 'none';
       returnInput.required = false;
-      document.getElementById('slice_0').style.gridTemplateColumns = '1fr auto 1fr 1fr';
+      setSliceGrid(document.getElementById('slice_0'), '1fr auto 1fr 1fr');
     } 
     else if (type === 'roundtrip') {
       returnWrapper.style.display = 'block';
       returnInput.required = true;
-      document.getElementById('slice_0').style.gridTemplateColumns = '1fr auto 1fr 1fr 1fr';
+      setSliceGrid(document.getElementById('slice_0'), '1fr auto 1fr 1fr 1fr');
     } 
     else if (type === 'multicity') {
       returnWrapper.style.display = 'none';
       returnInput.required = false;
       addSliceBtn.style.display = 'inline-flex';
-      document.getElementById('slice_0').style.gridTemplateColumns = '1fr auto 1fr 1fr auto';
+      setSliceGrid(document.getElementById('slice_0'), '1fr auto 1fr 1fr auto');
       if (sliceCount === 1) {
-          addMultiCitySlice(); // Force minimum 2 flights for multicity
+          addMultiCitySlice();
       }
     }
   }
+
+  // Re-apply grid on resize
+  window.addEventListener('resize', updateUI);
 
   radios.forEach(r => r.addEventListener('change', updateUI));
   updateUI();
@@ -73,7 +81,7 @@
 
   // Multi-city dynamic rows
   function addMultiCitySlice() {
-    if (sliceCount >= 6) return alert("يُسمح بـ 6 رحلات كحد أقصى.");
+    if (sliceCount >= 6) return alert("{% trans 'يُسمح بـ' %} 6 {% trans "رحلات كحد أقصى" %}.");
     
     // Auto-fill origin with previous destination
     // Auto-fill origin with previous destination if possible
@@ -91,7 +99,7 @@
       <div class="form-field autocomplete-wrapper">
         <div class="input-icon-wrap">
           <span class="fi">🛫</span>
-          <input type="text" name="origin_${sliceCount}" id="origin_${sliceCount}" value="${prevDest}" placeholder="المغادرة" required class="field-input autocomplete-input" autocomplete="off">
+          <input type="text" name="origin_${sliceCount}" id="origin_${sliceCount}" value="${prevDest}" placeholder="{% trans 'المغادرة' %}" required class="field-input autocomplete-input" autocomplete="off">
         </div>
         <div class="autocomplete-dropdown" id="dropdown_origin_${sliceCount}" style="display: none;"></div>
       </div>
@@ -101,7 +109,7 @@
       <div class="form-field autocomplete-wrapper">
         <div class="input-icon-wrap">
           <span class="fi">🛬</span>
-          <input type="text" name="destination_${sliceCount}" id="destination_${sliceCount}" placeholder="الوجهة" required class="field-input autocomplete-input" autocomplete="off">
+          <input type="text" name="destination_${sliceCount}" id="destination_${sliceCount}" placeholder="{% trans 'الوجهة' %}" required class="field-input autocomplete-input" autocomplete="off">
         </div>
         <div class="autocomplete-dropdown" id="dropdown_destination_${sliceCount}" style="display: none;"></div>
       </div>
@@ -167,13 +175,20 @@
                     div.className = 'autocomplete-item';
                     const icon = place.type === 'airport' ? '✈️' : '🏙️';
                     const arabicLabel = place.arabic_name ? `<span style="color:var(--primary); font-size:0.85rem; margin-right:4px;">${place.arabic_name}</span>` : '';
+                    let subText = place.city_name || '';
+                    if (place.type === 'city') {
+                        subText = '{% trans "جميع المطارات" %}';
+                    } else if (subText.toLowerCase() === (place.name || '').toLowerCase()) {
+                        subText = '';
+                    }
+                    
                     div.innerHTML = `
                         <span class="ac-icon">${icon}</span>
                         <div class="ac-text">
-                            <strong>${place.name}</strong> ${arabicLabel}
-                            <span class="ac-sub">${place.city_name}</span>
+                            <strong>${place.name || ''}</strong> ${arabicLabel}
+                            <span class="ac-sub">${subText}</span>
                         </div>
-                        <span class="ac-iata">${place.iata_code}</span>
+                        <span class="ac-iata">${place.iata_code || ''}</span>
                     `;
                     div.addEventListener('click', () => {
                         // Put IATA + City representation
@@ -184,7 +199,7 @@
                 });
                 dropdown.style.display = 'block';
             } else {
-                dropdown.innerHTML = '<div class="autocomplete-item text-muted">لا توجد نتائج</div>';
+                dropdown.innerHTML = '<div class="autocomplete-item text-muted">{% trans "لا توجد نتائج" %}</div>';
                 dropdown.style.display = 'block';
             }
         } catch (err) {
@@ -204,10 +219,5 @@
   setupAutocomplete(document.getElementById('origin_0'), document.getElementById('dropdown_origin_0'));
   setupAutocomplete(document.getElementById('destination_0'), document.getElementById('dropdown_destination_0'));
 
-  // Submit loader
-  document.getElementById("searchForm").addEventListener("submit", () => {
-    document.querySelector(".btn-text").style.display = "none";
-    document.querySelector(".btn-loader").style.display = "inline";
-    setTimeout(() => { document.getElementById("searchBtn").disabled = true; }, 50);
-  });
+
 </script>

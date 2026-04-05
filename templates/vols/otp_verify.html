@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
-{% block title %}وكالة أبو منية — تأكيد البريد الإلكتروني{% endblock %}
+{% load i18n %}%}
+{% block title %}{% trans "وكالة أبو منية" %} — {% trans "تأكيد البريد الإلكتروني" %}{% endblock %}
 {% block content %}
 <section class="auth-section">
   <div class="auth-card">
     <div class="auth-logo">📧</div>
-    <h1 class="auth-title">تأكيد البريد الإلكتروني</h1>
-    <p class="auth-sub">لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني.</p>
+    <h1 class="auth-title">{% trans "تأكيد البريد الإلكتروني" %}</h1>
+    <p class="auth-sub">{% trans "لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني" %}.</p>
 
     <form method="post" class="auth-form">
       {% csrf_token %}
       <div class="form-field">
-        <label class="field-label" style="text-align: center;">رمز التفعيل (6 أرقام) *</label>
+        <label class="field-label" style="text-align: center;">{% trans "رمز التفعيل" %} (6 {% trans "أرقام" %}) *</label>
         <input type="text" name="otp" required class="field-input" placeholder="123456" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;" maxlength="6" pattern="\d{6}">
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; height:48px; font-size:1rem; margin-top:8px;">
-        ✔️ تفعيل الحساب
+        ✔️ {% trans "تفعيل الحساب" %}
       </button>
     </form>
-    <p class="auth-link"><a href="{% url 'vols:signup' %}">العودة إلى التسجيل</a></p>
+    <p class="auth-link"><a href="{% url 'vols:signup' %}">{% trans "العودة إلى التسجيل" %}</a></p>
   </div>
 </section>
 {% endblock %}

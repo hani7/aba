@@ -10,6 +10,10 @@ __pycache__/
 env/
 venv/
 db.sqlite3
+*.zip
+.env
+*.pdf
+push*.txt
 
 # Logs & output
 *.log

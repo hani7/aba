@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}%}
 
-{% block title %}تأكيد الحجز — وكالة أبو منية{% endblock %}
+{% block title %}{% trans "تأكيد الحجز" %} — {% trans "وكالة أبو منية" %}{% endblock %}
 
 {% block content %}
 <section class="section" style="background: var(--bg); padding: 50px 0 80px;">
@@ -9,8 +10,8 @@
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 35px;">
       <div style="width: 80px; height: 80px; background: rgba(34,197,94,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 15px;">✅</div>
-      <h1 style="font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">تأكيد الحجز</h1>
-      <p style="color: var(--text-muted); font-size: 1.05rem;">رقم الحجز: <strong style="color: var(--gold);">{{ booking.booking_reference }}</strong> — يرجى إتمام التحويل البنكي لتفعيل تذكرتك</p>
+      <h1 style="font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">{% trans "تأكيد الحجز" %}</h1>
+      <p style="color: var(--text-muted); font-size: 1.05rem;">{% trans "رقم الحجز" %}: <strong style="color: var(--gold);">{{ booking.booking_reference }}</strong> — {% trans "يرجى إتمام التحويل البنكي لتفعيل تذكرتك" %}</p>
     </div>
 
     <!-- Flight Summary Strip -->
@@ -23,7 +24,7 @@
         </div>
       </div>
       <div style="text-align: left;">
-        <div style="color: var(--text-muted); font-size: 0.85rem;">المبلغ المستحق</div>
+        <div style="color: var(--text-muted); font-size: 0.85rem;">{% trans "المبلغ المستحق" %}</div>
         <div style="font-size: 1.8rem; font-weight: 900; color: var(--gold);">{{ booking.total_amount }} {{ booking.currency }}</div>
       </div>
     </div>
@@ -34,22 +35,22 @@
       <!-- Bank Transfer Only -->
       <div style="background: var(--surface); border: 2px solid var(--gold); border-radius: 18px; padding: 35px; text-align: center; box-shadow: 0 8px 30px rgba(212,160,0,0.1);">
         <div style="font-size: 3.5rem; margin-bottom: 15px;">🏦</div>
-        <h3 style="color: var(--text); font-size: 1.4rem; margin-bottom: 10px;">تحويل بنكي أو إيداع نقدي</h3>
+        <h3 style="color: var(--text); font-size: 1.4rem; margin-bottom: 10px;">{% trans "تحويل بنكي أو إيداع نقدي" %}</h3>
         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.7;">
-          قم بتحويل المبلغ إلى حسابنا البنكي في بنك النيل الأزرق المشرق وأرسل إيصال الدفع عبر الواتساب لتأكيد حجزك.
+          {% trans "قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب لتأكيد حجزك" %}.
         </p>
-        <!-- Bank Details -->
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: right; margin-bottom: 25px; font-size: 0.95rem;">
+        <!-- Bank Details 1 -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: right; margin-bottom: 15px; font-size: 0.95rem;">
           <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0;">
-            <span style="color: var(--text-muted);">البنك:</span>
+            <span style="color: var(--text-muted);">{% trans "البنك" %}:</span>
             <strong dir="ltr">Blue Nile Mashreq Bank (BNMB)</strong>
           </div>
           <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0;">
-            <span style="color: var(--text-muted);">اسم الحساب:</span>
+            <span style="color: var(--text-muted);">{% trans "اسم الحساب" %}:</span>
             <strong dir="ltr">ABU MONIA TRAVEL & TOURISM AGENCY</strong>
           </div>
           <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0;">
-            <span style="color: var(--text-muted);">رقم الحساب:</span>
+            <span style="color: var(--text-muted);">{% trans "رقم الحساب" %}:</span>
             <strong style="color: var(--gold); font-size: 1.1rem;" dir="ltr">67509568</strong>
           </div>
           <div style="display:flex; justify-content:space-between; padding: 10px 0;">
@@ -57,17 +58,33 @@
             <strong dir="ltr">SD19 1500 0067 5095 68</strong>
           </div>
         </div>
+
+        <!-- Bank Details 2 -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: right; margin-bottom: 25px; font-size: 0.95rem;">
+          <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0;">
+            <span style="color: var(--text-muted);">{% trans "البنك" %}:</span>
+            <strong dir="rtl">{% trans "بنك الخليج الدولي" %}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0;">
+            <span style="color: var(--text-muted);">{% trans "اسم الحساب" %}:</span>
+            <strong dir="rtl">{% trans "احمد فاروق" %}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding: 10px 0;">
+            <span style="color: var(--text-muted);">{% trans "رقم الايبان" %}:</span>
+            <strong style="color: var(--gold); font-size: 1.1rem;" dir="ltr">SA7390000000029901795087</strong>
+          </div>
+        </div>
         <a href="{% url 'vols:confirmation' booking.id %}" class="btn btn-primary" style="width: 100%; text-align: center; justify-content: center; font-size: 1.1rem; padding: 16px; background: var(--gold); border-color: var(--gold);">
-          ✅ تأكيد — سأقوم بالتحويل البنكي
+          ✅ {% trans "تأكيد" %} — {% trans "سأقوم بالتحويل البنكي" %}
         </a>
-        <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">⚠️ أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز</p>
+        <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">⚠️ {% trans "أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز" %}</p>
       </div>
 
     </div>
 
     <!-- Passengers -->
     <div style="margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 25px;">
-      <h4 style="margin-top: 0; color: var(--text); margin-bottom: 15px;">👤 المسافرون</h4>
+      <h4 style="margin-top: 0; color: var(--text); margin-bottom: 15px;">👤 {% trans "المسافرون" %}</h4>
       {% for p in passengers %}
       <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border);">
         <span style="font-weight: 600;">{{ p.first_name }} {{ p.last_name }}</span>

@@ -2,7 +2,7 @@
 <form action="{% url 'vols:hotel_search' %}" method="post" class="search-card" id="hotelSearchForm">
   {% csrf_token %}
 
-  <div class="search-grid" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr; align-items: flex-end;">
+  <div class="search-grid hotel-search-grid">
     <!-- Destination (Autocomplete) -->
     <div class="form-field autocomplete-wrapper">
       <label class="field-label">{% trans "الوجهة أو الفندق" %}</label>

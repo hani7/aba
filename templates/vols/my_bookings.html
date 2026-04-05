@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}%}
 
-{% block title %}وكالة أبو منية — حجوزاتي{% endblock %}
+{% block title %}{% trans "وكالة أبو منية" %} — {% trans "حجوزاتي" %}{% endblock %}
 
 {% block content %}
 <section class="section">
   <div class="container">
     <div class="page-header">
-      <h1 class="page-title">📋 حجوزاتي</h1>
-      <a href="{% url 'vols:home' %}" class="btn btn-primary btn-sm">+ رحلة جديدة</a>
+      <h1 class="page-title">📋 {% trans "حجوزاتي" %}</h1>
+      <a href="{% url 'vols:home' %}" class="btn btn-primary btn-sm">+ {% trans "رحلة جديدة" %}</a>
     </div>
 
     {% if bookings %}
@@ -15,7 +16,7 @@
       {% for booking in bookings %}
       <div class="booking-card">
         <div class="booking-ref">
-          <span class="ref-label">المرجع</span>
+          <span class="ref-label">{% trans "المرجع" %}</span>
           <span class="ref-code-small">{{ booking.booking_reference }}</span>
         </div>
         <div class="booking-route">
@@ -25,14 +26,14 @@
         </div>
         <div class="booking-meta">
           <span>📅 {{ booking.departure_date }}</span>
-          <span>✈ {{ booking.airline|default:"غير متوفر" }}</span>
-          <span>👤 {{ booking.passengers.count }} مسافر{{ booking.passengers.count|pluralize }}</span>
+          <span>✈ {{ booking.airline|default:"{% trans 'غير متوفر' %}" }}</span>
+          <span>👤 {{ booking.passengers.count }} {% trans "مسافر" %}{{ booking.passengers.count|pluralize }}</span>
         </div>
         <div class="booking-amount">
           <span class="gold">{{ booking.total_amount|floatformat:2 }} {{ booking.currency }}</span>
         </div>
         <div class="booking-status">
-          <span class="badge badge-success">مؤكد</span>
+          <span class="badge badge-success">{% trans "مؤكد" %}</span>
         </div>
       </div>
       {% endfor %}
@@ -41,9 +42,9 @@
     {% else %}
     <div class="empty-state">
       <div class="empty-icon">🎫</div>
-      <h3>لا توجد حجوزات</h3>
-      <p>ليس لديك أي حجوزات في الوقت الحالي.</p>
-      <a href="{% url 'vols:home' %}" class="btn btn-primary">ابحث عن رحلة</a>
+      <h3>{% trans "لا توجد حجوزات" %}</h3>
+      <p>{% trans "ليس لديك أي حجوزات في الوقت الحالي" %}.</p>
+      <a href="{% url 'vols:home' %}" class="btn btn-primary">{% trans "ابحث عن رحلة" %}</a>
     </div>
     {% endif %}
 
