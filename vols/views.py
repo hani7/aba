@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import cache_page
 from .services import duffel_service
 from .services import travelpayouts_service
 from .models import Booking, Passenger, HotelBooking
@@ -281,6 +282,7 @@ ARABIC_CITY_MAP = {
     'تمنراست': 'Tamanrasset', 'إخنوكشن': 'In Amenas',
 }
 
+@cache_page(60 * 60 * 24)  # Cache for 24 hours
 def api_places(request):
     raw_query = request.GET.get('q', '').strip()
     if not raw_query:
@@ -721,6 +723,7 @@ def my_bookings(request):
 # 🏨 HOTELS (AGODA INTEGRATION)
 # ===========================================================================
 
+@cache_page(60 * 60 * 24)  # Cache for 24 hours
 def api_hotel_destinations(request):
     """Autocomplete for hotel destinations (cities)."""
     query = request.GET.get('q', '').strip()
