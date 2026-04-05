@@ -16,7 +16,7 @@ urlpatterns = [
     path('rechercher/', views.search_results, name='search_results'),
     path('offre/<str:offer_id>/', views.passenger_details, name='passenger_details'),
     path('confirmer/', views.confirm_booking, name='confirm_booking'),
-    path('confirmation/<int:booking_id>/', views.confirmation, name='confirmation'),
+
     path('mes-reservations/', views.my_bookings, name='my_bookings'),
 
     # ── Hotels (Agoda) ────────────────────────────────────────────────────

@@ -74,9 +74,6 @@
             <strong style="color: var(--gold); font-size: 1.1rem;" dir="ltr">SA7390000000029901795087</strong>
           </div>
         </div>
-        <a href="{% url 'vols:confirmation' booking.id %}" class="btn btn-primary" style="width: 100%; text-align: center; justify-content: center; font-size: 1.1rem; padding: 16px; background: var(--gold); border-color: var(--gold);">
-          ✅ {% trans "تأكيد" %} — {% trans "سأقوم بالتحويل البنكي" %}
-        </a>
         <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">⚠️ {% trans "أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز" %}</p>
       </div>
 
@@ -86,9 +83,15 @@
     <div style="margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 25px;">
       <h4 style="margin-top: 0; color: var(--text); margin-bottom: 15px;">👤 {% trans "المسافرون" %}</h4>
       {% for p in passengers %}
-      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border);">
-        <span style="font-weight: 600;">{{ p.first_name }} {{ p.last_name }}</span>
-        <span style="color: var(--text-muted); font-size: 0.9rem;">{{ p.email }}</span>
+      <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center;">
+        <div>
+          <div style="font-weight: 600; font-size: 1.05rem;">{{ p.first_name }} {{ p.last_name }}</div>
+          <div style="color: var(--text-muted); font-size: 0.85rem;">{{ p.email }}</div>
+        </div>
+        <div style="text-align: left; font-size: 0.9rem; color: var(--text-muted);">
+          <div dir="ltr" style="margin-bottom: 4px;">📞 {{ p.phone_number }}</div>
+          <div dir="ltr">🛂 {{ p.passport_number|default:"-" }}</div>
+        </div>
       </div>
       {% endfor %}
     </div>

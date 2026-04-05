@@ -472,7 +472,7 @@ msgid "قاعدة العملاء"
 msgstr "Base de clients"
 
 msgid "قطعة"
-msgstr "pièce"
+msgstr "Pièce"
 
 msgid ""
 "قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب "
@@ -652,11 +652,44 @@ msgstr "Vous pouvez le changer dans la barre supérieure"
 msgid "يُسمح بـ"
 msgstr "Autorisé"
 
+msgid "دليل الاستخدام"
+msgstr "Guide d'utilisation"
+
+msgid "مسافر"
+msgstr "Passager"
+
+msgid "مسافرون"
+msgstr "Passagers"
+
+msgid "شحن"
+msgstr "En soute"
+
+msgid "يد"
+msgstr "Cabine"
+
+msgid "المجموع"
+msgstr "Total"
+
+msgid "متاح"
+msgstr "Disponible"
+
+msgid "احجز"
+msgstr "Réserver"
+
+msgid "رحلة"
+msgstr "Vol"
+
 msgid "(غرامة"
 msgstr "(Pénalité"
 
 msgid "(واتساب"
 msgstr "(WhatsApp"
+
+msgid "مسموح"
+msgstr "Autorisé"
+
+msgid "حجز الآن"
+msgstr "Réserver maintenant"
 
 msgid "وكالة"
 msgstr "Agence"

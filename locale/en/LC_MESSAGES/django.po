@@ -466,7 +466,7 @@ msgid "قاعدة العملاء"
 msgstr "Client Base"
 
 msgid "قطعة"
-msgstr "piece"
+msgstr "Piece"
 
 msgid ""
 "قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب "
@@ -644,11 +644,44 @@ msgstr "You can change it from the top bar"
 msgid "يُسمح بـ"
 msgstr "Allowed"
 
+msgid "دليل الاستخدام"
+msgstr "User Guide"
+
+msgid "مسافر"
+msgstr "Passenger"
+
+msgid "مسافرون"
+msgstr "Passengers"
+
+msgid "شحن"
+msgstr "Checked"
+
+msgid "يد"
+msgstr "Carry-on"
+
+msgid "المجموع"
+msgstr "Total"
+
+msgid "متاح"
+msgstr "Available"
+
+msgid "احجز"
+msgstr "Book"
+
+msgid "رحلة"
+msgstr "Flight"
+
 msgid "(غرامة"
 msgstr "(Penalty"
 
 msgid "(واتساب"
 msgstr "(WhatsApp"
+
+msgid "مسموح"
+msgstr "Allowed"
+
+msgid "حجز الآن"
+msgstr "Book Now"
 
 msgid "وكالة"
 msgstr "Agency"

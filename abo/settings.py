@@ -43,7 +43,7 @@ SECRET_KEY = 'django-insecure-bv%0ox!y+6lcf3^tw-4hq^)vg3lq#ex$g$v+3()tm3#$v_uhcf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aba.adan-office-services.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

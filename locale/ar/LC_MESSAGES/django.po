@@ -640,11 +640,44 @@ msgstr "يمكنك تغييرها من الشريط العلوي"
 msgid "يُسمح بـ"
 msgstr "يُسمح بـ"
 
+msgid "دليل الاستخدام"
+msgstr "دليل الاستخدام"
+
+msgid "مسافر"
+msgstr "مسافر"
+
+msgid "مسافرون"
+msgstr "مسافرون"
+
+msgid "شحن"
+msgstr "شحن"
+
+msgid "يد"
+msgstr "يد"
+
+msgid "المجموع"
+msgstr "المجموع"
+
+msgid "متاح"
+msgstr "متاح"
+
+msgid "احجز"
+msgstr "احجز"
+
+msgid "رحلة"
+msgstr "رحلة"
+
 msgid "(غرامة"
 msgstr "(غرامة"
 
 msgid "(واتساب"
 msgstr "(واتساب"
+
+msgid "مسموح"
+msgstr "مسموح"
+
+msgid "حجز الآن"
+msgstr "حجز الآن"
 
 msgid "وكالة"
 msgstr "وكالة"

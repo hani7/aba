@@ -1,12 +1,14 @@
 {% load i18n %}
 <script>
-  // Setup dates - using local timezone offset to get correct YYYY-MM-DD
   const userNow = new Date();
+  // Add 1 day to ensure bookings are always at least tomorrow (avoids Duffel same-day timezone validation errors)
+  userNow.setDate(userNow.getDate() + 1);
   userNow.setMinutes(userNow.getMinutes() - userNow.getTimezoneOffset());
-  const today = userNow.toISOString().split("T")[0];
+  const tomorrow = userNow.toISOString().split("T")[0];
+  
   document.querySelectorAll(".date-input").forEach(input => {
-    input.min = today;
-    if (!input.value) input.value = today;
+    input.min = tomorrow;
+    if (!input.value) input.value = tomorrow;
   });
 
   // UI State Management (Trip Types)

@@ -55,19 +55,19 @@ DESTINATIONS_LIST = [
     {'iata': 'FCO', 'name_ar': _('روما'),     'badge': _('🇮🇹 إيطاليا'),         'desc': _('FCO · الكولوسيوم'),        'image': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=300&fit=crop&q=80'},
     {'iata': 'DOH', 'name_ar': _('الدوحة'),   'badge': _('🇶🇦 قطر'),             'desc': _('DOH · أفق المدينة'),       'image': 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=300&fit=crop&q=80'},
     {'iata': 'MAD', 'name_ar': _('مدريد'),    'badge': _('🇪🇸 إسبانيا'),         'desc': _('MAD · القصر الملكي'),      'image': 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'CMN', 'name_ar': _('مراكش'),    'badge': _('🇲🇦 المغرب'),          'desc': _('CMN · المدينة العتيقة'),   'image': 'https://images.unsplash.com/photo-1539020140153-e479b8f22986?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'CMN', 'name_ar': _('مراكش'),    'badge': _('🇲🇦 المغرب'),          'desc': _('CMN · المدينة العتيقة'),   'image': 'https://images.unsplash.com/photo-1533167649158-6d508895b680?w=600&h=300&fit=crop&q=80'},
     {'iata': 'JFK', 'name_ar': _('نيويورك'),  'badge': _('🇺🇸 الولايات المتحدة'),'desc': _('JFK · مانهاتن'),           'image': 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600&h=300&fit=crop&q=80'},
     {'iata': 'NRT', 'name_ar': _('طوكيو'),    'badge': _('🇯🇵 اليابان'),         'desc': _('NRT · برج طوكيو'),         'image': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=300&fit=crop&q=80'},
     {'iata': 'BCN', 'name_ar': _('برشلونة'),  'badge': _('🇪🇸 إسبانيا'),         'desc': _('BCN · ساغرادا فاميليا'),   'image': 'https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=300&fit=crop&q=80'},
     {'iata': 'AMS', 'name_ar': _('أمستردام'), 'badge': _('🇳🇱 هولندا'),          'desc': _('AMS · القنوات التاريخية'), 'image': 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600&h=300&fit=crop&q=80'},
     {'iata': 'RUH', 'name_ar': _('الرياض'),   'badge': _('🇸🇦 السعودية'),        'desc': _('RUH · المملكة العربية'),   'image': 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=600&h=300&fit=crop&q=80'},
     {'iata': 'ADD', 'name_ar': _('أديس أبابا'),'badge': _('🇪🇹 إثيوبيا'),         'desc': _('ADD · القلب الأفريقي'),    'image': 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'KWI', 'name_ar': _('الكويت'),   'badge': _('🇰🇼 الكويت'),          'desc': _('KWI · أبراج الكويت'),      'image': 'https://images.unsplash.com/photo-1570735016541-36e4ac955b9b?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'KWI', 'name_ar': _('الكويت'),   'badge': _('🇰🇼 الكويت'),          'desc': _('KWI · أبراج الكويت'),      'image': 'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=600&h=300&fit=crop&q=80'},
     {'iata': 'SIN', 'name_ar': _('سنغافورة'), 'badge': _('🇸🇬 سنغافورة'),        'desc': _('SIN · مارينا باي'),        'image': 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'KUL', 'name_ar': _('كوالالمبور'),'badge': _('🇲🇾 ماليزيا'),         'desc': _('KUL · برجا بتروناس'),      'image': 'https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'BKK', 'name_ar': _('بانكوك'),   'badge': _('🇹🇭 تايلاند'),         'desc': _('BKK · وات أرون'),          'image': 'https://images.unsplash.com/photo-1508009603885-247a597a1599?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'JED', 'name_ar': _('جدة'),      'badge': _('🇸🇦 السعودية'),        'desc': _('JED · نافورة الملك فهد'),  'image': 'https://images.unsplash.com/photo-1590050752112-9c8e547051f6?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'AMM', 'name_ar': _('عمّان'),    'badge': _('🇯🇴 الأردن'),          'desc': _('AMM · المدرج الروماني'),   'image': 'https://images.unsplash.com/photo-1588693959821-b0db4dece907?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'KUL', 'name_ar': _('كوالالمبور'),'badge': _('🇲🇾 ماليزيا'),         'desc': _('KUL · برجا بتروناس'),      'image': 'https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'BKK', 'name_ar': _('بانكوك'),   'badge': _('🇹🇭 تايلاند'),         'desc': _('BKK · وات أرون'),          'image': 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'JED', 'name_ar': _('جدة'),      'badge': _('🇸🇦 السعودية'),        'desc': _('JED · نافورة الملك فهد'),  'image': 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'AMM', 'name_ar': _('عمّان'),    'badge': _('🇯🇴 الأردن'),          'desc': _('AMM · المدرج الروماني'),   'image': 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?w=600&h=300&fit=crop&q=80'},
 ]
 
 # Fixed exchange rates to USD (approximate 2025 rates)
@@ -302,9 +302,10 @@ def api_places(request):
 
     seen_ids = set()
     all_results = []
+    locale = getattr(request, 'LANGUAGE_CODE', 'ar')
     try:
         for q in queries:
-            places = duffel_service.search_places(q)
+            places = duffel_service.search_places(q, locale=locale)
             for p in places:
                 if p.get('type') not in ['airport', 'city']:
                     continue
@@ -576,15 +577,22 @@ def confirm_booking(request):
             'email': request.POST.get(f'email_{i}', ''),
             'phone_number': request.POST.get(f'phone_{i}', '') or '+33600000000',
         }
-        # Sanitize phone: strip spaces, dashes, parentheses — keep only + and digits
+        # Sanitize phone: strip spaces, dashes, parentheses
         raw_phone = request.POST.get(f'phone_{i}', '').strip()
-        raw_phone = re.sub(r'[\s\-\(\)\.]+', '', raw_phone)  # remove whitespace/dashes/parens
-        if not raw_phone.startswith('+'):
+        raw_phone = re.sub(r'[\s\-\(\)\.]+', '', raw_phone)
+        
+        # Format as E.164 for Duffel validation
+        if raw_phone.startswith('00'):
+            raw_phone = '+' + raw_phone[2:]
+        elif raw_phone.startswith('0'):
+            raw_phone = '+212' + raw_phone[1:] # Assume a default country code if missing (e.g. +212 for Morocco, or edit if needed)
+        elif not raw_phone.startswith('+'):
             raw_phone = '+' + raw_phone
-        # Fallback to a valid default if still invalid (less than 7 digits)
+            
         digits_only = re.sub(r'\D', '', raw_phone)
         if len(digits_only) < 7:
-            raw_phone = '+33600000000'
+            raw_phone = '+212600000000' # Minimum valid length
+            
         passenger['phone_number'] = raw_phone
             
         duffel_passengers.append(passenger)
@@ -617,7 +625,7 @@ def confirm_booking(request):
             status='confirmed',
         )
 
-        for p in duffel_passengers:
+        for idx, p in enumerate(duffel_passengers, 1):
             Passenger.objects.create(
                 booking=booking,
                 duffel_passenger_id=p.get('id', ''),
@@ -628,6 +636,7 @@ def confirm_booking(request):
                 gender=p['gender'],
                 email=p['email'],
                 phone_number=p['phone_number'],
+                passport_number=request.POST.get(f'passport_{idx}', '').upper()
             )
 
         # Step 3: Redirect to payment choice page (Visa or Bank Transfer)
@@ -685,7 +694,7 @@ def stripe_success(request):
         booking.status = 'paid'
         booking.save()
         messages.success(request, "✅ تمت عملية الدفع بنجاح عبر بطاقة Visa!")
-        return redirect('vols:confirmation', booking_id=booking.id)
+        return redirect('vols:my_bookings')
     return redirect('vols:home')
 
 
@@ -696,20 +705,6 @@ def stripe_cancel(request):
     if booking_id:
         return redirect('vols:payment_choice', booking_id=booking_id)
     return redirect('vols:home')
-
-
-# ---------------------------------------------------------------------------
-# Booking confirmation page
-# ---------------------------------------------------------------------------
-
-def confirmation(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-    passengers = booking.passengers.all()
-    context = {
-        'booking': booking,
-        'passengers': passengers,
-    }
-    return render(request, 'vols/confirmation.html', context)
 
 
 

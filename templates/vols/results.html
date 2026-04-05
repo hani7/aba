@@ -190,7 +190,7 @@
               {{ offer.total_amount|floatformat:0 }}
               <span class="price-currency">{{ offer.total_currency }}</span>
             </div>
-            <div class="price-per">{% trans "المجموع" %} ({{ search.passengers }} {% trans "مسافرون" %})</div>
+            <div class="price-per">{% trans "المجموع" %} ({{ search.passengers }} {% if search.passengers == 1 %}{% trans "مسافر" %}{% else %}{% trans "مسافرون" %}{% endif %})</div>
           </div>
           <div class="status-wrap">
             {% if offer.available_services %}
@@ -327,7 +327,7 @@
                   <div style="font-size: 1.8rem; font-weight: 800; color: var(--text);" data-eur="{{ offer.total_amount }}">
                       {{ offer.total_amount|floatformat:0 }} <span style="font-size: 1rem; color: var(--text-muted);">{{ offer.total_currency }}</span>
                   </div>
-                  <div style="font-size: 0.85rem; color: var(--text-muted);">{% trans "المجموع" %} ({{ search.passengers }} {% trans "مسافر" %}{{ search.passengers|pluralize }})</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">{% trans "المجموع" %} ({{ search.passengers }} {% if search.passengers == 1 %}{% trans "مسافر" %}{% else %}{% trans "مسافرون" %}{% endif %})</div>
               </div>
               <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding: 12px 32px; font-size: 1.1rem; font-weight: 700;">{% trans "حجز الآن" %} ←</a>
           </div>
