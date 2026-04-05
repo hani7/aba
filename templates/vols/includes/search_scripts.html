@@ -190,10 +190,19 @@
                         </div>
                         <span class="ac-iata">${place.iata_code || ''}</span>
                     `;
-                    div.addEventListener('click', () => {
-                        // Put IATA + City representation
-                        input.value = `${place.name} (${place.iata_code})`;
+                    div.addEventListener('mousedown', (evt) => {
+                        // Use mousedown instead of click to fire before blur
+                        evt.preventDefault();
+                        // Set value with the IATA code so the backend can extract it
+                        const selectedValue = `${place.name} (${place.iata_code})`;
+                        // Explicitly set the native input value so HTML5 validation is satisfied
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+                        nativeInputValueSetter.call(input, selectedValue);
+                        // Dispatch events so React/Vue/native validation all pick it up
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
                         dropdown.style.display = 'none';
+                        input.blur();
                     });
                     dropdown.appendChild(div);
                 });
@@ -209,7 +218,7 @@
 
     // Hide clicking outside
     document.addEventListener('click', (e) => {
-        if (e.target !== input && e.target !== dropdown) {
+        if (!e.target.closest('.autocomplete-wrapper')) {
             dropdown.style.display = 'none';
         }
     });

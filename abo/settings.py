@@ -12,6 +12,23 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import sys
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv(BASE_DIR / '.env')
+except ImportError:
+    # Fallback manual parsing if dotenv not installed globally
+    env_file = BASE_DIR / '.env'
+    if env_file.exists():
+        with open(env_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    k, v = line.split('=', 1)
+                    os.environ[k.strip()] = v.strip()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -148,7 +165,7 @@ STATICFILES_DIRS = [
 ]
 
 # Duffel API Configuration (Switch easily for production)
-USE_LIVE_DUFFEL = False  # ⚠️ Change this to True to start real bookings
+USE_LIVE_DUFFEL = False  # ⚠️ Protected: Set to False so the user can test without real charges!
 
 DUFFEL_TEST_KEY = os.environ.get('DUFFEL_TEST_KEY', 'duffel_test_REMOVED_FOR_SECURITY')
 DUFFEL_LIVE_KEY = os.environ.get('DUFFEL_LIVE_KEY', 'duffel_live_REMOVED_FOR_SECURITY')

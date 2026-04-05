@@ -174,19 +174,33 @@ def format_duration(iso_duration):
 def search_places(query):
     """
     Search for airports and cities by name or IATA code.
-    Returns a list of places.
+    Uses the free, public autocomplete API to avoid 401 errors when Duffel key is missing.
+    Returns a list of places in Duffel's expected format.
     """
     if not query or len(query) < 2:
         return []
         
-    resp = requests.get(
-        f'{DUFFEL_API_URL}/places/suggestions',
-        headers=_headers(),
-        params={'query': query},
-        timeout=10,
-    )
-    
-    if resp.status_code != 200:
-        return []
+    try:
+        import urllib.parse
+        q_encoded = urllib.parse.quote(query)
+        resp = requests.get(
+            f'http://autocomplete.travelpayouts.com/places2?term={q_encoded}&locale=ar&types[]=city,airport',
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            formatted = []
+            for item in data:
+                formatted.append({
+                    'id': item.get('id', item.get('code')),
+                    'name': item.get('name'),
+                    'type': item.get('type'),
+                    'iata_code': item.get('code'),
+                    'city_name': item.get('name') if item.get('type') == 'city' else item.get('city_name', item.get('name'))
+                })
+            if formatted:
+                return formatted
+    except Exception as e:
+        print(f"Places autocomplete error: {e}")
         
-    return resp.json().get('data', [])
+    return []
