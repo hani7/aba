@@ -1,0 +1,9 @@
+# DO NOT REMOVE. CHANGING THE FOLLOWING LINES WILL BREAK YOUR PASSENGER DEPLOYMENT
+PassengerEnabled On
+PassengerAppType wsgi
+PassengerStartupFile passenger_wsgi.py
+
+# Force HTTPS (Optional but highly recommended)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
