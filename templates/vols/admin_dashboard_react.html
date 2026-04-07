@@ -330,7 +330,7 @@
                         </div>
                         
                         <div className="no-print" style={{textAlign: 'center', marginTop: '10px', backgroundColor:'#f8fafc', padding:'15px', borderRadius:'0 0 12px 12px', borderTop:'1px solid #e2e8f0'}}>
-                            <button className="btn-primary" onClick={() => window.print()} style={{borderRadius:'999px'}}>🖨️ {% trans "حفظ التذكرة" %} (PDF)</button>
+                            <button className="btn-primary" onClick={() => window.print()} style={{borderRadius:'999px'}}>🖨️ حفظ التذكرة (PDF)</button>
                         </div>
                     </div>
                 </div>
@@ -346,7 +346,7 @@
             waPhone = waPhone.replace('+', '');
 
             const pdfUrl = `${window.location.origin}/api/admin/ticket/${booking.id}/pdf/`;
-            let msg = `{% trans "مرحباً" %} ${booking.client}،\n\n{% trans "يسعدنا في وكالة أبو منية إرسال تذكرتكم الإلكترونية لرحلة" %}:\n✈️ ${booking.origin} → ${booking.destination}\n📅 ${booking.date}\n🔖 {% trans "رقم الحجز" %}: ${booking.reference}\n\n📄 {% trans "لتحميل التذكرة" %} (PDF):\n${pdfUrl}\n\n{% trans "نتمنى لكم رحلة سعيدة" %}! 🌟\n{% trans "وكالة أبو منية" %}`;
+            let msg = `مرحباً ${booking.client}،\n\nيسعدنا في وكالة أبو منية إرسال تذكرتكم الإلكترونية لرحلة:\n✈️ ${booking.origin} → ${booking.destination}\n📅 ${booking.date}\n🔖 رقم الحجز: ${booking.reference}\n\n📄 لتحميل التذكرة (PDF):\n${pdfUrl}\n\nنتمنى لكم رحلة سعيدة! 🌟\nوكالة أبو منية`;
             let waLink = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
 
             const eTicketNum = `176${String(booking.id).padStart(6,'0')}`;
@@ -485,13 +485,13 @@
                         <div className="no-print" style={{display:'flex', gap:'12px', padding:'15px', background:'#fff', borderRadius:'0 0 12px 12px', flexWrap:'wrap', justifyContent:'center', borderTop:'1px solid #e2e8f0'}}>
                             <button onClick={() => window.open(waLink, '_blank')} className="btn-primary" style={{background:'#25D366', border:'none', display:'flex', alignItems:'center', gap:'8px', flex:1, justifyContent:'center', minWidth:'160px', borderRadius:'999px'}}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                                {% trans "إرسال" %} + PDF {% trans "(واتساب" %})
+                                إرسال + PDF (واتساب)
                             </button>
                             <a href={pdfUrl} target="_blank" className="btn-outline" style={{display:'flex', alignItems:'center', gap:'8px', justifyContent:'center', minWidth:'120px', borderRadius:'999px'}}>
-                                📄 {% trans "فتح" %} PDF
+                                📄 فتح PDF
                             </a>
-                            <a href={`mailto:${booking.client_email}?subject={% trans "تذكرة رحلتك" %} ${booking.reference}&body=${encodeURIComponent(`{% trans "مرحباً" %} ${booking.client}،\n\n{% trans "يسعدنا إرسال رابط تذكرتكم" %}:\n${pdfUrl}`)}`} className="btn-outline" style={{display:'flex', alignItems:'center', gap:'8px', justifyContent:'center', minWidth:'120px', borderRadius:'999px'}}>
-                                ✉️ {% trans "إيميل" %}
+                            <a href={`mailto:${booking.client_email}?subject=تذكرة رحلتك ${booking.reference}&body=${encodeURIComponent(`مرحباً ${booking.client}،\n\nيسعدنا إرسال رابط تذكرتكم:\n${pdfUrl}`)}`} className="btn-outline" style={{display:'flex', alignItems:'center', gap:'8px', justifyContent:'center', minWidth:'120px', borderRadius:'999px'}}>
+                                ✉️ إيميل
                             </a>
                         </div>
                     </div>
@@ -509,36 +509,36 @@
                     .then(data => setStats(data));
             }, []);
 
-            if (!stats) return <div className="loader">{% trans "جاري التحميل" %}...</div>;
+            if (!stats) return <div className="loader">جاري التحميل...</div>;
 
             return (
                 <div>
                     <div className="page-header">
-                        <h1>{% trans "نظرة عامة" %}</h1>
-                        <p>{% trans "أداء ومقاييس الموقع" %}.</p>
+                        <h1>نظرة عامة</h1>
+                        <p>أداء ومقاييس الموقع.</p>
                     </div>
                     <div className="kpi-grid">
                         <div className="kpi-card" style={{borderTop: '4px solid var(--success)'}}>
                             <div className="kpi-icon">💰</div>
-                            <h3>{% trans "الإيرادات الإجمالية" %}</h3>
+                            <h3>الإيرادات الإجمالية</h3>
                             <p className="kpi-value">$ {stats.total_revenue}</p>
-                            <small style={{color:'var(--success)', fontWeight:'bold'}}>{% trans "الربح الصافي" %}: $ {stats.total_profit}</small>
+                            <small style={{color:'var(--success)', fontWeight:'bold'}}>الربح الصافي: $ {stats.total_profit}</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid var(--gold)'}}>
                             <div className="kpi-icon">✈️</div>
-                            <h3>{% trans "حجوزات الطيران" %}</h3>
+                            <h3>حجوزات الطيران</h3>
                             <p className="kpi-value">{stats.flight_bookings}</p>
-                            <small>$ {stats.flight_revenue} {% trans "إيرادات" %}</small>
+                            <small>$ {stats.flight_revenue} إيرادات</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid #3b82f6'}}>
                             <div className="kpi-icon">🏨</div>
-                            <h3>{% trans "حجوزات الفنادق" %}</h3>
+                            <h3>حجوزات الفنادق</h3>
                             <p className="kpi-value">{stats.hotel_bookings}</p>
-                            <small>$ {stats.hotel_revenue} {% trans "إيرادات" %}</small>
+                            <small>$ {stats.hotel_revenue} إيرادات</small>
                         </div>
                         <div className="kpi-card" style={{borderTop: '4px solid #8b5cf6'}}>
                             <div className="kpi-icon">👥</div>
-                            <h3>{% trans "العملاء الفريدون" %}</h3>
+                            <h3>العملاء الفريدون</h3>
                             <p className="kpi-value">{stats.total_clients}</p>
                         </div>
                     </div>
@@ -565,36 +565,36 @@
             useEffect(() => { fetchBookings(); }, []);
 
             const handleCancel = async (id) => {
-                if(!confirm("{% trans 'هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى' %} Duffel؟")) return;
+                if(!confirm("هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى Duffel؟")) return;
                 setCanceling(id);
                 try {
                     const res = await fetch(`/api/admin/bookings/${id}/cancel/`, { method: 'POST' });
                     const data = await res.json();
                     if(data.error) alert(data.error);
-                    else { alert("{% trans 'تم الإلغاء بنجاح' %}"); fetchBookings(); }
-                } catch(e) { alert("{% trans 'خطأ في السيرفر' %}"); }
+                    else { alert("تم الإلغاء بنجاح"); fetchBookings(); }
+                } catch(e) { alert("خطأ في السيرفر"); }
                 setCanceling(null);
             };
 
-            if (loader) return <div className="loader">{% trans "جاري استرداد رحلات الطيران" %}...</div>;
+            if (loader) return <div className="loader">جاري استرداد رحلات الطيران...</div>;
 
             return (
                 <div>
                     <div className="page-header">
-                        <h1>{% trans "الحجوزات" %}</h1>
-                        <p>{% trans "لوحة تحكم إدارة الرحلات" %}.</p>
+                        <h1>الحجوزات</h1>
+                        <p>لوحة تحكم إدارة الرحلات.</p>
                     </div>
                     <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>{% trans "رقم الحجز" %} (PNR)</th>
-                                    <th>{% trans "المسافر" %}</th>
-                                    <th>{% trans "المسار" %}</th>
-                                    <th>{% trans "التواريخ" %}</th>
-                                    <th>{% trans "المبلغ" %}</th>
-                                    <th>{% trans "الحالة" %}</th>
-                                    <th>{% trans "الإجراءات" %}</th>
+                                    <th>رقم الحجز (PNR)</th>
+                                    <th>المسافر</th>
+                                    <th>المسار</th>
+                                    <th>التواريخ</th>
+                                    <th>المبلغ</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -607,24 +607,24 @@
                                         <td>$ {b.amount}</td>
                                         <td>
                                             <span className={`badge ${b.status === 'confirmed' ? 'bg-ok' : 'bg-err'}`}>
-                                                {b.status === 'confirmed' ? '{% trans "مؤكد" %}' : '{% trans "ملغى" %}'}
+                                                {b.status === 'confirmed' ? 'مؤكد' : 'ملغى'}
                                             </span>
                                         </td>
                                         <td style={{display:'flex', gap:'8px', flexWrap:'wrap', justifyContent:'flex-end'}}>
                                             {b.status === 'confirmed' && (
                                                 <>
                                                     <button className="btn-cancel" style={{borderColor:'#10b981', color:'#10b981'}} onClick={() => setActiveTicket(b)}>
-                                                        {% trans "التذكرة" %} 🎫
+                                                        التذكرة 🎫
                                                     </button>
                                                     <button className="btn-cancel" style={{borderColor:'#3b82f6', color:'#3b82f6'}} onClick={() => setActiveContact(b)}>
-                                                        {% trans "العميل" %} 👨‍💼
+                                                        العميل 👨‍💼
                                                     </button>
                                                 </>
                                             )}
                                             {/* Cancel stays for everyone (or specifically confirmed/pending) */}
                                             {b.status === 'confirmed' && (
                                                 <button className="btn-cancel" disabled={canceling === b.id} onClick={() => handleCancel(b.id)}>
-                                                    {canceling === b.id ? '...' : '{% trans "إلغاء" %} 🗑'}
+                                                    {canceling === b.id ? '...' : 'إلغاء 🗑'}
                                                 </button>
                                             )}
                                         </td>
@@ -653,17 +653,17 @@
             return (
                 <div>
                     <div className="page-header">
-                        <h1>{% trans "قاعدة العملاء" %}</h1>
-                        <p>{% trans "المسافرون والزوار الدائمون" %}.</p>
+                        <h1>قاعدة العملاء</h1>
+                        <p>المسافرون والزوار الدائمون.</p>
                     </div>
                     <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>{% trans "اسم العميل" %}</th>
-                                    <th>{% trans "البريد الإلكتروني" %}</th>
-                                    <th>{% trans "عدد الحجوزات" %}</th>
-                                    <th>{% trans "الفئة" %}</th>
+                                    <th>اسم العميل</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>عدد الحجوزات</th>
+                                    <th>الفئة</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -671,9 +671,9 @@
                                     <tr key={i}>
                                         <td><strong>{c.name}</strong></td>
                                         <td>{c.email}</td>
-                                        <td>{c.bookings_count} {% trans "رحلات" %}</td>
+                                        <td>{c.bookings_count} رحلات</td>
                                         <td>
-                                            {c.bookings_count > 2 ? <span className="badge bg-vip">VIP ✨</span> : '{% trans "عادي" %}'}
+                                            {c.bookings_count > 2 ? <span className="badge bg-vip">VIP ✨</span> : 'عادي'}
                                         </td>
                                     </tr>
                                 ))}
@@ -695,7 +695,7 @@
                 if (user.trim() === 'farouk' && pwd === 'farouk2020++') {
                     onLogin();
                 } else {
-                    setErr("{% trans 'اسم المستخدم أو كلمة المرور غير صحيحة' %}");
+                    setErr("اسم المستخدم أو كلمة المرور غير صحيحة");
                 }
             };
 
@@ -703,11 +703,11 @@
                 <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh', background:'var(--bg)'}}>
                     <form onSubmit={handleLogin} className="glass-panel" style={{padding:'40px', borderRadius:'15px', width:'100%', maxWidth:'360px', textAlign:'center', background:'#fff', boxShadow:'0 10px 30px rgba(0,0,0,0.05)'}}>
                         <img src="/static/img/logo.jpg" alt="Abu Monya Logo" style={{maxHeight:'80px', marginBottom:'20px'}} />
-                        <h2 style={{marginTop:0, marginBottom:'20px', color:'var(--gold)'}}>{% trans "تسجيل الدخول للإدارة" %}</h2>
+                        <h2 style={{marginTop:0, marginBottom:'20px', color:'var(--gold)'}}>تسجيل الدخول للإدارة</h2>
                         {err && <div style={{color:'var(--danger)', marginBottom:'15px', fontSize:'0.9rem'}}>{err}</div>}
-                        <input className="login-input" type="text" placeholder="{% trans 'اسم المستخدم' %}" value={user} onChange={e=>setUser(e.target.value)} required />
-                        <input className="login-input" type="password" placeholder="{% trans 'كلمة المرور' %}" value={pwd} onChange={e=>setPwd(e.target.value)} required />
-                        <button className="login-btn" type="submit">{% trans "دخول" %}</button>
+                        <input className="login-input" type="text" placeholder="اسم المستخدم" value={user} onChange={e=>setUser(e.target.value)} required />
+                        <input className="login-input" type="password" placeholder="كلمة المرور" value={pwd} onChange={e=>setPwd(e.target.value)} required />
+                        <button className="login-btn" type="submit">دخول</button>
                     </form>
                 </div>
             );
@@ -743,16 +743,16 @@
                         </div>
                         <nav className="sidebar-nav">
                             <a className={`nav-link ${view === 'stats' ? 'active' : ''}`} onClick={() => setView('stats')}>
-                                <span style={{marginLeft:'10px'}}>📊</span> {% trans "نظرة عامة" %}
+                                <span style={{marginLeft:'10px'}}>📊</span> نظرة عامة
                             </a>
                             <a className={`nav-link ${view === 'bookings' ? 'active' : ''}`} onClick={() => setView('bookings')}>
-                                <span style={{marginLeft:'10px'}}>✈️</span> {% trans "الحجوزات والإلغاءات" %}
+                                <span style={{marginLeft:'10px'}}>✈️</span> الحجوزات والإلغاءات
                             </a>
                             <a className={`nav-link ${view === 'clients' ? 'active' : ''}`} onClick={() => setView('clients')}>
-                                <span style={{marginLeft:'10px'}}>👥</span> {% trans "قاعدة العملاء" %}
+                                <span style={{marginLeft:'10px'}}>👥</span> قاعدة العملاء
                             </a>
                             <a className="nav-link" href="/" style={{marginTop: 'auto', marginBottom: '20px'}}>
-                                <span style={{marginLeft:'10px'}}>🏠</span> {% trans "العودة للموقع" %}
+                                <span style={{marginLeft:'10px'}}>🏠</span> العودة للموقع
                             </a>
                         </nav>
                     </aside>
@@ -761,7 +761,7 @@
                     <main className="admin-main">
                         <header className="admin-header glass-panel">
                             <strong>{/* Header Title Removed as Requested */}</strong>
-                            <button onClick={handleLogout} className="btn-cancel" style={{borderColor:'transparent', color:'var(--text-muted)'}}>{% trans "تسجيل خروج" %} 🚪</button>
+                            <button onClick={handleLogout} className="btn-cancel" style={{borderColor:'transparent', color:'var(--text-muted)'}}>تسجيل خروج 🚪</button>
                         </header>
                         <div className="admin-content">
                             {view === 'stats' && <StatsView />}
