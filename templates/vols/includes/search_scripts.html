@@ -197,12 +197,7 @@
                         evt.preventDefault();
                         // Set value with the IATA code so the backend can extract it
                         const selectedValue = `${place.name} (${place.iata_code})`;
-                        // Explicitly set the native input value so HTML5 validation is satisfied
-                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-                        nativeInputValueSetter.call(input, selectedValue);
-                        // Dispatch events so React/Vue/native validation all pick it up
-                        input.dispatchEvent(new Event('input', { bubbles: true }));
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                        input.value = selectedValue;
                         dropdown.style.display = 'none';
                         input.blur();
                     });
