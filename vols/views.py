@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import cache_page
 from .services import duffel_service
 from .services import travelpayouts_service
+from .services import booking_service
 from .models import Booking, Passenger, HotelBooking
 
 
@@ -730,7 +731,7 @@ def api_hotel_destinations(request):
     if not query:
         return JsonResponse({'results': []})
     
-    destinations = travelpayouts_service.search_destinations(query)
+    destinations = booking_service.search_destinations(query)
     
     results = []
     for d in destinations:
@@ -761,8 +762,8 @@ def hotel_search(request):
         return redirect('vols:home')
 
     try:
-        hotels = travelpayouts_service.search_hotels(
-            city_id=int(city_id),
+        hotels = booking_service.search_hotels(
+            city_id=city_id,
             check_in=check_in,
             check_out=check_out,
             adults=adults,
@@ -810,7 +811,7 @@ def hotel_detail(request, hotel_id):
         return redirect('vols:home')
 
     try:
-        hotel = travelpayouts_service.get_hotel(
+        hotel = booking_service.get_hotel(
             hotel_id=hotel_id,
             check_in=search_crit['check_in'],
             check_out=search_crit['check_out'],
