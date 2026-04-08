@@ -477,7 +477,11 @@ master_translations = {
 
     "عمّان": ("Amman", "Amman"),
     "🇯🇴 الأردن": ("🇯🇴 Jordan", "🇯🇴 Jordanie"),
-    "AMM · المدرج الروماني": ("AMM · Roman Theatre", "AMM · Théâtre Romain")
+    "AMM · المدرج الروماني": ("AMM · Roman Theatre", "AMM · Théâtre Romain"),
+
+    "الجزائر": ("Algiers", "Alger"),
+    "🇩🇿 الجزائر": ("🇩🇿 Algeria", "🇩🇿 Algérie"),
+    "ALG · مقام الشهيد": ("ALG · Martyrs' Memorial", "ALG · Mémorial du Martyr")
 }
 
 

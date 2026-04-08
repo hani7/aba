@@ -1296,3 +1296,12 @@ msgstr "🇯🇴 الأردن"
 
 msgid "AMM · المدرج الروماني"
 msgstr "AMM · المدرج الروماني"
+
+msgid "الجزائر"
+msgstr "الجزائر"
+
+msgid "🇩🇿 الجزائر"
+msgstr "🇩🇿 الجزائر"
+
+msgid "ALG · مقام الشهيد"
+msgstr "ALG · مقام الشهيد"

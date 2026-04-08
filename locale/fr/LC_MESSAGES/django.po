@@ -1326,3 +1326,12 @@ msgstr "🇯🇴 Jordanie"
 
 msgid "AMM · المدرج الروماني"
 msgstr "AMM · Théâtre Romain"
+
+msgid "الجزائر"
+msgstr "Alger"
+
+msgid "🇩🇿 الجزائر"
+msgstr "🇩🇿 Algérie"
+
+msgid "ALG · مقام الشهيد"
+msgstr "ALG · Mémorial du Martyr"
