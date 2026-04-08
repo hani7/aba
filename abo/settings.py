@@ -44,7 +44,22 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-bv%0ox!y+6lcf3^tw-4hq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_ENV', 'development') == 'development'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'abumonyaagency.com,www.abumonyaagency.com,aba.adan-office-services.com,monya.adan-office-services.com,www.monya.adan-office-services.com,localhost,127.0.0.1,').split(',')
+# ALLOWED_HOSTS from env or default
+env_hosts = os.environ.get('ALLOWED_HOSTS', '')
+if env_hosts:
+    ALLOWED_HOSTS = env_hosts.split(',')
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Forcefully append our domains to guarantee they work
+ALLOWED_HOSTS.extend([
+    'abumonyaagency.com', 
+    'www.abumonyaagency.com', 
+    'aba.adan-office-services.com',
+    'monya.adan-office-services.com',
+    'www.monya.adan-office-services.com'
+])
+
 
 
 # Application definition
