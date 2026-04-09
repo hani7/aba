@@ -68,7 +68,7 @@ DESTINATIONS_LIST = [
     {'iata': 'SIN', 'name_ar': _('سنغافورة'), 'badge': _('🇸🇬 سنغافورة'),        'desc': _('SIN · مارينا باي'),        'image': 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&h=300&fit=crop&q=80'},
     {'iata': 'KUL', 'name_ar': _('كوالالمبور'),'badge': _('🇲🇾 ماليزيا'),         'desc': _('KUL · برجا بتروناس'),      'image': 'https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=600&h=300&fit=crop&q=80'},
     {'iata': 'BKK', 'name_ar': _('بانكوك'),   'badge': _('🇹🇭 تايلاند'),         'desc': _('BKK · وات أرون'),          'image': 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'ALG', 'name_ar': _('الجزائر'),  'badge': _('🇩🇿 الجزائر'),         'desc': _('ALG · مقام الشهيد'),       'image': 'https://images.unsplash.com/photo-1629813359676-4d7a8e2ebd18?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'ALG', 'name_ar': _('الجزائر'),  'badge': _('🇩🇿 الجزائر'),         'desc': _('ALG · مقام الشهيد'),       'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Martyrs_Memorial._Algiers%2C_Algeria.jpg/960px-Martyrs_Memorial._Algiers%2C_Algeria.jpg'},
     {'iata': 'AMM', 'name_ar': _('عمّان'),    'badge': _('🇯🇴 الأردن'),          'desc': _('AMM · المدرج الروماني'),   'image': 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?w=600&h=300&fit=crop&q=80'},
 ]
 

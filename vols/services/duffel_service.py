@@ -150,6 +150,8 @@ def cancel_order(order_id):
             return {"status": "already_cancelled"}
         if resp_quote.status_code == 404 and any(err.get('code') == 'not_found' for err in errors):
              return {"status": "not_found", "message": "Order no longer exists on Duffel servers."}
+        if any(err.get('code') == 'order_not_cancellable' for err in errors):
+             raise Exception("عذراً، هذا الحجز غير قابل للإلغاء عبر نظام شركة الطيران (Order not cancellable).")
         raise Exception(f"Duffel Cancel Quote Error: {resp_quote.text}")
 
     cancellation_id = resp_quote.json().get('data', {}).get('id')
