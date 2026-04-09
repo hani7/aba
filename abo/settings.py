@@ -204,6 +204,10 @@ DEFAULT_DUFFEL_KEY = DUFFEL_LIVE_KEY if USE_LIVE_DUFFEL else DUFFEL_TEST_KEY
 DUFFEL_API_KEY = os.environ.get('DUFFEL_API_KEY', DEFAULT_DUFFEL_KEY)
 DUFFEL_API_URL = 'https://api.duffel.com'
 
+# ── RapidAPI (Booking.com Hotel Search) ────────────────────────────────────
+RAPIDAPI_KEY  = os.environ.get('RAPIDAPI_KEY', '')
+RAPIDAPI_HOST = os.environ.get('RAPIDAPI_HOST', 'booking-com15.p.rapidapi.com')
+
 # ── Agoda Hotel API Configuration ──────────────────────────────────────────
 # Sign up at: https://partners.agoda.com  →  Settings → API Keys
 AGODA_SITE_ID    = int(os.environ.get('AGODA_SITE_ID',    0))        # Your affiliate Site ID
