@@ -3,711 +3,701 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-29 12:00+0200\n"
-"PO-Revision-Date: 2026-03-29 12:00+0200\n"
+"POT-Creation-Date: 2026-04-09 16:00+0100\n"
+"PO-Revision-Date: 2026-04-09 16:00+0100\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Ø¬ÙÙØ¹ Ø§ÙÙØ·Ø§Ø±Ø§Øª"
+msgid "جميع المطارات"
 msgstr "All airports"
 
-msgid "Ø¢Ø®Ø± ÙÙØ¹Ø¯ Ø¯ÙØ¹"
+msgid "آخر موعد دفع"
 msgstr "Payment deadline"
 
-msgid "Ø£Ø­ÙØ¯"
+msgid "أحمد"
 msgstr "Ahmed"
 
-msgid "Ø£Ø¯Ø§Ø¡ ÙÙÙØ§ÙÙØ³ Ø§ÙÙÙÙØ¹"
+msgid "أداء ومقاييس الموقع"
 msgstr "Site performance and metrics"
 
-msgid "Ø£Ø±Ø³Ù Ø¥ÙØµØ§Ù Ø§ÙØªØ­ÙÙÙ Ø¹Ø¨Ø± Ø§ÙÙØ§ØªØ³Ø§Ø¨ ÙÙØ± Ø¥ØªÙØ§ÙÙ ÙØªØ£ÙÙØ¯ Ø§ÙØ­Ø¬Ø²"
+msgid "أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز"
 msgstr ""
-"Send the transfer receipt via WhatsApp upon completion to confirm the "
-"booking"
 
-msgid "Ø£Ø±ÙØ§Ù"
+msgid "أرقام"
 msgstr "Numbers"
 
-msgid "Ø£Ø³Ø¹Ø§Ø± Ø´Ø§ÙÙØ© ÙØ¹ ÙØ§ÙØ´ Ø±Ø¨Ø­ ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ©"
+msgid "أسعار شاملة مع هامش ربح وكالة أبو منية"
 msgstr "Prices inclusive of Abu Monya agency markup"
 
-msgid "Ø£ÙØ¶Ù Ø§ÙÙÙØ§Ø¯Ù ÙÙ"
+msgid "أفضل الفنادق في"
 msgstr "Best hotels in"
 
-msgid "Ø£ÙØ«Ù"
+msgid "أنثى"
 msgstr "Female"
 
-msgid "Ø£ÙÙØ§Ù Ø¨Ø¹ÙØ¯ØªÙ! Ø³Ø¬ÙÙ Ø¯Ø®ÙÙÙ ÙØ¹Ø±Ø¶ Ø­Ø¬ÙØ²Ø§ØªÙ"
+msgid "أهلاً بعودتك! سجّل دخولك لعرض حجوزاتك"
 msgstr "Welcome back! Log in to view your bookings"
 
-msgid "Ø£ÙÙ Ø§ÙÙØ±Ø§ÙÙ"
+msgid "أهم المرافق"
 msgstr "Top amenities"
 
-msgid "Ø¥ØªÙØ§Ù Ø§ÙØ­Ø¬Ø²"
+msgid "إتمام الحجز"
 msgstr "Complete booking"
 
-msgid "Ø¥Ø±Ø³Ø§Ù"
+msgid "إرسال"
 msgstr "Send"
 
-msgid "Ø¥ÙØºØ§Ø¡"
+msgid "إلغاء"
 msgstr "Cancel"
 
-msgid "Ø¥ÙØ´Ø§Ø¡ Ø§ÙØ­Ø³Ø§Ø¨"
+msgid "إنشاء الحساب"
 msgstr "Create account"
 
-msgid "Ø¥ÙØ´Ø§Ø¡ Ø­Ø³Ø§Ø¨"
+msgid "إنشاء حساب"
 msgstr "Create account"
 
-msgid "Ø¥ÙØ´Ø§Ø¡ Ø­Ø³Ø§Ø¨ Ø¬Ø¯ÙØ¯"
+msgid "إنشاء حساب جديد"
 msgstr "Create a new account"
 
-msgid "Ø¥ÙØ´Ø§Ø¡ Ø­Ø³Ø§Ø¨ ÙØ¬Ø§ÙÙ"
+msgid "إنشاء حساب مجاني"
 msgstr "Create a free account"
 
-msgid "Ø¥ÙØ±Ø§Ø¯Ø§Øª"
+msgid "إيرادات"
 msgstr "Revenue"
 
-msgid "Ø¥ÙÙÙÙ"
+msgid "إيميل"
 msgstr "Email"
 
-msgid "Ø§Ø¨Ø­Ø« Ø¹Ù Ø±Ø­ÙØ©"
+msgid "ابحث عن رحلة"
 msgstr "Search for a flight"
 
-msgid "Ø§Ø¨Ø­Ø« Ø¹Ù ÙÙØ¯Ù ÙÙØ°Ù Ø§ÙØ±Ø­ÙØ©"
+msgid "ابحث عن فندق لهذه الرحلة"
 msgstr "Search for a hotel for this trip"
 
-msgid "Ø§Ø­Ø¬Ø² Ø±Ø­ÙØ§ØªÙ Ø¨Ø£ÙØ¶Ù Ø§ÙØ£Ø³Ø¹Ø§Ø± ÙØ¹ ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ©Ø Ø¨Ø¯Ø¹Ù ÙÙ"
+msgid "احجز رحلاتك بأفضل الأسعار مع وكالة أبو منية، بدعم من"
 msgstr ""
-"Book your flights at the best prices with Abu Monya Agency, powered by"
 
-msgid "Ø§Ø­Ø¬Ø² ÙÙØ¯ÙÙ Ø§ÙØ¢Ù Ø¨Ø³ÙÙÙØ©"
+msgid "احجز فندقك الآن بسهولة"
 msgstr "Book your hotel easily now"
 
-msgid "Ø§Ø­ÙØ¯ ÙØ§Ø±ÙÙ"
+msgid "احمد فاروق"
 msgstr "Ahmed Farouq"
 
-msgid "Ø§Ø®ØªØ± ØºØ±ÙØªÙ"
+msgid "اختر غرفتك"
 msgstr "Choose your room"
 
-msgid "Ø§Ø³ØªØ±Ø¯Ø§Ø¯ ÙØ¨Ù Ø§ÙÙØºØ§Ø¯Ø±Ø©"
+msgid "استرداد قبل المغادرة"
 msgstr "Refund before departure"
 
-msgid "Ø§Ø³ØªÙØªØ¹ Ø¨Ø£Ø±ÙÙ Ø§ÙÙØ±Ø§ÙÙ ÙØ§ÙØ®Ø¯ÙØ© Ø§ÙØªÙ ØªÙØ¨Ù Ø£Ø¹ÙÙ Ø§ÙÙØ¹Ø§ÙÙØ± Ø§ÙØ¹Ø§ÙÙÙØ©"
+msgid "استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية"
 msgstr "Enjoy the finest facilities and service meeting top global standards"
 
-msgid "Ø§Ø³Ù Ø§ÙØ­Ø³Ø§Ø¨"
+msgid "اسم الحساب"
 msgstr "Account name"
 
-msgid "Ø§Ø³Ù Ø§ÙØ¶ÙÙ"
+msgid "اسم الضيف"
 msgstr "Guest name"
 
-msgid "Ø§Ø³Ù Ø§ÙØ¹Ø§Ø¦ÙØ©"
+msgid "اسم العائلة"
 msgstr "Last name"
 
-msgid "Ø§Ø³Ù Ø§ÙØ¹Ø§Ø¦ÙØ© (Ø¨Ø§ÙÙØºØ© Ø§ÙØ¥ÙØ¬ÙÙØ²ÙØ©"
-msgstr "Last name (in English"
+msgid "اسم العائلة (باللغة الإنجليزية"
+msgstr ""
 
-msgid "Ø§Ø³Ù Ø§ÙØ¹ÙÙÙ"
+msgid "اسم العميل"
 msgstr "Customer name"
 
-msgid "Ø§Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù"
+msgid "اسم المستخدم"
 msgstr "Username"
 
-msgid "Ø§Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù Ø£Ù ÙÙÙØ© Ø§ÙÙØ±ÙØ± ØºÙØ± ØµØ­ÙØ­Ø©"
+msgid "اسم المستخدم أو كلمة المرور غير صحيحة"
 msgstr "Incorrect username or password"
 
-msgid "Ø§ÙØªØ´Ù Ø£Ø¬ÙÙ Ø§ÙÙÙØ§Ø¯Ù ÙØ±Ø­ÙØªÙ"
+msgid "اكتشف أجمل الفنادق لرحلتك"
 msgstr "Discover the best hotels for your trip"
 
-msgid "Ø§ÙØ£Ø¹ÙÙ Ø¥ÙÙ Ø§ÙØ£ÙÙ"
+msgid "الأعلى إلى الأقل"
 msgstr "Highest to lowest"
 
-msgid "Ø§ÙØ£ÙÙ Ø¥ÙÙ Ø§ÙØ£Ø¹ÙÙ"
+msgid "الأقل إلى الأعلى"
 msgstr "Lowest to highest"
 
-msgid "Ø§ÙØ¥Ø¬Ø±Ø§Ø¡Ø§Øª"
+msgid "الإجراءات"
 msgstr "Actions"
 
-msgid "Ø§ÙØ¥ÙØ±Ø§Ø¯Ø§Øª Ø§ÙØ¥Ø¬ÙØ§ÙÙØ©"
+msgid "الإيرادات الإجمالية"
 msgstr "Total Revenue"
 
-msgid "Ø§ÙØ§Ø³Ù Ø§ÙØ£ÙÙ"
+msgid "الاسم الأول"
 msgstr "First name"
 
-msgid "Ø§ÙØ§Ø³Ù Ø§ÙØ£ÙÙ (Ø¨Ø§ÙÙØºØ© Ø§ÙØ¥ÙØ¬ÙÙØ²ÙØ© ÙÙØ§ ÙÙ Ø§ÙØ¬ÙØ§Ø²"
-msgstr "First name (in English as on passport"
+msgid "الاسم الأول (باللغة الإنجليزية كما في الجواز"
+msgstr ""
 
-msgid "Ø§ÙØ§Ø³Ù Ø§ÙÙØ§ÙÙ (ÙÙØ§ ÙÙ Ø¬ÙØ§Ø² Ø§ÙØ³ÙØ±"
-msgstr "Full name (as on passport"
+msgid "الاسم الكامل (كما في جواز السفر"
+msgstr ""
 
-msgid "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ"
+msgid "البريد الإلكتروني"
 msgstr "Email address"
 
-msgid "Ø§ÙØ¨ÙÙ"
+msgid "البنك"
 msgstr "Bank"
 
-msgid "Ø§ÙØªØ­ÙÙÙ ÙØ¨ÙØ§Ø¨Ø© Ø§ÙØ¯ÙØ¹"
+msgid "التحويل لبوابة الدفع"
 msgstr "Redirecting to payment gateway"
 
-msgid "Ø§ÙØªØ°ÙØ±Ø©"
+msgid "التذكرة"
 msgstr "Ticket"
 
-msgid "Ø§ÙØªÙØ§Ø±ÙØ®"
+msgid "التواريخ"
 msgstr "Dates"
 
-msgid "Ø§ÙØ¬ÙØ³"
+msgid "الجنس"
 msgstr "Gender"
 
-msgid "Ø§ÙØ­Ø§ÙØ©"
+msgid "الحالة"
 msgstr "Status"
 
-msgid "Ø§ÙØ­Ø¬ÙØ²Ø§Øª"
+msgid "الحجوزات"
 msgstr "Bookings"
 
-msgid "Ø§ÙØ­Ø¬ÙØ²Ø§Øª ÙØ§ÙØ¥ÙØºØ§Ø¡Ø§Øª"
+msgid "الحجوزات والإلغاءات"
 msgstr "Bookings and Cancellations"
 
-msgid "Ø§ÙØ±Ø¨Ø­ Ø§ÙØµØ§ÙÙ"
+msgid "الربح الصافي"
 msgstr "Net profit"
 
-msgid "Ø§ÙØ³Ø¹Ø± Ø§ÙØ¥Ø¬ÙØ§ÙÙ"
+msgid "السعر الإجمالي"
 msgstr "Total price"
 
-msgid "Ø§ÙØ³Ø¹Ø± ÙÙ"
-msgstr "Price for"
+msgid "السعر لـ"
+msgstr ""
 
-msgid "Ø§ÙØ´Ø±ÙØ©"
+msgid "الشركة"
 msgstr "Company"
 
-msgid "Ø§ÙØ¹ÙÙØ§Ø¡ Ø§ÙÙØ±ÙØ¯ÙÙ"
+msgid "العملاء الفريدون"
 msgstr "Unique customers"
 
-msgid "Ø§ÙØ¹ÙØ¯Ø© Ø¥ÙÙ Ø§ÙØªØ³Ø¬ÙÙ"
+msgid "العودة إلى التسجيل"
 msgstr "Back to sign up"
 
-msgid "Ø§ÙØ¹ÙØ¯Ø© Ø¥ÙÙ Ø§ÙØ¹Ø±ÙØ¶"
+msgid "العودة إلى العروض"
 msgstr "Back to offers"
 
-msgid "Ø§ÙØ¹ÙØ¯Ø© Ø¥ÙÙ ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø«"
+msgid "العودة إلى نتائج البحث"
 msgstr "Back to search results"
 
-msgid "Ø§ÙØ¹ÙØ¯Ø© ÙÙÙÙÙØ¹"
+msgid "العودة للموقع"
 msgstr "Back to website"
 
-msgid "Ø§ÙØºØ±Ù Ø§ÙÙØªØ§Ø­Ø©"
+msgid "الغرف المتاحة"
 msgstr "Available rooms"
 
-msgid "Ø§ÙÙØ¦Ø©"
+msgid "الفئة"
 msgstr "Category"
 
-msgid "Ø§ÙÙØ¨ÙØº"
+msgid "المبلغ"
 msgstr "Amount"
 
-msgid "Ø§ÙÙØ¨ÙØº Ø§ÙÙØ³ØªØ­Ù"
+msgid "المبلغ المستحق"
 msgstr "Amount due"
 
-msgid "Ø§ÙÙØ¨ÙØº Ø§ÙÙØ³ØªØ­Ù ÙÙØ¯ÙØ¹"
+msgid "المبلغ المستحق للدفع"
 msgstr "Amount due for payment"
 
-msgid "Ø§ÙÙØªØ§Ø¨Ø¹Ø© ÙÙØ¯ÙØ¹ Ø§ÙØ¢ÙÙ"
+msgid "المتابعة للدفع الآمن"
 msgstr "Proceed to secure payment"
 
-msgid "Ø§ÙÙØ¬ÙÙØ¹ Ø§ÙÙØ±Ø¹Ù"
+msgid "المجموع الفرعي"
 msgstr "Subtotal"
 
-msgid "Ø§ÙÙØ±Ø¬Ø¹"
+msgid "المرجع"
 msgstr "Reference"
 
-msgid "Ø§ÙÙØ³Ø§Ø±"
+msgid "المسار"
 msgstr "Route"
 
-msgid "Ø§ÙÙØ³Ø§ÙØ©"
-msgstr "Distance"
+msgid "المسافة"
+msgstr ""
 
-msgid "Ø§ÙÙØ³Ø§ÙØ±ÙÙ ÙØ§ÙØ²ÙØ§Ø± Ø§ÙØ¯Ø§Ø¦ÙÙÙ"
+msgid "المسافرون والزوار الدائمون"
 msgstr "Frequent passengers and visitors"
 
-msgid "Ø§ÙÙÙØªØ±Ø­"
+msgid "المقترح"
 msgstr "Suggested"
 
-msgid "Ø§ÙÙÙÙØ© ÙØ·ÙÙØ¨Ø©"
+msgid "الهوية مطلوبة"
 msgstr "ID required"
 
-msgid "Ø§ÙØ¶Ù Ø¥ÙÙ Ø¢ÙØ§Ù Ø§ÙÙØ³Ø§ÙØ±ÙÙ ÙØ§Ø­Ø¬Ø² Ø±Ø­ÙØªÙ Ø¨ÙÙ Ø³ÙÙÙØ©"
+msgid "انضم إلى آلاف المسافرين واحجز رحلتك بكل سهولة"
 msgstr "Join thousands of travelers and book your trip with ease"
 
-msgid "Ø¨Ø­Ø« Ø¬Ø¯ÙØ¯"
+msgid "بحث جديد"
 msgstr "New search"
 
-msgid "Ø¨ÙØ§Ø¡Ù Ø¹ÙÙ Ø§Ø®ØªÙØ§Ø±ÙØ ÙØ¬Ø¯ÙØ§ ÙÙ Ø®ÙØ§Ø±Ø§Øª ÙÙÙØ²Ø© ÙÙØ¥ÙØ§ÙØ©"
+msgid "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة"
 msgstr ""
-"Based on your selection, we found excellent accommodation options for you"
 
-msgid "Ø¨ÙÙ Ø§ÙØ®ÙÙØ¬ Ø§ÙØ¯ÙÙÙ"
+msgid "بنك الخليج الدولي"
 msgstr "Gulf International Bank"
 
-msgid "Ø¨ÙØ§Ø¨Ø© Ø§ÙØ¯ÙØ¹ ÙØ¥ØªÙØ§Ù Ø§ÙØ­Ø¬Ø² Ø§ÙØ®Ø§ØµØ© Ø¨ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ©"
-msgstr "Abu Monya Agency booking payment gateway"
+msgid "بوابة الدفع لإتمام الحجز الخاصة بوكالة أبو منية"
+msgstr ""
 
-msgid "Ø¨ÙØ§Ø¨Ø© Ø§ÙØ¯ÙØ¹ ÙØ§ÙØ¥ÙØ¯Ø§Ø¹"
-msgstr "Payment and deposit gateway"
+msgid "بوابة الدفع والإيداع"
+msgstr ""
 
-msgid "ØªØ£ÙÙØ¯"
+msgid "تأكيد"
 msgstr "Confirm"
 
-msgid "ØªØ£ÙÙØ¯ Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ"
+msgid "تأكيد البريد الإلكتروني"
 msgstr "Verify Email"
 
-msgid "ØªØ£ÙÙØ¯ Ø§ÙØ­Ø¬Ø²"
+msgid "تأكيد الحجز"
 msgstr "Booking Confirmation"
 
-msgid "ØªØ£ÙÙØ¯ ÙÙÙØ© Ø§ÙÙØ±ÙØ±"
+msgid "تأكيد كلمة المرور"
 msgstr "Confirm password"
 
-msgid "ØªØ£ÙÙØ¯ ÙØ§ÙÙØªØ§Ø¨Ø¹Ø© ÙÙØ¯ÙØ¹"
-msgstr "Confirm & Proceed to Payment"
+msgid "تأكيد والمتابعة للدفع"
+msgstr ""
 
-msgid "ØªØ§Ø±ÙØ® Ø§ÙØ·ÙØ¨"
+msgid "تاريخ الطلب"
 msgstr "Order date"
 
-msgid "ØªØ§Ø±ÙØ® Ø§ÙÙÙÙØ§Ø¯"
+msgid "تاريخ الميلاد"
 msgstr "Date of birth"
 
-msgid "ØªØ­ÙÙÙ Ø¨ÙÙÙ Ø£Ù Ø¥ÙØ¯Ø§Ø¹ ÙÙØ¯Ù"
+msgid "تحويل بنكي أو إيداع نقدي"
 msgstr "Bank transfer or cash deposit"
 
-msgid "ØªØ°ÙØ±Ø© Ø±Ø­ÙØªÙ"
+msgid "تذكرة رحلتك"
 msgstr "Your flight ticket"
 
-msgid "ØªØ±ØªÙØ¨ Ø­Ø³Ø¨ Ø§ÙØ³Ø¹Ø±"
+msgid "ترتيب حسب السعر"
 msgstr "Sort by price"
 
-msgid "ØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ"
+msgid "تسجيل الدخول"
 msgstr "Log In"
 
-msgid "ØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ ÙÙØ¥Ø¯Ø§Ø±Ø©"
+msgid "تسجيل الدخول للإدارة"
 msgstr "Admin Login"
 
-msgid "ØªØ³Ø¬ÙÙ Ø®Ø±ÙØ¬"
+msgid "تسجيل خروج"
 msgstr "Log Out"
 
-msgid "ØªØ´ØºÙÙ"
+msgid "تشغيل"
 msgstr "Operated by"
 
-msgid "ØªØ´ÙÙ ÙØ§ÙØ´ Ø®Ø¯ÙØ© Ø§ÙÙÙØ§ÙØ©"
+msgid "تشمل هامش خدمة الوكالة"
 msgstr "Includes agency service margin"
 
-msgid "ØªØ¹Ø¯ÙÙ"
+msgid "تعديل"
 msgstr "Edit"
 
-msgid "ØªØºÙÙØ± ÙØ¨Ù Ø§ÙÙØºØ§Ø¯Ø±Ø©"
+msgid "تغيير قبل المغادرة"
 msgstr "Change before departure"
 
-msgid "ØªÙØ§ØµÙÙ Ø§ÙØ±Ø­ÙØ©"
+msgid "تفاصيل الرحلة"
 msgstr "Flight Details"
 
-msgid "ØªÙØ¹ÙÙ Ø§ÙØ­Ø³Ø§Ø¨"
+msgid "تفعيل الحساب"
 msgstr "Activate Account"
 
-msgid "ØªÙÙÙÙ"
+msgid "تقييم"
 msgstr "Rating"
 
-msgid "ØªÙÙÙÙ"
+msgid "تكييف"
 msgstr "Air conditioning"
 
-msgid "ØªÙ Ø§ÙØ¥ÙØºØ§Ø¡ Ø¨ÙØ¬Ø§Ø­"
+msgid "تم الإلغاء بنجاح"
 msgstr "Cancelled successfully"
 
 msgid ""
-"ØªÙ ØªØ£ÙÙØ¯ Ø­Ø¬Ø²Ù ÙØ¥ØµØ¯Ø§Ø± ØªØ°Ø§ÙØ± Ø§ÙØ·ÙØ±Ø§ÙØ ÙÙÙÙÙÙ Ø§Ø³ØªØ®Ø¯Ø§Ù Ø§ÙØ±ÙÙ Ø§ÙÙØ±Ø¬Ø¹Ù Ø£Ø¹ÙØ§Ù ÙÙ "
-"Ø§ÙÙØ·Ø§Ø±"
+"تم تأكيد حجزك وإصدار تذاكر الطيران، ويمكنك استخدام الرقم المرجعي أعلاه في "
+"المطار"
 msgstr ""
-"Your booking is confirmed and tickets issued. You can use the reference "
-"number above at the airport"
 
-msgid "ØªÙ ØªØ³Ø¬ÙÙ Ø­Ø¬Ø²Ù Ø§ÙÙØ¨Ø¯Ø¦Ù Ø¨ÙØ¬Ø§Ø­ Ø¨Ø±ÙÙ"
-msgstr "Your preliminary booking was successfully registered under number"
+msgid "تم تسجيل حجزك المبدئي بنجاح برقم"
+msgstr ""
 
-msgid "ØªÙØª Ø¹ÙÙÙØ© Ø§ÙØ¯ÙØ¹ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ Ø¨ÙØ¬Ø§Ø­"
+msgid "تمت عملية الدفع الإلكتروني بنجاح"
 msgstr "Electronic payment completed successfully"
 
-msgid "ØªÙÙØ± ÙØ­Ø¯ÙØ¯"
+msgid "توفر محدود"
 msgstr "Limited availability"
 
-msgid "ØªÙÙÙ"
+msgid "توقف"
 msgstr "Stop"
 
-msgid "Ø¬Ø§Ø±Ù Ø§Ø³ØªØ±Ø¯Ø§Ø¯ Ø±Ø­ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù"
+msgid "جاري استرداد رحلات الطيران"
 msgstr "Retrieving flights..."
 
-msgid "Ø¬Ø§Ø±Ù Ø§ÙØªØ­ÙÙÙ"
+msgid "جاري التحميل"
 msgstr "Loading..."
 
-msgid "Ø¬Ø±Ø¨ ØªÙØ§Ø±ÙØ® Ø£Ù ÙØ¯Ù Ø£Ø®Ø±Ù Ø£Ù Ø§Ø¹ÙØ³ Ø§ÙÙØ¬ÙØ§Øª"
+msgid "جرب تواريخ أو مدن أخرى أو اعكس الوجهات"
 msgstr "Try other dates or cities, or reverse destinations"
 
-msgid "Ø¬ÙÙØ¹ Ø§ÙØ±Ø­ÙØ§Øª"
+msgid "جميع الرحلات"
 msgstr "All flights"
 
-msgid "Ø¬ÙÙØ¹ Ø§ÙØ´Ø±ÙØ§Øª"
+msgid "جميع الشركات"
 msgstr "All airlines"
 
-msgid "Ø¬ÙØ¯"
+msgid "جيد"
 msgstr "Good"
 
-msgid "Ø¬ÙØ¯ Ø¬Ø¯Ø§Ù"
+msgid "جيد جداً"
 msgstr "Very Good"
 
-msgid "Ø­Ø¬Ø² Ø±Ø­ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù"
+msgid "حجز رحلات الطيران"
 msgstr "Flight Booking"
 
-msgid "Ø­Ø¬ÙØ²Ø§Øª Ø§ÙÙÙØ§Ø¯Ù Ø§ÙØ³Ø§Ø¨ÙØ©"
+msgid "حجوزات الفنادق السابقة"
 msgstr "Past Hotel Bookings"
 
-msgid "Ø­Ø¬ÙØ²Ø§ØªÙ"
+msgid "حجوزاتي"
 msgstr "My Bookings"
 
-msgid "Ø­Ø³Ø§Ø¨Ù"
+msgid "حسابي"
 msgstr "My Account"
 
-msgid "Ø­Ø³Ø¨ Ø§Ø®ØªÙØ§Ø±Ù"
-msgstr "As per your choice"
+msgid "حسب اختيارك"
+msgstr ""
 
-msgid "Ø­ÙØ¸ Ø§ÙØªØ°ÙØ±Ø©"
+msgid "حفظ التذكرة"
 msgstr "Save Ticket"
 
-msgid "Ø®Ø¯ÙØ© Ø§ÙØºØ±Ù"
+msgid "خدمة الغرف"
 msgstr "Room Service"
 
-msgid "Ø®Ø·Ø£ ÙÙ Ø§ÙØ³ÙØ±ÙØ±"
+msgid "خطأ في السيرفر"
 msgstr "Server error"
 
-msgid "Ø¯Ø®ÙÙ"
+msgid "دخول"
 msgstr "Enter"
 
-msgid "Ø°ÙØ±"
+msgid "ذكر"
 msgstr "Male"
 
-msgid "Ø±Ø­ÙØ§Øª ÙØ­Ø¯ Ø£ÙØµÙ"
+msgid "رحلات كحد أقصى"
 msgstr "flights maximum"
 
-msgid "Ø±Ø­ÙØ© Ø¬Ø¯ÙØ¯Ø©"
+msgid "رحلة جديدة"
 msgstr "New Flight"
 
-msgid "Ø±ÙÙ Ø§ÙØ§ÙØ¨Ø§Ù"
+msgid "رقم الايبان"
 msgstr "IBAN Number"
 
-msgid "Ø±ÙÙ Ø§ÙØ­Ø¬Ø²"
+msgid "رقم الحجز"
 msgstr "Booking Number"
 
-msgid "Ø±ÙÙ Ø§ÙØ­Ø³Ø§Ø¨"
+msgid "رقم الحساب"
 msgstr "Account Number"
 
-msgid "Ø±ÙÙ Ø§ÙÙØ§ØªÙ"
+msgid "رقم الهاتف"
 msgstr "Phone Number"
 
-msgid "Ø±ÙÙ Ø§ÙÙØ§ØªÙ (ÙØ¹ Ø±ÙØ² Ø§ÙØ¯ÙÙØ©"
-msgstr "Phone Number (with country code"
+msgid "رقم الهاتف (مع رمز الدولة"
+msgstr ""
 
-msgid "Ø±ÙÙ Ø¬ÙØ§Ø² Ø§ÙØ³ÙØ±"
+msgid "رقم جواز السفر"
 msgstr "Passport Number"
 
-msgid "Ø±ÙØ² Ø§ÙØªÙØ¹ÙÙ"
+msgid "رمز التفعيل"
 msgstr "Activation Code"
 
-msgid "Ø³Ø£ÙÙÙ Ø¨Ø§ÙØªØ­ÙÙÙ Ø§ÙØ¨ÙÙÙ"
+msgid "سأقوم بالتحويل البنكي"
 msgstr "I will make a bank transfer"
 
-msgid "Ø´Ø±ÙØ· Ø§ÙØªØ°ÙØ±Ø©"
+msgid "شروط التذكرة"
 msgstr "Ticket Conditions"
 
-msgid "Ø·Ø§Ø¦Ø±Ø©"
+msgid "طائرة"
 msgstr "Aircraft"
 
-msgid "Ø¹Ø§Ø¯Ù"
+msgid "عادي"
 msgstr "Regular"
 
-msgid "Ø¹Ø¯Ø¯ Ø§ÙØ£Ø´Ø®Ø§Øµ (Ø§ÙØ­Ø¯ Ø§ÙØ£ÙØµÙ"
+msgid "عدد الأشخاص (الحد الأقصى"
 msgstr "Number of people (Max"
 
-msgid "Ø¹Ø¯Ø¯ Ø§ÙØªÙÙÙØ§Øª"
+msgid "عدد التوقفات"
 msgstr "Number of stops"
 
-msgid "Ø¹Ø¯Ø¯ Ø§ÙØ­Ø¬ÙØ²Ø§Øª"
+msgid "عدد الحجوزات"
 msgstr "Number of bookings"
 
-msgid "Ø¹Ø¯Ø¯ Ø§ÙØºØ±Ù"
+msgid "عدد الغرف"
 msgstr "Number of rooms"
 
-msgid "Ø¹Ø±Ø¶ Ø§ÙØªÙØ§ØµÙÙ ÙØªØ­ÙÙÙ Ø§ÙØªØ°ÙØ±Ø©"
+msgid "عرض التفاصيل وتحميل التذكرة"
 msgstr "View details and download ticket"
 
-msgid "Ø¹Ø±Ø¶/Ø¹Ø±ÙØ¶ ÙÙØ¬Ø¯Øª"
+msgid "عرض/عروض وُجدت"
 msgstr "offer(s) found"
 
-msgid "Ø¹Ù Ø§ÙÙÙØ¯Ù"
+msgid "عن الفندق"
 msgstr "About the hotel"
 
-msgid "ØºÙØ± ÙØªÙÙØ±"
+msgid "غير متوفر"
 msgstr "Not available"
 
-msgid "ØºÙØ± ÙØ³ÙÙØ­"
+msgid "غير مسموح"
 msgstr "Not allowed"
 
-msgid "ÙØªØ­"
+msgid "فتح"
 msgstr "Open"
 
-msgid "ÙÙØ¯Ù ÙØªØ§Ø­"
+msgid "فندق متاح"
 msgstr "available hotel"
 
-msgid "ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¹ÙÙØ§Ø¡"
+msgid "قاعدة العملاء"
 msgstr "Client Base"
 
-msgid "ÙØ·Ø¹Ø©"
+msgid "قطعة"
 msgstr "Piece"
 
 msgid ""
-"ÙÙ Ø¨ØªØ­ÙÙÙ Ø§ÙÙØ¨ÙØº Ø¥ÙÙ Ø£Ø­Ø¯ Ø­Ø³Ø§Ø¨Ø§ØªÙØ§ Ø§ÙØ¨ÙÙÙØ© ÙØ£Ø±Ø³Ù Ø¥ÙØµØ§Ù Ø§ÙØ¯ÙØ¹ Ø¹Ø¨Ø± Ø§ÙÙØ§ØªØ³Ø§Ø¨ "
-"ÙØªØ£ÙÙØ¯ Ø­Ø¬Ø²Ù"
+"قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب "
+"لتأكيد حجزك"
 msgstr ""
-"Transfer the amount to one of our bank accounts and send the receipt via "
-"WhatsApp to confirm"
 
-msgid "ÙÙÙØ© Ø§ÙÙØ±ÙØ±"
+msgid "كلمة المرور"
 msgstr "Password"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ ØªÙØ§ØµÙÙ ÙØ¹Ø¯Ø§Øª"
+msgid "لا توجد تفاصيل معدات"
 msgstr "No equipment details"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ Ø­Ø¬ÙØ²Ø§Øª"
+msgid "لا توجد حجوزات"
 msgstr "No bookings found"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ Ø±Ø­ÙØ§Øª ÙØªØ§Ø­Ø©"
+msgid "لا توجد رحلات متاحة"
 msgstr "No flights available"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ ØºØ±Ù ÙØªØ§Ø­Ø© ÙÙØ°Ø§ Ø§ÙÙÙØ¯Ù ÙÙØªÙØ§Ø±ÙØ® Ø§ÙÙØ­Ø¯Ø¯Ø©"
+msgid "لا توجد غرف متاحة لهذا الفندق للتواريخ المحددة"
 msgstr "No rooms available for this hotel on selected dates"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ ÙÙØ§Ø¯Ù ÙØªØ§Ø­Ø©"
+msgid "لا توجد فنادق متاحة"
 msgstr "No hotels available"
 
-msgid "ÙØ§ ØªÙØ¬Ø¯ ÙØªØ§Ø¦Ø¬"
+msgid "لا توجد نتائج"
 msgstr "No results found"
 
-msgid "ÙØªØ­ÙÙÙ Ø§ÙØªØ°ÙØ±Ø©"
+msgid "لتحميل التذكرة"
 msgstr "To download the ticket"
 
-msgid "ÙØ¯ÙÙ Ø­Ø³Ø§Ø¨ Ø¨Ø§ÙÙØ¹ÙØ"
+msgid "لديك حساب بالفعل؟"
 msgstr "Already have an account?"
 
-msgid "ÙÙØ¯ Ø£Ø±Ø³ÙÙØ§ Ø±ÙØ² ØªÙØ¹ÙÙ Ø¥ÙÙ Ø¨Ø±ÙØ¯Ù Ø§ÙØ¥ÙÙØªØ±ÙÙÙ"
+msgid "لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني"
 msgstr "We have sent an activation code to your email"
 
-msgid "ÙÙØ¥Ø¬ÙØ§ÙÙ"
+msgid "للإجمالي"
 msgstr "for the total"
 
-msgid "ÙÙØªÙØ§Ø±ÙØ® Ø§ÙÙØ­Ø¯Ø¯Ø©"
+msgid "للتواريخ المحددة"
 msgstr "for selected dates"
 
-msgid "ÙÙ ÙØªÙÙÙ ÙÙ Ø§ÙØ¹Ø«ÙØ± Ø¹ÙÙ ÙÙØ§Ø¯Ù ÙÙ"
+msgid "لم نتمكن من العثور على فنادق في"
 msgstr "We couldn't find hotels in"
 
-msgid "ÙÙ ÙØªÙ Ø§ÙØ¹Ø«ÙØ± Ø¹ÙÙ Ø£Ù Ø¹Ø±ÙØ¶ ÙÙØ°Ø§ Ø§ÙØ¨Ø­Ø« Ø§ÙÙØ¹ÙØ¯"
+msgid "لم يتم العثور على أي عروض لهذا البحث المعقد"
 msgstr "No offers found for this search"
 
-msgid "ÙÙØ­Ø© ØªØ­ÙÙ Ø¥Ø¯Ø§Ø±Ø© Ø§ÙØ±Ø­ÙØ§Øª"
+msgid "لوحة تحكم إدارة الرحلات"
 msgstr "Flight Management Dashboard"
 
-msgid "ÙÙØ§ÙÙ"
+msgid "ليالي"
 msgstr "nights"
 
-msgid "ÙÙØ³ ÙØ¯ÙÙ Ø£Ù Ø­Ø¬ÙØ²Ø§Øª ÙÙ Ø§ÙÙÙØª Ø§ÙØ­Ø§ÙÙ"
+msgid "ليس لديك أي حجوزات في الوقت الحالي"
 msgstr "You do not have any bookings at the moment"
 
-msgid "ÙÙØ³ ÙØ¯ÙÙ Ø­Ø¬ÙØ²Ø§Øª ÙÙØ§Ø¯Ù Ø­Ø§ÙÙØ§Ù"
+msgid "ليس لديك حجوزات فنادق حالياً"
 msgstr "You have no current hotel bookings"
 
-msgid "ÙÙØ³ ÙØ¯ÙÙ Ø­Ø³Ø§Ø¨Ø"
+msgid "ليس لديك حساب؟"
 msgstr "Don't have an account?"
 
-msgid "ÙÙÙØ©"
+msgid "ليلة"
 msgstr "night"
 
-msgid "ÙØ¤ÙØ¯"
+msgid "مؤكد"
 msgstr "Confirmed"
 
-msgid "ÙØ¨Ø§Ø´Ø±"
+msgid "مباشر"
 msgstr "Direct"
 
-msgid "ÙØ¨ÙÙ"
+msgid "مبنى"
 msgstr "Terminal"
 
-msgid "ÙØ«Ø§Ù"
+msgid "مثال"
 msgstr "Example"
 
-msgid "ÙØ­Ø·Ø© ØªÙÙÙ (ØªØºÙÙØ± Ø·Ø§Ø¦Ø±Ø© ÙÙ"
-msgstr "Layover (change plane at"
+msgid "محطة توقف (تغيير طائرة في"
+msgstr ""
 
-msgid "ÙØ­Ø·Ø© ÙØ§Ø­Ø¯Ø©"
+msgid "محطة واحدة"
 msgstr "1 Stop"
 
-msgid "ÙØ­Ø·ØªØ§Ù Ø£Ù Ø£ÙØ«Ø±"
+msgid "محطتان أو أكثر"
 msgstr "2+ Stops"
 
-msgid "ÙØ­ÙØ¯"
+msgid "محمد"
 msgstr "Mohammed"
 
-msgid "ÙØ±Ø­Ø¨Ø§Ù"
+msgid "مرحباً"
 msgstr "Welcome"
 
-msgid "ÙØ³Ø¨Ø­"
+msgid "مسبح"
 msgstr "Pool"
 
-msgid "ÙØ¹ÙÙÙØ§Øª Ø§ÙÙØ³Ø§ÙØ±"
+msgid "معلومات المسافر"
 msgstr "Passenger Information"
 
-msgid "ÙØ¹ÙÙÙØ§Øª Ø§ÙÙØ³Ø§ÙØ±(ÙÙ"
-msgstr "Passenger(s) Information"
+msgid "معلومات المسافر(ين"
+msgstr ""
 
-msgid "ÙÙØ§Ø¹Ø¯ ÙØªØ§Ø­Ø©"
+msgid "مقاعد متاحة"
 msgstr "Seats available"
 
-msgid "ÙÙØ¨ÙÙ"
+msgid "مقبول"
 msgstr "Acceptable"
 
-msgid "ÙÙØ®Øµ Ø§ÙØ±Ø­ÙØ©"
+msgid "ملخص الرحلة"
 msgstr "Flight Summary"
 
-msgid "ÙÙØºÙ"
+msgid "ملغى"
 msgstr "Cancelled"
 
-msgid "ÙØªØ§Ø¦Ø¬ Ø§ÙØ¨Ø­Ø«"
+msgid "نتائج البحث"
 msgstr "Search Results"
 
-msgid "ÙØªÙÙÙ ÙÙÙ Ø±Ø­ÙØ© Ø³Ø¹ÙØ¯Ø©"
+msgid "نتمنى لكم رحلة سعيدة"
 msgstr "We wish you a pleasant flight"
 
-msgid "ÙØ¸Ø±Ø© Ø¹Ø§ÙØ©"
+msgid "نظرة عامة"
 msgstr "Overview"
 
-msgid "ÙÙØ¹ Ø§ÙØ³Ø±ÙØ±"
+msgid "نوع السرير"
 msgstr "Bed Type"
 
-msgid "ÙÙ Ø£ÙØª ÙØªØ£ÙØ¯ ÙÙ Ø¥ÙØºØ§Ø¡ ÙØ°Ù Ø§ÙØ±Ø­ÙØ© ÙÙØ§Ø¦ÙØ§Ù ÙØ¯Ù"
-msgstr "Are you sure you want to permanently cancel this flight at"
+msgid "هل أنت متأكد من إلغاء هذه الرحلة نهائياً لدى"
+msgstr ""
 
-msgid "ÙØ§Ù ÙØ§Ù ÙØ¬Ø§ÙÙ"
+msgid "واي فاي مجاني"
 msgstr "Free Wi-Fi"
 
-msgid "ÙØ¬Ø¨ ÙØªØ§Ø¨Ø© Ø§ÙØ§Ø³Ù Ø¨Ø­Ø±ÙÙ Ø¥ÙØ¬ÙÙØ²ÙØ© ÙÙØ·"
+msgid "يجب كتابة الاسم بحروف إنجليزية فقط"
 msgstr "Name must be written in English characters only"
 
-msgid "ÙØ±Ø¬Ù Ø¥ØªÙØ§Ù Ø§ÙØªØ­ÙÙÙ Ø§ÙØ¨ÙÙÙ ÙØªÙØ¹ÙÙ ØªØ°ÙØ±ØªÙ"
+msgid "يرجى إتمام التحويل البنكي لتفعيل تذكرتك"
 msgstr "Please complete the bank transfer to activate your ticket"
 
-msgid "ÙØ±Ø¬Ù Ø¥ØªÙØ§Ù Ø¹ÙÙÙØ© Ø§ÙØ¯ÙØ¹ ÙØ¥ØµØ¯Ø§Ø± Ø§ÙØªØ°Ø§ÙØ± Ø§ÙØ¥ÙÙØªØ±ÙÙÙØ©"
+msgid "يرجى إتمام عملية الدفع لإصدار التذاكر الإلكترونية"
 msgstr "Please complete payment to issue e-tickets"
 
-msgid "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨ÙØ§ÙØ§Øª Ø§ÙØ¶ÙÙ Ø§ÙØ£Ø³Ø§Ø³Ù ÙØªØ£ÙÙØ¯ Ø§ÙØ­Ø¬Ø²"
+msgid "يرجى إدخال بيانات الضيف الأساسي لتأكيد الحجز"
 msgstr "Please enter primary guest details to confirm booking"
 
-msgid "ÙØ±Ø¬Ù ØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ Ø£ÙÙØ§Ù ÙÙÙØµÙÙ Ø¥ÙÙ ÙØ°Ù Ø§ÙØµÙØ­Ø©"
+msgid "يرجى تسجيل الدخول أولاً للوصول إلى هذه الصفحة"
 msgstr "Please log in first to access this page"
 
-msgid "ÙØ±Ø¬Ù ØªØµØ­ÙØ­ Ø§ÙØ£Ø®Ø·Ø§Ø¡ Ø£Ø¯ÙØ§Ù"
+msgid "يرجى تصحيح الأخطاء أدناه"
 msgstr "Please correct the errors below"
 
-msgid "ÙØ±Ø¬Ù ÙÙØ¡ Ø¬ÙÙØ¹ Ø§ÙØ­ÙÙÙ Ø§ÙÙØ·ÙÙØ¨Ø©"
+msgid "يرجى ملء جميع الحقول المطلوبة"
 msgstr "Please fill in all required fields"
 
-msgid "ÙØ³Ø¹Ø¯ÙØ§ Ø¥Ø±Ø³Ø§Ù Ø±Ø§Ø¨Ø· ØªØ°ÙØ±ØªÙÙ"
+msgid "يسعدنا إرسال رابط تذكرتكم"
 msgstr "We are pleased to send your ticket link"
 
-msgid "ÙØ³Ø¹Ø¯ÙØ§ ÙÙ ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ© Ø¥Ø±Ø³Ø§Ù ØªØ°ÙØ±ØªÙÙ Ø§ÙØ¥ÙÙØªØ±ÙÙÙØ© ÙØ±Ø­ÙØ©"
-msgstr "Abu Monya Agency is pleased to send your e-ticket for the flight"
+msgid "يسعدنا في وكالة أبو منية إرسال تذكرتكم الإلكترونية لرحلة"
+msgstr ""
 
-msgid "ÙØ¸ÙØ± Ø§ÙØ³Ø¹Ø± Ø¨Ø¹ÙÙØ©"
+msgid "يظهر السعر بعملة"
 msgstr "Price is shown in"
 
 msgid ""
-"ÙÙØ¹ ÙØ°Ø§ Ø§ÙÙÙØ¯Ù Ø§ÙÙÙÙØ² ÙÙ ÙÙÙØ¹ Ø§Ø³ØªØ±Ø§ØªÙØ¬Ù ÙÙÙÙØ± ÙØ§ÙØ© Ø³Ø¨Ù Ø§ÙØ±Ø§Ø­Ø© ÙØ§ÙØ®Ø¯ÙØ§Øª "
-"Ø§ÙÙØªÙÙØ²Ø© ÙØ¶ÙØ§Ù Ø¥ÙØ§ÙØ© ÙØ§ ØªÙÙØ³Ù"
+"يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات "
+"المتميزة لضمان إقامة لا تُنسى"
 msgstr ""
-"This distinguished hotel is strategically located, offering comfort and "
-"excellent services for an unforgettable stay"
 
-msgid "ÙÙÙÙÙ ØªØºÙÙØ±ÙØ§ ÙÙ Ø§ÙØ´Ø±ÙØ· Ø§ÙØ¹ÙÙÙ"
+msgid "يمكنك تغييرها من الشريط العلوي"
 msgstr "You can change it from the top bar"
 
-msgid "ÙÙØ³ÙØ­ Ø¨Ù"
-msgstr "Allowed"
+msgid "يُسمح بـ"
+msgstr ""
 
-msgid "Ø¯ÙÙÙ Ø§ÙØ§Ø³ØªØ®Ø¯Ø§Ù"
+msgid "دليل الاستخدام"
 msgstr "User Guide"
 
-msgid "ÙØ³Ø§ÙØ±"
+msgid "مسافر"
 msgstr "Passenger"
 
-msgid "ÙØ³Ø§ÙØ±ÙÙ"
+msgid "مسافرون"
 msgstr "Passengers"
 
-msgid "Ø´Ø­Ù"
+msgid "شحن"
 msgstr "Checked"
 
-msgid "ÙØ¯"
+msgid "يد"
 msgstr "Carry-on"
 
-msgid "Ø§ÙÙØ¬ÙÙØ¹"
+msgid "المجموع"
 msgstr "Total"
 
-msgid "ÙØªØ§Ø­"
+msgid "متاح"
 msgstr "Available"
 
-msgid "Ø§Ø­Ø¬Ø²"
+msgid "احجز"
 msgstr "Book"
 
-msgid "Ø±Ø­ÙØ©"
+msgid "رحلة"
 msgstr "Flight"
 
-msgid "(ØºØ±Ø§ÙØ©"
-msgstr "(Penalty"
+msgid "(غرامة"
+msgstr ""
 
-msgid "(ÙØ§ØªØ³Ø§Ø¨"
-msgstr "(WhatsApp"
+msgid "(واتساب"
+msgstr ""
 
-msgid "ÙØ³ÙÙØ­"
+msgid "مسموح"
 msgstr "Allowed"
 
-msgid "Ø­Ø¬Ø² Ø§ÙØ¢Ù"
+msgid "حجز الآن"
 msgstr "Book Now"
 
-msgid "ÙÙØ§ÙØ©"
+msgid "وكالة"
 msgstr "Agency"
 
-msgid "Ø£Ø¨Ù ÙÙÙØ©"
+msgid "أبو منية"
 msgstr "Abu Monya"
 
-msgid "Ø§ÙØ±Ø¦ÙØ³ÙØ©"
+msgid "الرئيسية"
 msgstr "Home"
 
-msgid "ÙÙØ§Ø¯Ù"
+msgid "فنادق"
 msgstr "Hotels"
 
-msgid "Ø­Ø¬ÙØ²Ø§Øª Ø§ÙØ·ÙØ±Ø§Ù"
+msgid "حجوزات الطيران"
 msgstr "Flight Bookings"
 
-msgid "Ø­Ø¬ÙØ²Ø§Øª Ø§ÙÙÙØ§Ø¯Ù"
+msgid "حجوزات الفنادق"
 msgstr "Hotel Bookings"
 
-msgid "Ø®Ø¯ÙØ§ØªÙØ§"
+msgid "خدماتنا"
 msgstr "Services"
 
-msgid "ÙÙ ÙØ­Ù"
+msgid "من نحن"
 msgstr "About Us"
 
-msgid "ØªÙØ§ØµÙ ÙØ¹ÙØ§"
+msgid "تواصل معنا"
 msgstr "Contact Us"
 
 msgid "GET IN TOUCH"
@@ -741,832 +731,778 @@ msgid "SEND MESSAGE"
 msgstr "SEND MESSAGE"
 
 msgid ""
-"Ø§ÙØ®Ø±Ø·ÙÙ Ø§ÙØ³ÙÙ Ø§ÙØ¹Ø±Ø¨Ù. ØªÙØ§Ø·Ø¹ Ø´Ø§Ø±Ø¹ Ø§ÙØ­Ø±ÙØ© ÙØ¹ Ø´Ø§Ø±Ø¹ ÙØµØ·ÙÙ Ø§ÙØ£ÙÙÙØ ØºØ±Ø¨ ÙØ³ØªØ´ÙÙ "
-"Ø§ÙØ±Ø§ÙØ¨Ø§ØªØ Ø¹ÙØ§Ø±Ø© Ø¹Ø§ÙØ± Ø§ÙØ¹ÙØ§Ø±ÙØ© Ø§ÙØ·Ø§Ø¨Ù Ø§ÙØ«Ø§ÙÙØ Ø´ÙØ© Ø±ÙÙ 3"
+"الخرطوم السوق العربي. تقاطع شارع الحرية مع شارع مصطفى الأمين، غرب مستشفى "
+"الراهبات، عمارة عامر العقارية الطابق الثاني، شقة رقم 3"
 msgstr ""
-"Khartoum, Arab Market. Intersection of Al-Hurriya St. and Mustafa Al-Amin "
-"St., west of Al-Rahabat Hospital, Amer Real Estate Building, 2nd Floor, Apt."
-" No. 3"
 
-msgid "Ø§ÙØ³ÙØ± ÙØ¨Ø¯Ø£ ÙÙØ§"
+msgid "السفر يبدأ هنا"
 msgstr "Your Journey Starts Here"
 
-msgid "Ø§Ø¨Ø­Ø«ÙØ§ Ø§ÙØ¢Ù"
+msgid "ابحثوا الآن"
 msgstr "Search Now"
 
-msgid "ÙØ§Ø±ÙÙØ§ Ø¢ÙØ§Ù Ø§ÙØ¹Ø±ÙØ¶ ÙÙ Ø£ÙØ¨Ø± Ø´Ø±ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù â Ø¨Ø£Ø³Ø¹Ø§Ø± ÙØ¶ÙÙÙØ© ÙØªØ¬Ø±Ø¨Ø© Ø³ÙÙØ©."
+msgid "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة."
 msgstr ""
-"Compare thousands of deals from top airlines â with guaranteed prices and an"
-" easy experience."
 
-msgid "Ø±Ø­ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù"
+msgid "رحلات الطيران"
 msgstr "Flights"
 
-msgid "Ø°ÙØ§Ø¨ ÙÙØ·"
+msgid "ذهاب فقط"
 msgstr "One-way"
 
-msgid "Ø°ÙØ§Ø¨ ÙØ¹ÙØ¯Ø©"
+msgid "ذهاب وعودة"
 msgstr "Round Trip"
 
-msgid "ÙØ¬ÙØ§Øª ÙØªØ¹Ø¯Ø¯Ø©"
+msgid "وجهات متعددة"
 msgstr "Multi-city"
 
-msgid "Ø§ÙÙØºØ§Ø¯Ø±Ø©"
+msgid "المغادرة"
 msgstr "From"
 
-msgid "Ø§ÙÙØ¬ÙØ©"
+msgid "الوجهة"
 msgstr "To"
 
-msgid "ÙØ«Ù: Ø¨Ø§Ø±ÙØ³Ø LHRØ JFK"
-msgstr "e.g., Paris, LHR, JFK"
+msgid "مثل: باريس، LHR، JFK"
+msgstr ""
 
-msgid "ÙØ«Ù: ÙÙØ¯ÙØ DXB"
-msgstr "e.g., London, DXB"
+msgid "مثل: لندن، DXB"
+msgstr ""
 
-msgid "ØªØ§Ø±ÙØ® (Ø§ÙØ°ÙØ§Ø¨)"
-msgstr "Departure Date"
+msgid "تاريخ (الذهاب)"
+msgstr ""
 
-msgid "ØªØ§Ø±ÙØ® (Ø§ÙØ¹ÙØ¯Ø©)"
-msgstr "Return Date"
+msgid "تاريخ (العودة)"
+msgstr ""
 
-msgid "Ø¥Ø¶Ø§ÙØ© Ø±Ø­ÙØ©"
+msgid "إضافة رحلة"
 msgstr "Add Flight"
 
-msgid "Ø§ÙÙØ³Ø§ÙØ±ÙÙ"
+msgid "المسافرون"
 msgstr "Passengers"
 
-msgid "Ø¨Ø§ÙØº ÙØ§Ø­Ø¯"
+msgid "بالغ واحد"
 msgstr "1 Adult"
 
-msgid "Ø¨Ø§ÙØºØ§Ù"
-msgstr "2 Adults"
+msgid "بالغان"
+msgstr ""
 
-msgid "3 Ø¨Ø§ÙØºÙÙ"
-msgstr "3 Adults"
+msgid "3 بالغين"
+msgstr ""
 
-msgid "4 Ø¨Ø§ÙØºÙÙ"
-msgstr "4 Adults"
+msgid "4 بالغين"
+msgstr ""
 
-msgid "5 Ø¨Ø§ÙØºÙÙ"
-msgstr "5 Adults"
+msgid "5 بالغين"
+msgstr ""
 
-msgid "Ø§ÙØ¯Ø±Ø¬Ø©"
-msgstr "Cabin Class"
+msgid "الدرجة"
+msgstr ""
 
-msgid "Ø³ÙØ§Ø­ÙØ©"
-msgstr "Economy"
+msgid "سياحية"
+msgstr ""
 
-msgid "Ø³ÙØ§Ø­ÙØ© ÙÙØªØ§Ø²Ø©"
-msgstr "Premium Economy"
+msgid "سياحية ممتازة"
+msgstr ""
 
-msgid "Ø£Ø¹ÙØ§Ù"
-msgstr "Business"
+msgid "أعمال"
+msgstr ""
 
-msgid "Ø£ÙÙÙ"
-msgstr "First"
+msgid "أولى"
+msgstr ""
 
-msgid "Ø£Ø¶Ù ÙÙØ¯ÙØ§Ù ÙØ±Ø­ÙØªÙ"
-msgstr "Add a hotel to my trip"
+msgid "أضف فندقاً لرحلتي"
+msgstr ""
 
-msgid "Ø§Ø¨Ø­Ø« Ø¹Ù Ø±Ø­ÙØ§Øª"
-msgstr "Search Flights"
+msgid "ابحث عن رحلات"
+msgstr ""
 
-msgid "Ø¬Ø§Ø±Ù Ø§ÙØ¨Ø­Ø«..."
-msgstr "Searching..."
+msgid "جاري البحث..."
+msgstr ""
 
-msgid "Ø§ÙÙØ¬ÙØ© Ø£Ù Ø§ÙÙÙØ¯Ù"
-msgstr "Destination or Hotel"
+msgid "الوجهة أو الفندق"
+msgstr ""
 
-msgid "ØªØ§Ø±ÙØ® Ø§ÙÙØµÙÙ"
-msgstr "Check-in Date"
+msgid "تاريخ الوصول"
+msgstr ""
 
-msgid "ØªØ§Ø±ÙØ® Ø§ÙÙØºØ§Ø¯Ø±Ø©"
-msgstr "Check-out Date"
+msgid "تاريخ المغادرة"
+msgstr ""
 
-msgid "Ø§ÙØ¶ÙÙÙ Ø§ÙØºØ±Ù"
-msgstr "Guests & Rooms"
+msgid "الضيوف الغرف"
+msgstr ""
 
-msgid "ÙØ«Ù: Ø¯Ø¨ÙØ Ø¨Ø§Ø±ÙØ³"
-msgstr "e.g., Dubai, Paris"
+msgid "مثل: دبي، باريس"
+msgstr ""
 
-msgid "1 Ø¨Ø§ÙØº"
-msgstr "1 Adult"
+msgid "1 بالغ"
+msgstr ""
 
-msgid "2 Ø¨Ø§ÙØºÙÙ"
-msgstr "2 Adults"
+msgid "2 بالغين"
+msgstr ""
 
-msgid "1 ØºØ±ÙØ©"
-msgstr "1 Room"
+msgid "1 غرفة"
+msgstr ""
 
-msgid "2 ØºØ±Ù"
-msgstr "2 Rooms"
+msgid "2 غرف"
+msgstr ""
 
-msgid "3 ØºØ±Ù"
-msgstr "3 Rooms"
+msgid "3 غرف"
+msgstr ""
 
-msgid "Ø§Ø¨Ø­Ø« Ø¹Ù ÙÙØ§Ø¯Ù"
-msgstr "Search Hotels"
+msgid "ابحث عن فنادق"
+msgstr ""
 
-msgid "ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ© ÙÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø©"
-msgstr "Abu Monya Travel and Tourism Agency"
+msgid "وكالة أبو منية للسفر والسياحة"
+msgstr ""
 
 msgid ""
-"ÙÙØ§ÙØ© Ø£Ø¨ÙÙÙÙØ© ÙÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø© ÙÙØ§ÙØ© ÙØ·ÙÙØ© ØªØ¹ÙÙ ÙÙ ÙØ¬Ø§Ù Ø§ÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø© "
-"Ø§ÙØ¯Ø§Ø®ÙÙØ© ÙØ§ÙØ®Ø§Ø±Ø¬ÙØ© ÙÙÙ ÙØ§ÙÙÙ ØªÙØ¸ÙÙ Ø§ÙØ¹ÙÙ Ø§ÙØ³ÙØ§Ø­Ù ÙØªÙØ¸ÙÙ Ø¹ÙÙ Ø³ÙØ·Ø© Ø§ÙØ·ÙØ±Ø§Ù "
-"Ø§ÙÙØ¯ÙÙ ÙÙ Ø§ÙØ³ÙØ¯Ø§Ù."
+"وكالة أبومنية للسفر والسياحة وكالة وطنية تعمل في مجال السفر والسياحة "
+"الداخلية والخارجية وفق قانون تنظيم العمل السياحي وتنظيم عمل سلطة الطيران "
+"المدني في السودان."
 msgstr ""
-"Abu Monya Travel and Tourism Agency is a national agency operating in the "
-"field of domestic and international travel and tourism in accordance with "
-"the law organizing tourism work and the civil aviation authority in Sudan."
 
-msgid "Ø±Ø¤ÙØªÙØ§"
-msgstr "Our Vision"
+msgid "رؤيتنا"
+msgstr ""
 
 msgid ""
-"ÙØªØ·ÙØ¹ ÙØ£Ù ØªÙÙÙ ÙÙØ§ÙØ© Ø§Ø¨ÙÙÙÙØ© ÙÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø© Ø§ÙØ£ÙÙÙ Ù Ø§ÙÙØ­Ø±Ù Ø§ÙÙØ§Ø¹Ù ÙÙØ³ÙØ± "
-"ÙÙÙØ³ÙØ§Ø­Ø© ÙØ­ÙÙØ§ ÙØ¥ÙÙÙÙÙØ§ ÙØ¯ÙÙÙØ§ ."
+"نتطلع لأن تكون وكالة ابومنية للسفر والسياحة الأولي و المحرك الفاعل للسفر "
+"وللسياحة محليا وإقليميا ودوليا ."
 msgstr ""
-"We aspire for Abu Monya Travel and Tourism Agency to be the first and active"
-" engine for travel and tourism locally, regionally, and internationally."
 
-msgid "ÙÙÙØªÙØ§"
-msgstr "Our Mission"
+msgid "مهمتنا"
+msgstr ""
 
 msgid ""
-"ØªÙØ¨ÙØ© Ø§Ø­ØªÙØ§Ø¬Ø§Øª Ø¹ÙÙØ§Ø¦ÙØ§ ÙÙÙ Ø±Ø¤ÙØ© Ø¥Ø³ØªØ±Ø§ØªÙØ¬ÙØ© ØªÙØ¨Ù Ø·ÙÙØ­Ø§ØªÙÙ Ù Ø§Ø­ØªÙØ§Ø¬Ø§ØªÙÙ ÙÙ "
-"ÙØ¬Ø§Ù Ø§ÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø©. ÙØªØ¹Ø¸ÙÙ Ø§ÙÙÙØ²Ø© Ø§ÙÙØ³Ø¨ÙØ© ÙØ§ÙØªÙØ§ÙØ³ÙØ© ÙÙØ³ÙØ¯Ø§Ù ÙÙÙØ·ÙÙ Ø¬Ø°Ø¨ "
-"Ø³ÙØ§Ø­Ù."
+"تلبية احتياجات عملائنا وفق رؤية إستراتيجية تلبي طموحاتهم و احتياجاتهم في "
+"مجال السفر والسياحة. وتعظيم الميزة النسبية والتنافسية للسودان كمنطقه جذب "
+"سياحي."
 msgstr ""
-"Meeting our clients' needs according to a strategic vision that meets their "
-"ambitions and needs in the travel and tourism sector. And maximizing the "
-"comparative and competitive advantage of Sudan as a tourist attraction area."
 
-msgid "Ø£ÙØ¯Ø§ÙÙØ§"
-msgstr "Our Goals"
-
-msgid "Ø§ÙØ±ÙØ§Ø¯Ø© ÙÙ ÙØ¬Ø§Ù Ø§ÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø© ÙØ­ÙÙØ§ ÙØ¯ÙÙÙØ§Ù."
+msgid "أهدافنا"
 msgstr ""
-"Leadership in the field of travel and tourism locally and internationally."
+
+msgid "الريادة في مجال السفر والسياحة محليا ودولياً."
+msgstr ""
 
 msgid ""
-"Ø§Ø³ØªØ®Ø¯Ø§Ù Ø§ÙÙØ¸Ù Ø§ÙØ§ÙØªØ±ÙÙÙÙ ÙØ§ÙÙØ¹ÙÙÙØ§ØªÙØ© Ø¹Ø¨Ø± ÙØ§ÙØ© Ø§ÙÙØ³Ø§Ø¦Ø· ÙØªÙØ¯ÙÙ Ø£Ø¬ÙØ¯ Ø£ÙÙØ§Ø¹ "
-"Ø§ÙØ®Ø¯ÙØ§Øª."
+"استخدام النظم الاكترونيه والمعلوماتية عبر كافة الوسائط لتقديم أجود أنواع "
+"الخدمات."
 msgstr ""
-"Using electronic and information systems across all mediums to provide the "
-"highest quality services."
 
-msgid "Ø§Ø¨ØªÙØ§Ø± Ø£ÙØ´Ø·Ø© Ø³ÙØ§Ø­ÙØ© ÙØ®Ø¯ÙØ§Øª ØªÙØ¨Ù Ø§Ø­ØªÙØ§Ø¬Ø§Øª Ø¹ÙÙØ§Ø¦ÙØ§ Ø§ÙÙØ±Ø§Ù ."
+msgid "ابتكار أنشطة سياحية وخدمات تلبي احتياجات عملائنا الكرام ."
 msgstr ""
-"Innovating tourism activities and services that meet the needs of our valued"
-" clients."
 
-msgid "ÙÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø©"
-msgstr "for Travel and Tourism"
+msgid "للسفر والسياحة"
+msgstr ""
 
 msgid ""
-"ÙÙØ° Ø³ÙÙØ§Øª ÙÙØ­Ù ÙÙØ¯Ù ÙØ¹ÙÙØ§Ø¦ÙØ§ Ø£ÙØ¶Ù ØªØ¬Ø§Ø±Ø¨ Ø§ÙØ³ÙØ± Ø§ÙØ¬ÙÙ Ø¨Ø£Ø³Ø¹Ø§Ø± ØªÙØ§ÙØ³ÙØ© ÙØ®Ø¯ÙØ© "
-"Ø´Ø®ØµÙØ©. Ø¨ÙØ¶Ù Ø´Ø±Ø§ÙØªÙØ§ ÙØ¹ ÙÙØµØ© Duffel Ø§ÙØ¹Ø§ÙÙÙØ©Ø ÙÙÙØ± ÙÙÙ ÙØµÙÙØ§Ù ÙÙØ±ÙØ§Ù ÙØ£ÙØ«Ø± ÙÙ"
-" 300 Ø´Ø±ÙØ© Ø·ÙØ±Ø§Ù Ø­ÙÙ Ø§ÙØ¹Ø§ÙÙ."
+"منذ سنوات ونحن نقدم لعملائنا أفضل تجارب السفر الجوي بأسعار تنافسية وخدمة "
+"شخصية. بفضل شراكتنا مع منصة Duffel العالمية، نوفر لكم وصولاً فورياً لأكثر من"
+" 300 شركة طيران حول العالم."
 msgstr ""
-"For years we have been providing our clients with the best air travel "
-"experiences at competitive prices and personalized service. Thanks to our "
-"partnership with the global Duffel platform, we offer you instant access to "
-"over 300 airlines worldwide."
 
-msgid "Ø´Ø±ÙØ© Ø·ÙØ±Ø§Ù"
-msgstr "Airlines"
+msgid "شركة طيران"
+msgstr ""
 
-msgid "ÙØ¬ÙØ© Ø¹Ø§ÙÙÙØ©"
-msgstr "Global Destinations"
+msgid "وجهة عالمية"
+msgstr ""
 
-msgid "Ø¯Ø¹Ù Ø§ÙØ¹ÙÙØ§Ø¡"
-msgstr "Customer Support"
+msgid "دعم العملاء"
+msgstr ""
 
-msgid "Ø£Ø³Ø¹Ø§Ø± ÙØ¶ÙÙÙØ©"
-msgstr "Guaranteed Prices"
+msgid "أسعار مضمونة"
+msgstr ""
 
-msgid "Ø¯ÙØ¹ Ø¢ÙÙ"
-msgstr "Secure Payment"
+msgid "دفع آمن"
+msgstr ""
 
-msgid "Ø´Ø§ÙÙ ÙØ¬ÙÙØ¹ Ø§ÙØ¯ÙÙ"
-msgstr "Worldwide Coverage"
+msgid "شامل لجميع الدول"
+msgstr ""
 
-msgid "Ø­Ø¬Ø² ÙÙØ±Ù"
-msgstr "Instant Booking"
+msgid "حجز فوري"
+msgstr ""
 
-msgid "ÙØ¬ÙØ§Øª Ø¹Ø§ÙÙÙØ©"
-msgstr "Global Destinations"
+msgid "وجهات عالمية"
+msgstr ""
 
-msgid "ÙÙ Ø§ÙØ¬Ø²Ø§Ø¦Ø± Ø¥ÙÙ Ø£Ù ÙÙØ§Ù ÙÙ Ø§ÙØ¹Ø§ÙÙ"
-msgstr "From Algeria to anywhere in the world"
+msgid "من الجزائر إلى أي مكان في العالم"
+msgstr ""
 
-msgid "Ø¬ÙÙØ¹ Ø§ÙØ¯Ø±Ø¬Ø§Øª"
-msgstr "All Cabin Classes"
+msgid "جميع الدرجات"
+msgstr ""
 
-msgid "Ø§ÙØªØµØ§Ø¯ÙØ© Â· Ø£Ø¹ÙØ§Ù Â· Ø£ÙÙÙ"
-msgstr "Economy Â· Business Â· First"
+msgid "اقتصادية · أعمال · أولى"
+msgstr ""
 
-msgid "ØªÙØ§ØµÙÙ Ø§ÙØ£ÙØªØ¹Ø©"
-msgstr "Baggage Details"
+msgid "تفاصيل الأمتعة"
+msgstr ""
 
-msgid "Ø§ÙÙØ²Ù Ø§ÙÙØ³ÙÙØ­ Ø¨Ù ÙÙÙ Ø±Ø­ÙØ©"
-msgstr "Allowed weight per flight"
+msgid "الوزن المسموح به لكل رحلة"
+msgstr ""
 
 msgid ""
-"ÙÙ Ø£Ø¨ÙÙÙÙØ© ÙØ³Ø¹Ø¯ Ø¨ØªÙØ¯ÙÙ Ø£ÙÙØ² Ø§ÙØ®Ø¯ÙØ§Øª Ø§ÙØªÙ ØªÙØ¨Ù Ø·ÙÙØ­ÙÙ ÙØ¹Ø±ÙØ¶ Ø¯ÙØ±ÙØ© Ø®Ø§ØµØ© "
-"ÙÙØ¹ÙÙØ§Ø¡"
+"في أبومنية نسعد بتقديم أميز الخدمات التي تلبي طموحكم وعروض دورية خاصة "
+"للعملاء"
 msgstr ""
-"At Abu Monya, we are happy to provide the most distinguished services that "
-"meet your ambitions alongside special periodic offers for customers."
 
-msgid "Ø³ÙØ§Ø­Ø© Ø¹ÙØ§Ø¬ÙØ©"
-msgstr "Medical Tourism"
+msgid "سياحة علاجية"
+msgstr ""
 
 msgid ""
-"ÙÙÙÙ Ø¨ØªÙØ¯ÙÙ ÙØ§ÙØ© Ø§ÙØ­ÙÙÙ Ø§ÙØ®Ø§ØµØ© Ø¨Ø§ÙØ³ÙØ§Ø­Ø© Ø§ÙØ¹ÙØ§Ø¬ÙØ© ÙØ®Ø¯ÙØ§Øª Ø·Ø¨ÙØ© Ø¹Ø§ÙÙÙØ© Ø§ÙÙØ³ØªÙÙØ"
-" ÙÙÙÙ ÙÙØ¸ÙÙ Ø§ÙØ³ÙØ§Ø­Ø© Ø§ÙØ¹ÙØ§Ø¬ÙØ© ÙÙ Ø£Ø¨ÙÙÙÙØ© Ø¨ØªÙØ¯ÙÙ Ø®ÙØ§Ø±Ø§Øª Ø¹Ø¯ÙØ¯Ø© ÙÙØ¹ÙØ§Ø¬ Ø¨Ø§ÙØ®Ø§Ø±Ø¬ "
-"Ø¨Ø¬ÙØ¯Ø© Ø¹Ø§ÙÙØ© ÙØ£Ø³Ø¹Ø§Ø± ØªÙØ§ÙØ³ÙØ©."
+"نقوم بتقديم كافة الحلول الخاصة بالسياحة العلاجية وخدمات طبية عالمية المستوى،"
+" يقوم موظفي السياحة العلاجية في أبومنية بتقديم خيارات عديدة للعلاج بالخارج "
+"بجودة عالية وأسعار تنافسية."
 msgstr ""
-"We provide comprehensive global standard medical tourism solutions; our "
-"specialized staff offers multiple high-quality and competitively priced "
-"options for treatment abroad."
 
-msgid "Ø³ÙØ§Ø­Ø© Ø¹Ø§ÙÙÙØ©"
-msgstr "Global Tourism"
+msgid "سياحة عالمية"
+msgstr ""
 
 msgid ""
-"Ø£ÙØªØ´Ù Ø§ÙØ¹Ø§ÙÙ Ø¹Ø¨Ø± Ø§ÙØ±Ø­ÙØ§Øª Ø§ÙØ³ÙØ§Ø­ÙØ©.. ÙØ­Ù ÙÙØ¯Ù ÙÙÙ Ø¹Ø±ÙØ¶ ÙØ¨Ø§ÙØ§Øª Ø³ÙØ§Ø­ÙØ© ÙØªÙØ§ÙÙØ© "
-"ÙØ¨Ø£Ø³Ø¹Ø§Ø± ÙÙ Ø§ÙØ§ÙØ¶Ù Ø­Ø³Ø¨ ÙÙØ²Ø§ÙÙØªÙ ÙØ¨Ø®Ø¯ÙØ© Ø¹Ø§ÙÙØ© Ø§ÙØ¬ÙØ¯Ø©. ÙÙÙÙ Ø¨ØªØ£ÙÙÙ Ø­Ø¬ÙØ²Ø§Øª ÙÙØ§Ù "
-"Ø§ÙØ§ÙØ§ÙØ© ÙÙØ£ÙØ±Ø§Ø¯ ÙØ§ÙØ¹Ø§Ø¦ÙØ§Øª ÙØ§ÙÙØ¬ÙÙØ¹Ø§Øª Ø§ÙØ³ÙØ§Ø­ÙØ© Ø­Ø³Ø¨ Ø±ØºØ¨Ø© Ø§ÙØ¹ÙÙÙ."
+"أكتشف العالم عبر الرحلات السياحية.. نحن نقدم لكم عروض وباقات سياحية متكاملة "
+"وبأسعار هي الافضل حسب ميزانيتك وبخدمة عالية الجودة. نقوم بتأمين حجوزات مكان "
+"الاقامة للأفراد والعائلات والمجموعات السياحية حسب رغبة العميل."
 msgstr ""
-"Discover the world through tourism trips.. We offer integrated tourism "
-"packages with the best prices for your budget with high quality service. We "
-"secure accommodation bookings for individuals, families, and groups "
-"according to the customer's wishes."
 
-msgid "Ø³ÙØ§Ø­Ø© ÙØ­ÙÙØ©"
-msgstr "Local Tourism"
+msgid "سياحة محلية"
+msgstr ""
 
 msgid ""
-"ÙØ²Ø®Ø± Ø§ÙØ³ÙØ¯Ø§Ù Ø¨Ø§ÙÙØ«ÙØ± ÙÙ Ø§ÙÙÙØ§Ø·Ù Ø§ÙØ³ÙØ§Ø­ÙØ© Ø§ÙÙØ­ÙÙØ© ÙÙØ¬ÙØ© Ø³ÙØ§Ø­ÙØ© Ø£ØµÙÙØ© ÙÙØ«ÙØ±Ø© "
-"ÙÙÙÙØ²Ø©... ÙÙ Ø®ÙØ§Ù ÙØ³Ù Ø§ÙØ³ÙØ§Ø­Ø© ÙÙ ÙÙØ§ÙØ© Ø£Ø¨ÙÙÙÙØ© ÙÙÙÙ Ø¨ØªÙØ¯ÙÙ Ø¨ÙØ¬Ø§Øª ÙØ¬ÙÙØ§Øª "
-"Ø³ÙØ§Ø­ÙØ© ÙØ®ØªÙÙØ©."
+"يزخر السودان بالكثير من المناطق السياحية المحلية كوجهة سياحية أصيلة ومثيرة "
+"ومميزة... من خلال قسم السياحة في وكالة أبومنية نقوم بتقديم بكجات وجولات "
+"سياحية مختلفة."
 msgstr ""
-"Sudan is rich with many local tourist areas acting as an authentic, "
-"exciting, and distinctive destination... Through the tourism department at "
-"Abu Monya Agency, we offer various packages and tours."
 
-msgid "Ø³ÙØ± Ø¯Ø§Ø®ÙÙ ÙØ¹Ø§ÙÙÙ"
-msgstr "Domestic & International Travel"
+msgid "سفر داخلي وعالمي"
+msgstr ""
 
 msgid ""
-"ÙÙÙÙ Ø¨ØªØµÙÙÙ Ø±Ø­ÙØªÙ Ø¨ÙØ§ ÙØªÙØ§Ø³Ø¨ Ø±Ø¤ÙØªÙ Ø¨Ø£Ø³Ø¹Ø§Ø± ØªÙØ§ÙØ³ÙØ© ÙÙØ±ÙÙ Ø¹ÙÙ ÙØ¤ÙÙ ÙØ®Ø¯ÙØªÙ.. "
-"ÙÙÙÙ Ø¨Ø¥ØµØ¯Ø§Ø± Ø§ÙØªØ°Ø§ÙØ± Ø§ÙØ¬ÙÙØ© Ø§ÙØ¯Ø§Ø®ÙÙØ© ÙØ§ÙØ¹Ø§ÙÙÙØ© Ø­ÙØ« ÙØ§ÙØª Ø§ÙÙÙØ§ÙØ© Ø¹Ø¶ÙÙØ© Ø§ÙØ§ÙØ§ØªØ§"
-" ÙØ£ØµØ¨Ø­Øª ÙØ¤ÙÙØ© ÙØ¥ØµØ¯Ø§Ø± Ø§ÙØªØ°Ø§ÙØ± Ø§ÙØ¬ÙÙØ© Ø¹ÙÙ Ø¬ÙÙØ¹ Ø§ÙØ®Ø·ÙØ· Ø§ÙÙÙØ¶ÙÙØ© ØªØ­Øª ÙØ¸Ø§Ù "
-"Ø§ÙØ§ÙØ§ØªØ§ ÙØ§ÙØ¨Ù Ø§Ø³ Ø¨Ù."
+"نقوم بتصميم رحلتك بما يتناسب رؤيتك بأسعار تنافسية وفريق عمل مؤهل لخدمتك.. "
+"نقوم بإصدار التذاكر الجوية الداخلية والعالمية حيث نالت الوكالة عضوية الاياتا"
+" وأصبحت مؤهلة لإصدار التذاكر الجوية على جميع الخطوط المنضوية تحت نظام "
+"الاياتا والبي اس بي."
 msgstr ""
-"We design your flight according to your vision at competitive prices with a "
-"qualified team. We issue domestic and international flight tickets as an "
-"accredited IATA agency, qualified to issue tickets across all airlines under"
-" the BSP system."
 
-msgid "ØªØ°Ø§ÙØ± Ø¨ØµØ§Øª"
-msgstr "Bus Tickets"
+msgid "تذاكر بصات"
+msgstr ""
 
 msgid ""
-"ÙÙØ¯Ù Ø®Ø¯ÙØ§Øª Ø§ÙÙÙÙ Ø§ÙØ¨Ø±Ù Ø§ÙØ¯Ø§Ø®ÙÙ ÙØ§ÙØ®Ø§Ø±Ø¬Ù Ø¹Ø¨Ø± Ø£ÙØ¨Ø± Ø´Ø±ÙØ§Øª Ø§ÙÙÙÙØ§Ø¡ Ø§ÙØ¨Ø±Ù Ø­ÙØ« "
-"ÙÙÙØ± Ø£Ø­Ø¯Ø« ÙÙØ¯ÙÙØ§Øª Ø§ÙØ¨ØµØ§Øª Ø§ÙØ³ÙØ±ÙØ© Ø§ÙØ´Ø­Ù Ø§ÙØ¨Ø±Ù."
+"نقدم خدمات النقل البري الداخلي والخارجي عبر أكبر شركات الميناء البري حيث "
+"نوفر أحدث موديلات البصات السفرية الشحن البري."
 msgstr ""
-"We offer domestic and international overland transport services through the "
-"largest bus port companies, providing the latest models of travel and cargo "
-"buses."
 
-msgid "ØªØ°Ø§ÙØ± Ø·ÙØ±Ø§Ù"
-msgstr "Flight Tickets"
+msgid "تذاكر طيران"
+msgstr ""
 
 msgid ""
-"Ø­ÙÙ ÙØ¹ÙØ§ Ø­ÙÙ Ø§ÙØ¹Ø§ÙÙ...Ø®ÙØ§Ø±Ø§Øª Ø£ÙØ«Ø± ÙÙØªÙÙØ¹Ø© Ø¹Ø¨Ø± Ø´Ø±ÙØ§Øª Ø®Ø·ÙØ· Ø§ÙØ·ÙØ±Ø§Ù Ø§ÙØ¹Ø§ÙÙÙØ©. "
-"ØµÙÙ Ø±Ø­ÙØªÙ Ø¥ÙÙØªØ±ÙÙÙØ§ ÙÙØ¯Ù Ø·ÙØ¨ Ø¹Ø¨Ø± ÙØ§ÙØ°Ù Ø§Ø­Ø¬Ø² Ø§ÙØ¢Ù."
+"حلق معنا حول العالم...خيارات أكثر ومتنوعة عبر شركات خطوط الطيران العالمية. "
+"صمم رحلتك إلكترونيا وقدم طلب عبر نافذه احجز الآن."
 msgstr ""
-"Fly with us around the world... More diverse options across global airlines."
-" Design your trip electronically and submit requests via the Book Now "
-"window."
 
-msgid "Ø­Ø¬ ÙØ¹ÙØ±Ø©"
-msgstr "Hajj & Umrah"
+msgid "حج وعمرة"
+msgstr ""
 
 msgid ""
-"Ø®Ø¯ÙØªÙÙ Ø´Ø±Ù ÙÙØ§ ð ÙÙØ¯Ù Ø¹Ø±ÙØ¶ Ø§ÙØ¹ÙØ±Ù ÙØ²ÙØ§Ø± ÙØ¶ÙÙÙ Ø§ÙØ±Ø­ÙÙ.. ØªÙÙÙØ¬ ÙÙÙØ¯ Ù Ø­Ø¬Ø² "
-"ÙÙØ¯ÙÙ ÙÙØ­Ø¬ ÙØ§ÙØ¹ÙØ±Ù Ø¨Ø£Ø³Ø¹Ø§Ø± ØªÙØ§Ø³Ø¨ Ø§ÙØ¬ÙÙØ¹. ÙØ®Ø¯ÙØ§Øª Ø®Ø§ØµØ© ÙÙØ¨Ø§Ø± Ø§ÙØ²ÙØ§Ø± ÙØ®Ø¯ÙØ§ØªÙØ§ ÙÙ"
-" Ø§ÙØ£ÙØ¶Ù Ø¨Ø¥Ø°Ù Ø§ÙÙÙ....VIP ÙØ£Ø³Ø¹Ø§Ø±ÙØ§ ÙÙ Ø§ÙØ£ÙØ³Ø¨."
+"خدمتهم شرف لنا 😊 نقدم عروض العمره لزوار وضيوف الرحمن.. تفويج وفود و حجز "
+"فندقي للحج والعمره بأسعار تناسب الجميع. وخدمات خاصة لكبار الزوار وخدماتنا هي"
+" الأفضل بإذن الله....VIP وأسعارنا هي الأنسب."
 msgstr ""
-"Serving them is our honor ð We offer Umrah packages for visitors and guests "
-"of the Merciful.. Dispatching delegations and hotel booking for Hajj and "
-"Umrah at prices suiting everyone. Special VIP services for senior visitors; "
-"our services are the best God willing.. and our prices the most suitable."
 
-msgid "ØªØ£Ø´ÙØ±Ø§Øª"
-msgstr "Visas"
+msgid "تأشيرات"
+msgstr ""
 
 msgid ""
-"ØªØªÙØ­ ÙØ°Ù Ø§ÙØ®Ø¯ÙØ© Ø¥ÙÙØ§ÙÙØ© ØªÙØ¯ÙÙ ÙØ¥Ø¯Ø§Ø±Ø© Ø§ÙÙØ¹Ø§ÙÙØ§Øª Ø§ÙØ®Ø§ØµØ© Ø¨Ø§ÙØªØ£Ø´ÙØ±Ø§Øª ÙØ¥Ø¬Ø±Ø§Ø¡Ø§Øª "
-"Ø§ÙØ¬ÙØ§Ø²Ø§Øª ÙØ§ÙØ¥ÙØ§ÙØ§Øª ÙØ¬ÙÙØ¹ Ø§ÙØ³ÙØ§Ø±Ø§Øª Ø¨ÙÙ Ø³ÙÙÙØ© ÙÙÙØ§Ø¦Ø©."
+"تتيح هذه الخدمة إمكانية تقديم وإدارة المعاملات الخاصة بالتأشيرات وإجراءات "
+"الجوازات والإقامات لجميع السفارات بكل سهولة وكفائة."
 msgstr ""
-"This service enables the submission and management of transactions related "
-"to visas, passport procedures, and residencies for all embassies with ease "
-"and efficiency."
 
-msgid "ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ© â Ø§Ø¨Ø­Ø« Ø¹Ù Ø±Ø­ÙØªÙ"
-msgstr "Abu Monya Agency â Search for your flight"
+msgid "وكالة أبو منية — ابحث عن رحلتك"
+msgstr ""
 
-msgid "Ø£ÙØ«Ø± ÙÙ 10,000 ÙØ³Ø§Ø± Ø¬ÙÙ"
-msgstr "Over 10,000 flight routes"
+msgid "أكثر من 10,000 مسار جوي"
+msgstr ""
 
-msgid "Ø´Ø±ÙØ§Ø¤ÙØ§ ÙÙ Ø´Ø±ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù"
-msgstr "Our Airline Partners"
+msgid "شركاؤنا من شركات الطيران"
+msgstr ""
 
-msgid "Ø£Ø¨Ø±Ø² Ø§ÙÙØ¬ÙØ§Øª â"
-msgstr "Top Destinations â"
+msgid "أبرز الوجهات ✈"
+msgstr ""
 
-msgid "Ø§ÙÙØ¬ÙØ§Øª Ø§ÙØ£ÙØ«Ø± Ø·ÙØ¨Ø§Ù ÙØ°Ø§ Ø§ÙÙÙØ³Ù"
-msgstr "Most requested destinations this season"
+msgid "الوجهات الأكثر طلباً هذا الموسم"
+msgstr ""
 
-msgid "Ø¹Ø±ÙØ¶ ÙØªØ§Ø­Ø©"
-msgstr "Offers available"
+msgid "عروض متاحة"
+msgstr ""
 
-msgid "ÙÙØ§Ø°Ø§ ØªØ®ØªØ§Ø± ÙÙØ§ÙØ© <span class=\"gold\">Ø£Ø¨Ù ÙÙÙØ©</span>Ø"
-msgstr "Why choose <span class=\"gold\">Abu Monya</span> Agency?"
+msgid "لماذا تختار وكالة <span class=\"gold\">أبو منية</span>؟"
+msgstr ""
 
-msgid "ÙØªØ§Ø¦Ø¬ ÙÙØ±ÙØ©"
-msgstr "Instant Results"
+msgid "نتائج فورية"
+msgstr ""
 
-msgid "Ø¢ÙØ§Ù Ø§ÙØ¹Ø±ÙØ¶ ÙÙ Ø§ÙÙÙØª Ø§ÙÙØ¹ÙÙ Ø¨ÙØ¶Ù ÙØ§Ø¬ÙØ© Duffel API Ø§ÙÙØªÙØ¯ÙØ©."
-msgstr "Thousands of real-time offers thanks to the advanced Duffel API."
+msgid "آلاف العروض في الوقت الفعلي بفضل واجهة Duffel API المتقدمة."
+msgstr ""
 
-msgid "Ø¨Ø­Ø« Ø°ÙÙ Ø¨Ø§ÙØ¹Ø±Ø¨ÙØ©"
-msgstr "Smart Search in Arabic"
+msgid "بحث ذكي بالعربية"
+msgstr ""
 
-msgid "Ø§Ø¨Ø­Ø« Ø¨Ø§ÙØ¹Ø±Ø¨ÙØ© Ø£Ù Ø§ÙØ¥ÙØ¬ÙÙØ²ÙØ© â Ø§ÙÙØ¸Ø§Ù ÙØªØ±Ø¬Ù ØªÙÙØ§Ø¦ÙØ§Ù."
-msgstr "Search in Arabic or English â the system translates automatically."
+msgid "ابحث بالعربية أو الإنجليزية — النظام يترجم تلقائياً."
+msgstr ""
 
-msgid "Ø£ÙØ´Ø¦ Ø±Ø­ÙØ§Øª Ø°ÙØ§Ø¨Ø§Ù ÙØ¥ÙØ§Ø¨Ø§Ù Ø£Ù ÙØªØ¹Ø¯Ø¯Ø© Ø§ÙÙØ¬ÙØ§Øª Ø¨Ø³ÙÙÙØ©."
-msgstr "Create round trips or multi-city flights easily."
+msgid "أنشئ رحلات ذهاباً وإياباً أو متعددة الوجهات بسهولة."
+msgstr ""
 
-msgid "Ø¹ÙÙØ§Øª ÙØªØ¹Ø¯Ø¯Ø©"
-msgstr "Multiple Currencies"
+msgid "عملات متعددة"
+msgstr ""
 
-msgid "Ø§Ø¹Ø±Ø¶ Ø§ÙØ£Ø³Ø¹Ø§Ø± Ø¨Ø§ÙØ¯ÙÙØ§Ø± Ø§ÙØ£ÙØ±ÙÙÙ Ø£Ù Ø§ÙØ¬ÙÙÙ Ø§ÙØ³ÙØ¯Ø§ÙÙ Ø¨Ø¶ØºØ·Ø© ÙØ§Ø­Ø¯Ø©."
-msgstr "View prices in US Dollars or Sudanese Pounds with one click."
+msgid "اعرض الأسعار بالدولار الأمريكي أو الجنيه السوداني بضغطة واحدة."
+msgstr ""
 
-msgid "ÙÙØ§ÙØ© <span style=\"color:#f7bc35;\">Ø£Ø¨Ù ÙÙÙØ©</span> ÙÙØ³ÙØ± ÙØ§ÙØ³ÙØ§Ø­Ø©"
-msgstr "<span style=\"color:#f7bc35;\">Abu Monya</span> Travel Agency"
+msgid "وكالة <span style=\"color:#f7bc35;\">أبو منية</span> للسفر والسياحة"
+msgstr ""
 
 msgid ""
-"Ø¨Ø¯Ø¹Ù ÙÙ <a href=\"https://duffel.com\" target=\"_blank\" "
-"style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 â "
-"Ø¬ÙÙØ¹ Ø§ÙØ­ÙÙÙ ÙØ­ÙÙØ¸Ø© ÙÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ©"
+"بدعم من <a href=\"https://duffel.com\" target=\"_blank\" "
+"style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 — "
+"جميع الحقوق محفوظة لوكالة أبو منية"
 msgstr ""
-"Powered by <a href=\"https://duffel.com\" target=\"_blank\" "
-"style=\"color:#f7bc35; text-decoration:none;\">Duffel API</a> &copy; 2026 â "
-"All rights reserved to Abu Monya Agency"
 
-msgid "Ø§ÙÙØ§ÙØ±Ø©"
+msgid "القاهرة"
 msgstr "Cairo"
 
-msgid "ðªð¬ ÙØµØ±"
-msgstr "ðªð¬ Egypt"
+msgid "🇪🇬 مصر"
+msgstr ""
 
-msgid "CAI Â· Ø£ÙØ±Ø§ÙØ§Øª Ø§ÙØ¬ÙØ²Ø©"
-msgstr "CAI Â· Pyramids of Giza"
+msgid "CAI · أهرامات الجيزة"
+msgstr ""
 
-msgid "Ø¨Ø§Ø±ÙØ³"
+msgid "باريس"
 msgstr "Paris"
 
-msgid "ð«ð· ÙØ±ÙØ³Ø§"
-msgstr "ð«ð· France"
+msgid "🇫🇷 فرنسا"
+msgstr ""
 
-msgid "CDG Â· Ø¨Ø±Ø¬ Ø¥ÙÙÙ"
-msgstr "CDG Â· Eiffel Tower"
+msgid "CDG · برج إيفل"
+msgstr ""
 
-msgid "Ø¯Ø¨Ù"
+msgid "دبي"
 msgstr "Dubai"
 
-msgid "ð¦ðª Ø§ÙØ¥ÙØ§Ø±Ø§Øª"
-msgstr "ð¦ðª UAE"
+msgid "🇦🇪 الإمارات"
+msgstr ""
 
-msgid "DXB Â· Ø¨Ø±Ø¬ Ø®ÙÙÙØ©"
-msgstr "DXB Â· Burj Khalifa"
+msgid "DXB · برج خليفة"
+msgstr ""
 
-msgid "Ø¥Ø³Ø·ÙØ¨ÙÙ"
+msgid "إسطنبول"
 msgstr "Istanbul"
 
-msgid "ð¹ð· ØªØ±ÙÙØ§"
-msgstr "ð¹ð· Turkey"
+msgid "🇹🇷 تركيا"
+msgstr ""
 
-msgid "IST Â· Ø§ÙÙØ³Ø¬Ø¯ Ø§ÙØ£Ø²Ø±Ù"
-msgstr "IST Â· Blue Mosque"
+msgid "IST · المسجد الأزرق"
+msgstr ""
 
-msgid "ÙÙØ¯Ù"
+msgid "لندن"
 msgstr "London"
 
-msgid "ð¬ð§ Ø§ÙÙÙÙÙØ© Ø§ÙÙØªØ­Ø¯Ø©"
-msgstr "ð¬ð§ UK"
+msgid "🇬🇧 المملكة المتحدة"
+msgstr ""
 
-msgid "LHR Â· Ø¨ÙØº Ø¨Ù"
-msgstr "LHR Â· Big Ben"
+msgid "LHR · بيغ بن"
+msgstr ""
 
-msgid "Ø±ÙÙØ§"
+msgid "روما"
 msgstr "Rome"
 
-msgid "ð®ð¹ Ø¥ÙØ·Ø§ÙÙØ§"
-msgstr "ð®ð¹ Italy"
+msgid "🇮🇹 إيطاليا"
+msgstr ""
 
-msgid "FCO Â· Ø§ÙÙÙÙÙØ³ÙÙÙ"
-msgstr "FCO Â· Colosseum"
+msgid "FCO · الكولوسيوم"
+msgstr ""
 
-msgid "Ø§ÙØ¯ÙØ­Ø©"
+msgid "الدوحة"
 msgstr "Doha"
 
-msgid "ð¶ð¦ ÙØ·Ø±"
-msgstr "ð¶ð¦ Qatar"
+msgid "🇶🇦 قطر"
+msgstr ""
 
-msgid "DOH Â· Ø£ÙÙ Ø§ÙÙØ¯ÙÙØ©"
-msgstr "DOH Â· City Skyline"
+msgid "DOH · أفق المدينة"
+msgstr ""
 
-msgid "ÙØ¯Ø±ÙØ¯"
+msgid "مدريد"
 msgstr "Madrid"
 
-msgid "ðªð¸ Ø¥Ø³Ø¨Ø§ÙÙØ§"
-msgstr "ðªð¸ Spain"
+msgid "🇪🇸 إسبانيا"
+msgstr ""
 
-msgid "MAD Â· Ø§ÙÙØµØ± Ø§ÙÙÙÙÙ"
-msgstr "MAD Â· Royal Palace"
+msgid "MAD · القصر الملكي"
+msgstr ""
 
-msgid "ÙØ±Ø§ÙØ´"
+msgid "مراكش"
 msgstr "Marrakech"
 
-msgid "ð²ð¦ Ø§ÙÙØºØ±Ø¨"
-msgstr "ð²ð¦ Morocco"
+msgid "🇲🇦 المغرب"
+msgstr ""
 
-msgid "CMN Â· Ø§ÙÙØ¯ÙÙØ© Ø§ÙØ¹ØªÙÙØ©"
-msgstr "CMN Â· Medina"
+msgid "CMN · المدينة العتيقة"
+msgstr ""
 
-msgid "ÙÙÙÙÙØ±Ù"
+msgid "نيويورك"
 msgstr "New York"
 
-msgid "ðºð¸ Ø§ÙÙÙØ§ÙØ§Øª Ø§ÙÙØªØ­Ø¯Ø©"
-msgstr "ðºð¸ USA"
+msgid "🇺🇸 الولايات المتحدة"
+msgstr ""
 
-msgid "JFK Â· ÙØ§ÙÙØ§ØªÙ"
-msgstr "JFK Â· Manhattan"
+msgid "JFK · مانهاتن"
+msgstr ""
 
-msgid "Ø·ÙÙÙÙ"
+msgid "طوكيو"
 msgstr "Tokyo"
 
-msgid "ð¯ðµ Ø§ÙÙØ§Ø¨Ø§Ù"
-msgstr "ð¯ðµ Japan"
+msgid "🇯🇵 اليابان"
+msgstr ""
 
-msgid "NRT Â· Ø¨Ø±Ø¬ Ø·ÙÙÙÙ"
-msgstr "NRT Â· Tokyo Tower"
+msgid "NRT · برج طوكيو"
+msgstr ""
 
-msgid "Ø¨Ø±Ø´ÙÙÙØ©"
+msgid "برشلونة"
 msgstr "Barcelona"
 
-msgid "BCN Â· Ø³Ø§ØºØ±Ø§Ø¯Ø§ ÙØ§ÙÙÙÙØ§"
-msgstr "BCN Â· Sagrada Familia"
+msgid "BCN · ساغرادا فاميليا"
+msgstr ""
 
-msgid "Ø£ÙØ³ØªØ±Ø¯Ø§Ù"
+msgid "أمستردام"
 msgstr "Amsterdam"
 
-msgid "ð³ð± ÙÙÙÙØ¯Ø§"
-msgstr "ð³ð± Netherlands"
+msgid "🇳🇱 هولندا"
+msgstr ""
 
-msgid "AMS Â· Ø§ÙÙÙÙØ§Øª Ø§ÙØªØ§Ø±ÙØ®ÙØ©"
-msgstr "AMS Â· Historic Canals"
+msgid "AMS · القنوات التاريخية"
+msgstr ""
 
-msgid "Ø§ÙØ±ÙØ§Ø¶"
+msgid "الرياض"
 msgstr "Riyadh"
 
-msgid "ð¸ð¦ Ø§ÙØ³Ø¹ÙØ¯ÙØ©"
-msgstr "ð¸ð¦ Saudi Arabia"
+msgid "🇸🇦 السعودية"
+msgstr ""
 
-msgid "RUH Â· Ø§ÙÙÙÙÙØ© Ø§ÙØ¹Ø±Ø¨ÙØ©"
-msgstr "RUH Â· Saudi Kingdom"
+msgid "RUH · المملكة العربية"
+msgstr ""
 
-msgid "Ø£Ø¯ÙØ³ Ø£Ø¨Ø§Ø¨Ø§"
+msgid "أديس أبابا"
 msgstr "Addis Ababa"
 
-msgid "ðªð¹ Ø¥Ø«ÙÙØ¨ÙØ§"
-msgstr "ðªð¹ Ethiopia"
+msgid "🇪🇹 إثيوبيا"
+msgstr ""
 
-msgid "ADD Â· Ø§ÙÙÙØ¨ Ø§ÙØ£ÙØ±ÙÙÙ"
-msgstr "ADD Â· The African Heart"
+msgid "ADD · القلب الأفريقي"
+msgstr ""
 
-msgid "Ø§ÙÙÙÙØª"
-msgstr "Kuwait"
+msgid "الكويت"
+msgstr "Kuwait City"
 
-msgid "ð°ð¼ Ø§ÙÙÙÙØª"
-msgstr "ð°ð¼ Kuwait"
+msgid "🇰🇼 الكويت"
+msgstr ""
 
-msgid "KWI Â· Ø£Ø¨Ø±Ø§Ø¬ Ø§ÙÙÙÙØª"
-msgstr "KWI Â· Kuwait Towers"
+msgid "KWI · أبراج الكويت"
+msgstr ""
 
-msgid "Ø³ÙØºØ§ÙÙØ±Ø©"
+msgid "سنغافورة"
 msgstr "Singapore"
 
-msgid "ð¸ð¬ Ø³ÙØºØ§ÙÙØ±Ø©"
-msgstr "ð¸ð¬ Singapore"
+msgid "🇸🇬 سنغافورة"
+msgstr ""
 
-msgid "SIN Â· ÙØ§Ø±ÙÙØ§ Ø¨Ø§Ù"
-msgstr "SIN Â· Marina Bay"
+msgid "SIN · مارينا باي"
+msgstr ""
 
-msgid "ÙÙØ§ÙØ§ÙÙØ¨ÙØ±"
+msgid "كوالالمبور"
 msgstr "Kuala Lumpur"
 
-msgid "ð²ð¾ ÙØ§ÙÙØ²ÙØ§"
-msgstr "ð²ð¾ Malaysia"
+msgid "🇲🇾 ماليزيا"
+msgstr ""
 
-msgid "KUL Â· Ø¨Ø±Ø¬Ø§ Ø¨ØªØ±ÙÙØ§Ø³"
-msgstr "KUL Â· Petronas Twin Towers"
+msgid "KUL · برجا بتروناس"
+msgstr ""
 
-msgid "Ø¨Ø§ÙÙÙÙ"
+msgid "بانكوك"
 msgstr "Bangkok"
 
-msgid "ð¹ð­ ØªØ§ÙÙØ§ÙØ¯"
-msgstr "ð¹ð­ Thailand"
+msgid "🇹🇭 تايلاند"
+msgstr ""
 
-msgid "BKK Â· ÙØ§Øª Ø£Ø±ÙÙ"
-msgstr "BKK Â· Wat Arun"
+msgid "BKK · وات أرون"
+msgstr ""
 
-msgid "Ø¬Ø¯Ø©"
+msgid "جدة"
 msgstr "Jeddah"
 
-msgid "JED Â· ÙØ§ÙÙØ±Ø© Ø§ÙÙÙÙ ÙÙØ¯"
-msgstr "JED Â· King Fahd's Fountain"
+msgid "JED · نافورة الملك فهد"
+msgstr ""
 
-msgid "Ø¹ÙÙØ§Ù"
+msgid "عمّان"
 msgstr "Amman"
 
-msgid "ð¯ð´ Ø§ÙØ£Ø±Ø¯Ù"
-msgstr "ð¯ð´ Jordan"
+msgid "🇯🇴 الأردن"
+msgstr ""
 
-msgid "AMM Â· Ø§ÙÙØ¯Ø±Ø¬ Ø§ÙØ±ÙÙØ§ÙÙ"
-msgstr "AMM Â· Roman Theatre"
+msgid "AMM · المدرج الروماني"
+msgstr ""
 
-msgid "Ø§ÙØ¬Ø²Ø§Ø¦Ø±"
+msgid "الجزائر"
 msgstr "Algiers"
 
-msgid "ð©ð¿ Ø§ÙØ¬Ø²Ø§Ø¦Ø±"
-msgstr "ð©ð¿ Algeria"
+msgid "🇩🇿 الجزائر"
+msgstr ""
 
-msgid "ALG Â· ÙÙØ§Ù Ø§ÙØ´ÙÙØ¯"
-msgstr "ALG Â· Martyrs' Memorial"
+msgid "ALG · مقام الشهيد"
+msgstr ""
 
-msgid "Ø³ÙØ§Ø³Ø© Ø§ÙØ®ØµÙØµÙØ© â ÙÙØ§ÙØ© Ø£Ø¨Ù ÙÙÙØ©"
-msgstr "Privacy Policy â Abu Monya Agency"
+msgid "أبو منية للسياحة"
+msgstr "Abu Monya Tourism"
 
-msgid "Ø³ÙØ§Ø³Ø© Ø§ÙØ®ØµÙØµÙØ©"
-msgstr "Privacy Policy"
+msgid ""
+"نحن هنا لنجعل تجربة سفرك أسهل وأكثر متعة من خلال توفير أفضل العروض والخدمات."
+msgstr ""
+"We are here to make your travel experience easier and more enjoyable by "
+"providing the best deals and services."
 
-msgid "Ø¢Ø®Ø± ØªØ­Ø¯ÙØ«: Ø£Ø¨Ø±ÙÙ 2026"
-msgstr "Last Updated: April 2026"
+msgid "اكتشف"
+msgstr "Discover"
 
-msgid "1. Ø§ÙÙØ¹ÙÙÙØ§Øª Ø§ÙØªÙ ÙØ¬ÙØ¹ÙØ§"
-msgstr "1. Information We Collect"
+msgid "الوجهات السياحية"
+msgstr "Destinations"
 
-msgid "ÙØ­Ù ÙØ¬ÙØ¹ Ø§ÙÙØ¹ÙÙÙØ§Øª Ø§ÙØªÙ ØªÙØ¯ÙÙØ§ ÙÙØ§ ÙØ¨Ø§Ø´Ø±Ø© Ø¹ÙØ¯ Ø­Ø¬Ø² Ø±Ø­ÙØ©Ø ÙØ«Ù Ø§ÙØ§Ø³ÙØ ØªÙØ§ØµÙÙ Ø¬ÙØ§Ø² Ø§ÙØ³ÙØ±Ø Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙØ ÙØ±ÙÙ Ø§ÙÙØ§ØªÙ."
-msgstr "We collect information you provide directly to us when booking a trip, such as name, passport details, email, and phone number."
-
-msgid "2. ÙÙÙ ÙØ³ØªØ®Ø¯Ù ÙØ¹ÙÙÙØ§ØªÙ"
-msgstr "2. How We Use Your Information"
-
-msgid "ÙØ³ØªØ®Ø¯Ù ÙØ¹ÙÙÙØ§ØªÙ ÙÙØ¹Ø§ÙØ¬Ø© Ø­Ø¬ÙØ²Ø§ØªÙØ Ø¥Ø±Ø³Ø§Ù Ø§ÙØªØ°Ø§ÙØ±Ø ÙØªØ²ÙÙØ¯Ù Ø¨ØªØ­Ø¯ÙØ«Ø§Øª Ø§ÙØ±Ø­ÙØ§Øª. ÙÙØ§ ÙØ³ØªØ®Ø¯ÙÙØ§ ÙÙØªÙØ§ØµÙ ÙØ¹Ù Ø¨Ø´Ø£Ù Ø¹Ø±ÙØ¶ÙØ§ Ø§ÙØªØ±ÙÙØ¬ÙØ© Ø¥Ø°Ø§ Ø§Ø®ØªØ±Øª Ø§ÙØ§Ø´ØªØ±Ø§Ù."
-msgstr "We use your information to process your bookings, send tickets, and provide flight updates. We also use it to communicate with you about our promotional offers if you choose to subscribe."
-
-msgid "3. ÙØ´Ø§Ø±ÙØ© Ø§ÙØ¨ÙØ§ÙØ§Øª"
-msgstr "3. Data Sharing"
-
-msgid "ÙØ­Ù ÙØ´Ø§Ø±Ù Ø¨ÙØ§ÙØ§ØªÙ ÙÙØ· ÙØ¹ ÙÙØ¯ÙÙ Ø§ÙØ®Ø¯ÙØ§Øª Ø§ÙØ¶Ø±ÙØ±ÙÙÙ (ÙØ«Ù Ø´Ø±ÙØ§Øª Ø§ÙØ·ÙØ±Ø§Ù Ø¹Ø¨Ø± Duffel Ø£Ù Ø§ÙÙÙØ§Ø¯Ù Ø¹Ø¨Ø± Agoda) ÙØ¥ØªÙØ§Ù Ø­Ø¬Ø²Ù. ÙØ­Ù ÙØ§ ÙØ¨ÙØ¹ Ø¨ÙØ§ÙØ§ØªÙ ÙØ£Ø·Ø±Ø§Ù Ø«Ø§ÙØ«Ø©."
-msgstr "We only share your data with necessary service providers (such as airlines via Duffel or hotels via Agoda) to complete your booking. We do not sell your data to third parties."
-
-msgid "4. Ø£ÙÙ Ø§ÙØ¨ÙØ§ÙØ§Øª"
-msgstr "4. Data Security"
-
-msgid "ÙØ­Ù ÙØ³ØªØ®Ø¯Ù Ø¨Ø±ÙØªÙÙÙÙØ§Øª Ø£ÙØ§Ù ÙØªÙØ¯ÙØ© ÙÙØ´ÙÙØ± SSL ÙØ­ÙØ§ÙØ© ÙØ¹ÙÙÙØ§ØªÙ Ø§ÙØ­Ø³Ø§Ø³Ø© ÙØ®ØµÙØµØ§Ù Ø¨ÙØ§ÙØ§Øª Ø§ÙØ¯ÙØ¹."
-msgstr "We use advanced security protocols and SSL encryption to protect your sensitive information, especially payment data."
-
-msgid "5. Ø­ÙÙÙÙ"
-msgstr "5. Your Rights"
-
-msgid "ÙÙ Ø§ÙØ­Ù ÙÙ Ø§ÙÙØµÙÙ Ø¥ÙÙ ÙØ¹ÙÙÙØ§ØªÙ Ø§ÙØ´Ø®ØµÙØ© Ø§ÙØªÙ ÙØ­ØªÙØ¸ Ø¨ÙØ§Ø Ø£Ù Ø·ÙØ¨ ØªØµØ­ÙØ­ÙØ§ Ø£Ù Ø­Ø°ÙÙØ§ ÙÙ Ø£Ù ÙÙØª Ø¹Ø¨Ø± Ø§ÙØªÙØ§ØµÙ ÙØ¹ÙØ§."
-msgstr "You have the right to access the personal information we hold about you, or request its correction or deletion at any time by contacting us."
-
-
-msgid "Ù  Ø´Ø§Ø·Ø§ØªÙ  Ø§"
-
+msgid "نشاطاتنا"
 msgstr "Our Activities"
 
+msgid "حجز الفنادق"
+msgstr "Hotel Booking"
 
+msgid "الدعم"
+msgstr "Support"
 
-msgid "Ù  Ø´Ø§Ø·Ø§ØªÙ  Ø§ ÙÆÙØ¹Ø§Ù Ù`Ø§ØªÙ  Ø§"
+msgid "الأسئلة الشائعة"
+msgstr "FAQ"
 
-msgstr "Our Activities & Events"
+msgid "قانوني"
+msgstr "Legal"
 
+msgid "سياسة الخصوصية"
+msgstr "Privacy Policy"
 
-
-msgid "Ù  Ø­Ù   Ù  Ù ØªØ²Ù&  Ø¨Ø§Ù ØªÙÆØ§Ø¬Ø¯ ÙÙ` Ù Ù Ø¨ Ø§Ù Ø£Ø­Ø¯Ø§Ø« Ø§Ù ÙØ¨Ø±Ù0  Ù ØªØ·ÙÆÙ`Ø± Ø®Ø¯Ù& Ø§ØªÙ  Ø§ ÙÆØªÙ Ø¯Ù`Ù&  Ø§Ù Ø£ÙØ¶Ù  Ù Ø¹Ù& Ù Ø§Ø¦Ù  Ø§."
-
-msgstr "We are committed to being at the heart of major events to develop our services and provide the best for our clients."
-
-
-
-msgid "Ù& Ù  ØªØ¯Ù0  Ø§Ù Ø¹Ù& Ø±Ø© ÙÆØ§Ù Ø²Ù`Ø§Ø±Ø© - Ø§Ù Ù& Ù& Ù ÙØ© Ø§Ù Ø¹Ø±Ø¨Ù`Ø© Ø§Ù Ø³Ø¹ÙÆØ¯Ù`Ø©"
-
-msgstr "Umrah & Ziyarah Forum - Saudi Arabia"
-
-
-
-msgid "Ù Ù Ø·Ø§Øª Ù& Ù   Ù& Ø´Ø§Ø±ÙØ© ÙÆÙØ§Ù Ø© Ø£Ø¨ÙÆ Ù& Ù  Ù`Ø© ÙÙ` ÙØ¹Ø§Ù Ù`Ø§Øª Ù& Ù  ØªØ¯Ù0  Ø§Ù Ø¹Ù& Ø±Ø© ÙÆØ§Ù Ø²Ù`Ø§Ø±Ø© Ù ØªÙÆØ³Ù`Ø¹ Ø´Ø±Ø§ÙØ§ØªÙ  Ø§ ÙÆØ®Ø¯Ù& Ø§ØªÙ  Ø§."
-
-msgstr "Snapshots from Abu Monya Agency's participation in the Umrah & Ziyarah Forum events to expand our partnerships and services."
-
-
-
-msgid "Ø§Ù Ø³Ø¹ÙÆØ¯Ù`Ø©"
-
-msgstr "Saudi Arabia"
-
-
-
-msgid "Ù& Ù  ØªØ¯Ù0  Ø§Ù Ø¹Ù& Ø±Ø© ÙÆØ§Ù Ø²Ù`Ø§Ø±Ø©"
-
-msgstr "Umrah & Ziyarah Forum"
-
-
-
-msgid "Ø´Ø±ÙÆØ· Ø§Ù Ø®Ø¯Ù& Ø© â¬   ÙÆÙØ§Ù Ø© Ø£Ø¨ÙÆ Ù& Ù  Ù`Ø©"
-
-msgstr "Terms of Service â¬   Abu Monya Agency"
-
-
-
-msgid "Ø´Ø±ÙÆØ· Ø§Ù Ø®Ø¯Ù& Ø©"
-
+msgid "شروط الخدمة"
 msgstr "Terms of Service"
 
+msgid "سياسة الخصوصية — وكالة أبو منية"
+msgstr "Privacy Policy — Abu Monya Agency"
 
+msgid "آخر تحديث: أبريل 2026"
+msgstr "Last Updated: April 2026"
 
-msgid "Ù`Ø±Ø¬Ù0  Ù Ø±Ø§Ø¡Ø© Ù! Ø°Ù!  Ø§Ù Ø´Ø±ÙÆØ· Ø¨Ø¹Ù  Ø§Ù`Ø© Ù Ø¨Ù  Ø§Ø³ØªØ®Ø¯Ø§Ù&  Ø®Ø¯Ù& Ø§ØªÙ  Ø§."
+msgid "1. المعلومات التي نجمعها"
+msgstr "1. Information We Collect"
 
+msgid ""
+"نحن نجمع المعلومات التي تقدمها لنا مباشرة عند حجز رحلة، مثل الاسم، تفاصيل "
+"جواز السفر، البريد الإلكتروني، ورقم الهاتف."
+msgstr ""
+"We collect information you provide directly to us when booking a trip, such "
+"as name, passport details, email, and phone number."
+
+msgid "2. كيف نستخدم معلوماتك"
+msgstr "2. How We Use Your Information"
+
+msgid ""
+"نستخدم معلوماتك لمعالجة حجوزاتك، إرسال التذاكر، وتزويدك بتحديثات الرحلات. "
+"كما نستخدمها للتواصل معك بشأن عروضنا الترويجية إذا اخترت الاشتراك."
+msgstr ""
+"We use your information to process your bookings, send tickets, and provide "
+"flight updates. We also use it to communicate with you about our promotional"
+" offers if you choose to subscribe."
+
+msgid "3. مشاركة البيانات"
+msgstr "3. Data Sharing"
+
+msgid ""
+"نحن نشارك بياناتك فقط مع مقدمي الخدمات الضروريين (مثل شركات الطيران عبر "
+"Duffel أو الفنادق عبر Agoda) لإتمام حجزك. نحن لا نبيع بياناتك لأطراف ثالثة."
+msgstr ""
+"We only share your data with necessary service providers (such as airlines "
+"via Duffel or hotels via Agoda) to complete your booking. We do not sell "
+"your data to third parties."
+
+msgid "4. أمن البيانات"
+msgstr "4. Data Security"
+
+msgid ""
+"نحن نستخدم بروتوكولات أمان متقدمة ونشفير SSL لحماية معلوماتك الحساسة وخصوصاً"
+" بيانات الدفع."
+msgstr ""
+"We use advanced security protocols and SSL encryption to protect your "
+"sensitive information, especially payment data."
+
+msgid "5. حقوقك"
+msgstr "5. Your Rights"
+
+msgid ""
+"لك الحق في الوصول إلى معلوماتك الشخصية التي نحتفظ بها، أو طلب تصحيحها أو "
+"حذفها في أي وقت عبر التواصل معنا."
+msgstr ""
+"You have the right to access the personal information we hold about you, or "
+"request its correction or deletion at any time by contacting us."
+
+msgid "شروط الخدمة — وكالة أبو منية"
+msgstr "Terms of Service — Abu Monya Agency"
+
+msgid "يرجى قراءة هذه الشروط بعناية قبل استخدام خدماتنا."
 msgstr "Please read these terms carefully before using our services."
 
-
-
-msgid "1. Ø§Ù Ø®Ø¯Ù& Ø§Øª Ø§Ù Ù& Ù Ø¯Ù& Ø©"
-
+msgid "1. الخدمات المقدمة"
 msgstr "1. Services Provided"
 
+msgid ""
+"وكالة أبو منية هي وسيط بين المسافر ومقدمي خدمات السفر (شركات الطيران "
+"والفنادق). نحن نسهل عملية الحجز ولكننا لسنا مسؤولين عن التغييرات التي تجريها"
+" شركات الطيران في المواعيد أو الخدمات."
+msgstr ""
+"Abu Monya Agency is an intermediary between the traveler and travel service "
+"providers (airlines and hotels). We facilitate the booking process but are "
+"not responsible for changes made by airlines to schedules or services."
 
-
-msgid "ÙÆÙØ§Ù Ø© Ø£Ø¨ÙÆ Ù& Ù  Ù`Ø© Ù! Ù` ÙÆØ³Ù`Ø· Ø¨Ù`Ù   Ø§Ù Ù& Ø³Ø§ÙØ± ÙÆÙ& Ù Ø¯Ù& Ù` Ø®Ø¯Ù& Ø§Øª Ø§Ù Ø³ÙØ± (Ø´Ø±ÙØ§Øª Ø§Ù Ø·Ù`Ø±Ø§Ù   ÙÆØ§Ù ÙÙ  Ø§Ø¯Ù ). Ù  Ø­Ù   Ù  Ø³Ù! Ù  Ø¹Ù& Ù Ù`Ø© Ø§Ù Ø­Ø¬Ø² ÙÆÙ ÙÙ  Ù  Ø§ Ù Ø³Ù  Ø§ Ù& Ø³Ø¤ÙÆÙ Ù`Ù   Ø¹Ù   Ø§Ù ØªØºÙ`Ù`Ø±Ø§Øª Ø§Ù ØªÙ` ØªØ¬Ø±Ù`Ù! Ø§ Ø´Ø±ÙØ§Øª Ø§Ù Ø·Ù`Ø±Ø§Ù   ÙÙ` Ø§Ù Ù& ÙÆØ§Ø¹Ù`Ø¯ Ø£ÙÆ Ø§Ù Ø®Ø¯Ù& Ø§Øª."
-
-msgstr "Abu Monya Agency is an intermediary between the traveler and travel service providers (airlines and hotels). We facilitate the booking process but are not responsible for changes made by airlines to schedules or services."
-
-
-
-msgid "2. Ø§Ù Ø£Ø³Ø¹Ø§Ø± ÙÆØ§Ù Ø¯ÙØ¹"
-
+msgid "2. الأسعار والدفع"
 msgstr "2. Prices and Payment"
 
+msgid ""
+"جميع الأسعار المعروضة تشمل الرسوم والضرائب المطبقة في وقت الحجز. تحتفظ "
+"الوكالة بالحق في تغيير الأسعار قبل تأكيد الحجز النهائي في حال حدوث تغييرات "
+"من المصدر."
+msgstr ""
+"All displayed prices include fees and taxes applicable at the time of "
+"booking. The agency reserves the right to change prices before final booking"
+" confirmation in case of changes from the source."
 
-
-msgid "Ø¬Ù& Ù`Ø¹ Ø§Ù Ø£Ø³Ø¹Ø§Ø± Ø§Ù Ù& Ø¹Ø±ÙÆØ¶Ø© ØªØ´Ù& Ù  Ø§Ù Ø±Ø³ÙÆÙ&  ÙÆØ§Ù Ø¶Ø±Ø§Ø¦Ø¨ Ø§Ù Ù& Ø·Ø¨Ù Ø© ÙÙ` ÙÆÙ Øª Ø§Ù Ø­Ø¬Ø². ØªØ­ØªÙØ¸ Ø§Ù ÙÆÙØ§Ù Ø© Ø¨Ø§Ù Ø­Ù  ÙÙ` ØªØºÙ`Ù`Ø± Ø§Ù Ø£Ø³Ø¹Ø§Ø± Ù Ø¨Ù  ØªØ£ÙÙ`Ø¯ Ø§Ù Ø­Ø¬Ø² Ø§Ù Ù  Ù! Ø§Ø¦Ù` ÙÙ` Ø­Ø§Ù  Ø­Ø¯ÙÆØ« ØªØºÙ`Ù`Ø±Ø§Øª Ù& Ù   Ø§Ù Ù& ØµØ¯Ø±."
-
-msgstr "All displayed prices include fees and taxes applicable at the time of booking. The agency reserves the right to change prices before final booking confirmation in case of changes from the source."
-
-
-
-msgid "3. Ø§Ù Ø¥Ù ØºØ§Ø¡ ÙÆØ§Ù Ø§Ø³ØªØ±Ø¯Ø§Ø¯"
-
+msgid "3. الإلغاء والاسترداد"
 msgstr "3. Cancellation and Refund"
 
+msgid ""
+"تخضع شروط الإلغاء لسياسات شركة الطيران أو الفندق المحجوز. في حال طلب "
+"الإلغاء، قد يتم تطبيق رسوم إدارية من قبل الوكالة بالإضافة إلى رسوم مقدم "
+"الخدمة."
+msgstr ""
+"Cancellation terms are subject to the policies of the booked airline or "
+"hotel. In case of a cancellation request, administrative fees may be applied"
+" by the agency in addition to service provider fees."
 
-
-msgid "ØªØ®Ø¶Ø¹ Ø´Ø±ÙÆØ· Ø§Ù Ø¥Ù ØºØ§Ø¡ Ù Ø³Ù`Ø§Ø³Ø§Øª Ø´Ø±ÙØ© Ø§Ù Ø·Ù`Ø±Ø§Ù   Ø£ÙÆ Ø§Ù ÙÙ  Ø¯Ù  Ø§Ù Ù& Ø­Ø¬ÙÆØ². ÙÙ` Ø­Ø§Ù  Ø·Ù Ø¨ Ø§Ù Ø¥Ù ØºØ§Ø¡ØR Ù Ø¯ Ù`ØªÙ&  ØªØ·Ø¨Ù`Ù  Ø±Ø³ÙÆÙ&  Ø¥Ø¯Ø§Ø±Ù`Ø© Ù& Ù   Ù Ø¨Ù  Ø§Ù ÙÆÙØ§Ù Ø© Ø¨Ø§Ù Ø¥Ø¶Ø§ÙØ© Ø¥Ù Ù0  Ø±Ø³ÙÆÙ&  Ù& Ù Ø¯Ù&  Ø§Ù Ø®Ø¯Ù& Ø©."
-
-msgstr "Cancellation terms are subject to the policies of the booked airline or hotel. In case of a cancellation request, administrative fees may be applied by the agency in addition to service provider fees."
-
-
-
-msgid "4. Ø¬ÙÆØ§Ø²Ø§Øª Ø§Ù Ø³ÙØ± ÙÆØ§Ù ØªØ£Ø´Ù`Ø±Ø§Øª"
-
+msgid "4. جوازات السفر والتأشيرات"
 msgstr "4. Passports and Visas"
 
+msgid ""
+"يتحمل المسافر كامل المسؤولية عن التأكد من صلاحية جواز سفره (6 أشهر على "
+"الأقل) والحصول على التأشيرات اللازمة لوجهته."
+msgstr ""
+"The traveler bears full responsibility for ensuring the validity of their "
+"passport (at least 6 months) and obtaining the necessary visas for their "
+"destination."
 
-
-msgid "Ù`ØªØ­Ù& Ù  Ø§Ù Ù& Ø³Ø§ÙØ± ÙØ§Ù& Ù  Ø§Ù Ù& Ø³Ø¤ÙÆÙ Ù`Ø© Ø¹Ù   Ø§Ù ØªØ£ÙØ¯ Ù& Ù   ØµÙ Ø§Ø­Ù`Ø© Ø¬ÙÆØ§Ø² Ø³ÙØ±Ù!  (6 Ø£Ø´Ù! Ø± Ø¹Ù Ù0  Ø§Ù Ø£Ù Ù ) ÙÆØ§Ù Ø­ØµÙÆÙ  Ø¹Ù Ù0  Ø§Ù ØªØ£Ø´Ù`Ø±Ø§Øª Ø§Ù Ù Ø§Ø²Ù& Ø© Ù ÙÆØ¬Ù! ØªÙ! ."
-
-msgstr "The traveler bears full responsibility for ensuring the validity of their passport (at least 6 months) and obtaining the necessary visas for their destination."
-
-
-
-msgid "5. Ø§Ù ØªØ¹Ø¯Ù`Ù Ø§Øª Ø¹Ù Ù0  Ø§Ù Ø´Ø±ÙÆØ·"
-
+msgid "5. التعديلات على الشروط"
 msgstr "5. Amendments to Terms"
 
+msgid ""
+"نحتفظ بالحق في تعديل هذه الشروط في أي وقت. استمرارك في استخدام الموقع بعد "
+"التعديلات يعني موافقتك عليها."
+msgstr ""
+"We reserve the right to amend these terms at any time. Your continued use of"
+" the site after amendments means you agree to them."
 
+msgid "الأسئلة الشائعة — وكالة أبو منية"
+msgstr "FAQ — Abu Monya Agency"
 
-msgid "Ù  Ø­ØªÙØ¸ Ø¨Ø§Ù Ø­Ù  ÙÙ` ØªØ¹Ø¯Ù`Ù  Ù! Ø°Ù!  Ø§Ù Ø´Ø±ÙÆØ· ÙÙ` Ø£Ù` ÙÆÙ Øª. Ø§Ø³ØªÙ& Ø±Ø§Ø±Ù ÙÙ` Ø§Ø³ØªØ®Ø¯Ø§Ù&  Ø§Ù Ù& ÙÆÙ Ø¹ Ø¨Ø¹Ø¯ Ø§Ù ØªØ¹Ø¯Ù`Ù Ø§Øª Ù`Ø¹Ù  Ù` Ù& ÙÆØ§ÙÙ ØªÙ Ø¹Ù Ù`Ù! Ø§."
-
-msgstr "We reserve the right to amend these terms at any time. Your continued use of the site after amendments means you agree to them."
-
-
-
-msgid "Ø§Ù Ø£Ø³Ø¦Ù Ø© Ø§Ù Ø´Ø§Ø¦Ø¹Ø© â¬   ÙÆÙØ§Ù Ø© Ø£Ø¨ÙÆ Ù& Ù  Ù`Ø©"
-
-msgstr "FAQ â¬   Abu Monya Agency"
-
-
-
-msgid "Ø§Ù Ø£Ø³Ø¦Ù Ø© Ø§Ù Ø´Ø§Ø¦Ø¹Ø©"
-
-msgstr "Frequently Asked Questions (FAQ)"
-
-
-
-msgid "ÙÙ  Ù& Ø§ ØªØ­ØªØ§Ø¬ Ù& Ø¹Ø±ÙØªÙ!  Ø¹Ù   Ø§Ù Ø­Ø¬Ø² ÙÆØ§Ù Ø®Ø¯Ù& Ø§Øª ÙÙ` Ù& ÙØ§Ù   ÙÆØ§Ø­Ø¯"
-
+msgid "كل ما تحتاج معرفته عن الحجز والخدمات في مكان واحد"
 msgstr "Everything you need to know about booking and services in one place"
 
-
-
-msgid "ÙÙ`Ù Ù`Ù& ÙÙ  Ù  Ù` Ø­Ø¬Ø² ØªØ°ÙØ±Ø© Ø·Ù`Ø±Ø§Ù  Øx"
-
+msgid "كيف يمكنني حجز تذكرة طيران؟"
 msgstr "How can I book a flight ticket?"
 
+msgid ""
+"ببساطة، استخدم محرك البحث في الصفحة الرئيسية، اختر وجهتك وتاريخ سفرك، ثم "
+"اختر الرحلة المناسبة وأكمل بيانات الركاب وادفع إلكترونياً."
+msgstr ""
+"Simply use the search engine on the home page, choose your destination and "
+"travel date, then choose the appropriate flight, complete passenger details,"
+" and pay electronically."
 
-
-msgid "Ø¨Ø¨Ø³Ø§Ø·Ø©ØR Ø§Ø³ØªØ®Ø¯Ù&  Ù& Ø­Ø±Ù Ø§Ù Ø¨Ø­Ø« ÙÙ` Ø§Ù ØµÙØ­Ø© Ø§Ù Ø±Ø¦Ù`Ø³Ù`Ø©ØR Ø§Ø®ØªØ± ÙÆØ¬Ù! ØªÙ ÙÆØªØ§Ø±Ù`Ø® Ø³ÙØ±ÙØR Ø«Ù&  Ø§Ø®ØªØ± Ø§Ù Ø±Ø­Ù Ø© Ø§Ù Ù& Ù  Ø§Ø³Ø¨Ø© ÙÆØ£ÙÙ& Ù  Ø¨Ù`Ø§Ù  Ø§Øª Ø§Ù Ø±ÙØ§Ø¨ ÙÆØ§Ø¯ÙØ¹ Ø¥Ù ÙØªØ±ÙÆÙ  Ù`Ø§Ù9 ."
-
-msgstr "Simply use the search engine on the home page, choose your destination and travel date, then choose the appropriate flight, complete passenger details, and pay electronically."
-
-
-
-msgid "Ù! Ù  Ù`Ù& ÙÙ  Ù  Ù` Ø¥Ù ØºØ§Ø¡ Ø­Ø¬Ø²Ù` Ø£ÙÆ ØªØ¹Ø¯Ù`Ù Ù! Øx"
-
+msgid "هل يمكنني إلغاء حجزي أو تعديله؟"
 msgstr "Can I cancel or modify my booking?"
 
+msgid ""
+"نعم، يمكنك طلب إلغاء أو تعديل الحجز عبر صفحة 'حجوزاتي' أو بالتواصل مع فريق "
+"الدعم. يرجى الملاحظة أن الرسوم تعتمد على سياسة شركة الطيران."
+msgstr ""
+"Yes, you can request to cancel or modify a booking via the 'My Bookings' "
+"page or by contacting the support team. Please note that fees depend on the "
+"airline's policy."
 
-
-msgid "Ù  Ø¹Ù& ØR Ù`Ù& ÙÙ  Ù Ø·Ù Ø¨ Ø¥Ù ØºØ§Ø¡ Ø£ÙÆ ØªØ¹Ø¯Ù`Ù  Ø§Ù Ø­Ø¬Ø² Ø¹Ø¨Ø± ØµÙØ­Ø© 'Ø­Ø¬ÙÆØ²Ø§ØªÙ`' Ø£ÙÆ Ø¨Ø§Ù ØªÙÆØ§ØµÙ  Ù& Ø¹ ÙØ±Ù`Ù  Ø§Ù Ø¯Ø¹Ù& . Ù`Ø±Ø¬Ù0  Ø§Ù Ù& Ù Ø§Ø­Ø¸Ø© Ø£Ù   Ø§Ù Ø±Ø³ÙÆÙ&  ØªØ¹ØªÙ& Ø¯ Ø¹Ù Ù0  Ø³Ù`Ø§Ø³Ø© Ø´Ø±ÙØ© Ø§Ù Ø·Ù`Ø±Ø§Ù  ."
-
-msgstr "Yes, you can request to cancel or modify a booking via the 'My Bookings' page or by contacting the support team. Please note that fees depend on the airline's policy."
-
-
-
-msgid "Ù& Ø§ Ù! Ù` Ø·Ø±Ù  Ø§Ù Ø¯ÙØ¹ Ø§Ù Ù& ØªØ§Ø­Ø©Øx"
-
+msgid "ما هي طرق الدفع المتاحة؟"
 msgstr "What are the available payment methods?"
 
+msgid ""
+"نحن نقبل الدفع عبر بطاقات الماستركارد، والفيزا كارد، وعبر Stripe. كما نوفر "
+"خيارات الدفع المحلية في بعض الدول."
+msgstr ""
+"We accept payment via Mastercard, Visa, and Stripe. We also provide local "
+"payment options in some countries."
 
-
-msgid "Ù  Ø­Ù   Ù  Ù Ø¨Ù  Ø§Ù Ø¯ÙØ¹ Ø¹Ø¨Ø± Ø¨Ø·Ø§Ù Ø§Øª Ø§Ù Ù& Ø§Ø³ØªØ±ÙØ§Ø±Ø¯ØR ÙÆØ§Ù ÙÙ`Ø²Ø§ ÙØ§Ø±Ø¯ØR ÙÆØ¹Ø¨Ø± Stripe. ÙÙ& Ø§ Ù  ÙÆÙØ± Ø®Ù`Ø§Ø±Ø§Øª Ø§Ù Ø¯ÙØ¹ Ø§Ù Ù& Ø­Ù Ù`Ø© ÙÙ` Ø¨Ø¹Ø¶ Ø§Ù Ø¯ÙÆÙ ."
-
-msgstr "We accept payment via Mastercard, Visa, and Stripe. We also provide local payment options in some countries."
-
-
-
-msgid "Ù& ØªÙ0  Ø³Ø£Ø³ØªÙ Ù&  ØªØ°ÙØ±ØªÙ` Ø§Ù Ø¥Ù ÙØªØ±ÙÆÙ  Ù`Ø©Øx"
-
+msgid "متى سأستلم تذكرتي الإلكترونية؟"
 msgstr "When will I receive my e-ticket?"
 
+msgid ""
+"بعد إتمام عملية الدفع بنجاح، ستصلك التذكرة فوراً على بريدك الإلكتروني، كما "
+"يمكنك تحميلها من حسابك على الموقع."
+msgstr ""
+"After successful payment, you will receive the ticket immediately via email,"
+" and you can also download it from your account on the site."
 
+msgid "استكشف وجهاتنا — وكالة أبو منية"
+msgstr "Explore Our Destinations — Abu Monya Agency"
 
-msgid "Ø¨Ø¹Ø¯ Ø¥ØªÙ& Ø§Ù&  Ø¹Ù& Ù Ù`Ø© Ø§Ù Ø¯ÙØ¹ Ø¨Ù  Ø¬Ø§Ø­ØR Ø³ØªØµÙ Ù Ø§Ù ØªØ°ÙØ±Ø© ÙÙÆØ±Ø§Ù9  Ø¹Ù Ù0  Ø¨Ø±Ù`Ø¯Ù Ø§Ù Ø¥Ù ÙØªØ±ÙÆÙ  Ù`ØR ÙÙ& Ø§ Ù`Ù& ÙÙ  Ù ØªØ­Ù& Ù`Ù Ù! Ø§ Ù& Ù   Ø­Ø³Ø§Ø¨Ù Ø¹Ù Ù0  Ø§Ù Ù& ÙÆÙ Ø¹."
-
-msgstr "After successful payment, you will receive the ticket immediately via email, and you can also download it from your account on the site."
-
-
-
-msgid "Ø§Ø³ØªÙØ´Ù ÙÆØ¬Ù! Ø§ØªÙ  Ø§ â¬   ÙÆÙØ§Ù Ø© Ø£Ø¨ÙÆ Ù& Ù  Ù`Ø©"
-
-msgstr "Explore Our Destinations â¬   Abu Monya Agency"
-
-
-
-msgid "Ø§Ø³ØªÙØ´Ù ÙÆØ¬Ù! Ø§ØªÙ  Ø§ Ø­ÙÆÙ  Ø§Ù Ø¹Ø§Ù Ù& "
-
+msgid "استكشف وجهاتنا حول العالم"
 msgstr "Explore Our Destinations Around the World"
 
-
-
-msgid "Ø§ÙØªØ´Ù Ø£ÙØ¶Ù  Ø§Ù Ù& Ø¯Ù   ÙÆØ§Ù Ø±Ø­Ù Ø§Øª Ø§Ù ØªÙ` Ù  Ù Ø¯Ù& Ù! Ø§ Ø¨Ø£ÙØ¶Ù  Ø§Ù Ø£Ø³Ø¹Ø§Ø±"
-
+msgid "اكتشف أفضل المدن والرحلات التي نقدمها بأفضل الأسعار"
 msgstr "Discover the best cities and flights we offer at the best prices"
 
+msgid "✨ عروض متاحة"
+msgstr "✨ Offers Available"
 
+msgid "نشاطاتنا — وكالة أبو منية"
+msgstr "Our Activities — Abu Monya Agency"
 
-msgid "âS¨ Ø¹Ø±ÙÆØ¶ Ù& ØªØ§Ø­Ø©"
+msgid "نشاطاتنا وفعالياتنا"
+msgstr "Our Activities & Events"
 
-msgstr "âS¨ Offers Available"
+msgid ""
+"نحن نلتزم بالتواجد في قلب الأحداث الكبرى لتطوير خدماتنا وتقديم الأفضل "
+"لعملائنا."
+msgstr ""
+"We are committed to being at the heart of major events to develop our "
+"services and provide the best for our clients."
 
+msgid "منتدى العمرة والزيارة - المملكة العربية السعودية"
+msgstr "Umrah & Ziyarah Forum - Saudi Arabia"
+
+msgid ""
+"لقطات من مشاركة وكالة أبو منية في فعاليات منتدى العمرة والزيارة لتوسيع "
+"شراكاتنا وخدماتنا."
+msgstr ""
+"Snapshots from Abu Monya Agency's participation in the Umrah & Ziyarah Forum"
+" events to expand our partnerships and services."
+
+msgid "السعودية"
+msgstr "Saudi Arabia"
+
+msgid "منتدى العمرة والزيارة"
+msgstr "Umrah & Ziyarah Forum"
+
+msgid "وكالة أبو منية"
+msgstr "Abu Monya Agency"
