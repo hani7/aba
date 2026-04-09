@@ -78,6 +78,7 @@ msgstr "Search for a hotel for this trip"
 
 msgid "احجز رحلاتك بأفضل الأسعار مع وكالة أبو منية، بدعم من"
 msgstr ""
+"Book your flights at the best prices with Abu Monya Agency, powered by"
 
 msgid "احجز فندقك الآن بسهولة"
 msgstr "Book your hotel easily now"
@@ -734,6 +735,9 @@ msgid ""
 "الخرطوم السوق العربي. تقاطع شارع الحرية مع شارع مصطفى الأمين، غرب مستشفى "
 "الراهبات، عمارة عامر العقارية الطابق الثاني، شقة رقم 3"
 msgstr ""
+"Khartoum, Arab Market. Intersection of Al-Hurriya Street and Mustafa Al-Amin"
+" Street, west of the Sisters Hospital, Amer Real Estate Building, 2nd floor,"
+" Apartment No. 3"
 
 msgid "السفر يبدأ هنا"
 msgstr "Your Journey Starts Here"
@@ -743,6 +747,8 @@ msgstr "Search Now"
 
 msgid "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة."
 msgstr ""
+"Compare thousands of offers from the biggest airlines — at guaranteed prices"
+" and with an easy experience."
 
 msgid "رحلات الطيران"
 msgstr "Flights"
@@ -796,7 +802,7 @@ msgid "5 بالغين"
 msgstr ""
 
 msgid "الدرجة"
-msgstr ""
+msgstr "Class"
 
 msgid "سياحية"
 msgstr ""
@@ -862,7 +868,7 @@ msgid ""
 msgstr ""
 
 msgid "رؤيتنا"
-msgstr ""
+msgstr "Our Vision"
 
 msgid ""
 "نتطلع لأن تكون وكالة ابومنية للسفر والسياحة الأولي و المحرك الفاعل للسفر "
@@ -870,7 +876,7 @@ msgid ""
 msgstr ""
 
 msgid "مهمتنا"
-msgstr ""
+msgstr "Our Mission"
 
 msgid ""
 "تلبية احتياجات عملائنا وفق رؤية إستراتيجية تلبي طموحاتهم و احتياجاتهم في "
@@ -1016,46 +1022,46 @@ msgid ""
 msgstr ""
 
 msgid "وكالة أبو منية — ابحث عن رحلتك"
-msgstr ""
+msgstr "Abu Monya Agency — Search Your Flight"
 
 msgid "أكثر من 10,000 مسار جوي"
-msgstr ""
+msgstr "More than 10,000 air routes"
 
 msgid "شركاؤنا من شركات الطيران"
-msgstr ""
+msgstr "Our Airline Partners"
 
 msgid "أبرز الوجهات ✈"
-msgstr ""
+msgstr "Top Destinations ✈"
 
 msgid "الوجهات الأكثر طلباً هذا الموسم"
-msgstr ""
+msgstr "Most requested destinations this season"
 
 msgid "عروض متاحة"
-msgstr ""
+msgstr "Offers Available"
 
 msgid "لماذا تختار وكالة <span class=\"gold\">أبو منية</span>؟"
 msgstr ""
 
 msgid "نتائج فورية"
-msgstr ""
+msgstr "Instant Results"
 
 msgid "آلاف العروض في الوقت الفعلي بفضل واجهة Duffel API المتقدمة."
-msgstr ""
+msgstr "Thousands of offers in real time thanks to the advanced Duffel API."
 
 msgid "بحث ذكي بالعربية"
-msgstr ""
+msgstr "Smart Arabic Search"
 
 msgid "ابحث بالعربية أو الإنجليزية — النظام يترجم تلقائياً."
-msgstr ""
+msgstr "Search in Arabic or English — the system translates automatically."
 
 msgid "أنشئ رحلات ذهاباً وإياباً أو متعددة الوجهات بسهولة."
-msgstr ""
+msgstr "Create round-trip or multi-destination trips easily."
 
 msgid "عملات متعددة"
-msgstr ""
+msgstr "Multiple Currencies"
 
 msgid "اعرض الأسعار بالدولار الأمريكي أو الجنيه السوداني بضغطة واحدة."
-msgstr ""
+msgstr "Display prices in USD or Sudanese Pound with one click."
 
 msgid "وكالة <span style=\"color:#f7bc35;\">أبو منية</span> للسفر والسياحة"
 msgstr ""
@@ -1506,3 +1512,72 @@ msgstr "Umrah & Ziyarah Forum"
 
 msgid "وكالة أبو منية"
 msgstr "Abu Monya Agency"
+
+msgid "لماذا تختار وكالة أبو منية؟"
+msgstr "Why choose Abu Monya Agency?"
+
+msgid "تابعنا على"
+msgstr "Follow Us On"
+
+msgid "تسجيل الخروج"
+msgstr "Log Out"
+
+msgid "جميع الحقوق محفوظة لوكالة"
+msgstr "All rights reserved to"
+
+msgid "جميع الحقوق محفوظة"
+msgstr "All rights reserved"
+
+msgid "رحلة مباشرة"
+msgstr "Multi-city"
+
+msgid "المغادرة من"
+msgstr "Departing from"
+
+msgid "بالغ"
+msgstr "Adult"
+
+msgid "بالغون"
+msgstr "Adults"
+
+msgid "طفل"
+msgstr "Child"
+
+msgid "رضيع"
+msgstr "Infant"
+
+msgid "تطبيق"
+msgstr "Apply"
+
+msgid "بحث عن رحلات"
+msgstr "Search Flights"
+
+msgid "تاريخ الذهاب"
+msgstr "Departure date"
+
+msgid "تاريخ العودة"
+msgstr "Return date"
+
+msgid "الدرجة الاقتصادية"
+msgstr "Economy"
+
+msgid "درجة رجال الأعمال"
+msgstr "Business"
+
+msgid "الدرجة الأولى"
+msgstr "First Class"
+
+msgid "من نحن — وكالة أبو منية"
+msgstr "About Us — Abu Monya Agency"
+
+msgid "قصتنا"
+msgstr "Our Story"
+
+msgid "فريقنا"
+msgstr "Our Team"
+
+msgid "خدماتنا — وكالة أبو منية"
+msgstr "Our Services — Abu Monya Agency"
+
+msgid "خدماتنا المميزة"
+msgstr "Our Premium Services"
