@@ -10,8 +10,11 @@ from django.conf import settings
 from datetime import datetime
 
 RAPIDAPI_KEY = getattr(settings, 'RAPIDAPI_KEY', '')
-# Typically 'booking-com.p.rapidapi.com'
-RAPIDAPI_HOST = getattr(settings, 'RAPIDAPI_HOST', 'booking-com.p.rapidapi.com')
+# Typically 'booking-com15.p.rapidapi.com'
+RAPIDAPI_HOST = getattr(settings, 'RAPIDAPI_HOST', 'booking-com15.p.rapidapi.com')
+
+HOTEL_MARKUP_PCT = 10.0  # Default markup for hotel bookings
+
 
 def _headers():
     return {
@@ -21,8 +24,8 @@ def _headers():
     }
 
 def apply_markup(price: float) -> dict:
-    """Apply hotel markup."""
-    markup_pct = 10.0 # Adjust markup percentage here
+    """Apply hotel markup (using HOTEL_MARKUP_PCT)."""
+    markup_pct = HOTEL_MARKUP_PCT
     markup_amount = round(price * markup_pct / 100, 2)
     return {
         'original_price': price,
@@ -35,23 +38,28 @@ def search_destinations(query: str) -> list:
     if not RAPIDAPI_KEY:
         return _mock_destinations(query)
 
-    url = f"https://{RAPIDAPI_HOST}/v1/hotels/locations"
-    querystring = {"name": query, "locale": "ar"}
+    url = f"https://{RAPIDAPI_HOST}/api/v1/hotels/searchDestination"
+    querystring = {"query": query}
 
     try:
-        response = requests.get(url, headers=_headers(), params=querystring, timeout=10)
+        response = requests.get(url, headers=_headers(), params=querystring, timeout=15)
         data = response.json()
         results = []
-        for loc in data:
-            if loc.get('dest_type') == 'city':
+        # The API usually returns a list of objects under 'data'
+        locations = data.get('data', [])
+        for loc in locations:
+            # We filter for cities or locations that have a dest_id
+            dest_id = loc.get('dest_id')
+            if dest_id:
                 results.append({
-                    'cityId': loc.get('dest_id'),
+                    'cityId': dest_id,
                     'cityName': loc.get('name'),
                     'countryName': loc.get('country'),
-                    'nameAr': loc.get('label')
+                    'nameAr': loc.get('label') or loc.get('name')
                 })
         return results if results else _mock_destinations(query)
-    except Exception:
+    except Exception as e:
+        print(f"Error in search_destinations: {e}")
         return _mock_destinations(query)
 
 
@@ -60,53 +68,131 @@ def search_hotels(city_id: str, check_in: str, check_out: str, adults: int = 2, 
     if not RAPIDAPI_KEY:
         return _mock_hotels(city_id, check_in, check_out, adults)
 
-    url = f"https://{RAPIDAPI_HOST}/v1/hotels/search"
+    url = f"https://{RAPIDAPI_HOST}/api/v1/hotels/searchHotels"
     querystring = {
         "dest_id": city_id,
-        "search_type": "city",
+        "search_type": "CITY",
         "arrival_date": check_in,
         "departure_date": check_out,
-        "adults_number": adults,
-        "room_number": rooms,
-        "locale": "ar",
-        "currency": "USD"
+        "adults": str(adults),
+        "room_qty": str(rooms),
+        "page_number": "1",
+        "units": "metric",
+        "temperature_unit": "c",
+        "language_code": "en-us",
+        "currency_code": "USD"
     }
 
     try:
-        response = requests.get(url, headers=_headers(), params=querystring, timeout=15)
+        response = requests.get(url, headers=_headers(), params=querystring, timeout=20)
         data = response.json()
         results = []
         
-        for h in data.get('result', [])[:50]:
-            price = float(h.get('min_total_price', 0))
+        # Mapping properties from RapidAPI response to our template format
+        # Properties usually under data['data']['hotels'] or data['data']['result'] depending on version
+        hotels = data.get('data', {}).get('hotels', [])
+        if not hotels:
+            hotels = data.get('data', {}).get('result', [])
+            
+        for h in hotels[:40]:
+            # RapidAPI responses for Booking.com vary; we check multiple common price keys
+            # Often it is under property['price_breakdown']['gross_price']
+            price_info = h.get('price_breakdown', {})
+            price = float(price_info.get('gross_amount', 0) or h.get('min_total_price', 0))
             if price == 0: continue
             
             results.append({
-                'hotelId': h.get('hotel_id'),
+                'hotelId': str(h.get('hotel_id')),
                 'hotelName': h.get('hotel_name'),
                 'cityId': city_id,
-                'cityName': h.get('city'),
+                'cityName': h.get('city_name') or h.get('city'),
                 'starRating': h.get('class', 3),
                 'reviewScore': h.get('review_score', 8),
                 'reviewCount': h.get('review_nr', 100),
                 'minPrice': price,
                 'pricing': apply_markup(price),
-                'currency': h.get('currencycode', 'USD'),
-                'imageUrl': h.get('max_photo_url', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop'),
+                'currency': h.get('currency_code') or h.get('currencycode', 'USD'),
+                'imageUrl': h.get('max_photo_url') or h.get('main_photo_url'),
                 'address': h.get('address', ''),
-                'amenities': ['واي فاي مجاني'] # Summarized
+                'amenities': ['واي فاي مجاني', 'موقع متميز']
             })
         return results if results else _mock_hotels(city_id, check_in, check_out, adults)
-    except Exception:
+    except Exception as e:
+        print(f"Error in search_hotels: {e}")
         return _mock_hotels(city_id, check_in, check_out, adults)
 
 
 def get_hotel(hotel_id: str, check_in: str, check_out: str, adults: int = 2, rooms: int = 1) -> dict:
-    """Get single hotel details."""
+    """Get single hotel details including rooms."""
     if not RAPIDAPI_KEY:
         return _mock_hotel_detail(hotel_id, check_in, check_out)
 
-    return _mock_hotel_detail(hotel_id, check_in, check_out)
+    url = f"https://{RAPIDAPI_HOST}/api/v1/hotels/getHotelDetails"
+    querystring = {
+        "hotel_id": hotel_id,
+        "arrival_date": check_in,
+        "departure_date": check_out,
+        "adults": str(adults),
+        "room_qty": str(rooms),
+        "language_code": "en-us",
+        "currency_code": "USD"
+    }
+
+    try:
+        response = requests.get(url, headers=_headers(), params=querystring, timeout=15)
+        data = response.json()
+        hotel_data = data.get('data', {})
+        
+        if not hotel_data:
+            return _mock_hotel_detail(hotel_id, check_in, check_out)
+
+        # Build standardized hotel object
+        price = float(hotel_data.get('min_total_price', 0) or 100.0)
+        hotel = {
+            'hotelId': hotel_id,
+            'hotelName': hotel_data.get('hotel_name'),
+            'cityName': hotel_data.get('city'),
+            'cityId': hotel_data.get('city_id'),
+            'starRating': hotel_data.get('class', 3),
+            'reviewScore': hotel_data.get('review_score', 8),
+            'reviewCount': hotel_data.get('review_nr', 100),
+            'minPrice': price,
+            'currency': 'USD',
+            'imageUrl': hotel_data.get('main_photo_url'),
+            'address': hotel_data.get('address', ''),
+            'description': hotel_data.get('description') or "لا يوجد وصف مطول متاح حالياً.",
+            'amenities': [a.get('facility_name') for a in hotel_data.get('facilities', [])[:10]],
+            'pricing': apply_markup(price),
+            'rooms': []
+        }
+
+        # Handle room options
+        room_data = hotel_data.get('rooms', {})
+        for r_id, r_info in room_data.items():
+            r_price = float(r_info.get('min_price', price))
+            hotel['rooms'].append({
+                'roomId': r_id,
+                'roomName': r_info.get('room_name', 'غرفة قياسية'),
+                'price': r_price,
+                'capacity': 2,
+                'bedType': 'سرير مريح',
+                'pricing': apply_markup(r_price)
+            })
+            
+        hotel['booking_url'] = hotel_data.get('url') or "#"
+        return hotel
+    except Exception as e:
+        print(f"Error in get_hotel: {e}")
+        return _mock_hotel_detail(hotel_id, check_in, check_out)
+
+
+def get_booking_url(hotel_id: str, check_in: str, check_out: str, adults: int = 2, rooms: int = 1) -> str:
+    """
+    Get the booking URL for a hotel. 
+    Since the RapidAPI provides this in details, we fetch details and return the URL.
+    """
+    hotel = get_hotel(hotel_id, check_in, check_out, adults, rooms)
+    return hotel.get('booking_url', "#")
 
 
 # --- MOCK DATA ---
@@ -131,7 +217,7 @@ def _mock_hotels(city_id, check_in, check_out, adults):
     
     return [{
         'hotelId': 10101,
-        'hotelName': 'فندق وريزيدنس الفخامة (Booking.com Mock)',
+        'hotelName': 'فندق الموك (تجريبي)',
         'cityName': 'المدينة',
         'cityId': city_id,
         'starRating': 4,

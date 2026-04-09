@@ -880,7 +880,7 @@ def hotel_book(request):
         rooms=search_crit.get('rooms', 1),
         
         cost_price=room_price,
-        markup_pct=travelpayouts_service.TRAVELPAYOUTS_MARKUP_PCT,
+        markup_pct=booking_service.HOTEL_MARKUP_PCT,
         markup_amount=markup_amount,
         customer_price=customer_price,
         currency='USD',
@@ -891,9 +891,9 @@ def hotel_book(request):
         status='pending'
     )
     
-    # Generate the Travelpayouts deep-link
-    booking_url = travelpayouts_service.get_booking_url(
-        hotel_id=hotel_id,
+    # Generate the Booking.com deep-link
+    booking_url = booking_service.get_booking_url(
+        hotel_id=str(hotel_id),
         check_in=check_in,
         check_out=check_out,
         adults=search_crit.get('adults', 2),
