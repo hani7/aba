@@ -196,7 +196,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Duffel API Configuration (Switch easily for production)
-USE_LIVE_DUFFEL = False  # ⚠️ Protected: Set to False so the user can test without real charges!
+USE_LIVE_DUFFEL = True  # ⚠️ LIVE MODE ENABLED: Real charges apply!
 
 DUFFEL_TEST_KEY = os.environ.get('DUFFEL_TEST_KEY', 'duffel_test_REMOVED_FOR_SECURITY')
 DUFFEL_LIVE_KEY = os.environ.get('DUFFEL_LIVE_KEY', 'duffel_live_REMOVED_FOR_SECURITY')
