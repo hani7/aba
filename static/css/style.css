@@ -1541,3 +1541,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity
 [dir='rtl'] .faq-body > div { text-align: right; }
 [dir='rtl'] .dest-info { text-align: right; }
 [dir='rtl'] .dest-info > div { flex-direction: row-reverse; }
+
+/* Mobile-only line break in hero title */
+br.mobile-br { display: none; }
+@media (max-width: 640px) { br.mobile-br { display: block; } }
