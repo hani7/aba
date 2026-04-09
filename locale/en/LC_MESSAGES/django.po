@@ -24,6 +24,8 @@ msgstr "Site performance and metrics"
 
 msgid "أرسل إيصال التحويل عبر الواتساب فور إتمامه لتأكيد الحجز"
 msgstr ""
+"Send the transfer receipt via WhatsApp immediately after completing it to "
+"confirm your booking"
 
 msgid "أرقام"
 msgstr "Numbers"
@@ -105,7 +107,7 @@ msgid "اسم العائلة"
 msgstr "Last name"
 
 msgid "اسم العائلة (باللغة الإنجليزية"
-msgstr ""
+msgstr "Last Name (in English"
 
 msgid "اسم العميل"
 msgstr "Customer name"
@@ -135,7 +137,7 @@ msgid "الاسم الأول"
 msgstr "First name"
 
 msgid "الاسم الأول (باللغة الإنجليزية كما في الجواز"
-msgstr ""
+msgstr "First Name (in English as in passport"
 
 msgid "الاسم الكامل (كما في جواز السفر"
 msgstr ""
@@ -222,7 +224,7 @@ msgid "المسار"
 msgstr "Route"
 
 msgid "المسافة"
-msgstr ""
+msgstr "Distance"
 
 msgid "المسافرون والزوار الدائمون"
 msgstr "Frequent passengers and visitors"
@@ -240,7 +242,7 @@ msgid "بحث جديد"
 msgstr "New search"
 
 msgid "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة"
-msgstr ""
+msgstr "Based on your selection, we found great accommodation options"
 
 msgid "بنك الخليج الدولي"
 msgstr "Gulf International Bank"
@@ -368,7 +370,7 @@ msgid "حسابي"
 msgstr "My Account"
 
 msgid "حسب اختيارك"
-msgstr ""
+msgstr "based on your selection"
 
 msgid "حفظ التذكرة"
 msgstr "Save Ticket"
@@ -404,7 +406,7 @@ msgid "رقم الهاتف"
 msgstr "Phone Number"
 
 msgid "رقم الهاتف (مع رمز الدولة"
-msgstr ""
+msgstr "Phone Number (with country code"
 
 msgid "رقم جواز السفر"
 msgstr "Passport Number"
@@ -467,6 +469,8 @@ msgid ""
 "قم بتحويل المبلغ إلى أحد حساباتنا البنكية وأرسل إيصال الدفع عبر الواتساب "
 "لتأكيد حجزك"
 msgstr ""
+"Transfer the amount to one of our bank accounts and send the payment receipt"
+" via WhatsApp to confirm your booking"
 
 msgid "كلمة المرور"
 msgstr "Password"
@@ -541,7 +545,7 @@ msgid "مثال"
 msgstr "Example"
 
 msgid "محطة توقف (تغيير طائرة في"
-msgstr ""
+msgstr "Layover (plane change in"
 
 msgid "محطة واحدة"
 msgstr "1 Stop"
@@ -562,7 +566,7 @@ msgid "معلومات المسافر"
 msgstr "Passenger Information"
 
 msgid "معلومات المسافر(ين"
-msgstr ""
+msgstr "Passenger Information"
 
 msgid "مقاعد متاحة"
 msgstr "Seats available"
@@ -663,7 +667,7 @@ msgid "رحلة"
 msgstr "Flight"
 
 msgid "(غرامة"
-msgstr ""
+msgstr "(Penalty"
 
 msgid "(واتساب"
 msgstr ""
@@ -955,7 +959,7 @@ msgid "اقتصادية · أعمال · أولى"
 msgstr ""
 
 msgid "تفاصيل الأمتعة"
-msgstr ""
+msgstr "Baggage Details"
 
 msgid "الوزن المسموح به لكل رحلة"
 msgstr ""
@@ -1654,3 +1658,6 @@ msgstr "Passports and Visas"
 
 msgid "التعديلات على الشروط"
 msgstr "Amendments to Terms"
+
+msgid "إرسال الإيصال عبر الواتساب"
+msgstr "Send Receipt via WhatsApp"
