@@ -230,10 +230,10 @@
         <button onclick="toggleGuideModal()" style="position:absolute; top:20px; left:20px; right:auto; background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--text-muted, #666); transition:color 0.2s; z-index:10;" onmouseover="this.style.color='#f00'" onmouseout="this.style.color='var(--text-muted, #666)'">&times;</button>
         <h2 style="margin-top:0;font-family:'Tajawal',sans-serif;color:var(--text, #111);font-weight:800;font-size:1.5rem;margin-bottom:15px; padding-left:30px;">{% trans "دليل الاستخدام" %}</h2>
         <div style="font-family:'Tajawal',sans-serif; line-height:1.7; color:var(--text, #333); display:flex; flex-direction:column; align-items:center;">
-          <iframe src="{% static 'docs/Guide_of_ABA.pdf' %}#toolbar=0" width="100%" style="height: 60vh; min-height: 500px; border:none; border-radius:10px; background:#e5e7eb; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);"></iframe>
+          <iframe src="/static/docs/Guide_of_ABA.pdf#toolbar=0" width="100%" style="height: 60vh; min-height: 500px; border:none; border-radius:10px; background:#e5e7eb; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);"></iframe>
         </div>
         <div style="text-align:left; margin-top:20px; display:flex; justify-content:flex-end; align-items:center; gap:15px;">
-          <a href="{% static 'docs/Guide_of_ABA.pdf' %}" target="_blank" style="color:#0b1437; font-weight:700; font-family:'Tajawal',sans-serif; font-size:0.95rem; text-decoration:none; padding:8px 12px; border-radius:6px; transition:background 0.2s;" onmouseover="this.style.background='rgba(11,20,55,0.05)'" onmouseout="this.style.background='none'">
+          <a href="/static/docs/Guide_of_ABA.pdf" target="_blank" style="color:#0b1437; font-weight:700; font-family:'Tajawal',sans-serif; font-size:0.95rem; text-decoration:none; padding:8px 12px; border-radius:6px; transition:background 0.2s;" onmouseover="this.style.background='rgba(11,20,55,0.05)'" onmouseout="this.style.background='none'">
             🔗 {% trans "فتح الدليل في نافذة جديدة" %}
           </a>
           <button onclick="toggleGuideModal()" style="background:#0b1437;color:#fff;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-weight:700;font-family:'Tajawal',sans-serif;transition:all 0.2s;" onmouseover="this.style.background='#132052'" onmouseout="this.style.background='#0b1437'">
