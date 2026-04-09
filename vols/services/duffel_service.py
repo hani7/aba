@@ -127,6 +127,9 @@ def create_order(offer_id, passengers_data, total_amount, currency, hold=False):
         )
 
     if resp.status_code not in (200, 201):
+        errors = resp.json().get('errors', [])
+        if any(err.get('code') == 'offer_no_longer_available' for err in errors):
+            raise Exception('OFFER_EXPIRED')
         raise Exception(f"Duffel API Error {resp.status_code}: {resp.text}")
 
     return resp.json().get('data', {})

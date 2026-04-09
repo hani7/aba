@@ -652,6 +652,9 @@ def confirm_booking(request):
         return redirect('vols:payment_choice', booking_id=booking.id)
 
     except Exception as e:
+        if 'OFFER_EXPIRED' in str(e):
+            messages.error(request, "⏰ عذراً، انتهت صلاحية هذا العرض. يرجى البحث مجدداً للحصول على أسعار محدثة.")
+            return redirect('vols:search_results')
         messages.error(request, f"Erreur lors de la réservation: {str(e)}")
         return redirect('vols:passenger_details', offer_id=offer_id)
 
