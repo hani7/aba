@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "نشاطاتنا" %} — {% trans "وكالة أبو منية" %}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .activities-hero {
+        background: linear-gradient(135deg, #0b1437 0%, #1a237e 100%);
+        padding: 100px 0 60px;
+        text-align: center;
+        color: #fff;
+    }
+    .activities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 60px 0;
+    }
+    .activity-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+    .activity-card:hover {
+        transform: translateY(-10px);
+    }
+    .activity-img-wrapper {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+    }
+    .activity-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    .activity-card:hover .activity-img {
+        transform: scale(1.1);
+    }
+    .activity-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="activities-hero">
+    <div class="container">
+        <h1 style="font-family:'Tajawal',sans-serif; font-size:2.8rem; font-weight:800; margin-bottom:20px;">{% trans "نشاطاتنا وفعالياتنا" %}</h1>
+        <p style="font-size:1.1rem; color:rgba(255,255,255,0.8); max-width:700px; margin:0 auto; line-height:1.7;">
+            {% trans "نحن نلتزم بالتواجد في قلب الأحداث الكبرى لتطوير خدماتنا وتقديم الأفضل لعملائنا." %}
+        </p>
+    </div>
+</section>
+
+<section style="background:#f8fafc;">
+    <div class="container">
+        
+        <div style="padding-top:60px; text-align:center;">
+            <h2 style="font-family:'Tajawal',sans-serif; color:#0b1437; font-weight:800; display:inline-block; position:relative; padding-bottom:10px;">
+                {% trans "منتدى العمرة والزيارة - المملكة العربية السعودية" %}
+                <span style="position:absolute; bottom:0; left:20%; right:20%; height:4px; background:#f7bc35; border-radius:4px;"></span>
+            </h2>
+            <p style="margin-top:20px; color:#64748b;">{% trans "لقطات من مشاركة وكالة أبو منية في فعاليات منتدى العمرة والزيارة لتوسيع شراكاتنا وخدماتنا." %}</p>
+        </div>
+
+        <div class="activities-grid">
+            {% for i in "123456"|make_list %}
+            <div class="activity-card" onclick="openGallery({{forloop.counter0}})">
+                <div class="activity-img-wrapper">
+                    <img src="{% static 'img/activities/' %}{{i}}.jpeg" alt="Forum Image {{i}}" class="activity-img" onerror="this.src='https://placehold.co/600x800?text=Forum+Photo+{{i}}'">
+                    <div class="activity-overlay">
+                        <span style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#f7bc35; font-weight:600;">{% trans "السعودية" %}</span>
+                        <h3 style="font-size:1.1rem; margin-top:5px; font-family:'Tajawal',sans-serif;">{% trans "منتدى العمرة والزيارة" %}</h3>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<!-- Simple Lightbox logic can be added here if needed -->
+{% endblock %}

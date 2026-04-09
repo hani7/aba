@@ -14,7 +14,7 @@ urlpatterns = [
     path('terms/', views.terms_of_service, name='terms_of_service'),
     path('faq/', views.faq, name='faq'),
     path('destinations/', views.destinations_list_view, name='destinations_list'),
-    path('packages/', views.special_packages, name='special_packages'),
+    path('activities/', views.activities_view, name='activities_list'),
 
     # ── Flights (Duffel) ──────────────────────────────────────────────────
     path('api/places/', views.api_places, name='api_places'),
@@ -29,7 +29,6 @@ urlpatterns = [
     path('hotels/resultats/', views.hotel_results, name='hotel_results'),
     path('hotels/<int:hotel_id>/', views.hotel_detail, name='hotel_detail'),
     path('hotels/reserver/', views.hotel_book, name='hotel_book'),
-    path('hotels/mes-hotels/', views.hotel_bookings, name='hotel_bookings'),
     path('api/hotel-destinations/', views.api_hotel_destinations, name='api_hotel_destinations'),
 
     # ── Auth ──────────────────────────────────────────────────────────────

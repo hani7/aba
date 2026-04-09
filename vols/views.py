@@ -162,8 +162,8 @@ def destinations_list_view(request):
         'destinations': DESTINATIONS_LIST
     })
 
-def special_packages(request):
-    return render(request, 'vols/packages.html')
+def activities_view(request):
+    return render(request, 'vols/activities.html')
 
 def contact(request):
     return render(request, 'vols/contact.html')
@@ -924,13 +924,6 @@ def hotel_book(request):
     # Normally we might redirect them immediately,
     # or show them a page with the redirect link.
     return redirect(booking_url)
-
-
-def hotel_bookings(request):
-    """List all hotel bookings."""
-    bookings = HotelBooking.objects.all()
-    # In a real app with user auth linked to bookings, filter by request.user
-    return render(request, 'vols/hotel_bookings.html', {'bookings': bookings})
 
 
 # ===========================================================================

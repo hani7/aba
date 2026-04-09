@@ -203,13 +203,12 @@
             <h4 style="color:#fff; font-weight:700; margin-bottom:20px; font-size:1rem;">{% trans "اكتشف" %}</h4>
             <ul style="list-style:none; padding:0; margin:0;">
               <li style="margin-bottom:12px;"><a href="{% url 'vols:destinations_list' %}" style="color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.color='#f7bc35'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">{% trans "الوجهات السياحية" %}</a></li>
-              <li style="margin-bottom:12px;"><a href="{% url 'vols:special_packages' %}" style="color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.color='#f7bc35'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">{% trans "عروض الحزم" %}</a></li>
-              <li style="margin-bottom:12px;"><a href="{% url 'vols:hotel_search' %}" style="color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.color='#f7bc35'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">{% trans "حجز الفنادق" %}</a></li>
+              <li style="margin-bottom:12px;"><a href="{% url 'vols:activities_list' %}" style="color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.color='#f7bc35'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">{% trans "نشاطاتنا" %}</a></li>
             </ul>
           </div>
 
           <!-- Column 3: Support -->
-          <div class="footer-col">
+          <div class="footer-col" id="col-support">
             <h4 style="color:#fff; font-weight:700; margin-bottom:20px; font-size:1rem;">{% trans "الدعم" %}</h4>
             <ul style="list-style:none; padding:0; margin:0;">
               <li style="margin-bottom:12px;"><a href="{% url 'vols:faq' %}" style="color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.9rem; transition:0.3s;" onmouseover="this.style.color='#f7bc35'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">{% trans "الأسئلة الشائعة" %}</a></li>
@@ -228,6 +227,7 @@
             <div style="display:flex; align-items:center; gap:12px; margin-top:20px;">
                 <a href="https://www.instagram.com/abumonyaagency" target="_blank" style="color:rgba(255,255,255,0.5); font-size:1.1rem; transition:0.3s;" onmouseover="this.style.color='#fff'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
                 <a href="https://www.facebook.com/abumonyaagency" target="_blank" style="color:rgba(255,255,255,0.5); font-size:1.1rem; transition:0.3s;" onmouseover="this.style.color='#fff'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                <a href="https://x.com/abumonyaagency" target="_blank" style="color:rgba(255,255,255,0.5); font-size:1.1rem; transition:0.3s;" onmouseover="this.style.color='#fff'"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
             </div>
           </div>
 
