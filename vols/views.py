@@ -58,7 +58,7 @@ DESTINATIONS_LIST = [
     {'iata': 'FCO', 'name_ar': _('روما'),     'badge': _('🇮🇹 إيطاليا'),         'desc': _('FCO · الكولوسيوم'),        'image': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=300&fit=crop&q=80'},
     {'iata': 'DOH', 'name_ar': _('الدوحة'),   'badge': _('🇶🇦 قطر'),             'desc': _('DOH · أفق المدينة'),       'image': '/static/img/doha.jpg'},
     {'iata': 'MAD', 'name_ar': _('مدريد'),    'badge': _('🇪🇸 إسبانيا'),         'desc': _('MAD · القصر الملكي'),      'image': 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'CMN', 'name_ar': _('مراكش'),    'badge': _('🇲🇦 المغرب'),          'desc': _('CMN · المدينة العتيقة'),   'image': 'https://images.unsplash.com/photo-1533167649158-6d508895b680?w=600&h=300&fit=crop&q=80'},
+    {'iata': 'CMN', 'name_ar': _('مراكش'),    'badge': _('🇲🇦 المغرب'),          'desc': _('CMN · المدينة العتيقة'),   'image': '/static/img/marrakech.jpg'},
     {'iata': 'JFK', 'name_ar': _('نيويورك'),  'badge': _('🇺🇸 الولايات المتحدة'),'desc': _('JFK · مانهاتن'),           'image': 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600&h=300&fit=crop&q=80'},
     {'iata': 'NRT', 'name_ar': _('طوكيو'),    'badge': _('🇯🇵 اليابان'),         'desc': _('NRT · برج طوكيو'),         'image': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=300&fit=crop&q=80'},
     {'iata': 'BCN', 'name_ar': _('برشلونة'),  'badge': _('🇪🇸 إسبانيا'),         'desc': _('BCN · ساغرادا فاميليا'),   'image': 'https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=300&fit=crop&q=80'},
