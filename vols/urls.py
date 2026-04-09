@@ -10,6 +10,11 @@ urlpatterns = [
     path('about/', views.about_us, name='about_us'),
     path('services/', views.services, name='services'),
     path('contact/', views.contact, name='contact'),
+    path('privacy/', views.privacy_policy, name='privacy_policy'),
+    path('terms/', views.terms_of_service, name='terms_of_service'),
+    path('faq/', views.faq, name='faq'),
+    path('destinations/', views.destinations_list_view, name='destinations_list'),
+    path('packages/', views.special_packages, name='special_packages'),
 
     # ── Flights (Duffel) ──────────────────────────────────────────────────
     path('api/places/', views.api_places, name='api_places'),

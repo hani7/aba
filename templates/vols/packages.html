@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "عروض الحزم السياحية — وكالة أبو منية" %}{% endblock %}
+
+{% block content %}
+<section class="packages-page section" style="padding: 100px 0 60px;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 50px;">
+        <h1 class="section-title">{% trans "حزم سياحية متكاملة" %}</h1>
+        <p style="color: #666;">{% trans "وفر أكثر عند حجز الطيران والفندق معاً في حزمة واحدة" %}</p>
+    </div>
+    
+    <div class="packages-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+      
+      <!-- Package 1 -->
+      <div class="package-card card" style="border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #eee;">
+        <div class="package-img" style="height: 220px; background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&fit=crop'); background-size: cover; background-position: center; position: relative;">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: #fff;">
+            <h3 style="margin: 0; font-weight: 800;">{% trans "دبي — الرفاهية الكاملة" %}</h3>
+          </div>
+        </div>
+        <div class="package-info" style="padding: 25px;">
+          <ul style="padding: 0; list-style: none; margin-bottom: 20px;">
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">✈ {% trans "تذاكر ذهاب وعودة" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">🏨 {% trans "إقامة 5 أيام في فندق 5 نجوم" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">🚐 {% trans "توصيل مجاني من المطار" %}</li>
+          </ul>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 15px; border-top: 1px solid #eee;">
+            <div style="font-weight: 800; font-size: 1.2rem; color: #0b1437;">
+              $799 <small style="font-size: 0.7rem; color: #666;">/ {% trans "للشخص" %}</small>
+            </div>
+            <a href="{% url 'vols:contact' %}" style="background: #f7bc35; color: #0b1437; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;">{% trans "استفسر الآن" %}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package 2 -->
+      <div class="package-card card" style="border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #eee;">
+        <div class="package-img" style="height: 220px; background-image: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&fit=crop'); background-size: cover; background-position: center; position: relative;">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: #fff;">
+            <h3 style="margin: 0; font-weight: 800;">{% trans "باريس — مدينة الحب" %}</h3>
+          </div>
+        </div>
+        <div class="package-info" style="padding: 25px;">
+          <ul style="padding: 0; list-style: none; margin-bottom: 20px;">
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">✈ {% trans "تذاكر ذهاب وعودة" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">🏨 {% trans "إقامة 4 ليالي شاملة الإفطار" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">🎫 {% trans "تذاكر دخول برج إيفل مجانية" %}</li>
+          </ul>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 15px; border-top: 1px solid #eee;">
+            <div style="font-weight: 800; font-size: 1.2rem; color: #0b1437;">
+              $1,150 <small style="font-size: 0.7rem; color: #666;">/ {% trans "للشخص" %}</small>
+            </div>
+            <a href="{% url 'vols:contact' %}" style="background: #f7bc35; color: #0b1437; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;">{% trans "استفسر الآن" %}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Package 3 -->
+      <div class="package-card card" style="border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #eee;">
+        <div class="package-img" style="height: 220px; background-image: url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&fit=crop'); background-size: cover; background-position: center; position: relative;">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: #fff;">
+            <h3 style="margin: 0; font-weight: 800;">{% trans "إسطنبول — عراقة الشرق" %}</h3>
+          </div>
+        </div>
+        <div class="package-info" style="padding: 25px;">
+          <ul style="padding: 0; list-style: none; margin-bottom: 20px;">
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">✈ {% trans "تذاكر ذهاب وعودة" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">🏨 {% trans "إقامة 6 أيام في تقسيم" %}</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem;">⛴ {% trans "جولة بحرية في البوسفور" %}</li>
+          </ul>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 15px; border-top: 1px solid #eee;">
+            <div style="font-weight: 800; font-size: 1.2rem; color: #0b1437;">
+              $550 <small style="font-size: 0.7rem; color: #666;">/ {% trans "للشخص" %}</small>
+            </div>
+            <a href="{% url 'vols:contact' %}" style="background: #f7bc35; color: #0b1437; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;">{% trans "استفسر الآن" %}</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

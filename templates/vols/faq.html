@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "الأسئلة الشائعة — وكالة أبو منية" %}{% endblock %}
+
+{% block content %}
+<section class="faq-page section" style="padding: 100px 0 60px;">
+  <div class="container" style="max-width: 900px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 50px;">
+        <h1 class="section-title">{% trans "الأسئلة الشائعة" %}</h1>
+        <p style="color: #666;">{% trans "كل ما تحتاج معرفته عن الحجز والخدمات في مكان واحد" %}</p>
+    </div>
+    
+    <div class="faq-list">
+      
+      <!-- Q1 -->
+      <div class="faq-item card" style="margin-bottom: 15px; border-radius: 15px; overflow: hidden; background: #fff;">
+        <div class="faq-header" style="padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; background: #fcfcfc;" onclick="toggleFaq(this)">
+          <span>{% trans "كيف يمكنني حجز تذكرة طيران؟" %}</span>
+          <span class="faq-icon" style="transition: transform 0.3s; color: var(--primary);">▼</span>
+        </div>
+        <div class="faq-body" style="padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.3s ease-out; background: #fff;">
+          <div style="padding: 20px 0; color: #555;">
+            {% trans "ببساطة، استخدم محرك البحث في الصفحة الرئيسية، اختر وجهتك وتاريخ سفرك، ثم اختر الرحلة المناسبة وأكمل بيانات الركاب وادفع إلكترونياً." %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="faq-item card" style="margin-bottom: 15px; border-radius: 15px; overflow: hidden; background: #fff;">
+        <div class="faq-header" style="padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; background: #fcfcfc;" onclick="toggleFaq(this)">
+          <span>{% trans "هل يمكنني إلغاء حجزي أو تعديله؟" %}</span>
+          <span class="faq-icon" style="transition: transform 0.3s; color: var(--primary);">▼</span>
+        </div>
+        <div class="faq-body" style="padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.3s ease-out; background: #fff;">
+          <div style="padding: 20px 0; color: #555;">
+            {% trans "نعم، يمكنك طلب إلغاء أو تعديل الحجز عبر صفحة 'حجوزاتي' أو بالتواصل مع فريق الدعم. يرجى الملاحظة أن الرسوم تعتمد على سياسة شركة الطيران." %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="faq-item card" style="margin-bottom: 15px; border-radius: 15px; overflow: hidden; background: #fff;">
+        <div class="faq-header" style="padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; background: #fcfcfc;" onclick="toggleFaq(this)">
+          <span>{% trans "ما هي طرق الدفع المتاحة؟" %}</span>
+          <span class="faq-icon" style="transition: transform 0.3s; color: var(--primary);">▼</span>
+        </div>
+        <div class="faq-body" style="padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.3s ease-out; background: #fff;">
+          <div style="padding: 20px 0; color: #555;">
+            {% trans "نحن نقبل الدفع عبر بطاقات الماستركارد، والفيزا كارد، وعبر Stripe. كما نوفر خيارات الدفع المحلية في بعض الدول." %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="faq-item card" style="margin-bottom: 15px; border-radius: 15px; overflow: hidden; background: #fff;">
+        <div class="faq-header" style="padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; background: #fcfcfc;" onclick="toggleFaq(this)">
+          <span>{% trans "متى سأستلم تذكرتي الإلكترونية؟" %}</span>
+          <span class="faq-icon" style="transition: transform 0.3s; color: var(--primary);">▼</span>
+        </div>
+        <div class="faq-body" style="padding: 0 25px; max-height: 0; overflow: hidden; transition: all 0.3s ease-out; background: #fff;">
+          <div style="padding: 20px 0; color: #555;">
+            {% trans "بعد إتمام عملية الدفع بنجاح، ستصلك التذكرة فوراً على بريدك الإلكتروني، كما يمكنك تحميلها من حسابك على الموقع." %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFaq(header) {
+  const item = header.parentElement;
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.faq-icon');
+  
+  const isOpen = item.classList.contains('active');
+  
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(el => {
+    el.classList.remove('active');
+    el.querySelector('.faq-body').style.maxHeight = '0';
+    el.querySelector('.faq-icon').style.transform = 'rotate(0)';
+  });
+  
+  if (!isOpen) {
+    item.classList.add('active');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    icon.style.transform = 'rotate(180deg)';
+  }
+}
+</script>
+{% endblock %}

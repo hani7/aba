@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "سياسة الخصوصية — وكالة أبو منية" %}{% endblock %}
+
+{% block content %}
+<section class="legal-page section" style="padding: 100px 0 60px;">
+  <div class="container" style="max-width: 800px; margin: 0 auto;">
+    <h1 class="section-title" style="margin-bottom: 40px;">{% trans "سياسة الخصوصية" %}</h1>
+    
+    <div class="legal-content card" style="padding: 40px; line-height: 1.8; color: #444; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+      <p style="font-weight: 700; color: #111; margin-bottom: 20px;">{% trans "آخر تحديث: أبريل 2026" %}</p>
+      
+      <h3>1. {% trans "المعلومات التي نجمعها" %}</h3>
+      <p>{% trans "نحن نجمع المعلومات التي تقدمها لنا مباشرة عند حجز رحلة، مثل الاسم، تفاصيل جواز السفر، البريد الإلكتروني، ورقم الهاتف." %}</p>
+      
+      <h3>2. {% trans "كيف نستخدم معلوماتك" %}</h3>
+      <p>{% trans "نستخدم معلوماتك لمعالجة حجوزاتك، إرسال التذاكر، وتزويدك بتحديثات الرحلات. كما نستخدمها للتواصل معك بشأن عروضنا الترويجية إذا اخترت الاشتراك." %}</p>
+      
+      <h3>3. {% trans "مشاركة البيانات" %}</h3>
+      <p>{% trans "نحن نشارك بياناتك فقط مع مقدمي الخدمات الضروريين (مثل شركات الطيران عبر Duffel أو الفنادق عبر Agoda) لإتمام حجزك. نحن لا نبيع بياناتك لأطراف ثالثة." %}</p>
+      
+      <h3>4. {% trans "أمن البيانات" %}</h3>
+      <p>{% trans "نحن نستخدم بروتوكولات أمان متقدمة ونشفير SSL لحماية معلوماتك الحساسة وخصوصاً بيانات الدفع." %}</p>
+      
+      <h3>5. {% trans "حقوقك" %}</h3>
+      <p>{% trans "لك الحق في الوصول إلى معلوماتك الشخصية التي نحتفظ بها، أو طلب تصحيحها أو حذفها في أي وقت عبر التواصل معنا." %}</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -148,6 +148,23 @@ def about_us(request):
 def services(request):
     return render(request, 'vols/services.html')
 
+def privacy_policy(request):
+    return render(request, 'vols/privacy.html')
+
+def terms_of_service(request):
+    return render(request, 'vols/terms.html')
+
+def faq(request):
+    return render(request, 'vols/faq.html')
+
+def destinations_list_view(request):
+    return render(request, 'vols/destinations.html', {
+        'destinations': DESTINATIONS_LIST
+    })
+
+def special_packages(request):
+    return render(request, 'vols/packages.html')
+
 def contact(request):
     return render(request, 'vols/contact.html')
 
