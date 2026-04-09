@@ -15,6 +15,7 @@ from django.views.decorators.cache import cache_page
 from .services import duffel_service
 from .services import travelpayouts_service
 from .services import booking_service
+from .services import agoda_service
 from .models import Booking, Passenger, HotelBooking
 
 
@@ -733,14 +734,13 @@ def my_bookings(request):
 # 🏨 HOTELS (AGODA INTEGRATION)
 # ===========================================================================
 
-@cache_page(60 * 60 * 24)  # Cache for 24 hours
 def api_hotel_destinations(request):
     """Autocomplete for hotel destinations (cities)."""
     query = request.GET.get('q', '').strip()
     if not query:
         return JsonResponse({'results': []})
     
-    destinations = booking_service.search_destinations(query)
+    destinations = agoda_service.search_destinations(query)
     
     results = []
     for d in destinations:
@@ -771,8 +771,8 @@ def hotel_search(request):
         return redirect('vols:home')
 
     try:
-        hotels = booking_service.search_hotels(
-            city_id=city_id,
+        hotels = agoda_service.search_hotels(
+            city_id=int(city_id) if city_id else 0,
             check_in=check_in,
             check_out=check_out,
             adults=adults,
@@ -820,8 +820,8 @@ def hotel_detail(request, hotel_id):
         return redirect('vols:home')
 
     try:
-        hotel = booking_service.get_hotel(
-            hotel_id=hotel_id,
+        hotel = agoda_service.get_hotel(
+            hotel_id=int(hotel_id),
             check_in=search_crit['check_in'],
             check_out=search_crit['check_out'],
             adults=search_crit['adults'],
@@ -891,9 +891,9 @@ def hotel_book(request):
         status='pending'
     )
     
-    # Generate the Booking.com deep-link
-    booking_url = booking_service.get_booking_url(
-        hotel_id=str(hotel_id),
+    # Generate the Agoda deep-link
+    booking_url = agoda_service.get_booking_url(
+        hotel_id=int(hotel_id),
         check_in=check_in,
         check_out=check_out,
         adults=search_crit.get('adults', 2),
