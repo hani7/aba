@@ -1514,7 +1514,7 @@ msgid "وكالة أبو منية"
 msgstr "Abu Monya Agency"
 
 msgid "لماذا تختار وكالة أبو منية؟"
-msgstr "Why choose Abu Monya Agency?"
+msgstr "Why Choose Abu Monya Agency?"
 
 msgid "تابعنا على"
 msgstr "Follow Us On"
@@ -1581,3 +1581,33 @@ msgstr "Our Services — Abu Monya Agency"
 
 msgid "خدماتنا المميزة"
 msgstr "Our Premium Services"
+
+msgid "المعلومات التي نجمعها"
+msgstr "Information We Collect"
+
+msgid "كيف نستخدم معلوماتك"
+msgstr "How We Use Your Information"
+
+msgid "مشاركة البيانات"
+msgstr "Data Sharing"
+
+msgid "أمن البيانات"
+msgstr "Data Security"
+
+msgid "حقوقك"
+msgstr "Your Rights"
+
+msgid "الخدمات المقدمة"
+msgstr "Services Provided"
+
+msgid "الأسعار والدفع"
+msgstr "Prices and Payment"
+
+msgid "الإلغاء والاسترداد"
+msgstr "Cancellation and Refund"
+
+msgid "جوازات السفر والتأشيرات"
+msgstr "Passports and Visas"
+
+msgid "التعديلات على الشروط"
+msgstr "Amendments to Terms"
