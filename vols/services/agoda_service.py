@@ -223,41 +223,6 @@ def _enrich_hotel(hotel: dict) -> dict:
 # Mock / demo data (used when API keys are not configured yet)
 # ---------------------------------------------------------------------------
 
-MOCK_HOTELS = [
-    # ── DUBAI ──
-    {'hotelId': 10001, 'hotelName': 'Grand Hyatt Dubai',        'cityName': 'Dubai',    'cityId': 1, 'starRating': 5, 'reviewScore': 8.9, 'reviewCount': 4521, 'minPrice': 180.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مسبح', 'مركز لياقة', 'موقف سيارات'], 'address': 'شارع الكورنيش، دبي'},
-    {'hotelId': 10009, 'hotelName': 'Burj Al Arab Dubai',       'cityName': 'Dubai',    'cityId': 1, 'starRating': 7, 'reviewScore': 9.6, 'reviewCount': 6200, 'minPrice': 950.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=300&fit=crop', 'amenities': ['شاطئ خاص', 'هليباد', 'سبا فاخر', 'كونسيرج 24/7'], 'address': 'شارع الجميرا، دبي'},
-    {'hotelId': 10010, 'hotelName': 'Atlantis The Palm Dubai',  'cityName': 'Dubai',    'cityId': 1, 'starRating': 5, 'reviewScore': 8.4, 'reviewCount': 5100, 'minPrice': 320.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=300&fit=crop', 'amenities': ['حديقة مائية', 'شاطئ خاص', 'مطاعم', 'كازينو'], 'address': 'نخلة جميرا، دبي'},
-    # ── PARIS ──
-    {'hotelId': 10002, 'hotelName': 'Sofitel Paris Le Faubourg','cityName': 'Paris',    'cityId': 2, 'starRating': 5, 'reviewScore': 9.1, 'reviewCount': 2870, 'minPrice': 320.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مطعم', 'سبا', 'كونسيرج 24/7'], 'address': '15 Rue Boissy dAnglas, Paris'},
-    {'hotelId': 10011, 'hotelName': 'Le Meurice Paris',         'cityName': 'Paris',    'cityId': 2, 'starRating': 5, 'reviewScore': 9.5, 'reviewCount': 1890, 'minPrice': 680.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=300&fit=crop', 'amenities': ['إطلالة على حديقة التويلري', 'مطعم ميشلان', 'سبا', 'مسبح'], 'address': '228 Rue de Rivoli, Paris'},
-    {'hotelId': 10012, 'hotelName': 'Hôtel Plaza Athénée Paris','cityName': 'Paris',    'cityId': 2, 'starRating': 5, 'reviewScore': 9.2, 'reviewCount': 2400, 'minPrice': 500.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=300&fit=crop', 'amenities': ['إطلالة على برج إيفل', 'مطعم', 'سبا', 'واي فاي مجاني'], 'address': '25 Avenue Montaigne, Paris'},
-    # ── ISTANBUL ──
-    {'hotelId': 10003, 'hotelName': 'Hilton Istanbul Bomonti',  'cityName': 'Istanbul', 'cityId': 3, 'starRating': 5, 'reviewScore': 8.7, 'reviewCount': 3102, 'minPrice': 95.0,  'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مسبح', 'إطلالة على البوسفور', 'مطعم'], 'address': 'Silahşör Cd. 42, Bomonti, Istanbul'},
-    {'hotelId': 10013, 'hotelName': 'Four Seasons Bosphorus',   'cityName': 'Istanbul', 'cityId': 3, 'starRating': 5, 'reviewScore': 9.4, 'reviewCount': 2800, 'minPrice': 350.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1508009603885-247a597a1599?w=600&h=300&fit=crop', 'amenities': ['إطلالة بوسفورية', 'سبا', 'مسبح', 'مطعم فاخر'], 'address': 'Çırağan Cd. 28, Beşiktaş, Istanbul'},
-    {'hotelId': 10014, 'hotelName': 'Raffles Istanbul',         'cityName': 'Istanbul', 'cityId': 3, 'starRating': 5, 'reviewScore': 9.0, 'reviewCount': 1500, 'minPrice': 220.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1533395427226-788cee25cc7b?w=600&h=300&fit=crop', 'amenities': ['سبا', 'مسبح', 'مطعم', 'واي فاي مجاني'], 'address': 'Zorlu Center, Levent, Istanbul'},
-    # ── CAIRO ──
-    {'hotelId': 10004, 'hotelName': 'Marriott Cairo',           'cityName': 'Cairo',    'cityId': 4, 'starRating': 5, 'reviewScore': 8.5, 'reviewCount': 1988, 'minPrice': 120.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مسبح', 'حديقة نيلية', 'مطعم فاخر'], 'address': 'جزيرة الزمالك، القاهرة'},
-    {'hotelId': 10015, 'hotelName': 'Four Seasons Cairo Nile',  'cityName': 'Cairo',    'cityId': 4, 'starRating': 5, 'reviewScore': 9.1, 'reviewCount': 2500, 'minPrice': 200.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=300&fit=crop', 'amenities': ['إطلالة على النيل', 'سبا', 'مسبح', 'مطاعم متعددة'], 'address': '35 شارع شارل ديغول، الجيزة'},
-    {'hotelId': 10016, 'hotelName': 'Kempinski Nile Cairo',     'cityName': 'Cairo',    'cityId': 4, 'starRating': 5, 'reviewScore': 8.8, 'reviewCount': 1600, 'minPrice': 160.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=300&fit=crop', 'amenities': ['إطلالة على النيل', 'واي فاي مجاني', 'مسبح', 'منتجع صحي'], 'address': '12 أحمد رائف، الجيزة'},
-    # ── LONDON ──
-    {'hotelId': 10017, 'hotelName': 'The Ritz London',          'cityName': 'London',   'cityId': 5, 'starRating': 5, 'reviewScore': 9.5, 'reviewCount': 3200, 'minPrice': 850.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مطعم ميشلان', 'بار فاخر', 'كونسيرج'], 'address': '150 Piccadilly, London'},
-    {'hotelId': 10018, 'hotelName': 'Claridges London',         'cityName': 'London',   'cityId': 5, 'starRating': 5, 'reviewScore': 9.3, 'reviewCount': 2900, 'minPrice': 680.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&h=300&fit=crop', 'amenities': ['سبا', 'مطعم', 'واي فاي مجاني', 'صالة رجال أعمال'], 'address': 'Brook Street, Mayfair, London'},
-    # ── RIYADH ──
-    {'hotelId': 10005, 'hotelName': 'The Ritz-Carlton Riyadh',  'cityName': 'Riyadh',   'cityId': 6, 'starRating': 5, 'reviewScore': 9.3, 'reviewCount': 2145, 'minPrice': 250.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'سبا', 'صالة رجال أعمال', 'مسابح متعددة'], 'address': 'طريق الملك عبدالعزيز، الرياض'},
-    {'hotelId': 10019, 'hotelName': 'Four Seasons Riyadh',      'cityName': 'Riyadh',   'cityId': 6, 'starRating': 5, 'reviewScore': 9.0, 'reviewCount': 1800, 'minPrice': 300.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=300&fit=crop', 'amenities': ['سبا', 'مسبح', 'مطعم فاخر', 'واي فاي مجاني'], 'address': 'طريق الملك فهد، الرياض'},
-    # ── DOHA ──
-    {'hotelId': 10006, 'hotelName': 'InterContinental Doha',    'cityName': 'Doha',     'cityId': 7, 'starRating': 5, 'reviewScore': 8.8, 'reviewCount': 1776, 'minPrice': 160.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&h=300&fit=crop', 'amenities': ['شاطئ خاص', 'واي فاي مجاني', 'إطلالة على الخليج', 'مسبح'], 'address': 'شارع الكورنيش، الدوحة'},
-    {'hotelId': 10020, 'hotelName': 'W Doha',                   'cityName': 'Doha',     'cityId': 7, 'starRating': 5, 'reviewScore': 9.0, 'reviewCount': 2100, 'minPrice': 220.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=300&fit=crop', 'amenities': ['مسبح', 'سبا', 'ملهى ليلي', 'واي فاي مجاني'], 'address': 'West Bay, Doha'},
-    # ── MADRID ──
-    {'hotelId': 10007, 'hotelName': 'Four Seasons Madrid',      'cityName': 'Madrid',   'cityId': 9, 'starRating': 5, 'reviewScore': 9.4, 'reviewCount': 987,  'minPrice': 420.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=300&fit=crop', 'amenities': ['سبا فاخر', 'مسبح داخلي', 'مطعم ميشلان', 'واي فاي مجاني'], 'address': 'Calle de Sevilla 3, Madrid'},
-    {'hotelId': 10021, 'hotelName': 'Mandarin Oriental Madrid', 'cityName': 'Madrid',   'cityId': 9, 'starRating': 5, 'reviewScore': 9.2, 'reviewCount': 1200, 'minPrice': 550.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=300&fit=crop', 'amenities': ['سبا', 'مطعم', 'بار على السطح', 'واي فاي مجاني'], 'address': 'Paseo de la Castellana 200, Madrid'},
-    # ── BANGKOK ──
-    {'hotelId': 10008, 'hotelName': 'Park Hyatt Bangkok',       'cityName': 'Bangkok',  'cityId': 8, 'starRating': 5, 'reviewScore': 9.0, 'reviewCount': 3321, 'minPrice': 75.0,  'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1508009603885-247a597a1599?w=600&h=300&fit=crop', 'amenities': ['واي فاي مجاني', 'مسبح على السطح', 'منتجع صحي', 'مطعم'], 'address': 'Wireless Road, Pathumwan, Bangkok'},
-    {'hotelId': 10022, 'hotelName': 'Mandarin Oriental Bangkok', 'cityName': 'Bangkok', 'cityId': 8, 'starRating': 5, 'reviewScore': 9.3, 'reviewCount': 4100, 'minPrice': 180.0, 'currency': 'USD', 'imageUrl': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=300&fit=crop', 'amenities': ['نادي نهري', 'سبا', 'مطاعم متعددة', 'واي فاي مجاني'], 'address': '48 Oriental Avenue, Bangkok'},
-]
-
-# Map city_id (from _mock_destinations) to cityName in MOCK_HOTELS
 _CITY_ID_MAP = {
     1: 'Dubai', 2: 'Paris', 3: 'Istanbul', 4: 'Cairo',
     5: 'London', 6: 'Riyadh', 7: 'Doha', 8: 'Bangkok',
@@ -266,6 +231,53 @@ _CITY_ID_MAP = {
     17: 'New York', 18: 'Barcelona', 19: 'Rome', 20: 'Amsterdam',
     21: 'Singapore', 22: 'Muscat', 23: 'Amman', 24: 'Khartoum',
 }
+
+def _generate_bulk_hotels():
+    import random
+    brands = ['Hilton', 'Marriott', 'Sheraton', 'Radisson', 'Hyatt', 'InterContinental', 'Novotel', 'Sofitel', 'Ibis', 'Grand', 'Royal', 'Mercure', 'Ramada', 'Holiday Inn', 'Westin', 'Four Seasons', 'Kempinski', 'Mövenpick']
+    types = ['Hotel', 'Resort', 'Palace', 'Suites', 'Plaza', 'Towers', 'Inn', 'Gardens', 'Residence']
+    landmarks = ['Central', 'Downtown', 'Airport', 'Beach', 'Old City', 'Skyline', 'Riverside', 'Station', 'Park Side']
+    
+    amenities_pool = ['واي فاي مجاني', 'مسبح', 'مركز لياقة', 'موقف سيارات', 'سبا', 'مطعم فاخر', 'إفطار مجاني', 'خدمة غرف', 'صالة رجال أعمال']
+    
+    final_list = []
+    base_id = 10000
+    
+    for city_id, city_name in _CITY_ID_MAP.items():
+        # Generate 25 hotels per city
+        for i in range(25):
+            brand = random.choice(brands)
+            type_str = random.choice(types)
+            landmark = random.choice(landmarks)
+            
+            # Mix them up
+            if i % 3 == 0:
+                hotel_name = f"{brand} {city_name} {landmark}"
+            elif i % 3 == 1:
+                hotel_name = f"{landmark} {brand} {type_str}"
+            else:
+                hotel_name = f"{city_name} {brand} {type_str}"
+                
+            hotel_id = base_id + (city_id * 100) + i
+            
+            final_list.append({
+                'hotelId': hotel_id,
+                'hotelName': hotel_name,
+                'cityName': city_name,
+                'cityId': city_id,
+                'starRating': random.choice([3, 4, 5, 5]),
+                'reviewScore': round(random.uniform(7.5, 9.8), 1),
+                'reviewCount': random.randint(100, 8000),
+                'minPrice': random.randint(60, 600) + 0.0,
+                'currency': 'USD',
+                'imageUrl': f'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop&sig={hotel_id}',
+                'amenities': random.sample(amenities_pool, random.randint(3, 6)),
+                'address': f'شارع الرئيسي، {city_name}'
+            })
+            
+    return final_list
+
+MOCK_HOTELS = _generate_bulk_hotels()
 
 
 def _mock_hotels(city_id, check_in, check_out, adults):
@@ -297,7 +309,7 @@ def _mock_hotels(city_id, check_in, check_out, adults):
 
     # If no specific city found in mocks, return a generic subset to avoid empty screen
     if not result:
-        for h in MOCK_HOTELS[:3]:
+        for h in MOCK_HOTELS[:20]:
             hotel = dict(h)
             min_price = float(str(hotel.get('minPrice', 0)))
             total = round(min_price * nights, 2)
