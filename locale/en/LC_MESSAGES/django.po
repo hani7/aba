@@ -769,16 +769,16 @@ msgid "الوجهة"
 msgstr "To"
 
 msgid "مثل: باريس، LHR، JFK"
-msgstr ""
+msgstr "E.g. Paris, LHR, JFK"
 
 msgid "مثل: لندن، DXB"
-msgstr ""
+msgstr "E.g. London, DXB"
 
 msgid "تاريخ (الذهاب)"
-msgstr ""
+msgstr "Departure Date"
 
 msgid "تاريخ (العودة)"
-msgstr ""
+msgstr "Return Date"
 
 msgid "إضافة رحلة"
 msgstr "Add Flight"
@@ -790,37 +790,37 @@ msgid "بالغ واحد"
 msgstr "1 Adult"
 
 msgid "بالغان"
-msgstr ""
+msgstr "2 Adults"
 
 msgid "3 بالغين"
-msgstr ""
+msgstr "3 Adults"
 
 msgid "4 بالغين"
-msgstr ""
+msgstr "4 Adults"
 
 msgid "5 بالغين"
-msgstr ""
+msgstr "5 Adults"
 
 msgid "الدرجة"
 msgstr "Class"
 
 msgid "سياحية"
-msgstr ""
+msgstr "Economy"
 
 msgid "سياحية ممتازة"
-msgstr ""
+msgstr "Premium Economy"
 
 msgid "أعمال"
-msgstr ""
+msgstr "Business Class"
 
 msgid "أولى"
-msgstr ""
+msgstr "First Class"
 
 msgid "أضف فندقاً لرحلتي"
 msgstr ""
 
 msgid "ابحث عن رحلات"
-msgstr ""
+msgstr "Search Flights"
 
 msgid "جاري البحث..."
 msgstr ""
@@ -1076,193 +1076,193 @@ msgid "القاهرة"
 msgstr "Cairo"
 
 msgid "🇪🇬 مصر"
-msgstr ""
+msgstr "🇪🇬 Egypt"
 
 msgid "CAI · أهرامات الجيزة"
-msgstr ""
+msgstr "CAI · Giza Pyramids"
 
 msgid "باريس"
 msgstr "Paris"
 
 msgid "🇫🇷 فرنسا"
-msgstr ""
+msgstr "🇫🇷 France"
 
 msgid "CDG · برج إيفل"
-msgstr ""
+msgstr "CDG · Eiffel Tower"
 
 msgid "دبي"
 msgstr "Dubai"
 
 msgid "🇦🇪 الإمارات"
-msgstr ""
+msgstr "🇦🇪 UAE"
 
 msgid "DXB · برج خليفة"
-msgstr ""
+msgstr "DXB · Burj Khalifa"
 
 msgid "إسطنبول"
 msgstr "Istanbul"
 
 msgid "🇹🇷 تركيا"
-msgstr ""
+msgstr "🇹🇷 Turkey"
 
 msgid "IST · المسجد الأزرق"
-msgstr ""
+msgstr "IST · Blue Mosque"
 
 msgid "لندن"
 msgstr "London"
 
 msgid "🇬🇧 المملكة المتحدة"
-msgstr ""
+msgstr "🇬🇧 UK"
 
 msgid "LHR · بيغ بن"
-msgstr ""
+msgstr "LHR · Big Ben"
 
 msgid "روما"
 msgstr "Rome"
 
 msgid "🇮🇹 إيطاليا"
-msgstr ""
+msgstr "🇮🇹 Italy"
 
 msgid "FCO · الكولوسيوم"
-msgstr ""
+msgstr "FCO · Colosseum"
 
 msgid "الدوحة"
 msgstr "Doha"
 
 msgid "🇶🇦 قطر"
-msgstr ""
+msgstr "🇶🇦 Qatar"
 
 msgid "DOH · أفق المدينة"
-msgstr ""
+msgstr "DOH · City Skyline"
 
 msgid "مدريد"
 msgstr "Madrid"
 
 msgid "🇪🇸 إسبانيا"
-msgstr ""
+msgstr "🇪🇸 Spain"
 
 msgid "MAD · القصر الملكي"
-msgstr ""
+msgstr "MAD · Royal Palace"
 
 msgid "مراكش"
 msgstr "Marrakech"
 
 msgid "🇲🇦 المغرب"
-msgstr ""
+msgstr "🇲🇦 Morocco"
 
 msgid "CMN · المدينة العتيقة"
-msgstr ""
+msgstr "CMN · Medina"
 
 msgid "نيويورك"
 msgstr "New York"
 
 msgid "🇺🇸 الولايات المتحدة"
-msgstr ""
+msgstr "🇺🇸 USA"
 
 msgid "JFK · مانهاتن"
-msgstr ""
+msgstr "JFK · Manhattan"
 
 msgid "طوكيو"
 msgstr "Tokyo"
 
 msgid "🇯🇵 اليابان"
-msgstr ""
+msgstr "🇯🇵 Japan"
 
 msgid "NRT · برج طوكيو"
-msgstr ""
+msgstr "NRT · Tokyo Tower"
 
 msgid "برشلونة"
 msgstr "Barcelona"
 
 msgid "BCN · ساغرادا فاميليا"
-msgstr ""
+msgstr "BCN · Sagrada Família"
 
 msgid "أمستردام"
 msgstr "Amsterdam"
 
 msgid "🇳🇱 هولندا"
-msgstr ""
+msgstr "🇳🇱 Netherlands"
 
 msgid "AMS · القنوات التاريخية"
-msgstr ""
+msgstr "AMS · Historic Canals"
 
 msgid "الرياض"
 msgstr "Riyadh"
 
 msgid "🇸🇦 السعودية"
-msgstr ""
+msgstr "🇸🇦 Saudi Arabia"
 
 msgid "RUH · المملكة العربية"
-msgstr ""
+msgstr "RUH · Kingdom of Arabia"
 
 msgid "أديس أبابا"
 msgstr "Addis Ababa"
 
 msgid "🇪🇹 إثيوبيا"
-msgstr ""
+msgstr "🇪🇹 Ethiopia"
 
 msgid "ADD · القلب الأفريقي"
-msgstr ""
+msgstr "ADD · Heart of Africa"
 
 msgid "الكويت"
 msgstr "Kuwait City"
 
 msgid "🇰🇼 الكويت"
-msgstr ""
+msgstr "🇰🇼 Kuwait"
 
 msgid "KWI · أبراج الكويت"
-msgstr ""
+msgstr "KWI · Kuwait Towers"
 
 msgid "سنغافورة"
 msgstr "Singapore"
 
 msgid "🇸🇬 سنغافورة"
-msgstr ""
+msgstr "🇸🇬 Singapore"
 
 msgid "SIN · مارينا باي"
-msgstr ""
+msgstr "SIN · Marina Bay"
 
 msgid "كوالالمبور"
 msgstr "Kuala Lumpur"
 
 msgid "🇲🇾 ماليزيا"
-msgstr ""
+msgstr "🇲🇾 Malaysia"
 
 msgid "KUL · برجا بتروناس"
-msgstr ""
+msgstr "KUL · Petronas Towers"
 
 msgid "بانكوك"
 msgstr "Bangkok"
 
 msgid "🇹🇭 تايلاند"
-msgstr ""
+msgstr "🇹🇭 Thailand"
 
 msgid "BKK · وات أرون"
-msgstr ""
+msgstr "BKK · Wat Arun"
 
 msgid "جدة"
 msgstr "Jeddah"
 
 msgid "JED · نافورة الملك فهد"
-msgstr ""
+msgstr "JED · King Fahd Fountain"
 
 msgid "عمّان"
 msgstr "Amman"
 
 msgid "🇯🇴 الأردن"
-msgstr ""
+msgstr "🇯🇴 Jordan"
 
 msgid "AMM · المدرج الروماني"
-msgstr ""
+msgstr "AMM · Roman Theatre"
 
 msgid "الجزائر"
 msgstr "Algiers"
 
 msgid "🇩🇿 الجزائر"
-msgstr ""
+msgstr "🇩🇿 Algeria"
 
 msgid "ALG · مقام الشهيد"
-msgstr ""
+msgstr "ALG · Martyrs' Memorial"
 
 msgid "أبو منية للسياحة"
 msgstr "Abu Monya Tourism"
