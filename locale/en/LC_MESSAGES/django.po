@@ -1327,7 +1327,7 @@ msgid "الوجهات السياحية"
 msgstr "Destinations"
 
 msgid "نشاطاتنا"
-msgstr "Our Activities"
+msgstr "Activities"
 
 msgid "حجز الفنادق"
 msgstr "Hotel Booking"
