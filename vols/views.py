@@ -844,11 +844,15 @@ def hotel_book(request):
     if request.method != 'POST':
         return redirect('vols:home')
         
+    def to_float(val):
+        if not val: return 0.0
+        return float(str(val).replace(',', '.'))
+
     hotel_id = int(request.POST.get('hotel_id'))
     hotel_name = request.POST.get('hotel_name')
-    room_price = float(request.POST.get('room_price', 0))
-    markup_amount = float(request.POST.get('markup_amount', 0))
-    customer_price = float(request.POST.get('customer_price', 0))
+    room_price = to_float(request.POST.get('room_price', 0))
+    markup_amount = to_float(request.POST.get('markup_amount', 0))
+    customer_price = to_float(request.POST.get('customer_price', 0))
     
     guest_name = request.POST.get('guest_name')
     guest_email = request.POST.get('guest_email', '')
@@ -880,7 +884,7 @@ def hotel_book(request):
         rooms=search_crit.get('rooms', 1),
         
         cost_price=room_price,
-        markup_pct=booking_service.HOTEL_MARKUP_PCT,
+        markup_pct=agoda_service.HOTEL_MARKUP_PCT,
         markup_amount=markup_amount,
         customer_price=customer_price,
         currency='USD',

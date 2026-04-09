@@ -260,6 +260,38 @@ def _generate_bulk_hotels():
                 
             hotel_id = base_id + (city_id * 100) + i
             
+            # Curated list of high-quality Unsplash Photo IDs for real-looking hotels
+            hotel_photo_ids = [
+                '1566073771259-6a8506099945', '1542314831-068cd1dbfeeb', '1571896349842-33c89424de2d',
+                '1611892440504-42a792e24d32', '1582719478250-c89cae4dc85b', '1520250497591-112f2f40a3f4',
+                '1445019980597-93fa8acb246c', '1551882547-ff40c63fe5fa', '1512453979798-5ea266f8880c',
+                '1584551246679-0daf3d275d0f', '1564501049412-61c2a3083791', '1578683062331-ccd87878d6e3',
+                '1590073242672-2f08ec9651ad', '1618773928121-c32242e8173c', '1535827841776-24afc1e255ac'
+            ]
+            
+            # Multi-photo gallery keywords based on city
+            city_keywords = {
+                'Dubai': 'dubai,luxury,hotel',
+                'Paris': 'paris,hotel,view',
+                'London': 'london,hotel,luxury',
+                'Istanbul': 'istanbul,hotel,bosphorus',
+                'Cairo': 'cairo,hotel,nile',
+                'Riyadh': 'riyadh,modern,hotel',
+                'Doha': 'doha,hotel,luxury',
+                'Algiers': 'algiers,architecture,hotel',
+                'Casablanca': 'casablanca,hotel,modern',
+                'Marrakech': 'marrakech,hotel,riad',
+                'Barcelona': 'barcelona,hotel,beach'
+            }
+            kw = city_keywords.get(city_name, 'hotel,luxury,room')
+            
+            # Select 5 unique photos from the pool of IDs
+            selected_ids = random.sample(hotel_photo_ids, 5)
+            images = [
+                f'https://images.unsplash.com/photo-{pid}?w=1200&h=800&fit=crop&q=80&sig={hotel_id}-{j}'
+                for j, pid in enumerate(selected_ids)
+            ]
+            
             final_list.append({
                 'hotelId': hotel_id,
                 'hotelName': hotel_name,
@@ -270,7 +302,8 @@ def _generate_bulk_hotels():
                 'reviewCount': random.randint(100, 8000),
                 'minPrice': random.randint(60, 600) + 0.0,
                 'currency': 'USD',
-                'imageUrl': f'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop&sig={hotel_id}',
+                'imageUrl': images[0],
+                'images': images,
                 'amenities': random.sample(amenities_pool, random.randint(3, 6)),
                 'address': f'شارع الرئيسي، {city_name}'
             })

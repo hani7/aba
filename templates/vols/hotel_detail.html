@@ -30,10 +30,38 @@
     </div>
   </div>
 
-  <!-- Images Gallery (Simplified) -->
-  <div class="hotel-gallery" style="margin-bottom:2rem; height:400px; border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.1);">
-    <img src="{{ hotel.imageUrl|default:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop' }}" alt="{{ hotel.hotelName }}" style="width:100%; height:100%; object-fit:cover;">
+  <!-- Realistic Multi-Photo Gallery -->
+  <div class="hotel-gallery-container" style="margin-bottom:2.5rem;">
+    <!-- Main Image -->
+    <div class="hotel-main-image" style="height:450px; border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.15); margin-bottom:12px;">
+      <img id="mainHotelImage" src="{{ hotel.imageUrl }}" alt="{{ hotel.hotelName }}" style="width:100%; height:100%; object-fit:cover; transition: opacity 0.3s ease;">
+    </div>
+    
+    <!-- Thumbnails -->
+    <div class="hotel-thumbnails" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:10px;">
+      {% for img_url in hotel.images %}
+      <div class="thumb-wrap" style="flex:0 0 100px; height:70px; border-radius:8px; overflow:hidden; cursor:pointer; border:2px solid {% if forloop.first %}var(--primary){% else %}transparent{% endif %}; transition:all 0.2s;" 
+           onclick="changeHotelImage(this, '{{ img_url }}')">
+        <img src="{{ img_url }}" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      {% endfor %}
+    </div>
   </div>
+
+  <script>
+    function changeHotelImage(thumb, url) {
+      const mainImg = document.getElementById('mainHotelImage');
+      mainImg.style.opacity = '0.5';
+      setTimeout(() => {
+        mainImg.src = url;
+        mainImg.style.opacity = '1';
+      }, 150);
+      
+      // Update border
+      document.querySelectorAll('.thumb-wrap').forEach(t => t.style.borderColor = 'transparent');
+      thumb.style.borderColor = 'var(--primary)';
+    }
+  </script>
 
   <!-- Description & Amenities -->
   <div class="hotel-info-grid" style="display:grid; grid-template-columns:2fr 1fr; gap:2rem; margin-bottom:3rem;">
@@ -81,22 +109,10 @@
         <p style="font-size:0.9rem; color:#666; margin:0 0 5px 0;">{% trans "السعر لـ" %} {{ hotel.nights }} {% trans "ليالي" %}</p>
         <h3 style="margin:0 0 15px 0; font-size:1.8rem; color:var(--primary);" data-eur="{{ room.pricing.customer_price|floatformat:2 }}">{{ room.pricing.customer_price|floatformat:2 }} USD</h3>
         
-        <!-- Booking Form -->
-        <form method="POST" action="{% url 'vols:hotel_book' %}">
-          {% csrf_token %}
-          <input type="hidden" name="hotel_id" value="{{ hotel.hotelId }}">
-          <input type="hidden" name="hotel_name" value="{{ hotel.hotelName }}">
-          <input type="hidden" name="room_price" value="{{ room.pricing.original_price }}">
-          <input type="hidden" name="markup_amount" value="{{ room.pricing.markup_amount }}">
-          <input type="hidden" name="customer_price" value="{{ room.pricing.customer_price }}">
-          
-          <button type="button" class="btn-primary" onclick="openBookingModal(this)" style="background:var(--primary); color:#fff; border:none; padding:10px 24px; border-radius:6px; font-weight:bold; cursor:pointer; width:100%;">
-            {% trans "احجز الآن" %}
-          </button>
-
-          <!-- Hidden Modal Fields (to be picked up by the modal) -->
-          <div class="modal-data" style="display:none;"></div>
-        </form>
+        <!-- Direct Booking Link (Bypassing internal cart) -->
+        <a href="{{ hotel.booking_url }}" target="_blank" class="btn-primary" style="display:block; text-align:center; text-decoration:none; background:var(--primary); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:bold; width:100%; transition: transform 0.2s, box-shadow 0.2s;">
+          {% trans "حجز الغرفة الآن" %}
+        </a>
       </div>
     </div>
     {% empty %}
@@ -104,73 +120,6 @@
     {% endfor %}
   </div>
 </div>
-
-<!-- Booking Details Modal -->
-<div id="bookingModal" class="modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-  <div class="modal-content" style="background:#fff; padding:2rem; border-radius:12px; width:90%; max-width:500px; box-shadow:0 10px 30px rgba(0,0,0,0.2);">
-    <h2 style="color:var(--primary); margin-top:0;">{% trans "إتمام الحجز" %}</h2>
-    <p style="color:#666; margin-bottom:1.5rem;">{% trans "يرجى إدخال بيانات الضيف الأساسي لتأكيد الحجز" %}.</p>
-    
-    <div id="modalFormContainer">
-      <!-- The form will be cloned here via JS -->
-    </div>
-    
-    <div style="margin-top:1.5rem; text-align:left;">
-      <button type="button" onclick="closeBookingModal()" style="background:#eee; color:#333; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; margin-left:10px;">{% trans "إلغاء" %}</button>
-      <button type="button" onclick="submitBooking()" style="background:var(--gold); color:#fff; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">{% trans "تأكيد والمتابعة للدفع" %}</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentForm = null;
-
-  function openBookingModal(btn) {
-    const form = btn.closest('form');
-    currentForm = form;
-    
-    const container = document.getElementById('modalFormContainer');
-    
-    // Create guest input fields
-    const html = `
-      <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "الاسم الكامل (كما في جواز السفر" %})</label>
-        <input type="text" id="guest_name" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box;">
-      </div>
-      <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "البريد الإلكتروني" %}</label>
-        <input type="email" id="guest_email" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box;">
-      </div>
-      <div style="margin-bottom:15px;">
-        <label style="display:block; margin-bottom:5px; font-weight:bold; color:#555;">{% trans "رقم الهاتف" %}</label>
-        <input type="tel" id="guest_phone" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box; text-align:left;" dir="ltr" placeholder="+XXX XXXXXXXX">
-      </div>
-    `;
-    
-    container.innerHTML = html;
-    document.getElementById('bookingModal').style.display = 'flex';
-  }
-
-  function closeBookingModal() {
-    document.getElementById('bookingModal').style.display = 'none';
-    currentForm = null;
-  }
-
-  function submitBooking() {
-    if (!currentForm) return;
-    
-    const name = document.getElementById('guest_name').value;
-    const email = document.getElementById('guest_email').value;
-    const phone = document.getElementById('guest_phone').value;
-    
-    if (!name || !email || !phone) {
-      alert('{% trans "يرجى ملء جميع الحقول المطلوبة" %}');
-      return;
-    }
-    
-    // Append guest data to the original form
-    const addInput = (name, value) => {
-      let input = document.createElement('input');
       input.type = 'hidden';
       input.name = name;
       input.value = value;
