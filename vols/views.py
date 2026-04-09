@@ -56,7 +56,7 @@ DESTINATIONS_LIST = [
     {'iata': 'IST', 'name_ar': _('إسطنبول'),  'badge': _('🇹🇷 تركيا'),           'desc': _('IST · المسجد الأزرق'),     'image': 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&h=300&fit=crop&q=80'},
     {'iata': 'LHR', 'name_ar': _('لندن'),     'badge': _('🇬🇧 المملكة المتحدة'), 'desc': _('LHR · بيغ بن'),            'image': 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=300&fit=crop&q=80'},
     {'iata': 'FCO', 'name_ar': _('روما'),     'badge': _('🇮🇹 إيطاليا'),         'desc': _('FCO · الكولوسيوم'),        'image': 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'DOH', 'name_ar': _('الدوحة'),   'badge': _('🇶🇦 قطر'),             'desc': _('DOH · أفق المدينة'),       'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Doha_-_West_Bay_Skyline_03.jpg/960px-Doha_-_West_Bay_Skyline_03.jpg'},
+    {'iata': 'DOH', 'name_ar': _('الدوحة'),   'badge': _('🇶🇦 قطر'),             'desc': _('DOH · أفق المدينة'),       'image': '/static/img/doha.jpg'},
     {'iata': 'MAD', 'name_ar': _('مدريد'),    'badge': _('🇪🇸 إسبانيا'),         'desc': _('MAD · القصر الملكي'),      'image': 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=300&fit=crop&q=80'},
     {'iata': 'CMN', 'name_ar': _('مراكش'),    'badge': _('🇲🇦 المغرب'),          'desc': _('CMN · المدينة العتيقة'),   'image': 'https://images.unsplash.com/photo-1533167649158-6d508895b680?w=600&h=300&fit=crop&q=80'},
     {'iata': 'JFK', 'name_ar': _('نيويورك'),  'badge': _('🇺🇸 الولايات المتحدة'),'desc': _('JFK · مانهاتن'),           'image': 'https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=600&h=300&fit=crop&q=80'},
@@ -69,7 +69,7 @@ DESTINATIONS_LIST = [
     {'iata': 'SIN', 'name_ar': _('سنغافورة'), 'badge': _('🇸🇬 سنغافورة'),        'desc': _('SIN · مارينا باي'),        'image': 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&h=300&fit=crop&q=80'},
     {'iata': 'KUL', 'name_ar': _('كوالالمبور'),'badge': _('🇲🇾 ماليزيا'),         'desc': _('KUL · برجا بتروناس'),      'image': 'https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=600&h=300&fit=crop&q=80'},
     {'iata': 'BKK', 'name_ar': _('بانكوك'),   'badge': _('🇹🇭 تايلاند'),         'desc': _('BKK · وات أرون'),          'image': 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&h=300&fit=crop&q=80'},
-    {'iata': 'ALG', 'name_ar': _('الجزائر'),  'badge': _('🇩🇿 الجزائر'),         'desc': _('ALG · مقام الشهيد'),       'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Martyrs_Memorial._Algiers%2C_Algeria.jpg/960px-Martyrs_Memorial._Algiers%2C_Algeria.jpg'},
+    {'iata': 'ALG', 'name_ar': _('الجزائر'),  'badge': _('🇩🇿 الجزائر'),         'desc': _('ALG · مقام الشهيد'),       'image': '/static/img/algiers.jpg'},
     {'iata': 'AMM', 'name_ar': _('عمّان'),    'badge': _('🇯🇴 الأردن'),          'desc': _('AMM · المدرج الروماني'),   'image': 'https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?w=600&h=300&fit=crop&q=80'},
 ]
 
