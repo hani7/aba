@@ -20,9 +20,9 @@
     <p class="hero-subtitle">
       {% trans "قارنوا آلاف العروض من أكبر شركات الطيران — بأسعار مضمونة وتجربة سهلة." %}
     </p>
-    <div class="search-tabs" style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;" id="hotels">
+    <div class="search-tabs" style="display:none; justify-content:center; gap:10px; margin-bottom:15px;" id="hotels">
       <button class="btn search-tab active" id="tab-flights" onclick="switchTab('flights')" style="background:var(--primary); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer;">✈ {% trans "رحلات الطيران" %}</button>
-      <button class="btn search-tab" id="tab-hotels" onclick="switchTab('hotels')" style="background:rgba(255,255,255,0.2); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer; backdrop-filter:blur(10px);">🏨 {% trans "فنادق" %}</button>
+      <button class="btn search-tab" id="tab-hotels" onclick="switchTab('hotels')" style="display:none; background:rgba(255,255,255,0.2); color:#fff; border-radius:100px; padding:10px 24px; border:none; font-weight:bold; cursor:pointer; backdrop-filter:blur(10px);">🏨 {% trans "فنادق" %}</button>
     </div>
     
     <div id="flights-tab">
