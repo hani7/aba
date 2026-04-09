@@ -14,7 +14,7 @@
       {% for dest in destinations %}
       <div class="dest-card" style="cursor: pointer; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
         <div class="dest-img" style="height: 200px; background-image: url('{{ dest.image }}'); background-size: cover; background-position: center; position: relative;">
-          <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); color: #fff; padding: 4px 12px; border-radius: 99px; font-size: 0.85rem; font-weight: 700;">
+          <div style="position: absolute; top: 15px; inset-inline-start: 15px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); color: #fff; padding: 4px 12px; border-radius: 99px; font-size: 0.85rem; font-weight: 700;">
             {{ dest.badge }}
           </div>
         </div>

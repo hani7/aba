@@ -1518,3 +1518,26 @@ input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity
     text-align: center !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   RTL (Right-to-Left) OVERRIDES for Arabic
+   ═══════════════════════════════════════════════════════════════ */
+
+[dir='rtl'] body { text-align: right; }
+[dir='rtl'] .alert { border-left: none; border-right: 4px solid; }
+[dir='rtl'] .offer-card::before { left: auto; right: 0; border-radius: 0 3px 3px 0; }
+[dir='rtl'] .offer-price { border-right: none; border-left: 1.5px solid var(--border); }
+[dir='rtl'] .offer-price::after { right: auto; left: 0; }
+[dir='rtl'] .fi { left: auto; right: 13px; }
+[dir='rtl'] .input-icon-wrap .field-input { padding-left: 16px !important; padding-right: 40px !important; }
+[dir='rtl'] .autocomplete-dropdown { left: auto; right: 0; }
+[dir='rtl'] .nav-link::after { left: auto; right: 50%; }
+[dir='rtl'] .feature-card::before { transform-origin: left; }
+[dir='rtl'] .feature-card:hover::before { transform-origin: right; }
+[dir='rtl'] .footer-col { text-align: right; }
+[dir='rtl'] .legal-content { text-align: right; }
+[dir='rtl'] .legal-content h3 { text-align: right; }
+[dir='rtl'] .faq-header { flex-direction: row-reverse; }
+[dir='rtl'] .faq-body > div { text-align: right; }
+[dir='rtl'] .dest-info { text-align: right; }
+[dir='rtl'] .dest-info > div { flex-direction: row-reverse; }
