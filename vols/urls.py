@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/admin/bookings/', views.api_admin_bookings, name='api_admin_bookings'),
     path('api/admin/clients/', views.api_admin_clients, name='api_admin_clients'),
     path('api/admin/bookings/<int:booking_id>/cancel/', views.api_admin_cancel_booking, name='api_admin_cancel_booking'),
+    path('api/admin/bookings/<int:booking_id>/issue/', views.api_admin_issue_booking, name='api_admin_issue_booking'),
     path('api/admin/ticket/<int:booking_id>/pdf/', views.generate_ticket_pdf, name='generate_ticket_pdf'),
     
     # ── React Dashboard (Vanilla/Babel) ──────────────────────────────────

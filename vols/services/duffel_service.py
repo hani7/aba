@@ -80,7 +80,7 @@ def get_offer(offer_id):
     return resp.json().get('data', {})
 
 
-def create_order(offer_id, passengers_data, total_amount, currency):
+def create_order(offer_id, passengers_data, total_amount, currency, hold=False):
     """
     Create a booking (order) for the given offer.
     passengers_data: list of dicts with passenger info.
@@ -89,16 +89,19 @@ def create_order(offer_id, passengers_data, total_amount, currency):
         'data': {
             'selected_offers': [offer_id],
             'passengers': passengers_data,
-            'payments': [
-                {
-                    'type': 'balance',
-                    'currency': currency,
-                    'amount': str(total_amount),
-                }
-            ],
-            'type': 'instant',
+            'type': 'hold' if hold else 'instant',
         }
     }
+    
+    # If instant, must provide payment info to issue the ticket immediately
+    if not hold:
+        payload['data']['payments'] = [
+            {
+                'type': 'balance',
+                'currency': currency,
+                'amount': str(total_amount),
+            }
+        ]
     print(f"DEBUG DUFFEL CREATE_ORDER PAYLOAD: {payload}")
     resp = requests.post(
         f'{DUFFEL_API_URL}/air/orders',
@@ -125,6 +128,33 @@ def create_order(offer_id, passengers_data, total_amount, currency):
 
     if resp.status_code not in (200, 201):
         raise Exception(f"Duffel API Error {resp.status_code}: {resp.text}")
+
+    return resp.json().get('data', {})
+
+
+def issue_ticket(order_id, total_amount, currency):
+    """
+    Pay for a previously held order using the agency balance to issue the ticket.
+    """
+    payload = {
+        "data": {
+            "payment": {
+                "type": "balance",
+                "amount": str(total_amount),
+                "currency": currency
+            }
+        }
+    }
+    
+    resp = requests.post(
+        f'{DUFFEL_API_URL}/air/orders/{order_id}/payments',
+        json=payload,
+        headers=_headers(),
+        timeout=60,
+    )
+
+    if resp.status_code not in (200, 201):
+        raise Exception(f"Failed to issue ticket! Duffel error {resp.status_code}: {resp.text}")
 
     return resp.json().get('data', {})
 

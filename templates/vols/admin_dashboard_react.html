@@ -576,6 +576,18 @@
                 setCanceling(null);
             };
 
+            const handleIssue = async (id) => {
+                if(!confirm("احذر: هذا الإجراء سيقوم بخصم المبلغ من رصيد الوكالة في Duffel وإصدار التذكرة للعميل! هل أنت متأكد أن العميل حوّل المبلغ؟")) return;
+                setCanceling(id); // Reusing the canceling state just to disable buttons during loading
+                try {
+                    const res = await fetch(`/api/admin/bookings/${id}/issue/`, { method: 'POST' });
+                    const data = await res.json();
+                    if(data.error) alert(data.error);
+                    else { alert(data.msg || "تم إصدار التذكرة بنجاح"); fetchBookings(); }
+                } catch(e) { alert("خطأ في السيرفر"); }
+                setCanceling(null);
+            };
+
             if (loader) return <div className="loader">جاري استرداد رحلات الطيران...</div>;
 
             return (
@@ -606,12 +618,12 @@
                                         <td><span dir="ltr">{b.date}</span></td>
                                         <td>$ {b.amount}</td>
                                         <td>
-                                            <span className={`badge ${b.status === 'confirmed' ? 'bg-ok' : 'bg-err'}`}>
-                                                {b.status === 'confirmed' ? 'مؤكد' : 'ملغى'}
+                                            <span className={`badge ${b.status === 'confirmed' || b.status === 'paid' ? 'bg-ok' : (b.status === 'pending' ? 'bg-warn' : 'bg-err')}`} style={b.status === 'pending' ? {backgroundColor: '#f59e0b'} : {}}>
+                                                {b.status === 'confirmed' ? 'مؤكد' : (b.status === 'paid' ? 'تم الدفع' : (b.status === 'pending' ? 'بانتظار الدفع' : 'ملغى'))}
                                             </span>
                                         </td>
                                         <td style={{display:'flex', gap:'8px', flexWrap:'wrap', justifyContent:'flex-end'}}>
-                                            {b.status === 'confirmed' && (
+                                            {(b.status === 'confirmed' || b.status === 'paid' || b.status === 'pending') && (
                                                 <>
                                                     <button className="btn-cancel" style={{borderColor:'#10b981', color:'#10b981'}} onClick={() => setActiveTicket(b)}>
                                                         التذكرة 🎫
@@ -621,8 +633,13 @@
                                                     </button>
                                                 </>
                                             )}
+                                            {b.status === 'pending' && (
+                                                <button className="btn-cancel" style={{background:'#10b981', color:'#fff', borderColor:'#10b981', fontWeight: 'bold'}} disabled={canceling === b.id} onClick={() => handleIssue(b.id)}>
+                                                    {canceling === b.id ? '...' : 'إصدار التذكرة ✅'}
+                                                </button>
+                                            )}
                                             {/* Cancel stays for everyone (or specifically confirmed/pending) */}
-                                            {b.status === 'confirmed' && (
+                                            {(b.status === 'confirmed' || b.status === 'paid' || b.status === 'pending') && (
                                                 <button className="btn-cancel" disabled={canceling === b.id} onClick={() => handleCancel(b.id)}>
                                                     {canceling === b.id ? '...' : 'إلغاء 🗑'}
                                                 </button>

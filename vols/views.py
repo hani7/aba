@@ -605,8 +605,14 @@ def confirm_booking(request):
         markup_amount = offer.get('custom_markup_amount', 0)
         total_customer_price = float(offer['total_amount'])
 
-        # Step 1: Book the ticket immediately with Duffel
-        order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'])
+        # Step 1: Check Payment Requirements
+        requires_instant = offer.get('payment_requirements', {}).get('requires_instant_payment', False)
+        if requires_instant:
+            messages.error(request, "عذراً، رحلات هذا الطيران تتطلب الدفع الإلكتروني الفوري للإصدار (Low Cost) ولا تدعم الحجز المؤقت للتحويل البنكي. يرجى تعديل البحث لمعظم الطيران النظامي.")
+            return redirect('vols:passenger_details', offer_id=offer_id)
+
+        # Step 2: Hold the ticket with Duffel
+        order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'], hold=True)
 
         # Step 2: Save confirmed booking to DB
         first_slice = offer.get('slices', [{}])[0]
@@ -625,7 +631,7 @@ def confirm_booking(request):
             total_amount=total_customer_price,
             markup_amount=float(markup_amount),
             currency=offer.get('total_currency', 'USD'),
-            status='confirmed',
+            status='pending',
         )
 
         for idx, p in enumerate(duffel_passengers, 1):
@@ -1005,6 +1011,38 @@ def api_admin_cancel_booking(request, booking_id):
         return JsonResponse({'success': True, 'message': 'Réservation annulée avec succès', 'duffel_response': result})
     except Booking.DoesNotExist:
         return JsonResponse({'error': 'Réservation introuvable'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def api_admin_issue_booking(request, booking_id):
+    """
+    Issue a held ticket programmatically from admin dashboard
+    (Called after admin verifies manual bank transfer receipt).
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    if not request.user.is_superuser:
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    booking = get_object_or_404(Booking, id=booking_id)
+    
+    # Check if already issued
+    if booking.status not in ['pending', 'confirmed']:
+        return JsonResponse({'error': 'Booking must be pending to be issued.'}, status=400)
+        
+    try:
+        # Subtract from Duffel Balance by issuing the ticket mapping original amount
+        # Note: We must pay the original_amount to Duffel, not the markup price!
+        # The create_order fetched original_amount but we didn't save it directly besides subtracting total_amount and markup.
+        duffel_cost = float(booking.total_amount) - float(booking.markup_amount)
+        result = duffel_service.issue_ticket(booking.duffel_order_id, duffel_cost, booking.currency)
+        
+        booking.status = 'paid'
+        booking.save()
+        return JsonResponse({'success': True, 'msg': 'تم إصدار التذكرة بنجاح من نظام Duffel.'})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
