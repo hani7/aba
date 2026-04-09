@@ -198,11 +198,40 @@ def get_booking_url(hotel_id: str, check_in: str, check_out: str, adults: int = 
 # --- MOCK DATA ---
 def _mock_destinations(query: str) -> list:
     destinations = [
-        {'cityId': '1',  'cityName': 'Dubai',       'countryName': 'الإمارات', 'nameAr': 'دبي - الإمارات'},
-        {'cityId': '2',  'cityName': 'Istanbul',    'countryName': 'تركيا',           'nameAr': 'إسطنبول - تركيا'},
-        {'cityId': '3',  'cityName': 'Cairo',       'countryName': 'مصر',          'nameAr': 'القاهرة - مصر'},
+        {'cityId': '1',  'cityName': 'Dubai',       'countryName': 'الإمارات العربية المتحدة', 'nameAr': 'دبي'},
+        {'cityId': '2',  'cityName': 'Paris',       'countryName': 'فرنسا',                   'nameAr': 'باريس'},
+        {'cityId': '3',  'cityName': 'Istanbul',    'countryName': 'تركيا',                   'nameAr': 'إسطنبول'},
+        {'cityId': '4',  'cityName': 'Cairo',       'countryName': 'مصر',                     'nameAr': 'القاهرة'},
+        {'cityId': '5',  'cityName': 'London',      'countryName': 'المملكة المتحدة',          'nameAr': 'لندن'},
+        {'cityId': '6',  'cityName': 'Riyadh',      'countryName': 'السعودية',                'nameAr': 'الرياض'},
+        {'cityId': '7',  'cityName': 'Doha',        'countryName': 'قطر',                     'nameAr': 'الدوحة'},
+        {'cityId': '8',  'cityName': 'Bangkok',     'countryName': 'تايلاند',                 'nameAr': 'بانكوك'},
+        {'cityId': '9',  'cityName': 'Madrid',      'countryName': 'إسبانيا',                 'nameAr': 'مدريد'},
+        {'cityId': '10', 'cityName': 'Marrakech',   'countryName': 'المغرب',                  'nameAr': 'مراكش'},
+        {'cityId': '11', 'cityName': 'Algiers',     'countryName': 'الجزائر',                 'nameAr': 'الجزائر'},
+        {'cityId': '12', 'cityName': 'Casablanca',  'countryName': 'المغرب',                  'nameAr': 'الدار البيضاء'},
+        {'cityId': '13', 'cityName': 'Tunis',       'countryName': 'تونس',                    'nameAr': 'تونس'},
+        {'cityId': '14', 'cityName': 'Abu Dhabi',   'countryName': 'الإمارات العربية المتحدة', 'nameAr': 'أبوظبي'},
+        {'cityId': '15', 'cityName': 'Beirut',      'countryName': 'لبنان',                   'nameAr': 'بيروت'},
+        {'cityId': '16', 'cityName': 'Kuwait City', 'countryName': 'الكويت',                  'nameAr': 'مدينة الكويت'},
+        {'cityId': '17', 'cityName': 'New York',    'countryName': 'الولايات المتحدة',         'nameAr': 'نيويورك'},
+        {'cityId': '18', 'cityName': 'Barcelona',   'countryName': 'إسبانيا',                 'nameAr': 'برشلونة'},
+        {'cityId': '19', 'cityName': 'Rome',        'countryName': 'إيطاليا',                 'nameAr': 'روما'},
+        {'cityId': '20', 'cityName': 'Amsterdam',   'countryName': 'هولندا',                  'nameAr': 'أمستردام'},
     ]
-    return destinations
+    
+    q = query.strip().lower()
+    if not q:
+        return destinations[:5]
+        
+    results = []
+    for d in destinations:
+        if (q in d['cityName'].lower() or 
+            q in d['nameAr'] or 
+            q in d['countryName']):
+            results.append(d)
+            
+    return results if results else destinations[:3]
 
 def _mock_hotels(city_id, check_in, check_out, adults):
     try:
@@ -212,22 +241,32 @@ def _mock_hotels(city_id, check_in, check_out, adults):
     except Exception:
         nights = 1
 
-    price_per_night = 80.0
+    # Simple mapping for richer mock data
+    names = {
+        '1': 'فندق برج العرب (تجريبي)',
+        '2': 'فندق سوفيتيل باريس (تجريبي)',
+        '3': 'فندق هيلتون إسطنبول (تجريبي)',
+        '4': 'فندق ماريوت القاهرة (تجريبي)',
+        '11': 'فندق الأوراسي الجزائر (تجريبي)',
+    }
+    hotel_name = names.get(str(city_id), 'فندق الموك (تجريبي)')
+    
+    price_per_night = 120.0
     total = price_per_night * nights
     
     return [{
-        'hotelId': 10101,
-        'hotelName': 'فندق الموك (تجريبي)',
-        'cityName': 'المدينة',
+        'hotelId': 10000 + int(city_id),
+        'hotelName': hotel_name,
+        'cityName': 'المدينة المختار',
         'cityId': city_id,
-        'starRating': 4,
-        'reviewScore': 8.5,
-        'reviewCount': 500,
+        'starRating': 5,
+        'reviewScore': 9.0,
+        'reviewCount': 1250,
         'minPrice': total,
         'currency': 'USD',
-        'imageUrl': 'https://images.unsplash.com/photo-1542314831-c6a4d1409b54?w=600&h=300&fit=crop',
-        'address': 'وسط المدينة',
-        'amenities': ['واي فاي مجاني', 'مسبح'],
+        'imageUrl': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=300&fit=crop',
+        'address': 'وسط المدينة والمنطقة السياحية',
+        'amenities': ['واي فاي مجاني', 'مسبح فاخر', 'إفطار مجاني'],
         'pricing': apply_markup(total)
     }]
 
