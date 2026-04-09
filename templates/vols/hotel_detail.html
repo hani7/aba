@@ -40,8 +40,12 @@
     <div>
       <h3 style="color:var(--primary); margin-bottom:1rem;">{% trans "عن الفندق" %}</h3>
       <p style="color:#555; line-height:1.8; font-size:1.05rem;">
-        {{ hotel.description|default:"{% trans 'يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات المتميزة لضمان إقامة لا تُنسى' %}. {% trans "استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية" %}." }}
-      </p>
+        {% if hotel.description %}
+          {{ hotel.description }}
+        {% else %}
+          {% trans "يقع هذا الفندق المميز في موقع استراتيجي ويوفر كافة سبل الراحة والخدمات المتميزة لضمان إقامة لا تُنسى" %}. 
+          {% trans "استمتع بأرقى المرافق والخدمة التي تلبي أعلى المعايير العالمية" %}.
+        {% endif %}</p>
     </div>
     
     <div style="background:#f8f9fa; padding:1.5rem; border-radius:12px;">
