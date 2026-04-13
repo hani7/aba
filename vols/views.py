@@ -471,22 +471,31 @@ def search_results(request):
             }
 
             def sort_offers(o):
-                # Check if any segment is operated by an Arabic airline
+                # Check if any segment is operated by Badr Airlines or an Arabic airline
+                has_badr_airline = False
                 has_arabic_airline = False
                 for sl in o.get('slices', []):
                     for seg in sl.get('segments', []):
                         carrier_code = seg.get('operating_carrier', {}).get('iata_code') or seg.get('marketing_carrier', {}).get('iata_code')
-                        if carrier_code in arabic_airlines:
+                        if carrier_code == 'J4':
+                            has_badr_airline = True
+                        elif carrier_code in arabic_airlines:
                             has_arabic_airline = True
-                            break
-                    if has_arabic_airline:
-                        break
                 
                 price = float(o.get('total_amount', 999999))
                 # Sort criteria: 
-                # 1. Arabic airlines first (0 = True, 1 = False)
-                # 2. Then by cheapest price
-                return (0 if has_arabic_airline else 1, price)
+                # 1. Badr Airlines first (0)
+                # 2. Other Arabic airlines second (1)
+                # 3. All others third (2)
+                # Then by cheapest price
+                if has_badr_airline:
+                    priority = 0
+                elif has_arabic_airline:
+                    priority = 1
+                else:
+                    priority = 2
+                    
+                return (priority, price)
 
             # Sort the offers using our custom logic
             offers.sort(key=sort_offers)
