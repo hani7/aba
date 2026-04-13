@@ -40,27 +40,27 @@
           <span class="passenger-badge">{% trans "مسافر" %} {{ i }}</span>
         </div>
 
-        <div class="form-grid">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; align-items: start;">
           <!-- Prénom -->
           <div class="form-field">
-            <label class="field-label">{% trans "الاسم الأول (باللغة الإنجليزية كما في الجواز" %}) *</label>
-            <input type="text" name="first_name_{{ i }}" required class="field-input" placeholder="MOHAMMED" pattern="[A-Za-z\s]+" title="{% trans 'يجب كتابة الاسم بحروف إنجليزية فقط' %}">
+            <label class="field-label" style="display: block; width: 100%; white-space: normal; line-height: 1.4;">{% trans "الاسم الأول (باللغة الإنجليزية كما في الجواز)" %} *</label>
+            <input type="text" name="first_name_{{ i }}" required class="field-input" placeholder="MOHAMMED" pattern="[A-Za-z\s]+" title="{% trans 'يجب كتابة الاسم بحروف إنجليزية فقط' %}" style="width: 100%;">
           </div>
           <!-- Nom -->
           <div class="form-field">
-            <label class="field-label">{% trans "اسم العائلة (باللغة الإنجليزية" %}) *</label>
-            <input type="text" name="last_name_{{ i }}" required class="field-input" placeholder="AHMED" pattern="[A-Za-z\s]+" title="{% trans 'يجب كتابة الاسم بحروف إنجليزية فقط' %}">
+            <label class="field-label" style="display: block; width: 100%; white-space: normal; line-height: 1.4;">{% trans "اسم العائلة (باللغة الإنجليزية)" %} *</label>
+            <input type="text" name="last_name_{{ i }}" required class="field-input" placeholder="AHMED" pattern="[A-Za-z\s]+" title="{% trans 'يجب كتابة الاسم بحروف إنجليزية فقط' %}" style="width: 100%;">
           </div>
           <!-- Date de naissance -->
           <div class="form-field">
             <label class="field-label">{% trans "تاريخ الميلاد" %} *</label>
-            <input type="date" name="born_on_{{ i }}" required class="field-input" max="2005-01-01">
+            <input type="date" name="born_on_{{ i }}" required class="field-input" max="2005-01-01" style="width: 100%;">
           </div>
           <!-- Genre -->
           <div class="form-field">
             <label class="field-label">{% trans "الجنس" %} *</label>
             <div class="input-icon-wrap">
-              <select name="gender_{{ i }}" class="field-input">
+              <select name="gender_{{ i }}" class="field-input" style="width: 100%;">
                 <option value="m">{% trans "ذكر" %}</option>
                 <option value="f">{% trans "أنثى" %}</option>
               </select>
@@ -69,17 +69,17 @@
           <!-- Email -->
           <div class="form-field">
             <label class="field-label">{% trans "البريد الإلكتروني" %} *</label>
-            <input type="email" name="email_{{ i }}" required class="field-input" placeholder="mohammed@email.com">
+            <input type="email" name="email_{{ i }}" required class="field-input" placeholder="mohammed@email.com" style="width: 100%;">
           </div>
           <!-- Téléphone -->
           <div class="form-field">
-            <label class="field-label">{% trans "رقم الهاتف (مع رمز الدولة" %}) *</label>
-            <input type="tel" name="phone_{{ i }}" required class="field-input" placeholder="+249 91 234 5678">
+            <label class="field-label" style="display: block; width: 100%; white-space: normal; line-height: 1.4;">{% trans "رقم الهاتف (مع رمز الدولة)" %} *</label>
+            <input type="tel" name="phone_{{ i }}" required class="field-input" placeholder="+249 91 234 5678" style="width: 100%;">
           </div>
           <!-- Passport Number -->
-          <div class="form-field form-field-wide">
+          <div class="form-field" style="grid-column: 1 / -1; width: 100%;">
             <label class="field-label">{% trans "رقم جواز السفر" %} *</label>
-            <input type="text" name="passport_{{ i }}" required class="field-input" placeholder="{% trans 'مثال' %}: A1234567" style="text-transform: uppercase;">
+            <input type="text" name="passport_{{ i }}" required class="field-input" placeholder="{% trans 'مثال' %}: A1234567" style="text-transform: uppercase; width: 100%;">
           </div>
         </div>
       </div>
