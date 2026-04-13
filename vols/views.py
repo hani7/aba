@@ -445,6 +445,41 @@ def search_results(request):
             offers = [o for o in offers if not has_duffel_airways(o)]
             # --------------------------------------------------------
 
+            # --- INJECT BADR AIRWAYS (DEMO) ---
+            if slices:
+                import uuid
+                first_slice = slices[0]
+                dep_time = f"{first_slice['departure_date']}T10:00:00"
+                arr_time = f"{first_slice['departure_date']}T14:30:00"
+                mock_badr_offer = {
+                    'id': f"off_mock_badr_{str(uuid.uuid4())[:8]}",
+                    'total_amount': '250.00',
+                    'total_currency': 'USD',
+                    'tax_amount': '50.00',
+                    'owner': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                    'passengers': [{'id': f"pas_{i}"} for i in range(int(passengers))],
+                    'slices': [{
+                        'id': f"sli_mock_{str(uuid.uuid4())[:8]}",
+                        'origin': {'name': first_slice['origin'], 'iata_code': first_slice['origin'], 'city_name': first_slice['origin']},
+                        'destination': {'name': first_slice['destination'], 'iata_code': first_slice['destination'], 'city_name': first_slice['destination']},
+                        'departure_date': first_slice['departure_date'],
+                        'duration': 'PT4H30M',
+                        'segments': [{
+                            'id': f"seg_{str(uuid.uuid4())[:8]}",
+                            'origin': {'name': first_slice['origin'], 'iata_code': first_slice['origin'], 'city_name': first_slice['origin']},
+                            'destination': {'name': first_slice['destination'], 'iata_code': first_slice['destination'], 'city_name': first_slice['destination']},
+                            'departing_at': dep_time,
+                            'arriving_at': arr_time,
+                            'marketing_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                            'operating_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                            'marketing_carrier_flight_number': 'J4 100',
+                            'duration': 'PT4H30M',
+                        }]
+                    }]
+                }
+                offers.append(mock_badr_offer)
+            # -----------------------------------
+
             # Enrich offers with formatted duration and 10% markup
             for offer in offers:
                 apply_flight_markup(offer)
@@ -539,6 +574,9 @@ def passenger_details(request, offer_id):
     offer = next((o for o in offers if o.get('id') == offer_id), None)
     
     if not offer:
+        if str(offer_id).startswith('off_mock_badr'):
+            messages.error(request, "عذراً، انتهت صلاحية هذا العرض التجريبي.")
+            return redirect('vols:home')
         # Fetch directly from Duffel as fallback
         try:
             offer = duffel_service.get_offer(offer_id)
@@ -574,6 +612,9 @@ def confirm_booking(request):
     offer = next((o for o in offers if o.get('id') == offer_id), None)
 
     if not offer:
+        if str(offer_id).startswith('off_mock_badr'):
+            messages.error(request, "عذراً، انتهت صلاحية الجلسة.")
+            return redirect('vols:home')
         try:
             offer = duffel_service.get_offer(offer_id)
             apply_flight_markup(offer)
@@ -641,10 +682,14 @@ def confirm_booking(request):
             messages.error(request, "عذراً، رحلات هذا الطيران تتطلب الدفع الإلكتروني الفوري للإصدار (Low Cost) ولا تدعم الحجز المؤقت للتحويل البنكي. يرجى تعديل البحث لمعظم الطيران النظامي.")
             return redirect('vols:passenger_details', offer_id=offer_id)
 
-        # Step 2: Hold the ticket with Duffel
-        order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'], hold=True)
+        # Step 2: Hold the ticket with Duffel or Mock
+        if str(offer_id).startswith('off_mock_badr'):
+            import uuid
+            order = {'id': f"ord_mock_{str(uuid.uuid4())[:8]}", 'booking_reference': 'BADRMOCK'}
+        else:
+            order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'], hold=True)
 
-        # Step 2: Save confirmed booking to DB
+        # Step 3: Save confirmed booking to DB
         first_slice = offer.get('slices', [{}])[0]
         airline_name = first_slice.get('segments', [{}])[0].get('operating_carrier', {}).get('name', 'N/A')
         flight_num = first_slice.get('segments', [{}])[0].get('marketing_carrier_flight_number', '')
