@@ -448,9 +448,38 @@ def search_results(request):
             # --- INJECT BADR AIRWAYS (DEMO) ---
             if slices:
                 import uuid
-                first_slice = slices[0]
-                dep_time = f"{first_slice['departure_date']}T10:00:00"
-                arr_time = f"{first_slice['departure_date']}T14:30:00"
+                
+                mock_slices = []
+                for idx, sl in enumerate(slices):
+                    dep_time = f"{sl['departure_date']}T10:00:00"
+                    arr_time = f"{sl['departure_date']}T14:30:00"
+                    mock_slices.append({
+                        'id': f"sli_mock_{str(uuid.uuid4())[:8]}",
+                        'origin': {'name': sl['origin'], 'iata_code': sl['origin'], 'city_name': sl['origin']},
+                        'destination': {'name': sl['destination'], 'iata_code': sl['destination'], 'city_name': sl['destination']},
+                        'departure_date': sl['departure_date'],
+                        'duration': 'PT4H30M',
+                        'segments': [{
+                            'id': f"seg_{str(uuid.uuid4())[:8]}",
+                            'origin': {'name': sl['origin'], 'iata_code': sl['origin'], 'city_name': sl['origin']},
+                            'destination': {'name': sl['destination'], 'iata_code': sl['destination'], 'city_name': sl['destination']},
+                            'departing_at': dep_time,
+                            'arriving_at': arr_time,
+                            'marketing_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                            'operating_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                            'marketing_carrier_flight_number': f"{100 + idx}",
+                            'duration': 'PT4H30M',
+                            'passengers': [{
+                                'cabin_class': cabin_class, 
+                                'cabin_class_marketing_name': cabin_class,
+                                'baggages': [
+                                    {'type': 'checked', 'quantity': 1, 'weight': '23', 'weight_unit': 'kg'},
+                                    {'type': 'carry_on', 'quantity': 1, 'weight': '7', 'weight_unit': 'kg'}
+                                ]
+                            }]
+                        }]
+                    })
+
                 mock_badr_offer = {
                     'id': f"off_mock_badr_{str(uuid.uuid4())[:8]}",
                     'total_amount': '250.00',
@@ -458,24 +487,7 @@ def search_results(request):
                     'tax_amount': '50.00',
                     'owner': {'name': 'Badr Airlines', 'iata_code': 'J4'},
                     'passengers': [{'id': f"pas_{i}"} for i in range(int(passengers))],
-                    'slices': [{
-                        'id': f"sli_mock_{str(uuid.uuid4())[:8]}",
-                        'origin': {'name': first_slice['origin'], 'iata_code': first_slice['origin'], 'city_name': first_slice['origin']},
-                        'destination': {'name': first_slice['destination'], 'iata_code': first_slice['destination'], 'city_name': first_slice['destination']},
-                        'departure_date': first_slice['departure_date'],
-                        'duration': 'PT4H30M',
-                        'segments': [{
-                            'id': f"seg_{str(uuid.uuid4())[:8]}",
-                            'origin': {'name': first_slice['origin'], 'iata_code': first_slice['origin'], 'city_name': first_slice['origin']},
-                            'destination': {'name': first_slice['destination'], 'iata_code': first_slice['destination'], 'city_name': first_slice['destination']},
-                            'departing_at': dep_time,
-                            'arriving_at': arr_time,
-                            'marketing_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                            'operating_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                            'marketing_carrier_flight_number': 'J4 100',
-                            'duration': 'PT4H30M',
-                        }]
-                    }]
+                    'slices': mock_slices
                 }
                 offers.append(mock_badr_offer)
             # -----------------------------------
