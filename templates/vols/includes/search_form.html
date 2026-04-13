@@ -91,7 +91,7 @@
           <div class="input-icon-wrap">
             <span class="fi">💺</span>
             <select name="cabin_class" class="field-input">
-              <option value="economy" {% if search.cabin_class == 'economy' %}selected{% endif %}>{% trans "سياحية" %}</option>
+              <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
               <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
               <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
               <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>

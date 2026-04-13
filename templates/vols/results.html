@@ -157,22 +157,24 @@
                         🎒 {% trans "تفاصيل الأمتعة" %}
                     </span>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                         {% with p=segment.passengers.0 %}
-                             {% for bag in p.baggages %}
-                                 {% if bag.type == 'checked' %}
-                                    <span style="color:var(--primary); font-weight:600; font-size:0.75rem;">
-                                        🧳 {% trans "شحن" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                    </span>
-                                 {% elif bag.type == 'carry_on' %}
-                                    <span style="color:var(--gold); font-weight:600; font-size:0.75rem;">
-                                        🎒 {% trans "يد" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                    </span>
-                                 {% endif %}
-                             {% empty %}
-                                 <span style="color:var(--text-muted); font-weight:600; font-size:0.75rem;">
-                                     ❌ {% trans "لا توجد تفاصيل معدات" %}
-                                 </span>
-                             {% endfor %}
+                         {% with p=segment.passengers|first %}
+                             {% if p %}
+                                 {% for bag in p.baggages %}
+                                     {% if bag.type == 'checked' %}
+                                        <span style="color:var(--primary); font-weight:600; font-size:0.75rem;">
+                                            🧳 {% trans "شحن" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
+                                        </span>
+                                     {% elif bag.type == 'carry_on' %}
+                                        <span style="color:var(--gold); font-weight:600; font-size:0.75rem;">
+                                            🎒 {% trans "يد" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
+                                        </span>
+                                     {% endif %}
+                                 {% empty %}
+                                     <span style="color:var(--text-muted); font-weight:600; font-size:0.75rem;">
+                                         ❌ {% trans "لا توجد تفاصيل معدات" %}
+                                     </span>
+                                 {% endfor %}
+                             {% endif %}
                          {% endwith %}
                     </div>
                 </div>
@@ -269,7 +271,8 @@
                       
                       <!-- Baggage & Cabin Info -->
                       <div style="font-size: 0.85rem; color: var(--text-muted); padding: 8px 12px; margin-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 24px; align-items: center; background: rgba(0,0,0,0.02); border-radius: 8px; flex-wrap: wrap;">
-                          {% with p=segment.passengers.0 %}
+                          {% with p=segment.passengers|first %}
+                          {% if p %}
                           <span>💺 {% trans "الدرجة" %}: <strong style="color: var(--text);">{{ p.cabin_class_marketing_name|default:p.cabin_class|title }}</strong></span>
                           <span style="display: flex; gap: 16px; flex-wrap: wrap;">
                               {% for bag in p.baggages %}
@@ -282,6 +285,7 @@
                                   <span>🎒 {% trans "لا توجد تفاصيل معدات" %}</span>
                               {% endfor %}
                           </span>
+                          {% endif %}
                           {% endwith %}
                       </div>
                       
