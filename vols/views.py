@@ -35,6 +35,7 @@ AIRLINES_LIST = [
     {'name': 'Tunisair',         'iata': 'TU', 'flag': '🇹🇳', 'color': '#e70013', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/TU.png'},
     {'name': 'flynas',           'iata': 'XY', 'flag': '🇸🇦', 'color': '#ff6600', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/XY.png'},
     {'name': 'Sudan Airways',    'iata': 'SD', 'flag': '🇸🇩', 'color': '#007229', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/SD.png'},
+    {'name': 'Badr Airlines',    'iata': 'J4', 'flag': '🇸🇩', 'color': '#007229', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/J4.png'},
     {'name': 'Etihad Airways',   'iata': 'EY', 'flag': '🇦🇪', 'color': '#b5975a', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/EY.png'},
     {'name': 'Saudi Airlines',   'iata': 'SV', 'flag': '🇸🇦', 'color': '#006747', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/SV.png'},
     {'name': 'Ethiopian',        'iata': 'ET', 'flag': '🇪🇹', 'color': '#009a44', 'logo': 'https://www.gstatic.com/flights/airline_logos/70px/ET.png'},
@@ -465,6 +466,8 @@ def search_results(request):
                 'MS', # EgyptAir
                 'FZ', # flydubai
                 'G9', # Air Arabia
+                'SD', # Sudan Airways
+                'J4', # Badr Airlines
             }
 
             def sort_offers(o):
