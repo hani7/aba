@@ -130,12 +130,7 @@
                style="margin-bottom:16px; cursor:pointer; transition:all 0.25s; position:relative;"
                onclick="openModal('modal-{{ forloop.counter }}')">
 
-            <!-- Cancellation quick-badge -->
-            {% if offer.conditions.refund_before_departure.allowed %}
-            <div style="position:absolute; top:14px; inset-inline-end:14px; background:rgba(16,185,129,0.1); color:#059669; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:999px; border:1px solid rgba(16,185,129,0.2); z-index:1;">✅ {% trans "قابل للاسترداد" %}</div>
-            {% elif offer.conditions.refund_before_departure.allowed == False %}
-            <div style="position:absolute; top:14px; inset-inline-end:14px; background:rgba(239,68,68,0.1); color:#dc2626; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:999px; border:1px solid rgba(239,68,68,0.2); z-index:1;">❌ {% trans "غير قابل للاسترداد" %}</div>
-            {% endif %}
+            <!-- Cancellation quick-badge moved into status-wrap to avoid price overlap -->
 
             <div class="offer-slices">
               {% for slice in offer.slices %}
@@ -209,6 +204,11 @@
                 <div style="font-size:0.75rem; color:var(--success); font-weight:700; margin-top:4px;">🟢 {% trans "متاح" %}</div>
                 {% if offer.payment_requirements.payment_required_by %}
                   <div style="font-size:0.72rem; color:var(--gold); margin-top:2px;">⏰ {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</div>
+                {% endif %}
+                {% if offer.conditions.refund_before_departure.allowed %}
+                <div style="font-size:0.7rem; font-weight:700; color:#059669; margin-top:4px; padding:2px 8px; background:rgba(16,185,129,0.08); border-radius:999px; border:1px solid rgba(16,185,129,0.2); display:inline-block;">✅ {% trans "قابل للاسترداد" %}</div>
+                {% elif offer.conditions.refund_before_departure.allowed == False %}
+                <div style="font-size:0.7rem; font-weight:700; color:#dc2626; margin-top:4px; padding:2px 8px; background:rgba(239,68,68,0.08); border-radius:999px; border:1px solid rgba(239,68,68,0.2); display:inline-block;">❌ {% trans "غير قابل للاسترداد" %}</div>
                 {% endif %}
               </div>
               <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm offer-btn" style="margin-top:8px;" onclick="event.stopPropagation();">{% trans "احجز" %} ←</a>
@@ -363,6 +363,8 @@
                   {% endif %}
                 </div>
                 <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding:12px 28px; font-size:1rem; font-weight:700;">{% trans "احجز الآن" %} ←</a>
+                {# Cheapest-badge label for JS — must be inside a block to render in child templates #}
+                {% if forloop.first %}<span id="cheapest-badge-label" data-label="🏆 {% trans 'الأرخص سعراً' %}" style="display:none;"></span>{% endif %}
               </div>
             </div>
           </div>
@@ -506,9 +508,6 @@
 </style>
 
 {% endblock %}
-
-{# Hidden i18n data for JS #}
-<span id="cheapest-badge-label" data-label="&#127942; {% trans 'الأرخص سعراً' %}" style="display:none;"></span>
 
 {% block extra_scripts %}
 {% include 'vols/includes/search_scripts.html' %}

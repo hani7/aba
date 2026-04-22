@@ -663,6 +663,9 @@ msgstr "Available"
 msgid "احجز"
 msgstr "Book"
 
+msgid "احجز الآن"
+msgstr "Book Now"
+
 msgid "رحلة"
 msgstr "Flight"
 

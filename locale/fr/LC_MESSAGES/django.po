@@ -691,6 +691,12 @@ msgstr "Autorisé"
 msgid "حجز الآن"
 msgstr "Réserver maintenant"
 
+msgid "احجز"
+msgstr "Réserver"
+
+msgid "احجز الآن"
+msgstr "Réserver maintenant"
+
 msgid "وكالة"
 msgstr "Agence"
 
