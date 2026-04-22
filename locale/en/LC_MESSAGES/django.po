@@ -1661,3 +1661,136 @@ msgstr "Amendments to Terms"
 
 msgid "إرسال الإيصال عبر الواتساب"
 msgstr "Send Receipt via WhatsApp"
+
+msgid "بالغين"
+msgstr "Adults"
+
+msgid "+ طفل واحد"
+msgstr "+ 1 Child"
+
+msgid "أطفال"
+msgstr "Children"
+
+msgid "12 سنة وما فوق"
+msgstr "12 years and above"
+
+msgid "من 2 إلى 11 سنة"
+msgstr "Ages 2 to 11"
+
+msgid "من سعر البالغ"
+msgstr "of adult price"
+
+msgid "غير قابل للاسترداد"
+msgstr "Non-Refundable"
+
+msgid "التذكرة غير قابلة للاسترداد"
+msgstr "This ticket is non-refundable"
+
+msgid "قابل للاسترداد"
+msgstr "Refundable"
+
+msgid "المقترح: بدر أولاً"
+msgstr "Suggested: Badr First"
+
+msgid "الأرخص أولاً"
+msgstr "Cheapest First"
+
+msgid "الأغلى أولاً"
+msgstr "Most Expensive First"
+
+msgid "الأرخص سعراً"
+msgstr "Best Price"
+
+msgid "رحلات متعددة"
+msgstr "Multi-city Flights"
+
+msgid "طفل (75%)"
+msgstr "Child (75%)"
+
+msgid "المجموع لجميع المسافرين"
+msgstr "Total for all passengers"
+
+msgid "الإلغاء متاح"
+msgstr "Cancellation Available"
+
+msgid "استرداد قبل موعد السفر"
+msgstr "Refund before departure"
+
+msgid "الإلغاء غير متاح"
+msgstr "Cancellation Not Available"
+
+msgid "التعديل متاح"
+msgstr "Modification Available"
+
+msgid "تعديل الحجز قبل الرحلة"
+msgstr "Modify booking before departure"
+
+msgid "التعديل غير متاح"
+msgstr "Modification Not Available"
+
+msgid "لا يمكن تعديل هذا الحجز"
+msgstr "This booking cannot be modified"
+
+msgid "غير محدد من الناقل"
+msgstr "Not specified by carrier"
+
+msgid "سياسة الإلغاء والتعديل"
+msgstr "Cancellation & Change Policy"
+
+msgid "توقف واحد"
+msgstr "1 Stop"
+
+msgid "توقفان أو أكثر"
+msgstr "2+ Stops"
+
+msgid "وقت المغادرة"
+msgstr "Departure Time"
+
+msgid "صباح"
+msgstr "Morning"
+
+msgid "ظهيرة"
+msgstr "Afternoon"
+
+msgid "مساء"
+msgstr "Evening"
+
+msgid "الكل"
+msgstr "All"
+
+msgid "سياسة الإلغاء"
+msgstr "Cancellation Policy"
+
+msgid "قابل للاسترداد فقط"
+msgstr "Refundable Only"
+
+msgid "تصفية النتائج"
+msgstr "Filter Results"
+
+msgid "إعادة ضبط"
+msgstr "Reset"
+
+msgid "نطاق السعر"
+msgstr "Price Range"
+
+msgid "شركة الطيران"
+msgstr "Airline"
+
+msgid "حتى"
+msgstr "Up to"
+
+msgid "وجبة"
+msgstr "Meal"
+
+msgid "لا توجد وجبة مشمولة"
+msgstr "No meal included"
+
+msgid "الإلغاء"
+msgstr "Cancellation"
+
+msgid "التعديل"
+msgstr "Modification"
+
+msgid "غرامة"
+msgstr "Penalty"
+

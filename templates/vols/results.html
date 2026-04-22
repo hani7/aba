@@ -507,6 +507,9 @@
 
 {% endblock %}
 
+{# Hidden i18n data for JS #}
+<span id="cheapest-badge-label" data-label="&#127942; {% trans 'الأرخص سعراً' %}" style="display:none;"></span>
+
 {% block extra_scripts %}
 {% include 'vols/includes/search_scripts.html' %}
 <script>
@@ -617,6 +620,7 @@ function applyFilters() {
 document.getElementById('priceSort').addEventListener('change', applyFilters);
 
 // ── Cheapest badge ──
+const _cheapestLabel = document.getElementById('cheapest-badge-label') ? document.getElementById('cheapest-badge-label').dataset.label : '&#127942; الأرخص سعراً';
 function markCheapest() {
   // Remove existing badges
   document.querySelectorAll('.badge-cheapest').forEach(b => b.remove());
@@ -628,7 +632,7 @@ function markCheapest() {
     if (parseFloat(card.dataset.price || 0) === minPrice) {
       const badge = document.createElement('div');
       badge.className = 'badge-cheapest';
-      badge.innerHTML = '&#127942; الأرخص سعراً';
+      badge.innerHTML = _cheapestLabel;
       card.style.position = 'relative';  // ensure positioning context
       card.prepend(badge);
     }

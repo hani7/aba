@@ -1335,3 +1335,136 @@ msgstr "🇩🇿 Algérie"
 
 msgid "ALG · مقام الشهيد"
 msgstr "ALG · Mémorial du Martyr"
+
+msgid "بالغين"
+msgstr "Adultes"
+
+msgid "+ طفل واحد"
+msgstr "+ 1 Enfant"
+
+msgid "+ أطفال"
+msgstr "Enfants"
+
+msgid "12 سنة وما فوق"
+msgstr "12 ans et plus"
+
+msgid "من 2 إلى 11 سنة"
+msgstr "De 2 à 11 ans"
+
+msgid "من سعر البالغ"
+msgstr "du prix adulte"
+
+msgid "غير قابل للاسترداد"
+msgstr "Non Remboursable"
+
+msgid "التذكرة غير قابلة للاسترداد"
+msgstr "Ce billet est non remboursable"
+
+msgid "قابل للاسترداد"
+msgstr "Remboursable"
+
+msgid "المقترح: بدر أولاً"
+msgstr "Suggéré : Badr en premier"
+
+msgid "الأرخص أولاً"
+msgstr "Moins cher d'abord"
+
+msgid "الأغلى أولاً"
+msgstr "Plus cher d'abord"
+
+msgid "الأرخص سعراً"
+msgstr "Meilleur prix"
+
+msgid "رحلات متعددة"
+msgstr "Vols multiples"
+
+msgid "طفل (75%)"
+msgstr "Enfant (75%)"
+
+msgid "المجموع لجميع المسافرين"
+msgstr "Total pour tous les passagers"
+
+msgid "الإلغاء متاح"
+msgstr "Annulation disponible"
+
+msgid "استرداد قبل موعد السفر"
+msgstr "Remboursement avant le départ"
+
+msgid "الإلغاء غير متاح"
+msgstr "Annulation non disponible"
+
+msgid "التعديل متاح"
+msgstr "Modification disponible"
+
+msgid "تعديل الحجز قبل الرحلة"
+msgstr "Modifier la réservation avant le vol"
+
+msgid "التعديل غير متاح"
+msgstr "Modification non disponible"
+
+msgid "لا يمكن تعديل هذا الحجز"
+msgstr "Cette réservation ne peut pas être modifiée"
+
+msgid "غير محدد من الناقل"
+msgstr "Non spécifié par le transporteur"
+
+msgid "سياسة الإلغاء والتعديل"
+msgstr "Politique d'annulation et de modification"
+
+msgid "توقف واحد"
+msgstr "1 Escale"
+
+msgid "توقفان أو أكثر"
+msgstr "2+ Escales"
+
+msgid "وقت المغادرة"
+msgstr "Heure de départ"
+
+msgid "صباح"
+msgstr "Matin"
+
+msgid "ظهيرة"
+msgstr "Après-midi"
+
+msgid "مساء"
+msgstr "Soir"
+
+msgid "الكل"
+msgstr "Tout"
+
+msgid "سياسة الإلغاء"
+msgstr "Politique d'annulation"
+
+msgid "قابل للاسترداد فقط"
+msgstr "Remboursable uniquement"
+
+msgid "تصفية النتائج"
+msgstr "Filtrer les résultats"
+
+msgid "إعادة ضبط"
+msgstr "Réinitialiser"
+
+msgid "نطاق السعر"
+msgstr "Fourchette de prix"
+
+msgid "شركة الطيران"
+msgstr "Compagnie aérienne"
+
+msgid "حتى"
+msgstr "Jusqu'à"
+
+msgid "وجبة"
+msgstr "Repas"
+
+msgid "لا توجد وجبة مشمولة"
+msgstr "Aucun repas inclus"
+
+msgid "الإلغاء"
+msgstr "Annulation"
+
+msgid "التعديل"
+msgstr "Modification"
+
+msgid "غرامة"
+msgstr "Pénalité"
+
