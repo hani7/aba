@@ -3,18 +3,76 @@
 
 {% block title %}{% trans "وكالة أبو منية" %} — {% trans "نتائج البحث" %}{% endblock %}
 
+{% block messages %}{% endblock %}
+
 {% block content %}
 <section class="section" style="padding-top: 24px;">
   <div class="container">
 
-    <!-- ── Search Summary Bar ── -->
-    <div class="results-header" style="margin-bottom:20px;">
-      <div class="route-meta">
-        <span>📅 {{ search.slices.0.departure_date }}{% if search.trip_type == 'roundtrip' %} — {{ search.slices.1.departure_date }}{% endif %}</span>
-        <span>👤 {{ search.adults|default:search.passengers }} {% trans "بالغ" %}{% if search.children and search.children > 0 %} + {{ search.children }} {% trans "طفل" %}{% endif %}</span>
-        <span>💺 {{ search.cabin_class|capfirst }}</span>
+    <!-- ── Full Search Summary Card ── -->
+    <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:16px; padding:16px 20px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+
+      <!-- Route + details -->
+      <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; flex:1;">
+
+        <!-- Trip type badge -->
+        <span style="background:var(--primary); color:#fff; font-size:0.7rem; font-weight:800; padding:3px 10px; border-radius:999px; white-space:nowrap; flex-shrink:0;">
+          {% if search.trip_type == 'roundtrip' %}↔ {% trans "ذهاب وعودة" %}{% elif search.trip_type == 'multicity' %}✈ {% trans "رحلات متعددة" %}{% else %}→ {% trans "ذهاب فقط" %}{% endif %}
+        </span>
+
+        <!-- Route(s) -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          {% for sl in search.slices %}
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <!-- Origin -->
+            <div style="text-align:center;">
+              <div style="font-size:1.35rem; font-weight:900; color:var(--text); letter-spacing:0.02em; line-height:1;">{{ sl.origin|upper }}</div>
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:1px;">{{ sl.departure_date }}</div>
+            </div>
+            <!-- Arrow line -->
+            <div style="display:flex; align-items:center; gap:4px; color:var(--primary);">
+              <div style="width:28px; height:1.5px; background:var(--border-h);"></div>
+              <span style="font-size:0.9rem;">✈</span>
+              <div style="width:28px; height:1.5px; background:var(--border-h);"></div>
+            </div>
+            <!-- Destination -->
+            <div style="text-align:center;">
+              <div style="font-size:1.35rem; font-weight:900; color:var(--text); letter-spacing:0.02em; line-height:1;">{{ sl.destination|upper }}</div>
+              {% if search.trip_type == 'roundtrip' and forloop.first %}
+              <div style="font-size:0.68rem; color:var(--text-muted); margin-top:1px;">{{ search.slices.1.departure_date }}</div>
+              {% else %}
+              <div style="font-size:0.68rem; color:transparent; margin-top:1px;">—</div>
+              {% endif %}
+            </div>
+          </div>
+          {% if not forloop.last %}<div style="border-top:1px dashed var(--border); margin:2px 0;"></div>{% endif %}
+          {% endfor %}
+        </div>
+
+        <!-- Divider -->
+        <div style="width:1px; height:44px; background:var(--border); flex-shrink:0; display:none;" class="summary-divider"></div>
+
+        <!-- Passengers + Cabin -->
+        <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+            <span style="font-size:1.1rem;">👤</span>
+            <span style="font-size:0.78rem; font-weight:700; color:var(--text); white-space:nowrap;">
+              {{ search.adults|default:search.passengers }} {% trans "بالغ" %}{% if search.children and search.children > 0 %} + {{ search.children }} {% trans "طفل" %}{% endif %}
+            </span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+            <span style="font-size:1.1rem;">💺</span>
+            <span style="font-size:0.78rem; font-weight:700; color:var(--text); white-space:nowrap;">
+              {% if search.cabin_class == 'economy' %}{% trans "سياحية" %}{% elif search.cabin_class == 'premium_economy' %}{% trans "سياحية ممتازة" %}{% elif search.cabin_class == 'business' %}{% trans "أعمال" %}{% elif search.cabin_class == 'first' %}{% trans "أولى" %}{% else %}{{ search.cabin_class|capfirst }}{% endif %}
+            </span>
+          </div>
+        </div>
       </div>
-      <button type="button" id="toggleSearchBtn" class="btn btn-ghost btn-sm">← {% trans "تعديل" %}</button>
+
+      <!-- Edit button -->
+      <button type="button" id="toggleSearchBtn" class="btn btn-ghost btn-sm" style="flex-shrink:0; white-space:nowrap;">
+        ✏️ {% trans "تعديل البحث" %}
+      </button>
     </div>
 
     <div id="inlineSearchForm" style="display:none; margin-bottom:24px;">

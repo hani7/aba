@@ -154,6 +154,7 @@
     </script>
 
     <!-- ── MESSAGES ───────────────────────────────────────────────── -->
+    {% block messages %}
     {% if messages %}
     <div class="messages-wrapper container">
       {% for message in messages %}
@@ -166,6 +167,7 @@
       {% endfor %}
     </div>
     {% endif %}
+    {% endblock messages %}
 
     <!-- ── MAIN ───────────────────────────────────────────────────── -->
     <main>{% block content %}{% endblock %}</main>
