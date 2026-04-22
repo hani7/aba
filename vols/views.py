@@ -445,51 +445,116 @@ def search_results(request):
             offers = [o for o in offers if not has_duffel_airways(o)]
             # --------------------------------------------------------
 
-            # --- INJECT BADR AIRWAYS (DEMO) ---
+            # --- INJECT BADR AIRLINES (DEMO – based on real J4 network) ---
+            # Real Badr Airlines destinations as of 2025 (hub: Port Sudan PZU)
+            # International routes: JED, RUH, CAI, IST, DXB, JUB, ADD, EBB, MCT, DOH, KGL
+            # Domestic Sudan routes: KSL (Kassala), DOG (Dongola)
+            BADR_REAL_DESTINATIONS = {
+                'PZU': {'name': 'Port Sudan', 'city': 'Port Sudan'},   # Hub
+                'JED': {'name': 'King Abdulaziz Intl', 'city': 'Jeddah'},
+                'RUH': {'name': 'King Khalid Intl', 'city': 'Riyadh'},
+                'CAI': {'name': 'Cairo Intl', 'city': 'Cairo'},
+                'IST': {'name': 'Istanbul Airport', 'city': 'Istanbul'},
+                'DXB': {'name': 'Dubai Intl', 'city': 'Dubai'},
+                'JUB': {'name': 'Juba Intl', 'city': 'Juba'},
+                'ADD': {'name': 'Bole Intl', 'city': 'Addis Ababa'},
+                'EBB': {'name': 'Entebbe Intl', 'city': 'Entebbe'},
+                'MCT': {'name': 'Muscat Intl', 'city': 'Muscat'},
+                'DOH': {'name': 'Hamad Intl', 'city': 'Doha'},
+                'KGL': {'name': 'Kigali Intl', 'city': 'Kigali'},
+                'KSL': {'name': 'Kassala Airport', 'city': 'Kassala'},
+                'DOG': {'name': 'Dongola Airport', 'city': 'Dongola'},
+                'KRT': {'name': 'Khartoum Intl', 'city': 'Khartoum'},   # Historic hub (limited ops)
+            }
+            # Realistic price map per destination from PZU (USD economy, pre-markup)
+            BADR_PRICE_MAP = {
+                'JED': {'price': '185.00', 'duration': 'PT1H45M', 'dep': '09:00', 'arr': '10:45'},
+                'RUH': {'price': '220.00', 'duration': 'PT2H20M', 'dep': '08:30', 'arr': '10:50'},
+                'CAI': {'price': '175.00', 'duration': 'PT2H05M', 'dep': '10:00', 'arr': '12:05'},
+                'IST': {'price': '380.00', 'duration': 'PT4H45M', 'dep': '11:00', 'arr': '15:45'},
+                'DXB': {'price': '260.00', 'duration': 'PT2H50M', 'dep': '07:30', 'arr': '10:20'},
+                'JUB': {'price': '140.00', 'duration': 'PT1H20M', 'dep': '09:30', 'arr': '10:50'},
+                'ADD': {'price': '190.00', 'duration': 'PT1H55M', 'dep': '08:00', 'arr': '09:55'},
+                'EBB': {'price': '240.00', 'duration': 'PT2H30M', 'dep': '07:00', 'arr': '09:30'},
+                'MCT': {'price': '295.00', 'duration': 'PT3H10M', 'dep': '10:30', 'arr': '13:40'},
+                'DOH': {'price': '270.00', 'duration': 'PT2H55M', 'dep': '09:00', 'arr': '11:55'},
+                'KGL': {'price': '280.00', 'duration': 'PT2H40M', 'dep': '08:00', 'arr': '10:40'},
+                'KSL': {'price': '55.00',  'duration': 'PT0H45M', 'dep': '07:00', 'arr': '07:45'},
+                'DOG': {'price': '65.00',  'duration': 'PT1H00M', 'dep': '07:30', 'arr': '08:30'},
+                'KRT': {'price': '80.00',  'duration': 'PT1H10M', 'dep': '08:00', 'arr': '09:10'},
+            }
+            # Only inject Badr if the route is in their actual network
             if slices:
-                import uuid
-                
-                mock_slices = []
-                for idx, sl in enumerate(slices):
-                    dep_time = f"{sl['departure_date']}T10:00:00"
-                    arr_time = f"{sl['departure_date']}T14:30:00"
-                    mock_slices.append({
-                        'id': f"sli_mock_{str(uuid.uuid4())[:8]}",
-                        'origin': {'name': sl['origin'], 'iata_code': sl['origin'], 'city_name': sl['origin']},
-                        'destination': {'name': sl['destination'], 'iata_code': sl['destination'], 'city_name': sl['destination']},
-                        'departure_date': sl['departure_date'],
-                        'duration': 'PT4H30M',
-                        'segments': [{
-                            'id': f"seg_{str(uuid.uuid4())[:8]}",
-                            'origin': {'name': sl['origin'], 'iata_code': sl['origin'], 'city_name': sl['origin']},
-                            'destination': {'name': sl['destination'], 'iata_code': sl['destination'], 'city_name': sl['destination']},
-                            'departing_at': dep_time,
-                            'arriving_at': arr_time,
-                            'marketing_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                            'operating_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                            'marketing_carrier_flight_number': f"{100 + idx}",
-                            'duration': 'PT4H30M',
-                            'passengers': [{
-                                'cabin_class': cabin_class, 
-                                'cabin_class_marketing_name': cabin_class,
-                                'baggages': [
-                                    {'type': 'checked', 'quantity': 1, 'weight': '23', 'weight_unit': 'kg'},
-                                    {'type': 'carry_on', 'quantity': 1, 'weight': '7', 'weight_unit': 'kg'}
-                                ]
-                            }]
-                        }]
-                    })
+                first_origin = (slices[0].get('origin') or '').upper()
+                first_dest   = (slices[0].get('destination') or '').upper()
+                badr_served  = (
+                    first_origin in BADR_REAL_DESTINATIONS and first_dest in BADR_REAL_DESTINATIONS
+                )
+                if badr_served:
+                    # Determine pricing: use origin→dest or dest→origin lookup
+                    route_key = first_dest if first_dest in BADR_PRICE_MAP else first_origin
+                    route_info = BADR_PRICE_MAP.get(route_key, {'price': '200.00', 'duration': 'PT2H00M', 'dep': '09:00', 'arr': '11:00'})
 
-                mock_badr_offer = {
-                    'id': f"off_mock_badr_{str(uuid.uuid4())[:8]}",
-                    'total_amount': '250.00',
-                    'total_currency': 'USD',
-                    'tax_amount': '50.00',
-                    'owner': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                    'passengers': [{'id': f"pas_{i}"} for i in range(int(passengers))],
-                    'slices': mock_slices
-                }
-                offers.append(mock_badr_offer)
+                    import uuid
+                    mock_slices = []
+                    for idx, sl in enumerate(slices):
+                        ori_iata = sl['origin'].upper()
+                        dst_iata = sl['destination'].upper()
+                        ori_info = BADR_REAL_DESTINATIONS.get(ori_iata, {'name': ori_iata, 'city': ori_iata})
+                        dst_info = BADR_REAL_DESTINATIONS.get(dst_iata, {'name': dst_iata, 'city': dst_iata})
+                        # Use per-leg price lookup; for return legs swap key
+                        leg_key = dst_iata if dst_iata in BADR_PRICE_MAP else ori_iata
+                        leg_info = BADR_PRICE_MAP.get(leg_key, {'price': '200.00', 'duration': 'PT2H00M', 'dep': '09:00', 'arr': '11:00'})
+                        dep_time = f"{sl['departure_date']}T{leg_info['dep']}:00"
+                        arr_time = f"{sl['departure_date']}T{leg_info['arr']}:00"
+                        flight_num = f"J4{110 + idx}"
+                        mock_slices.append({
+                            'id': f"sli_mock_{str(uuid.uuid4())[:8]}",
+                            'origin': {'name': ori_info['name'], 'iata_code': ori_iata, 'city_name': ori_info['city']},
+                            'destination': {'name': dst_info['name'], 'iata_code': dst_iata, 'city_name': dst_info['city']},
+                            'departure_date': sl['departure_date'],
+                            'duration': leg_info['duration'],
+                            'segments': [{
+                                'id': f"seg_{str(uuid.uuid4())[:8]}",
+                                'origin': {'name': ori_info['name'], 'iata_code': ori_iata, 'city_name': ori_info['city']},
+                                'destination': {'name': dst_info['name'], 'iata_code': dst_iata, 'city_name': dst_info['city']},
+                                'departing_at': dep_time,
+                                'arriving_at': arr_time,
+                                'marketing_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                                'operating_carrier': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                                'marketing_carrier_flight_number': flight_num,
+                                'duration': leg_info['duration'],
+                                'passengers': [{
+                                    'cabin_class': cabin_class,
+                                    'cabin_class_marketing_name': cabin_class,
+                                    'baggages': [
+                                        {'type': 'checked', 'quantity': 1, 'weight': '23', 'weight_unit': 'kg'},
+                                        {'type': 'carry_on', 'quantity': 1, 'weight': '7', 'weight_unit': 'kg'}
+                                    ]
+                                }]
+                            }]
+                        })
+
+
+                    # Total price = sum of all leg prices
+                    total_legs_price = sum(
+                        float(BADR_PRICE_MAP.get(
+                            sl['destination'].upper() if sl['destination'].upper() in BADR_PRICE_MAP else sl['origin'].upper(),
+                            {'price': '200.00'}
+                        )['price'])
+                        for sl in slices
+                    )
+                    tax_amount = round(total_legs_price * 0.15, 2)
+                    mock_badr_offer = {
+                        'id': f"off_mock_badr_{str(uuid.uuid4())[:8]}",
+                        'total_amount': f"{total_legs_price:.2f}",
+                        'total_currency': 'USD',
+                        'tax_amount': f"{tax_amount:.2f}",
+                        'owner': {'name': 'Badr Airlines', 'iata_code': 'J4'},
+                        'passengers': [{'id': f"pas_{i}"} for i in range(int(passengers))],
+                        'slices': mock_slices
+                    }
+                    offers.append(mock_badr_offer)
             # -----------------------------------
 
             # Enrich offers with formatted duration and 10% markup
