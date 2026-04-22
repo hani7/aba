@@ -220,34 +220,72 @@
               </div>
               {% endfor %}
 
-              <!-- Cancellation/Change Conditions -->
-              <div style="margin-top:14px; padding:16px; background:rgba(27,164,186,0.04); border-radius:12px; font-size:0.88rem; border:1px solid var(--border-h);">
-                <h5 style="color:var(--primary); margin:0 0 12px; font-size:1rem; font-family:'Tajawal',sans-serif;">📋 {% trans "شروط التذكرة والإلغاء" %}</h5>
-                <div style="display:flex; flex-direction:column; gap:10px;">
+              <!-- ── Cancellation / Change Policy Cards ── -->
+              <div style="margin-top:16px;">
+                <div style="font-size:0.88rem; font-weight:800; color:var(--text); margin-bottom:10px; font-family:'Tajawal',sans-serif; display:flex; align-items:center; gap:6px;">
+                  📋 {% trans "سياسة الإلغاء والتعديل" %}
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+
+                  <!-- Cancellation Card -->
                   {% if offer.conditions.refund_before_departure %}
-                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-radius:8px; background:{% if offer.conditions.refund_before_departure.allowed %}rgba(16,185,129,0.06){% else %}rgba(239,68,68,0.06){% endif %};">
-                    <span style="color:var(--text-muted);">🔄 {% trans "استرداد قبل السفر" %}:</span>
                     {% if offer.conditions.refund_before_departure.allowed %}
-                      <strong style="color:#059669;">✅ {% trans "مسموح" %} {% if offer.conditions.refund_before_departure.penalty_amount %}({% trans "غرامة" %} {{ offer.conditions.refund_before_departure.penalty_amount_usd|default:offer.conditions.refund_before_departure.penalty_amount|floatformat:0 }} USD){% endif %}</strong>
+                    <div style="border-radius:14px; padding:16px 14px; background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.04)); border:1.5px solid rgba(16,185,129,0.3); text-align:center;">
+                      <div style="font-size:2rem; margin-bottom:6px;">🟢</div>
+                      <div style="font-weight:800; font-size:0.92rem; color:#059669; margin-bottom:4px;">{% trans "الإلغاء متاح" %}</div>
+                      <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">{% trans "استرداد قبل موعد السفر" %}</div>
+                      {% if offer.conditions.refund_before_departure.penalty_amount %}
+                      <div style="background:rgba(16,185,129,0.1); border-radius:999px; padding:4px 10px; font-size:0.72rem; color:#059669; font-weight:700; display:inline-block;">
+                        {% trans "غرامة" %}: {{ offer.conditions.refund_before_departure.penalty_amount|floatformat:0 }} {{ offer.conditions.refund_before_departure.penalty_currency|default:"USD" }}
+                      </div>
+                      {% endif %}
+                    </div>
                     {% else %}
-                      <strong style="color:#dc2626;">❌ {% trans "غير مسموح" %}</strong>
+                    <div style="border-radius:14px; padding:16px 14px; background:linear-gradient(135deg,rgba(239,68,68,0.07),rgba(239,68,68,0.03)); border:1.5px solid rgba(239,68,68,0.25); text-align:center;">
+                      <div style="font-size:2rem; margin-bottom:6px;">🔴</div>
+                      <div style="font-weight:800; font-size:0.92rem; color:#dc2626; margin-bottom:4px;">{% trans "الإلغاء غير متاح" %}</div>
+                      <div style="font-size:0.75rem; color:var(--text-muted);">{% trans "التذكرة غير قابلة للاسترداد" %}</div>
+                    </div>
                     {% endif %}
-                  </div>
                   {% else %}
-                  <div style="padding:8px 12px; border-radius:8px; background:rgba(0,0,0,0.03); color:var(--text-muted); font-size:0.82rem;">{% trans "لا تتوفر معلومات الاسترداد لهذا العرض" %}</div>
-                  {% endif %}
-                  {% if offer.conditions.change_before_departure %}
-                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-radius:8px; background:{% if offer.conditions.change_before_departure.allowed %}rgba(16,185,129,0.06){% else %}rgba(239,68,68,0.06){% endif %};">
-                    <span style="color:var(--text-muted);">✏️ {% trans "تعديل الحجز قبل السفر" %}:</span>
-                    {% if offer.conditions.change_before_departure.allowed %}
-                      <strong style="color:#059669;">✅ {% trans "مسموح" %} {% if offer.conditions.change_before_departure.penalty_amount %}({% trans "غرامة" %} {{ offer.conditions.change_before_departure.penalty_amount_usd|default:offer.conditions.change_before_departure.penalty_amount|floatformat:0 }} USD){% endif %}</strong>
-                    {% else %}
-                      <strong style="color:#dc2626;">❌ {% trans "غير مسموح" %}</strong>
-                    {% endif %}
+                  <div style="border-radius:14px; padding:16px 14px; background:rgba(0,0,0,0.03); border:1.5px solid var(--border); text-align:center;">
+                    <div style="font-size:2rem; margin-bottom:6px;">⚪</div>
+                    <div style="font-weight:700; font-size:0.88rem; color:var(--text-muted); margin-bottom:4px;">{% trans "الإلغاء" %}</div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">{% trans "غير محدد من الناقل" %}</div>
                   </div>
                   {% endif %}
+
+                  <!-- Change/Modification Card -->
+                  {% if offer.conditions.change_before_departure %}
+                    {% if offer.conditions.change_before_departure.allowed %}
+                    <div style="border-radius:14px; padding:16px 14px; background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(59,130,246,0.04)); border:1.5px solid rgba(59,130,246,0.3); text-align:center;">
+                      <div style="font-size:2rem; margin-bottom:6px;">🔵</div>
+                      <div style="font-weight:800; font-size:0.92rem; color:#2563eb; margin-bottom:4px;">{% trans "التعديل متاح" %}</div>
+                      <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">{% trans "تعديل الحجز قبل الرحلة" %}</div>
+                      {% if offer.conditions.change_before_departure.penalty_amount %}
+                      <div style="background:rgba(59,130,246,0.1); border-radius:999px; padding:4px 10px; font-size:0.72rem; color:#2563eb; font-weight:700; display:inline-block;">
+                        {% trans "غرامة" %}: {{ offer.conditions.change_before_departure.penalty_amount|floatformat:0 }} {{ offer.conditions.change_before_departure.penalty_currency|default:"USD" }}
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% else %}
+                    <div style="border-radius:14px; padding:16px 14px; background:linear-gradient(135deg,rgba(239,68,68,0.07),rgba(239,68,68,0.03)); border:1.5px solid rgba(239,68,68,0.25); text-align:center;">
+                      <div style="font-size:2rem; margin-bottom:6px;">🔴</div>
+                      <div style="font-weight:800; font-size:0.92rem; color:#dc2626; margin-bottom:4px;">{% trans "التعديل غير متاح" %}</div>
+                      <div style="font-size:0.75rem; color:var(--text-muted);">{% trans "لا يمكن تعديل هذا الحجز" %}</div>
+                    </div>
+                    {% endif %}
+                  {% else %}
+                  <div style="border-radius:14px; padding:16px 14px; background:rgba(0,0,0,0.03); border:1.5px solid var(--border); text-align:center;">
+                    <div style="font-size:2rem; margin-bottom:6px;">⚪</div>
+                    <div style="font-weight:700; font-size:0.88rem; color:var(--text-muted); margin-bottom:4px;">{% trans "التعديل" %}</div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">{% trans "غير محدد من الناقل" %}</div>
+                  </div>
+                  {% endif %}
+
                 </div>
               </div>
+
 
               <!-- Price breakdown -->
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:20px; border-top:1px solid var(--border);">
@@ -550,6 +588,7 @@ function resetFilters() {
   const ro = document.getElementById('refundableOnly'); if (ro) ro.checked = false;
   document.getElementById('priceSort').value = 'none';
   applyFilters();
+  markCheapest();
 }
 
 applyFilters();
