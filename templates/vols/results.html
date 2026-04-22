@@ -4,341 +4,356 @@
 {% block title %}{% trans "وكالة أبو منية" %} — {% trans "نتائج البحث" %}{% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="section" style="padding-top: 24px;">
   <div class="container">
 
-    <!-- Search Summary Bar -->
-    <div class="results-header">
-
+    <!-- ── Search Summary Bar ── -->
+    <div class="results-header" style="margin-bottom:20px;">
       <div class="route-meta">
-        <span>📅 {{ search.slices.0.departure_date }}
-          {% if search.trip_type == 'roundtrip' %} - {{ search.slices.1.departure_date }}{% endif %}
-        </span>
-        <span>👤 {{ search.passengers }} {% trans "مسافر" %}{{ search.passengers|pluralize }}</span>
+        <span>📅 {{ search.slices.0.departure_date }}{% if search.trip_type == 'roundtrip' %} — {{ search.slices.1.departure_date }}{% endif %}</span>
+        <span>👤 {{ search.adults|default:search.passengers }} {% trans "بالغ" %}{% if search.children and search.children > 0 %} + {{ search.children }} {% trans "طفل" %}{% endif %}</span>
         <span>💺 {{ search.cabin_class|capfirst }}</span>
       </div>
       <button type="button" id="toggleSearchBtn" class="btn btn-ghost btn-sm">← {% trans "تعديل" %}</button>
     </div>
 
-    <div id="inlineSearchForm" style="display: none; margin-bottom: 24px;">
-        {% include 'vols/includes/search_form.html' %}
-    </div>
-
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
-        <!-- Results count -->
-        <p class="results-count" style="margin-bottom: 0;">
-          {% if offers %}
-            <strong class="gold" id="visibleCount">{{ offers|length }}</strong> {% trans "عرض/عروض وُجدت" %}
-          {% else %}
-            {% trans "لم يتم العثور على أي عروض لهذا البحث المعقد" %}.
-          {% endif %}
-        </p>
-
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <!-- Stops Filter dropdown -->
-            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
-                <label for="stopsFilter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">{% trans "عدد التوقفات" %}</label>
-                <select id="stopsFilter" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
-                    <option value="all">{% trans "جميع الرحلات" %}</option>
-                    <option value="direct">{% trans "مباشر" %}</option>
-                    <option value="1">{% trans "محطة واحدة" %}</option>
-                    <option value="2plus">{% trans "محطتان أو أكثر" %}</option>
-                </select>
-            </div>
-
-            {% if airlines and offers|length > 0 %}
-            <!-- Airline Filter dropdown -->
-            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
-                <label for="airlineFilter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">{% trans "الشركة" %}</label>
-                <select id="airlineFilter" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
-                    <option value="all">{% trans "جميع الشركات" %}</option>
-                    {% for airline in airlines %}
-                    <option value="{{ airline }}">{{ airline }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            {% endif %}
-
-            <!-- Sort dropdown -->
-            <div class="filter-group" style="display: flex; align-items: center; gap: 12px;">
-                <label for="priceSort" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">{% trans "ترتيب حسب السعر" %}</label>
-                <select id="priceSort" class="field-input" style="padding: 10px 16px; width: auto; border-radius: 999px; text-transform:none;">
-                    <option value="none">{% trans "المقترح" %}</option>
-                    <option value="asc">{% trans "الأقل إلى الأعلى" %}</option>
-                    <option value="desc">{% trans "الأعلى إلى الأقل" %}</option>
-                </select>
-            </div>
-        </div>
+    <div id="inlineSearchForm" style="display:none; margin-bottom:24px;">
+      {% include 'vols/includes/search_form.html' %}
     </div>
 
     {% if search.add_hotel %}
-    <div style="background: linear-gradient(135deg, var(--gold), #d4af37); padding: 16px 24px; border-radius: 12px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; color: #fff; box-shadow: 0 4px 12px rgba(212,175,55,0.3); flex-wrap: wrap; gap: 16px;">
-        <div>
-            <h3 style="margin: 0 0 4px 0; color: #fff; font-size: 1.25rem; font-family: 'Tajawal', sans-serif;">🏨 {% trans "اكتشف أجمل الفنادق لرحلتك" %}</h3>
-            <p style="margin: 0; font-size: 0.95rem; opacity: 0.9;">{% trans "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة" %}. {% trans "احجز فندقك الآن بسهولة" %}!</p>
-        </div>
-        <form action="{% url 'vols:hotel_search' %}" method="post" style="margin: 0;">
-            {% csrf_token %}
-            <!-- Try to pre-fill the form with flight destination -->
-            <input type="hidden" name="hotel_city_name" value="{{ search.slices.last.destination }}">
-            <input type="hidden" name="hotel_city_id" value="">
-            <input type="hidden" name="check_in" value="{{ search.slices.0.departure_date }}">
-            {% if search.trip_type == 'roundtrip' %}
-                <input type="hidden" name="check_out" value="{{ search.slices.1.departure_date }}">
-            {% else %}
-                <input type="hidden" name="check_out" value="{{ search.slices.0.departure_date }}">
-            {% endif %}
-            <input type="hidden" name="adults" value="{{ search.passengers }}">
-            <input type="hidden" name="rooms" value="1">
-            <button type="submit" class="btn" style="background: #fff; color: var(--gold); padding: 10px 24px; border-radius: 999px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s;">
-                {% trans "ابحث عن فندق لهذه الرحلة" %}
-            </button>
-        </form>
+    <div style="background:linear-gradient(135deg,var(--gold),#d4af37); padding:16px 24px; border-radius:12px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; color:#fff; box-shadow:0 4px 12px rgba(212,175,55,0.3); flex-wrap:wrap; gap:16px;">
+      <div>
+        <h3 style="margin:0 0 4px; color:#fff; font-size:1.15rem; font-family:'Tajawal',sans-serif;">🏨 {% trans "اكتشف أجمل الفنادق لرحلتك" %}</h3>
+        <p style="margin:0; font-size:0.9rem; opacity:0.9;">{% trans "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة." %}</p>
+      </div>
+      <form action="{% url 'vols:hotel_search' %}" method="post" style="margin:0;">{% csrf_token %}
+        <input type="hidden" name="hotel_city_name" value="{{ search.slices.last.destination }}">
+        <input type="hidden" name="check_in"  value="{{ search.slices.0.departure_date }}">
+        <input type="hidden" name="check_out" value="{{ search.slices.0.departure_date }}">
+        <input type="hidden" name="adults" value="{{ search.adults|default:1 }}">
+        <input type="hidden" name="rooms"  value="1">
+        <button type="submit" class="btn" style="background:#fff; color:var(--gold); padding:10px 24px; border-radius:999px; font-weight:bold; border:none; cursor:pointer;">{% trans "ابحث عن فندق" %}</button>
+      </form>
     </div>
     {% endif %}
 
     {% if offers %}
-    <div class="offers-list">
-      {% for offer in offers %}
-      <div class="offer-card" id="offer-{{ forloop.counter }}" data-stops="{% for slice in offer.slices %}{{ slice.segments|length|add:'-1' }},{% endfor %}" data-price="{{ offer.total_amount }}" onclick="openModal('modal-{{ forloop.counter }}')" style="cursor: pointer; position: relative; transition: all 0.3s ease;">
+    <!-- ── Two-Column Layout: Results + Sidebar ── -->
+    <div class="results-layout" style="display:grid; grid-template-columns:1fr 280px; gap:24px; align-items:start;">
 
-        <!-- Slices container (Loops over Outbound, Return, or Multi-city flights) -->
-        <div class="offer-slices">
-            {% for slice in offer.slices %}
-            {% with segment=slice.segments.0 last_seg=slice.segments|last %}
-            <div class="slice-details">
-                <!-- Airline logo & name -->
+      <!-- ══ MAIN RESULTS ══ -->
+      <div class="results-main" style="min-width:0;">
+
+        <!-- Sort/count bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px; background:var(--bg-2); border-radius:12px; padding:12px 20px; border:1px solid var(--border);">
+          <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">
+            <strong class="gold" id="visibleCount" style="font-size:1.1rem;">{{ offers|length }}</strong> {% trans "عرض/عروض وُجدت" %}
+          </p>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <select id="priceSort" class="field-input" style="padding:8px 14px; width:auto; border-radius:999px; font-size:0.85rem;">
+              <option value="none">{% trans "المقترح: بدر أولاً" %}</option>
+              <option value="asc">{% trans "الأرخص أولاً" %}</option>
+              <option value="desc">{% trans "الأغلى أولاً" %}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Offer Cards -->
+        <div class="offers-list" id="offersList">
+          {% for offer in offers %}
+          {% with first_slice=offer.slices.0 first_seg=offer.slices.0.segments.0 %}
+          <div class="offer-card"
+               id="offer-{{ forloop.counter }}"
+               data-price="{{ offer.total_amount }}"
+               data-airline="{% for sl in offer.slices %}{% for seg in sl.segments %}{{ seg.marketing_carrier.name }}|{% endfor %}{% endfor %}"
+               data-stops="{% for sl in offer.slices %}{{ sl.segments|length|add:'-1' }},{% endfor %}"
+               data-dep-hour="{{ first_seg.departing_at|slice:'11:13' }}"
+               style="margin-bottom:16px; cursor:pointer; transition:all 0.25s; position:relative;"
+               onclick="openModal('modal-{{ forloop.counter }}')">
+
+            <!-- Cancellation quick-badge -->
+            {% if offer.conditions.refund_before_departure.allowed %}
+            <div style="position:absolute; top:14px; inset-inline-end:14px; background:rgba(16,185,129,0.1); color:#059669; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:999px; border:1px solid rgba(16,185,129,0.2); z-index:1;">✅ {% trans "قابل للاسترداد" %}</div>
+            {% elif offer.conditions.refund_before_departure.allowed == False %}
+            <div style="position:absolute; top:14px; inset-inline-end:14px; background:rgba(239,68,68,0.1); color:#dc2626; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:999px; border:1px solid rgba(239,68,68,0.2); z-index:1;">❌ {% trans "غير قابل للاسترداد" %}</div>
+            {% endif %}
+
+            <div class="offer-slices">
+              {% for slice in offer.slices %}
+              {% with segment=slice.segments.0 last_seg=slice.segments|last %}
+              <div class="slice-details">
+                <!-- Airline -->
                 <div class="offer-airline">
-                    {% if segment.marketing_carrier.logo_symbol_url %}
-                        <img src="{{ segment.marketing_carrier.logo_symbol_url }}" alt="{{ segment.marketing_carrier.name }}" class="airline-logo">
-                    {% else %}
-                        <div class="airline-logo-placeholder">✈</div>
-                    {% endif %}
-                    <div>
-                        <div class="airline-name">{{ segment.marketing_carrier.name|default:"{% trans 'الشركة' %}" }}</div>
-                        <div class="flight-number">{% trans "رحلة" %}: {{ segment.marketing_carrier.iata_code }}{{ segment.marketing_carrier_flight_number|default:"" }}</div>
-                    </div>
+                  {% if segment.marketing_carrier.logo_symbol_url %}
+                    <img src="{{ segment.marketing_carrier.logo_symbol_url }}" alt="{{ segment.marketing_carrier.name }}" class="airline-logo">
+                  {% else %}
+                    <div class="airline-logo-placeholder">✈</div>
+                  {% endif %}
+                  <div>
+                    <div class="airline-name">{{ segment.marketing_carrier.name|default:"شركة الطيران" }}</div>
+                    <div class="flight-number">{% trans "رحلة" %}: {{ segment.marketing_carrier.iata_code }}{{ segment.marketing_carrier_flight_number }}</div>
+                  </div>
                 </div>
-
                 <!-- Route & times -->
                 <div class="offer-route">
-                    <div class="route-time">
-                        <div class="time">{{ segment.departing_at|slice:"11:16" }}</div>
-                        <div class="airport">{{ segment.origin.iata_code }}</div>
-                        <div class="airport" style="font-weight:400; font-size:10px;">{{ slice.departure_date|slice:"5:" }}</div>
-                    </div>
-                    
-                    <div class="route-line">
-                        <div class="line-dur">{{ slice.duration_fmt }}</div>
-                        <div class="line-bar">
-                            <div class="line"></div>
-                            <div class="plane-icon">✈</div>
-                        </div>
-                        <div class="line-stops">
-                            {% if slice.segments|length > 1 %}
-                                {{ slice.segments|length|add:"-1" }} {% trans "توقف" %}{{ slice.segments|length|add:"-1"|pluralize }}
-                            {% else %}
-                                {% trans "مباشر" %}
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-                    <div class="route-time">
-                        <div class="time">{{ last_seg.arriving_at|slice:"11:16" }}</div>
-                        <div class="airport">{{ last_seg.destination.iata_code }}</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Baggage & Airport Detail Row (Bottom Aligned) -->
-            <div class="baggage-row" style="display:flex; justify-content:flex-end; align-items:center; padding: 4px 20px 16px; margin-top:-8px; border-bottom:1px solid transparent; flex-wrap:wrap; gap:12px;">
-                <div class="baggage-inner" style="display:flex; align-items:center; flex-wrap:wrap; gap:12px; background:rgba(0,0,0,0.02); padding:8px 16px; border-radius:8px; border:1px solid var(--border-h);">
-                    <span class="baggage-label" style="font-size:0.8rem; font-weight:700; color:var(--text); border-left:1px solid var(--border); padding-left:12px; margin-left:4px; white-space:nowrap;">
-                        🎒 {% trans "تفاصيل الأمتعة" %}
-                    </span>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                         {% with p=segment.passengers|first %}
-                             {% if p %}
-                                 {% for bag in p.baggages %}
-                                     {% if bag.type == 'checked' %}
-                                        <span style="color:var(--primary); font-weight:600; font-size:0.75rem;">
-                                            🧳 {% trans "شحن" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                        </span>
-                                     {% elif bag.type == 'carry_on' %}
-                                        <span style="color:var(--gold); font-weight:600; font-size:0.75rem;">
-                                            🎒 {% trans "يد" %} ({{ bag.quantity }}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                        </span>
-                                     {% endif %}
-                                 {% empty %}
-                                     <span style="color:var(--text-muted); font-weight:600; font-size:0.75rem;">
-                                         ❌ {% trans "لا توجد تفاصيل معدات" %}
-                                     </span>
-                                 {% endfor %}
-                             {% endif %}
-                         {% endwith %}
-                    </div>
-                </div>
-            </div>
-            
-            {% if not forloop.last %}<hr style="border:0; height:1px; background:var(--border); margin:0 0 12px 0;">{% endif %}
-            {% endwith %}
-            {% endfor %}
-        </div>
-
-        <!-- Price & CTA (Total per person) -->
-        <div class="offer-price">
-          <div class="price-wrap">
-            <div class="price-amount" data-eur="{{ offer.total_amount }}">
-              {{ offer.total_amount|floatformat:0 }}
-              <span class="price-currency">{{ offer.total_currency }}</span>
-            </div>
-            <div class="price-per">{% trans "المجموع" %} ({{ search.passengers }} {% if search.passengers == 1 %}{% trans "مسافر" %}{% else %}{% trans "مسافرون" %}{% endif %})</div>
-          </div>
-          <div class="status-wrap">
-            {% if offer.available_services %}
-              <div style="font-size: 0.78rem; color: var(--danger); font-weight: 700; margin-top: 6px;">🔴 {% trans "توفر محدود" %}</div>
-            {% else %}
-              <div style="font-size: 0.78rem; color: var(--success); font-weight: 700; margin-top: 6px;">🟢 {% trans "متاح" %}</div>
-            {% endif %}
-            {% if offer.payment_requirements.payment_required_by %}
-              <div style="font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600">⏰ {% trans "آخر موعد دفع" %}: {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</div>
-            {% endif %}
-          </div>
-          <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm offer-btn" style="margin-top: 8px;" onclick="event.stopPropagation();">
-            {% trans "احجز" %} ←
-          </a>
-        </div>
-
-      </div>
-
-      <!-- Modal for this Offer -->
-      <div class="modal-overlay" id="modal-{{ forloop.counter }}" onclick="if(event.target===this) closeModal('modal-{{ forloop.counter }}')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-          <button class="modal-close" onclick="closeModal('modal-{{ forloop.counter }}')">&times;</button>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-              <h2 style="margin: 0; color: var(--text);">{% trans "تفاصيل الرحلة" %}</h2>
-              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-                  {% if offer.available_services %}
-                      <span style="font-size: 0.85rem; background: rgba(220,53,69,0.1); color: var(--danger); padding: 4px 12px; border-radius: 999px; font-weight: 700;">🔴 {% trans "توفر محدود" %}</span>
-                  {% else %}
-                      <span style="font-size: 0.85rem; background: rgba(27,164,90,0.1); color: var(--success); padding: 4px 12px; border-radius: 999px; font-weight: 700;">🟢 {% trans "مقاعد متاحة" %}</span>
-                  {% endif %}
-                  {% if offer.payment_requirements.payment_required_by %}
-                      <span style="font-size: 0.78rem; color: var(--gold); font-weight: 600;">⏰ {% trans "آخر موعد دفع" %}: {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</span>
-                  {% endif %}
-                  {% if offer.payment_requirements.require_passengers_date_of_birth or offer.passenger_identity_documents_required %}
-                      <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">🪪 {% trans "الهوية مطلوبة" %}</span>
-                  {% endif %}
-              </div>
-          </div>
-          
-          {% for slice in offer.slices %}
-              <div style="margin-bottom: 24px; padding: 20px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border);">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                      <h4 style="color: var(--primary); margin: 0; font-family: 'Tajawal', sans-serif;">{% trans "رحلة" %} {{ forloop.counter }}</h4>
-                      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">⏱ {{ slice.duration_fmt }}</span>
+                  <div class="route-time">
+                    <div class="time">{{ segment.departing_at|slice:"11:16" }}</div>
+                    <div class="airport">{{ segment.origin.iata_code }}</div>
+                    <div class="airport" style="font-size:10px; font-weight:400;">{{ slice.departure_date|slice:"5:" }}</div>
                   </div>
-                  
-                  {% for segment in slice.segments %}
-                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                          <div style="flex: 1; text-align: right;">
-                              <strong style="font-size: 1.1rem; color: var(--text);">{{ segment.origin.iata_code }}</strong><br>
-                              <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">{{ segment.origin.city_name|default:segment.origin.name }}</span><br>
-                              <span style="font-size: 0.9rem; color: var(--primary); font-weight: bold;">{{ segment.departing_at|slice:"11:16" }}</span><br>
-                              <span style="font-size: 0.8rem; color: var(--text-muted);">{{ segment.departing_at|slice:"0:10" }}</span>
-                              {% if segment.origin_terminal %}<br><span style="font-size: 0.85rem; font-weight: 600; color: var(--text);">{% trans "مبنى" %} (Terminal) {{ segment.origin_terminal }}</span>{% endif %}
-                          </div>
-                          
-                          <div style="flex: 1; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 0 10px;">
-                              <div>{{ segment.duration|slice:"2:"|default:segment.duration }}</div>
-                              <div class="line-bar" style="max-width: 80px; margin: 4px auto;"><div class="line"></div><div class="plane-icon" style="top: -8px;">✈</div></div>
-                              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{{ segment.marketing_carrier.name }}">{{ segment.marketing_carrier.name }} {{ segment.marketing_carrier_flight_number }}</div>
-                              {% if segment.operating_carrier and segment.operating_carrier.iata_code != segment.marketing_carrier.iata_code %}
-                                  <div style="font-size: 10px; color: var(--gold); border-top: 1px solid var(--border); padding-top: 4px; margin-top: 4px;">{% trans "تشغيل" %}: {{ segment.operating_carrier.name|default:segment.operating_carrier.iata_code }}</div>
-                              {% endif %}
-                              {% if segment.distance %}<div style="font-size: 10px; color: var(--text-muted);">{% trans "المسافة" %}: {{ segment.distance }}</div>{% endif %}
-                              {% if segment.aircraft %}<div style="font-size: 10px;">{% trans "طائرة" %}: {{ segment.aircraft.name|default:segment.aircraft.iata_code }}</div>{% endif %}
-                          </div>
-                          
-                          <div style="flex: 1; text-align: left;">
-                              <strong style="font-size: 1.1rem; color: var(--text);">{{ segment.destination.iata_code }}</strong><br>
-                              <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">{{ segment.destination.city_name|default:segment.destination.name }}</span><br>
-                              <span style="font-size: 0.9rem; color: var(--primary); font-weight: bold;">{{ segment.arriving_at|slice:"11:16" }}</span><br>
-                              <span style="font-size: 0.8rem; color: var(--text-muted);">{{ segment.arriving_at|slice:"0:10" }}</span>
-                              {% if segment.destination_terminal %}<br><span style="font-size: 0.85rem; font-weight: 600; color: var(--text);">{% trans "مبنى" %} (Terminal) {{ segment.destination_terminal }}</span>{% endif %}
-                          </div>
-                      </div>
-                      
-                      <!-- Baggage & Cabin Info -->
-                      <div style="font-size: 0.85rem; color: var(--text-muted); padding: 8px 12px; margin-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 24px; align-items: center; background: rgba(0,0,0,0.02); border-radius: 8px; flex-wrap: wrap;">
-                          {% with p=segment.passengers|first %}
-                          {% if p %}
-                          <span>💺 {% trans "الدرجة" %}: <strong style="color: var(--text);">{{ p.cabin_class_marketing_name|default:p.cabin_class|title }}</strong></span>
-                          <span style="display: flex; gap: 16px; flex-wrap: wrap;">
-                              {% for bag in p.baggages %}
-                                  <span>
-                                      {% if bag.type == 'checked' %}🧳 {% trans "شحن" %} ({{ bag.quantity }} {% trans "قطعة" %}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                      {% elif bag.type == 'carry_on' %}🎒 {% trans "يد" %} ({{ bag.quantity }} {% trans "قطعة" %}{% if bag.weight %} · {{ bag.weight }}{% if bag.weight_unit %} {{ bag.weight_unit }}{% endif %}{% endif %})
-                                      {% endif %}
-                                  </span>
-                              {% empty %}
-                                  <span>🎒 {% trans "لا توجد تفاصيل معدات" %}</span>
-                              {% endfor %}
-                          </span>
-                          {% endif %}
-                          {% endwith %}
-                      </div>
-                      
-                      {% if not forloop.last %}
-                          <div style="text-align: center; font-size: 0.8rem; color: var(--gold); margin: 16px 0; border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); padding: 8px 0; background: var(--surface-h); border-radius: 8px; font-weight: 600;">
-                              {% trans "محطة توقف (تغيير طائرة في" %} {{ segment.destination.city_name|default:segment.destination.name }})
-                          </div>
-                      {% endif %}
-                  {% endfor %}
+                  <div class="route-line">
+                    <div class="line-dur">{{ slice.duration_fmt }}</div>
+                    <div class="line-bar"><div class="line"></div><div class="plane-icon">✈</div></div>
+                    <div class="line-stops">{% if slice.segments|length > 1 %}{{ slice.segments|length|add:"-1" }} {% trans "توقف" %}{% else %}{% trans "مباشر" %}{% endif %}</div>
+                  </div>
+                  <div class="route-time">
+                    <div class="time">{{ last_seg.arriving_at|slice:"11:16" }}</div>
+                    <div class="airport">{{ last_seg.destination.iata_code }}</div>
+                  </div>
+                </div>
               </div>
-          {% endfor %}
 
-          <!-- Ticket Conditions -->
-          <div style="margin-top: 16px; padding: 16px; background: rgba(27, 164, 186, 0.04); border-radius: 12px; font-size: 0.9rem; border: 1px solid var(--border-h);">
-              <h5 style="color: var(--primary); margin: 0 0 12px 0; font-size: 1.05rem; font-family: 'Tajawal', sans-serif;">{% trans "شروط التذكرة" %}</h5>
-              <div style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Baggage + Meal + Quick Cancellation Row -->
+              <div class="baggage-row" style="display:flex; justify-content:flex-start; align-items:center; padding:4px 20px 14px; margin-top:-4px; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:6px 14px; border-radius:8px; background:rgba(0,0,0,0.02); border:1px solid var(--border-h);">
+                  <span style="font-size:0.75rem; font-weight:700; color:var(--text); border-inline-end:1px solid var(--border); padding-inline-end:10px; margin-inline-end:4px; white-space:nowrap;">🎒 {% trans "أمتعة" %}</span>
+                  {% with p=segment.passengers|first %}{% if p %}
+                    {% for bag in p.baggages %}
+                      {% if bag.type == 'checked' %}<span style="color:var(--primary); font-weight:600; font-size:0.72rem;">🧳 {{ bag.quantity }}×{{ bag.weight }}{{ bag.weight_unit }}</span>{% endif %}
+                      {% if bag.type == 'carry_on' %}<span style="color:var(--gold); font-weight:600; font-size:0.72rem;">👜 {{ bag.quantity }}×{{ bag.weight }}{{ bag.weight_unit }}</span>{% endif %}
+                    {% empty %}<span style="color:var(--text-muted); font-size:0.72rem;">—</span>{% endfor %}
+                    {% if p.meal %}<span style="color:#7c3aed; font-weight:600; font-size:0.72rem; padding-inline-start:8px; border-inline-start:1px solid var(--border); margin-inline-start:4px;">🍽 {{ p.meal }}</span>{% endif %}
+                  {% endif %}{% endwith %}
+                </div>
+              </div>
+              {% if not forloop.last %}<hr style="border:0; height:1px; background:var(--border); margin:0 0 10px;">{% endif %}
+              {% endwith %}
+              {% endfor %}
+            </div>
+
+            <!-- Price & CTA -->
+            <div class="offer-price">
+              <div class="price-wrap">
+                <div class="price-amount" data-eur="{{ offer.total_amount }}">
+                  {{ offer.total_amount|floatformat:0 }}<span class="price-currency">{{ offer.total_currency }}</span>
+                </div>
+                <div class="price-per" style="font-size:0.75rem;">
+                  {% trans "المجموع" %} · {{ search.adults|default:search.passengers }} {% trans "بالغ" %}{% if search.children and search.children > 0 %} + {{ search.children }} {% trans "طفل" %}{% endif %}
+                </div>
+                {% if offer.child_per_person and search.children and search.children > 0 %}
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:2px;">
+                  <span style="color:var(--primary);">{{ offer.adult_per_person }} $</span> {% trans "بالغ" %} · <span style="color:var(--gold);">{{ offer.child_per_person }} $</span> {% trans "طفل" %}
+                </div>
+                {% endif %}
+              </div>
+              <div class="status-wrap">
+                <div style="font-size:0.75rem; color:var(--success); font-weight:700; margin-top:4px;">🟢 {% trans "متاح" %}</div>
+                {% if offer.payment_requirements.payment_required_by %}
+                  <div style="font-size:0.72rem; color:var(--gold); margin-top:2px;">⏰ {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</div>
+                {% endif %}
+              </div>
+              <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm offer-btn" style="margin-top:8px;" onclick="event.stopPropagation();">{% trans "احجز" %} ←</a>
+            </div>
+          </div>
+
+          <!-- ── Detail Modal ── -->
+          <div class="modal-overlay" id="modal-{{ forloop.counter }}" onclick="if(event.target===this)closeModal('modal-{{ forloop.counter }}')">
+            <div class="modal-content" onclick="event.stopPropagation()">
+              <button class="modal-close" onclick="closeModal('modal-{{ forloop.counter }}')">×</button>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:8px;">
+                <h2 style="margin:0; color:var(--text); font-size:1.3rem;">{% trans "تفاصيل الرحلة" %}</h2>
+                <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                  <span style="font-size:0.85rem; background:rgba(27,164,90,0.1); color:var(--success); padding:4px 12px; border-radius:999px; font-weight:700;">🟢 {% trans "مقاعد متاحة" %}</span>
+                  {% if offer.payment_requirements.payment_required_by %}
+                    <span style="font-size:0.75rem; color:var(--gold); font-weight:600;">⏰ {{ offer.payment_requirements.payment_required_by|slice:"0:10" }}</span>
+                  {% endif %}
+                </div>
+              </div>
+
+              {% for slice in offer.slices %}
+              <div style="margin-bottom:20px; padding:18px; background:var(--surface); border-radius:12px; border:1px solid var(--border);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
+                  <h4 style="color:var(--primary); margin:0; font-family:'Tajawal',sans-serif;">{% trans "رحلة" %} {{ forloop.counter }}</h4>
+                  <span style="font-size:0.85rem; color:var(--text-muted);">⏱ {{ slice.duration_fmt }}</span>
+                </div>
+                {% for segment in slice.segments %}
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                  <div style="flex:1; text-align:right;">
+                    <strong style="font-size:1.1rem;">{{ segment.origin.iata_code }}</strong><br>
+                    <span style="font-size:0.85rem; color:var(--text-muted);">{{ segment.origin.city_name|default:segment.origin.name }}</span><br>
+                    <span style="font-size:0.9rem; color:var(--primary); font-weight:bold;">{{ segment.departing_at|slice:"11:16" }}</span><br>
+                    <span style="font-size:0.78rem; color:var(--text-muted);">{{ segment.departing_at|slice:"0:10" }}</span>
+                  </div>
+                  <div style="flex:1; text-align:center; color:var(--text-muted); font-size:0.82rem; padding:0 8px;">
+                    <div>{{ segment.duration|slice:"2:"|default:segment.duration }}</div>
+                    <div class="line-bar" style="max-width:70px; margin:4px auto;"><div class="line"></div><div class="plane-icon" style="top:-8px;">✈</div></div>
+                    <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ segment.marketing_carrier.name }} {{ segment.marketing_carrier_flight_number }}</div>
+                    {% if segment.aircraft %}<div style="font-size:10px;">{% trans "طائرة" %}: {{ segment.aircraft.name|default:segment.aircraft.iata_code }}</div>{% endif %}
+                  </div>
+                  <div style="flex:1; text-align:left;">
+                    <strong style="font-size:1.1rem;">{{ segment.destination.iata_code }}</strong><br>
+                    <span style="font-size:0.85rem; color:var(--text-muted);">{{ segment.destination.city_name|default:segment.destination.name }}</span><br>
+                    <span style="font-size:0.9rem; color:var(--primary); font-weight:bold;">{{ segment.arriving_at|slice:"11:16" }}</span><br>
+                    <span style="font-size:0.78rem; color:var(--text-muted);">{{ segment.arriving_at|slice:"0:10" }}</span>
+                  </div>
+                </div>
+
+                <!-- Baggage + Meal + Cabin per segment -->
+                <div style="font-size:0.82rem; color:var(--text-muted); padding:8px 12px; margin-top:10px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:16px; align-items:center; background:rgba(0,0,0,0.02); border-radius:8px;">
+                  {% with p=segment.passengers|first %}{% if p %}
+                    <span>💺 <strong style="color:var(--text);">{{ p.cabin_class_marketing_name|default:p.cabin_class|title }}</strong></span>
+                    {% for bag in p.baggages %}
+                      {% if bag.type == 'checked' %}<span>🧳 {% trans "شحن" %} ({{ bag.quantity }} {% trans "قطعة" %}{% if bag.weight %} · {{ bag.weight }} {{ bag.weight_unit }}{% endif %})</span>{% endif %}
+                      {% if bag.type == 'carry_on' %}<span>👜 {% trans "يد" %} ({{ bag.quantity }} {% trans "قطعة" %}{% if bag.weight %} · {{ bag.weight }} {{ bag.weight_unit }}{% endif %})</span>{% endif %}
+                    {% empty %}<span>🎒 {% trans "لا توجد تفاصيل معدات" %}</span>{% endfor %}
+                    {% if p.meal %}<span style="color:#7c3aed; font-weight:600; padding-inline-start:8px; border-inline-start:1px solid var(--border); margin-inline-start:4px;">🍽 {% trans "وجبة" %}: <strong>{{ p.meal }}</strong></span>{% else %}<span style="color:var(--text-muted);">🍽 {% trans "لا توجد وجبة مشمولة" %}</span>{% endif %}
+                  {% endif %}{% endwith %}
+                </div>
+
+                {% if not forloop.last %}
+                <div style="text-align:center; font-size:0.8rem; color:var(--gold); margin:14px 0; border-top:1px dashed var(--border); border-bottom:1px dashed var(--border); padding:8px 0; background:var(--surface-h); border-radius:8px; font-weight:600;">
+                  {% trans "محطة توقف (تغيير طائرة في" %} {{ segment.destination.city_name|default:segment.destination.name }})
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endfor %}
+
+              <!-- Cancellation/Change Conditions -->
+              <div style="margin-top:14px; padding:16px; background:rgba(27,164,186,0.04); border-radius:12px; font-size:0.88rem; border:1px solid var(--border-h);">
+                <h5 style="color:var(--primary); margin:0 0 12px; font-size:1rem; font-family:'Tajawal',sans-serif;">📋 {% trans "شروط التذكرة والإلغاء" %}</h5>
+                <div style="display:flex; flex-direction:column; gap:10px;">
                   {% if offer.conditions.refund_before_departure %}
-                      <div style="display: flex; justify-content: space-between; align-items: center;">
-                          <span style="color: var(--text-muted);">{% trans "استرداد قبل المغادرة" %}:</span>
-                          {% if offer.conditions.refund_before_departure.allowed %}
-                              <strong style="color: var(--success);">✅ {% trans "مسموح" %} {% if offer.conditions.refund_before_departure.penalty_amount %}{% trans "(غرامة" %} {{ offer.conditions.refund_before_departure.penalty_amount_usd|default:offer.conditions.refund_before_departure.penalty_amount|floatformat:2 }} USD){% endif %}</strong>
-                          {% else %}
-                              <strong style="color: var(--danger);">❌ {% trans "غير مسموح" %}</strong>
-                          {% endif %}
-                      </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-radius:8px; background:{% if offer.conditions.refund_before_departure.allowed %}rgba(16,185,129,0.06){% else %}rgba(239,68,68,0.06){% endif %};">
+                    <span style="color:var(--text-muted);">🔄 {% trans "استرداد قبل السفر" %}:</span>
+                    {% if offer.conditions.refund_before_departure.allowed %}
+                      <strong style="color:#059669;">✅ {% trans "مسموح" %} {% if offer.conditions.refund_before_departure.penalty_amount %}({% trans "غرامة" %} {{ offer.conditions.refund_before_departure.penalty_amount_usd|default:offer.conditions.refund_before_departure.penalty_amount|floatformat:0 }} USD){% endif %}</strong>
+                    {% else %}
+                      <strong style="color:#dc2626;">❌ {% trans "غير مسموح" %}</strong>
+                    {% endif %}
+                  </div>
+                  {% else %}
+                  <div style="padding:8px 12px; border-radius:8px; background:rgba(0,0,0,0.03); color:var(--text-muted); font-size:0.82rem;">{% trans "لا تتوفر معلومات الاسترداد لهذا العرض" %}</div>
                   {% endif %}
                   {% if offer.conditions.change_before_departure %}
-                      <div style="display: flex; justify-content: space-between; align-items: center;">
-                          <span style="color: var(--text-muted);">{% trans "تغيير قبل المغادرة" %}:</span>
-                          {% if offer.conditions.change_before_departure.allowed %}
-                              <strong style="color: var(--success);">✅ {% trans "مسموح" %} {% if offer.conditions.change_before_departure.penalty_amount %}{% trans "(غرامة" %} {{ offer.conditions.change_before_departure.penalty_amount_usd|default:offer.conditions.change_before_departure.penalty_amount|floatformat:2 }} USD){% endif %}</strong>
-                          {% else %}
-                              <strong style="color: var(--danger);">❌ {% trans "غير مسموح" %}</strong>
-                          {% endif %}
-                      </div>
-                  {% endif %}
-              </div>
-          </div>
-
-          <!-- Price & CTA Bottom of Modal -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
-              <div>
-                  <div style="font-size: 1.8rem; font-weight: 800; color: var(--text);" data-eur="{{ offer.total_amount }}">
-                      {{ offer.total_amount|floatformat:0 }} <span style="font-size: 1rem; color: var(--text-muted);">{{ offer.total_currency }}</span>
+                  <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-radius:8px; background:{% if offer.conditions.change_before_departure.allowed %}rgba(16,185,129,0.06){% else %}rgba(239,68,68,0.06){% endif %};">
+                    <span style="color:var(--text-muted);">✏️ {% trans "تعديل الحجز قبل السفر" %}:</span>
+                    {% if offer.conditions.change_before_departure.allowed %}
+                      <strong style="color:#059669;">✅ {% trans "مسموح" %} {% if offer.conditions.change_before_departure.penalty_amount %}({% trans "غرامة" %} {{ offer.conditions.change_before_departure.penalty_amount_usd|default:offer.conditions.change_before_departure.penalty_amount|floatformat:0 }} USD){% endif %}</strong>
+                    {% else %}
+                      <strong style="color:#dc2626;">❌ {% trans "غير مسموح" %}</strong>
+                    {% endif %}
                   </div>
-                  <div style="font-size: 0.85rem; color: var(--text-muted);">{% trans "المجموع" %} ({{ search.passengers }} {% if search.passengers == 1 %}{% trans "مسافر" %}{% else %}{% trans "مسافرون" %}{% endif %})</div>
+                  {% endif %}
+                </div>
               </div>
-              <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding: 12px 32px; font-size: 1.1rem; font-weight: 700;">{% trans "حجز الآن" %} ←</a>
+
+              <!-- Price breakdown -->
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:20px; border-top:1px solid var(--border);">
+                <div>
+                  <div style="font-size:1.8rem; font-weight:800; color:var(--text);" data-eur="{{ offer.total_amount }}">
+                    {{ offer.total_amount|floatformat:0 }} <span style="font-size:1rem; color:var(--text-muted);">{{ offer.total_currency }}</span>
+                  </div>
+                  {% if offer.adult_per_person %}
+                  <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">
+                    <span style="color:var(--primary); font-weight:600;">{{ offer.adult_per_person }} $ × {{ search.adults|default:1 }} {% trans "بالغ" %}</span>
+                    {% if search.children and search.children > 0 %}
+                      · <span style="color:var(--gold); font-weight:600;">{{ offer.child_per_person }} $ × {{ search.children }} {% trans "طفل (75%)" %}</span>
+                    {% endif %}
+                  </div>
+                  {% else %}
+                  <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "المجموع لجميع المسافرين" %}</div>
+                  {% endif %}
+                </div>
+                <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding:12px 28px; font-size:1rem; font-weight:700;">{% trans "احجز الآن" %} ←</a>
+              </div>
+            </div>
+          </div>
+          {% endwith %}
+          {% endfor %}
+        </div><!-- /offers-list -->
+      </div><!-- /results-main -->
+
+      <!-- ══ SIDEBAR FILTERS (Almatar-style) ══ -->
+      <aside class="results-sidebar" style="position:sticky; top:90px; max-height:calc(100vh - 110px); overflow-y:auto; scrollbar-width:thin;">
+        <div style="font-weight:800; font-size:1rem; color:var(--text); margin-bottom:14px; font-family:'Tajawal',sans-serif; display:flex; justify-content:space-between; align-items:center;">
+          <span>🔧 {% trans "تصفية النتائج" %}</span>
+          <button onclick="resetFilters()" style="font-size:0.75rem; color:var(--primary); background:none; border:none; cursor:pointer; font-weight:700; font-family:'Tajawal',sans-serif;">{% trans "إعادة ضبط" %}</button>
+        </div>
+
+        <!-- ① Price Range -->
+        <div class="filter-section">
+          <div class="filter-title">💰 {% trans "نطاق السعر" %} ({{ offer.total_currency|default:"USD" }})</div>
+          <div style="padding:6px 4px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.82rem;">
+              <span id="priceMin">—</span>
+              <span id="priceMax">—</span>
+            </div>
+            <input type="range" id="priceRangeMax" min="0" max="9999" step="1" value="9999" style="width:100%; accent-color:var(--primary);" oninput="applyFilters()">
+            <div style="display:flex; justify-content:flex-end; margin-top:4px; font-size:0.78rem; color:var(--text-muted);">{% trans "حتى" %}: <strong id="priceRangeVal" style="color:var(--primary); margin-inline-start:4px;">—</strong></div>
           </div>
         </div>
-      </div>
-      {% endfor %}
-    </div>
+
+        <!-- ② Airlines -->
+        {% if airlines %}
+        <div class="filter-section">
+          <div class="filter-title">✈️ {% trans "شركة الطيران" %}</div>
+          <div id="airlineFilters" style="display:flex; flex-direction:column; gap:8px;">
+            {% for airline in airlines %}
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:5px 0;">
+              <input type="checkbox" class="airline-cb" value="{{ airline }}" checked style="accent-color:var(--primary); width:16px; height:16px;" onchange="applyFilters()">
+              <span style="font-size:0.88rem; flex:1;">{{ airline }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- ③ Number of Stops -->
+        <div class="filter-section">
+          <div class="filter-title">🛑 {% trans "عدد التوقفات" %}</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" class="stops-cb" value="direct" checked style="accent-color:var(--primary); width:16px; height:16px;" onchange="applyFilters()">
+              <span style="font-size:0.88rem;">{% trans "مباشر" %}</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" class="stops-cb" value="1" checked style="accent-color:var(--primary); width:16px; height:16px;" onchange="applyFilters()">
+              <span style="font-size:0.88rem;">{% trans "توقف واحد" %}</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" class="stops-cb" value="2plus" checked style="accent-color:var(--primary); width:16px; height:16px;" onchange="applyFilters()">
+              <span style="font-size:0.88rem;">{% trans "توقفان أو أكثر" %}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ④ Departure Time -->
+        <div class="filter-section">
+          <div class="filter-title">🕐 {% trans "وقت المغادرة" %}</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <button class="time-chip time-chip-active" onclick="toggleTimeChip(this,'morning')">🌅<br><span style="font-size:0.7rem;">{% trans "صباح" %}</span><br><span style="font-size:0.65rem; color:inherit; opacity:0.8;">00–12</span></button>
+            <button class="time-chip time-chip-active" onclick="toggleTimeChip(this,'afternoon')">☀️<br><span style="font-size:0.7rem;">{% trans "ظهيرة" %}</span><br><span style="font-size:0.65rem; opacity:0.8;">12–18</span></button>
+            <button class="time-chip time-chip-active" onclick="toggleTimeChip(this,'evening')">🌆<br><span style="font-size:0.7rem;">{% trans "مساء" %}</span><br><span style="font-size:0.65rem; opacity:0.8;">18–24</span></button>
+            <button class="time-chip time-chip-active" onclick="toggleTimeChip(this,'all-time')">🌙<br><span style="font-size:0.7rem;">{% trans "الكل" %}</span></button>
+          </div>
+        </div>
+
+        <!-- ⑤ Refundable filter -->
+        <div class="filter-section">
+          <div class="filter-title">🔄 {% trans "سياسة الإلغاء" %}</div>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="refundableOnly" style="accent-color:var(--primary); width:16px; height:16px;" onchange="applyFilters()">
+            <span style="font-size:0.88rem;">{% trans "قابل للاسترداد فقط" %}</span>
+          </label>
+        </div>
+
+
+
+      </aside><!-- /sidebar -->
+
+    </div><!-- /results-layout -->
 
     {% else %}
     <div class="empty-state">
@@ -353,113 +368,189 @@
 </section>
 
 <style>
-.modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4); z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden; transition: 0.3s ease;
-  backdrop-filter: blur(8px);
+/* ── Sidebar ── */
+.results-sidebar { font-family:'Tajawal',sans-serif; }
+.filter-section { background:var(--bg-2); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:12px; }
+.filter-title { font-weight:800; font-size:0.88rem; color:var(--text); margin-bottom:12px; }
+.time-chip {
+  padding:8px 6px; border-radius:10px; border:1.5px solid var(--border); background:var(--bg-2);
+  cursor:pointer; text-align:center; font-size:0.9rem; font-family:'Tajawal',sans-serif;
+  color:var(--text-muted); transition:0.2s; line-height:1.4;
 }
-.modal-overlay.active { opacity: 1; visibility: visible; }
-.modal-content {
-  background: var(--bg-2); border-radius: var(--radius-lg); width: 90%; max-width: 600px;
-  max-height: 85vh; overflow-y: auto; padding: 32px; position: relative;
-  transform: translateY(20px) scale(0.95); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.1);
+.time-chip-active { border-color:var(--primary); background:rgba(27,164,186,0.08); color:var(--primary); }
+/* ── Modal ── */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:9999; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:0.3s; backdrop-filter:blur(8px); }
+.modal-overlay.active { opacity:1; visibility:visible; }
+.modal-content { background:var(--bg-2); border-radius:20px; width:92%; max-width:640px; max-height:88vh; overflow-y:auto; padding:28px; position:relative; transform:translateY(20px) scale(0.95); transition:0.3s cubic-bezier(0.175,0.885,0.32,1.275); box-shadow:0 24px 80px rgba(0,0,0,0.15); }
+.modal-overlay.active .modal-content { transform:translateY(0) scale(1); }
+.modal-close { position:absolute; top:16px; inset-inline-start:20px; background:none; border:none; font-size:1.8rem; cursor:pointer; color:var(--text-muted); line-height:1; transition:0.2s; }
+.modal-close:hover { color:var(--danger); transform:scale(1.1); }
+/* ── Offer card hover ── */
+.offer-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--border-h); }
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .results-layout { grid-template-columns:1fr !important; }
+  .results-sidebar { position:static !important; max-height:none !important; border:1px solid var(--border); border-radius:14px; padding:16px; background:var(--bg-2); }
 }
-.modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
-.modal-close {
-  position: absolute; top: 20px; left: 24px; background: none; border: none;
-  font-size: 2rem; cursor: pointer; color: var(--text-muted); line-height: 1; transition: 0.2s;
+/* ── Cheapest badge ── */
+.badge-cheapest {
+  position:absolute; top:14px; inset-inline-start:14px; z-index:2;
+  background:linear-gradient(135deg, #16a34a, #15803d);
+  color:#fff; font-size:0.72rem; font-weight:800; letter-spacing:0.03em;
+  padding:4px 10px 4px 8px; border-radius:999px;
+  box-shadow:0 2px 8px rgba(22,163,74,0.35);
+  display:flex; align-items:center; gap:4px;
+  animation: badgePop 0.35s cubic-bezier(0.175,0.885,0.32,1.275) both;
+  white-space:nowrap;
 }
-.modal-close:hover { color: var(--danger); transform: scale(1.1); }
-.offer-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--border-h); }
+@keyframes badgePop {
+  from { transform:scale(0.5); opacity:0; }
+  to   { transform:scale(1);   opacity:1; }
+}
 </style>
+
 {% endblock %}
 
 {% block extra_scripts %}
 {% include 'vols/includes/search_scripts.html' %}
 <script>
-  function openModal(id) {
-      document.getElementById(id).classList.add('active');
-      document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-      document.body.style.overflow = '';
-  }
+// ── Modal helpers ──
+function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
+document.getElementById('toggleSearchBtn').addEventListener('click', () => {
+  const f = document.getElementById('inlineSearchForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+});
 
-  document.getElementById('toggleSearchBtn').addEventListener('click', () => {
-      const f = document.getElementById('inlineSearchForm');
-      f.style.display = f.style.display === 'none' ? 'block' : 'none';
+// ── Sidebar filter engine ──
+const offerCards = Array.from(document.querySelectorAll('.offer-card'));
+const offersContainer = document.getElementById('offersList');
+const priceRangeInput = document.getElementById('priceRangeMax');
+const countEl = document.getElementById('visibleCount');
+
+// Init price slider
+const allPrices = offerCards.map(c => parseFloat(c.dataset.price || 0));
+const minP = Math.floor(Math.min(...allPrices));
+const maxP = Math.ceil(Math.max(...allPrices));
+if (priceRangeInput) {
+  priceRangeInput.min = minP; priceRangeInput.max = maxP; priceRangeInput.value = maxP;
+  document.getElementById('priceMin').textContent = minP + ' $';
+  document.getElementById('priceMax').textContent = maxP + ' $';
+  document.getElementById('priceRangeVal').textContent = maxP + ' $';
+  priceRangeInput.addEventListener('input', () => {
+    document.getElementById('priceRangeVal').textContent = priceRangeInput.value + ' $';
+    applyFilters();
   });
-  document.addEventListener("DOMContentLoaded", () => {
-      const airlineFilter = document.getElementById("airlineFilter");
-      const stopsFilter = document.getElementById("stopsFilter");
-      const priceSort = document.getElementById("priceSort");
-      const offerCards = document.querySelectorAll(".offer-card");
-      const offersContainer = document.querySelector(".offers-list");
-      
-      function applyFilters() {
-          const selectedAirline = airlineFilter ? airlineFilter.value : "all";
-          const selectedStops = stopsFilter ? stopsFilter.value : "all";
-          const selectedSort = priceSort ? priceSort.value : "none";
-          let visibleCount = 0;
-          
-          // 1. Filter Pass
-          offerCards.forEach(card => {
-              let airlineMatch = true;
-              let stopsMatch = true;
+}
 
-              if (selectedAirline !== "all") {
-                  const airlinesInCard = Array.from(card.querySelectorAll(".airline-name")).map(el => el.textContent.trim());
-                  airlineMatch = airlinesInCard.includes(selectedAirline);
-              }
+// Active time slots
+let activeTimeSlots = new Set(['morning','afternoon','evening']);
 
-              if (selectedStops !== "all") {
-                  const stopsRaw = card.getAttribute("data-stops") || "";
-                  const stopsArr = stopsRaw.split(',').filter(s => s !== '').map(Number);
-                  
-                  stopsMatch = stopsArr.every(stopCount => {
-                      if (selectedStops === "direct") return stopCount === 0;
-                      if (selectedStops === "1") return stopCount === 1;
-                      if (selectedStops === "2plus") return stopCount >= 2;
-                      return true;
-                  });
-              }
+function toggleTimeChip(btn, slot) {
+  if (slot === 'all-time') {
+    activeTimeSlots = new Set(['morning','afternoon','evening']);
+    document.querySelectorAll('.time-chip').forEach(c => c.classList.add('time-chip-active'));
+  } else {
+    btn.classList.toggle('time-chip-active');
+    if (activeTimeSlots.has(slot)) activeTimeSlots.delete(slot);
+    else activeTimeSlots.add(slot);
+    const allBtn = document.querySelector('.time-chip[onclick*="all-time"]');
+    if (allBtn) allBtn.classList.remove('time-chip-active');
+  }
+  applyFilters();
+}
 
-              if (airlineMatch && stopsMatch) {
-                  card.style.display = "";
-                  visibleCount++;
-              } else {
-                  card.style.display = "none";
-              }
-          });
-          
-          // Update string count
-          const countEl = document.getElementById("visibleCount");
-          if (countEl) countEl.textContent = visibleCount;
+function getHourSlot(hhmm) {
+  if (!hhmm) return 'morning';
+  const h = parseInt(hhmm.split(':')[0]) || 0;
+  if (h < 12) return 'morning';
+  if (h < 18) return 'afternoon';
+  return 'evening';
+}
 
-          // 2. Sort Pass
-          if (offersContainer && selectedSort !== "none") {
-              const visibleCardsArray = Array.from(offerCards).filter(c => c.style.display !== "none");
-              const hiddenCardsArray = Array.from(offerCards).filter(c => c.style.display === "none");
-              
-              visibleCardsArray.sort((a, b) => {
-                  const priceA = parseFloat(a.getAttribute("data-price") || 0);
-                  const priceB = parseFloat(b.getAttribute("data-price") || 0);
-                  if (selectedSort === "asc") return priceA - priceB;
-                  return priceB - priceA;
-              });
+function applyFilters() {
+  const maxPrice = parseFloat(priceRangeInput ? priceRangeInput.value : 9999);
+  const checkedAirlines = new Set(Array.from(document.querySelectorAll('.airline-cb:checked')).map(cb => cb.value));
+  const checkedStops = new Set(Array.from(document.querySelectorAll('.stops-cb:checked')).map(cb => cb.value));
+  const refundableOnly = document.getElementById('refundableOnly') && document.getElementById('refundableOnly').checked;
+  const sortVal = document.getElementById('priceSort').value;
 
-              visibleCardsArray.forEach(card => offersContainer.appendChild(card));
-              hiddenCardsArray.forEach(card => offersContainer.appendChild(card));
-          }
-      }
+  let visible = [];
+  offerCards.forEach(card => {
+    const price = parseFloat(card.dataset.price || 0);
+    const airlines = (card.dataset.airline || '').split('|').filter(Boolean);
+    const stopsArr = (card.dataset.stops || '').split(',').filter(Boolean).map(Number);
+    const depHour = card.dataset.depHour || '';
+    const isRefundable = card.querySelector('[style*="059669"]') !== null;
 
-      if (airlineFilter) airlineFilter.addEventListener("change", applyFilters);
-      if (stopsFilter) stopsFilter.addEventListener("change", applyFilters);
-      if (priceSort) priceSort.addEventListener("change", applyFilters);
+    let show = true;
+    if (price > maxPrice) show = false;
+    if (checkedAirlines.size > 0 && !airlines.some(a => checkedAirlines.has(a))) show = false;
+    if (checkedStops.size > 0) {
+      const stopsMatch = stopsArr.every(s => {
+        if (s === 0 && checkedStops.has('direct')) return true;
+        if (s === 1 && checkedStops.has('1')) return true;
+        if (s >= 2 && checkedStops.has('2plus')) return true;
+        return false;
+      });
+      if (!stopsMatch) show = false;
+    }
+    if (activeTimeSlots.size < 3) {
+      const slot = getHourSlot(depHour);
+      if (!activeTimeSlots.has(slot)) show = false;
+    }
+    if (refundableOnly && !isRefundable) show = false;
+
+    card.style.display = show ? '' : 'none';
+    if (show) visible.push(card);
   });
+  if (countEl) countEl.textContent = visible.length;
+
+  // Sort
+  if (sortVal !== 'none' && offersContainer) {
+    visible.sort((a, b) => {
+      const pa = parseFloat(a.dataset.price || 0);
+      const pb = parseFloat(b.dataset.price || 0);
+      return sortVal === 'asc' ? pa - pb : pb - pa;
+    });
+    visible.forEach(c => offersContainer.appendChild(c));
+  }
+}
+document.getElementById('priceSort').addEventListener('change', applyFilters);
+
+// ── Cheapest badge ──
+function markCheapest() {
+  // Remove existing badges
+  document.querySelectorAll('.badge-cheapest').forEach(b => b.remove());
+  // Find visible cards with lowest price
+  const visible = offerCards.filter(c => c.style.display !== 'none');
+  if (visible.length < 1) return;
+  const minPrice = Math.min(...visible.map(c => parseFloat(c.dataset.price || 0)));
+  visible.forEach(card => {
+    if (parseFloat(card.dataset.price || 0) === minPrice) {
+      const badge = document.createElement('div');
+      badge.className = 'badge-cheapest';
+      badge.innerHTML = '&#127942; الأرخص سعراً';
+      card.style.position = 'relative';  // ensure positioning context
+      card.prepend(badge);
+    }
+  });
+}
+
+function applyFilters() {
+
+function resetFilters() {
+  document.querySelectorAll('.airline-cb').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.stops-cb').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.time-chip').forEach(c => c.classList.add('time-chip-active'));
+  activeTimeSlots = new Set(['morning','afternoon','evening']);
+  if (priceRangeInput) { priceRangeInput.value = priceRangeInput.max; document.getElementById('priceRangeVal').textContent = priceRangeInput.max + ' $'; }
+  const ro = document.getElementById('refundableOnly'); if (ro) ro.checked = false;
+  document.getElementById('priceSort').value = 'none';
+  applyFilters();
+}
+
+applyFilters();
+markCheapest();
 </script>
 {% endblock %}

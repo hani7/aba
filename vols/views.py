@@ -363,7 +363,10 @@ def api_places(request):
 def search_results(request):
     if request.method == 'POST':
         trip_type = request.POST.get('trip_type', 'oneway')
-        passengers = request.POST.get('passengers', 1)
+        # Support new adults/children fields, falling back to old 'passengers' for backward compat
+        adults   = max(1, int(request.POST.get('adults',   request.POST.get('passengers', 1)) or 1))
+        children = max(0, int(request.POST.get('children', 0) or 0))
+        total_passengers = adults + children
         cabin_class = request.POST.get('cabin_class', 'economy')
 
         slices = []
@@ -425,13 +428,15 @@ def search_results(request):
         request.session['search'] = {
             'trip_type': trip_type,
             'slices': slices,
-            'passengers': passengers,
+            'adults': adults,
+            'children': children,
+            'passengers': total_passengers,  # kept for backward compat
             'cabin_class': cabin_class,
             'add_hotel': request.POST.get('add_hotel') == 'yes',
         }
 
         try:
-            offers = duffel_service.search_flights(slices, passengers, cabin_class)
+            offers = duffel_service.search_flights(slices, adults, children, cabin_class)
 
             # --- Exclude Duffel Airways (virtual/sandbox carrier) ---
             def has_duffel_airways(offer):
@@ -483,12 +488,16 @@ def search_results(request):
                 'DOG': {'price': '65.00',  'duration': 'PT1H00M', 'dep': '07:30', 'arr': '08:30'},
                 'KRT': {'price': '80.00',  'duration': 'PT1H10M', 'dep': '08:00', 'arr': '09:10'},
             }
-            # Only inject Badr if the route is in their actual network
+            # Only inject Badr if the route is in their actual network.
+            # Badr Airlines is hub-and-spoke from PZU (Port Sudan).
+            # Rule: one endpoint MUST be PZU, and the other must be in their network.
             if slices:
                 first_origin = (slices[0].get('origin') or '').upper()
                 first_dest   = (slices[0].get('destination') or '').upper()
-                badr_served  = (
-                    first_origin in BADR_REAL_DESTINATIONS and first_dest in BADR_REAL_DESTINATIONS
+                badr_served = (
+                    (first_origin == 'PZU' and first_dest in BADR_REAL_DESTINATIONS and first_dest != 'PZU')
+                    or
+                    (first_dest == 'PZU' and first_origin in BADR_REAL_DESTINATIONS and first_origin != 'PZU')
                 )
                 if badr_served:
                     # Determine pricing: use origin→dest or dest→origin lookup
@@ -497,6 +506,14 @@ def search_results(request):
 
                     import uuid
                     mock_slices = []
+                    # Meal info per cabin class (Badr Airlines policy)
+                    meal_map = {
+                        'economy': 'وجبة خفيفة',
+                        'premium_economy': 'وجبة كاملة',
+                        'business': 'وجبة كاملة فاخرة',
+                        'first': 'وجبة كاملة فاخرة',
+                    }
+                    meal_label = meal_map.get(cabin_class, 'وجبة خفيفة')
                     for idx, sl in enumerate(slices):
                         ori_iata = sl['origin'].upper()
                         dst_iata = sl['destination'].upper()
@@ -527,6 +544,7 @@ def search_results(request):
                                 'passengers': [{
                                     'cabin_class': cabin_class,
                                     'cabin_class_marketing_name': cabin_class,
+                                    'meal': meal_label,
                                     'baggages': [
                                         {'type': 'checked', 'quantity': 1, 'weight': '23', 'weight_unit': 'kg'},
                                         {'type': 'carry_on', 'quantity': 1, 'weight': '7', 'weight_unit': 'kg'}
@@ -535,27 +553,47 @@ def search_results(request):
                             }]
                         })
 
+                    # Price per leg (adult base)
+                    def _leg_adult_price(sl):
+                        k = sl['destination'].upper() if sl['destination'].upper() in BADR_PRICE_MAP else sl['origin'].upper()
+                        return float(BADR_PRICE_MAP.get(k, {'price': '200.00'})['price'])
 
-                    # Total price = sum of all leg prices
-                    total_legs_price = sum(
-                        float(BADR_PRICE_MAP.get(
-                            sl['destination'].upper() if sl['destination'].upper() in BADR_PRICE_MAP else sl['origin'].upper(),
-                            {'price': '200.00'}
-                        )['price'])
-                        for sl in slices
-                    )
+                    adult_total = sum(_leg_adult_price(sl) for sl in slices) * adults
+                    child_total = sum(_leg_adult_price(sl) * 0.75 for sl in slices) * children
+                    total_legs_price = round(adult_total + child_total, 2)
                     tax_amount = round(total_legs_price * 0.15, 2)
+                    # Store per-person breakdown for display
+                    adult_per_person = round(sum(_leg_adult_price(sl) for sl in slices), 2)
+                    child_per_person = round(adult_per_person * 0.75, 2)
+                    # Build passenger list: adults first, then children
+                    pax_list = [{'id': f"pas_adult_{i}", 'type': 'adult'} for i in range(adults)]
+                    pax_list += [{'id': f"pas_child_{i}", 'type': 'child'} for i in range(children)]
                     mock_badr_offer = {
                         'id': f"off_mock_badr_{str(uuid.uuid4())[:8]}",
                         'total_amount': f"{total_legs_price:.2f}",
                         'total_currency': 'USD',
                         'tax_amount': f"{tax_amount:.2f}",
+                        'adult_per_person': f"{adult_per_person:.2f}",
+                        'child_per_person': f"{child_per_person:.2f}",
                         'owner': {'name': 'Badr Airlines', 'iata_code': 'J4'},
-                        'passengers': [{'id': f"pas_{i}"} for i in range(int(passengers))],
-                        'slices': mock_slices
+                        'passengers': pax_list,
+                        'conditions': {
+                            'refund_before_departure': {
+                                'allowed': True,
+                                'penalty_amount': f"{round(total_legs_price * 0.15, 2):.2f}",
+                                'penalty_currency': 'USD',
+                            },
+                            'change_before_departure': {
+                                'allowed': True,
+                                'penalty_amount': f"{round(total_legs_price * 0.10, 2):.2f}",
+                                'penalty_currency': 'USD',
+                            },
+                        },
                     }
+                    mock_badr_offer['slices'] = mock_slices
                     offers.append(mock_badr_offer)
             # -----------------------------------
+
 
             # Enrich offers with formatted duration and 10% markup
             for offer in offers:
@@ -662,12 +700,18 @@ def passenger_details(request, offer_id):
             return redirect('vols:home')
 
     search = request.session.get('search', {})
-    num_passengers = int(search.get('passengers', 1))
-    
+    num_adults   = int(search.get('adults',   search.get('passengers', 1)))
+    num_children = int(search.get('children', 0))
+    total_passengers = num_adults + num_children
+
     context = {
         'offer': offer,
         'offer_json': json.dumps(offer),
-        'num_passengers': range(1, num_passengers + 1),
+        'num_passengers': range(1, total_passengers + 1),
+        'adult_range':  range(1, num_adults + 1),
+        'child_range':  range(num_adults + 1, total_passengers + 1),
+        'num_adults':   num_adults,
+        'num_children': num_children,
         'search': search,
         'duration_fmt': duffel_service.format_duration(
             offer.get('slices', [{}])[0].get('duration') if offer.get('slices') else ''
@@ -700,7 +744,9 @@ def confirm_booking(request):
             return redirect('vols:home')
 
     search = request.session.get('search', {})
-    num_passengers = int(search.get('passengers', 1))
+    num_adults   = int(search.get('adults',   search.get('passengers', 1)))
+    num_children = int(search.get('children', 0))
+    total_passengers = num_adults + num_children
 
     # Build passenger dicts for Duffel
     duffel_passengers = []
@@ -709,15 +755,42 @@ def confirm_booking(request):
     import datetime
     latin_only = re.compile(r'^[A-Za-z\s]+$')
 
-    for i in range(1, num_passengers + 1):
+    parent_email = None
+    parent_phone = None
+
+    for i in range(1, total_passengers + 1):
+        is_child = (i > num_adults)
         first_name = request.POST.get(f'first_name_{i}', '').strip()
-        last_name = request.POST.get(f'last_name_{i}', '').strip()
-        
+        last_name  = request.POST.get(f'last_name_{i}', '').strip()
+
         if not latin_only.match(first_name) or not latin_only.match(last_name):
             messages.error(request, f"خطأ: يجب إدخال اسم المسافر {i} بحروف إنجليزية فقط كما في جواز السفر.")
             return redirect('vols:passenger_details', offer_id=offer_id)
 
         gender = request.POST.get(f'gender_{i}', 'm')
+
+        # Phone — adults enter their own; children inherit parent's
+        if not is_child:
+            raw_phone = request.POST.get(f'phone_{i}', '').strip()
+            raw_phone = re.sub(r'[\s\-\(\)\.]+', '', raw_phone)
+            if raw_phone.startswith('00'):
+                raw_phone = '+' + raw_phone[2:]
+            elif raw_phone.startswith('0'):
+                raw_phone = '+249' + raw_phone[1:]
+            elif not raw_phone.startswith('+'):
+                raw_phone = '+' + raw_phone
+            digits_only = re.sub(r'\D', '', raw_phone)
+            if len(digits_only) < 7:
+                raw_phone = '+212600000000'
+        else:
+            raw_phone = parent_phone or '+212600000000'
+
+        email = request.POST.get(f'email_{i}', '').strip() if not is_child else (parent_email or 'parent@booking.com')
+
+        if i == 1:
+            parent_email = email
+            parent_phone = raw_phone
+
         passenger = {
             'id': offer['passengers'][i - 1]['id'],
             'title': 'mr' if gender == 'm' else 'ms',
@@ -725,27 +798,9 @@ def confirm_booking(request):
             'family_name': last_name,
             'born_on': request.POST.get(f'born_on_{i}', ''),
             'gender': gender,
-            'email': request.POST.get(f'email_{i}', ''),
-            'phone_number': request.POST.get(f'phone_{i}', '') or '+33600000000',
+            'email': email,
+            'phone_number': raw_phone,
         }
-        # Sanitize phone: strip spaces, dashes, parentheses
-        raw_phone = request.POST.get(f'phone_{i}', '').strip()
-        raw_phone = re.sub(r'[\s\-\(\)\.]+', '', raw_phone)
-        
-        # Format as E.164 for Duffel validation
-        if raw_phone.startswith('00'):
-            raw_phone = '+' + raw_phone[2:]
-        elif raw_phone.startswith('0'):
-            raw_phone = '+212' + raw_phone[1:] # Assume a default country code if missing (e.g. +212 for Morocco, or edit if needed)
-        elif not raw_phone.startswith('+'):
-            raw_phone = '+' + raw_phone
-            
-        digits_only = re.sub(r'\D', '', raw_phone)
-        if len(digits_only) < 7:
-            raw_phone = '+212600000000' # Minimum valid length
-            
-        passenger['phone_number'] = raw_phone
-            
         duffel_passengers.append(passenger)
 
     try:

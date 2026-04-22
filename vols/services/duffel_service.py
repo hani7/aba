@@ -14,12 +14,13 @@ def _headers():
     }
 
 
-def search_flights(slices_data, passengers=1, cabin_class='economy'):
+def search_flights(slices_data, adults=1, children=0, cabin_class='economy'):
     """
     Create an offer request and return the list of offers.
     slices_data should be a list of dicts: [{'origin': '...', 'destination': '...', 'departure_date': '...'}, ...]
     """
-    passenger_list = [{'type': 'adult'} for _ in range(int(passengers))]
+    passenger_list = [{'type': 'adult'} for _ in range(int(adults))]
+    passenger_list += [{'age': 7} for _ in range(int(children))]
 
     
     # Ensure all IATA codes are uppercase in slices

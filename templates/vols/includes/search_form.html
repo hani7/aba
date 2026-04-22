@@ -72,19 +72,135 @@
 
       <!-- Passengers & Cabin -->
       <div class="search-grid search-bottom">
-        <div class="form-field">
+        <!-- Passenger Picker -->
+        <div class="form-field" style="position:relative;">
           <label class="field-label">{% trans "المسافرون" %}</label>
           <div class="input-icon-wrap">
-            <span class="fi">👤</span>
-            <select name="passengers" class="field-input">
-              <option value="1" {% if search.passengers == '1' %}selected{% endif %}>{% trans "بالغ واحد" %}</option>
-              <option value="2" {% if search.passengers == '2' %}selected{% endif %}>{% trans "بالغان" %}</option>
-              <option value="3" {% if search.passengers == '3' %}selected{% endif %}>{% trans "3 بالغين" %}</option>
-              <option value="4" {% if search.passengers == '4' %}selected{% endif %}>{% trans "4 بالغين" %}</option>
-              <option value="5" {% if search.passengers == '5' %}selected{% endif %}>{% trans "5 بالغين" %}</option>
-            </select>
+            <span class="fi">&#128101;</span>
+            <button type="button" id="paxToggle" class="field-input"
+              style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;">
+              <span id="paxSummary">{% trans "بالغ واحد" %}</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
           </div>
+          <!-- Hidden inputs always in the form -->
+          <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
+          <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
         </div>
+
+        {% comment %}Dropdown teleported to body via JS to escape overflow:hidden{% endcomment %}
+        <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
+          background:var(--bg-2,#fff); padding:20px; border-radius:16px;
+          box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid var(--border,#e2e8f0);
+          width:290px;">
+          <!-- Adults row -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "بالغون" %}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "12 سنة وما فوق" %}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <button type="button" onclick="changePax('adults',-1)" class="pax-ctrl-btn">&#8722;</button>
+              <span id="adults_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.adults|default:1 }}</span>
+              <button type="button" onclick="changePax('adults',1)" class="pax-ctrl-btn">&#43;</button>
+            </div>
+          </div>
+          <!-- Children row -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "أطفال" %}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "من 2 إلى 11 سنة" %} &middot; <span style="color:#d97706;">75% {% trans "من سعر البالغ" %}</span></div>
+            </div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <button type="button" onclick="changePax('children',-1)" class="pax-ctrl-btn">&#8722;</button>
+              <span id="children_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.children|default:0 }}</span>
+              <button type="button" onclick="changePax('children',1)" class="pax-ctrl-btn">&#43;</button>
+            </div>
+          </div>
+          <button type="button" onclick="closePaxDropdown()"
+            style="width:100%; background:var(--primary,#1ba4ba); color:#fff; border:none; padding:11px; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Tajawal',sans-serif; font-size:0.95rem;">
+            &#10003; {% trans "تأكيد" %}
+          </button>
+        </div>
+
+        <style>
+          .pax-ctrl-btn {
+            width:34px; height:34px; border-radius:50%;
+            border:2px solid var(--primary,#1ba4ba);
+            background:transparent; color:var(--primary,#1ba4ba);
+            font-size:1.2rem; font-weight:800; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            transition:0.2s; line-height:1; padding:0;
+          }
+          .pax-ctrl-btn:hover { background:var(--primary,#1ba4ba); color:#fff; }
+        </style>
+        <script>
+        (function() {
+          var _adults   = parseInt('{{ search.adults|default:1 }}') || 1;
+          var _children = parseInt('{{ search.children|default:0}}') || 0;
+          var _ddOpen   = false;
+
+          function syncInputs() {
+            document.getElementById('adults_input').value   = _adults;
+            document.getElementById('children_input').value = _children;
+            document.getElementById('adults_display').textContent   = _adults;
+            document.getElementById('children_display').textContent = _children;
+            var parts = [];
+            if (_adults === 1) parts.push('\u0628\u0627\u0644\u063a \u0648\u0627\u062d\u062f');
+            else if (_adults === 2) parts.push('\u0628\u0627\u0644\u063a\u0627\u0646');
+            else parts.push(_adults + ' \u0628\u0627\u0644\u063a\u064a\u0646');
+            if (_children === 1) parts.push('+ \u0637\u0641\u0644 \u0648\u0627\u062d\u062f');
+            else if (_children >= 2) parts.push('+ ' + _children + ' \u0623\u0637\u0641\u0627\u0644');
+            document.getElementById('paxSummary').textContent = parts.join(' ');
+          }
+
+          window.changePax = function(type, delta) {
+            if (type === 'adults')   _adults   = Math.max(1, Math.min(9, _adults   + delta));
+            if (type === 'children') _children = Math.max(0, Math.min(6, _children + delta));
+            syncInputs();
+          };
+
+          function openDropdown() {
+            var dd  = document.getElementById('paxDropdown');
+            var btn = document.getElementById('paxToggle');
+            var r   = btn.getBoundingClientRect();
+            // Teleport to body if not already there
+            if (dd.parentElement !== document.body) document.body.appendChild(dd);
+            // Position below the button, align to its left edge (or right for RTL)
+            var left = r.left;
+            if (left + 300 > window.innerWidth) left = window.innerWidth - 300;
+            dd.style.top  = (r.bottom + 6) + 'px';
+            dd.style.left = Math.max(4, left) + 'px';
+            dd.style.display = 'block';
+            _ddOpen = true;
+          }
+
+          window.closePaxDropdown = function() {
+            document.getElementById('paxDropdown').style.display = 'none';
+            _ddOpen = false;
+          };
+
+          document.getElementById('paxToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            _ddOpen ? closePaxDropdown() : openDropdown();
+          });
+
+          document.addEventListener('click', function(e) {
+            if (_ddOpen &&
+                !e.target.closest('#paxDropdown') &&
+                !e.target.closest('#paxToggle')) {
+              closePaxDropdown();
+            }
+          });
+
+          // Reposition on scroll/resize
+          window.addEventListener('scroll', function() { if (_ddOpen) closePaxDropdown(); }, true);
+          window.addEventListener('resize', function() { if (_ddOpen) closePaxDropdown(); });
+
+          syncInputs();
+        })();
+        </script>
+
 
         <div class="form-field">
           <label class="field-label">{% trans "الدرجة" %}</label>
