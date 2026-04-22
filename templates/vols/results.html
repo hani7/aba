@@ -515,7 +515,9 @@ function applyFilters() {
     });
     visible.forEach(c => offersContainer.appendChild(c));
   }
+  markCheapest();
 }
+
 document.getElementById('priceSort').addEventListener('change', applyFilters);
 
 // ── Cheapest badge ──
@@ -537,7 +539,7 @@ function markCheapest() {
   });
 }
 
-function applyFilters() {
+
 
 function resetFilters() {
   document.querySelectorAll('.airline-cb').forEach(cb => cb.checked = true);
