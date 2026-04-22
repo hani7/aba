@@ -568,6 +568,9 @@ msgstr "Passenger Information"
 msgid "معلومات المسافر(ين"
 msgstr "Passenger Information"
 
+msgid "معلومات المسافر(ين)"
+msgstr "Passenger Information"
+
 msgid "مقاعد متاحة"
 msgstr "Seats available"
 
@@ -1796,4 +1799,71 @@ msgstr "Modification"
 
 msgid "غرامة"
 msgstr "Penalty"
+
+msgid "أمتعة"
+msgstr "Baggage"
+
+msgid "إغلاق"
+msgstr "Close"
+
+msgid "ابحث عن فندق"
+msgstr "Search for Hotel"
+
+msgid "اسم العائلة (إنجليزي)"
+msgstr "Last Name (English)"
+
+msgid "الأطفال"
+msgstr "Children"
+
+msgid "الاسم الأول (إنجليزي)"
+msgstr "First Name (English)"
+
+msgid "البالغون"
+msgstr "Adults"
+
+msgid "السعر بعملة"
+msgstr "Price in currency"
+
+msgid "المجموع الكلي"
+msgstr "Grand Total"
+
+msgid "بناءً على اختيارك، وجدنا لك خيارات مميزة للإقامة."
+msgstr "Based on your selection, we found great accommodation options for you."
+
+msgid "بين 2 و11 سنة"
+msgstr "Ages 2 to 11"
+
+msgid "تعديل البحث"
+msgstr "Edit Search"
+
+msgid "حسب اختيارك من الشريط العلوي"
+msgstr "Based on your selection from the top bar"
+
+msgid "خصم 25%"
+msgstr "25% Discount"
+
+msgid "رقم الهاتف (مع رمز الدولة)"
+msgstr "Phone Number (with country code)"
+
+msgid "سعر مخفض 75%"
+msgstr "Discounted price 75%"
+
+msgid "فتح الدليل في نافذة جديدة"
+msgstr "Open guide in new window"
+
+msgid "من سنتين إلى 11 سنة"
+msgstr "From 2 to 11 years"
+
+msgid ""
+"نحن هنا لنجعل تجربة سفرك أسهل وأكثر متعة من خلال توفير أفضل العروض والخدمات."
+msgstr ""
+"We are here to make your travel experience easier and more enjoyable by "
+"providing the best deals and services."
+
+msgid ""
+"يُستخدم بريد وهاتف الوالد/المرافق للأطفال. يُرجى إدخال اسم الطفل كما في "
+"جواز سفره."
+msgstr ""
+"Parent/guardian email and phone are used for children. Please enter the "
+"child's name as it appears on their passport."
 
