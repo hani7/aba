@@ -215,9 +215,25 @@ AGODA_API_KEY    = os.environ.get('AGODA_API_KEY',       '')         # Your Agod
 AGODA_API_URL    = 'https://affiliateapi7643.agoda.com/api/v3'
 AGODA_MARKUP_PCT = float(os.environ.get('AGODA_MARKUP_PCT', 10))     # % profit on each booking
 
-# Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@abumonyaagency.com'
+# Email Configuration (Webmail / cPanel SMTP)
+# ── Fill in your hosting credentials in .env ─────────────────────────────
+_email_user = os.environ.get('EMAIL_HOST_USER', '')
+_email_pass = os.environ.get('EMAIL_HOST_PASSWORD', '')
+
+if _email_user and _email_pass:
+    EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST          = os.environ.get('EMAIL_HOST', 'mail.abumonyaagency.com')
+    EMAIL_PORT          = int(os.environ.get('EMAIL_PORT', 587))
+    EMAIL_USE_TLS       = True
+    EMAIL_USE_SSL       = False
+    EMAIL_HOST_USER     = _email_user          # e.g. noreply@abumonyaagency.com
+    EMAIL_HOST_PASSWORD = _email_pass
+    DEFAULT_FROM_EMAIL  = f'وكالة أبو منية <{_email_user}>'
+    SERVER_EMAIL        = _email_user
+else:
+    # Fallback: print to terminal (no credentials set)
+    EMAIL_BACKEND      = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'noreply@abumonyaagency.com'
 
 # Force SSL in Production
 if not DEBUG:
