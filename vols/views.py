@@ -247,11 +247,7 @@ def otp_verify_view(request):
         else:
             messages.error(request, 'رمز التفعيل غير صحيح. يرجى المحاولة مرة أخرى.')
             
-    # In DEBUG mode, show OTP on screen so developers can test without email
-    ctx = {}
-    if settings.DEBUG:
-        ctx['debug_otp'] = stored_otp
-    return render(request, 'vols/otp_verify.html', ctx)
+    return render(request, 'vols/otp_verify.html')
 
 
 import time as _time
