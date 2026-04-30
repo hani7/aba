@@ -194,12 +194,21 @@ def signup_view(request):
         # Send Email
         subject = 'تفعيل حسابك - وكالة أبو منية'
         message = f'مرحباً {user.first_name or user.username}،\n\nرمز التفعيل الخاص بك هو: {otp}\n\nشكراً لتسجيلك معنا!'
+        email_sent = False
         try:
+            backend = getattr(settings, 'EMAIL_BACKEND', '')
+            print(f"[EMAIL] Using backend: {backend}")
+            print(f"[EMAIL] Sending OTP {otp} to {user.email}")
             send_mail(subject, message, getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@abumonyaagency.com'), [user.email], fail_silently=False)
+            email_sent = True
+            print(f"[EMAIL] Sent successfully")
         except Exception as e:
-            print(f"Error sending email: {e}")
-            
-        messages.info(request, 'تم إرسال رمز التفعيل إلى بريدك الإلكتروني. يرجى إدخاله أدناه.')
+            print(f"[EMAIL ERROR] {type(e).__name__}: {e}")
+
+        if email_sent:
+            messages.info(request, f'تم إرسال رمز التفعيل إلى {user.email}. يرجى إدخاله أدناه.')
+        else:
+            messages.warning(request, 'لم نتمكن من إرسال البريد الإلكتروني. يرجى إدخال الرمز الظاهر على الشاشة.')
         return redirect('vols:otp_verify')
     return render(request, 'vols/signup.html', {'form': form})
 
@@ -238,7 +247,11 @@ def otp_verify_view(request):
         else:
             messages.error(request, 'رمز التفعيل غير صحيح. يرجى المحاولة مرة أخرى.')
             
-    return render(request, 'vols/otp_verify.html')
+    # In DEBUG mode, show OTP on screen so developers can test without email
+    ctx = {}
+    if settings.DEBUG:
+        ctx['debug_otp'] = stored_otp
+    return render(request, 'vols/otp_verify.html', ctx)
 
 
 import time as _time

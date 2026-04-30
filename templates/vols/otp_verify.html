@@ -37,6 +37,24 @@
       </p>
     </div>
 
+    {% if debug_otp %}
+    <!-- DEBUG ONLY: shown when Django DEBUG=True — never visible in production -->
+    <div style="margin-top:24px; padding:16px 20px; border-radius:10px;
+                background:rgba(255,200,0,.12); border:2px dashed #f0a500; text-align:center;">
+      <p style="margin:0 0 6px; font-size:.8rem; font-weight:700; color:#f0a500; letter-spacing:.05em;">
+        🛠️ DEV MODE — رمز التفعيل الخاص بك
+      </p>
+      <p id="debug-otp-code" style="margin:0; font-size:2.2rem; font-weight:900;
+                                     letter-spacing:.6rem; color:#f0a500;">{{ debug_otp }}</p>
+      <button onclick="document.querySelector('[name=otp]').value='{{ debug_otp }}'"
+              type="button"
+              style="margin-top:10px; padding:6px 18px; border:none; border-radius:6px;
+                     background:#f0a500; color:#000; font-size:.85rem; cursor:pointer; font-weight:600;">
+        ⚡ نسخ تلقائي
+      </button>
+    </div>
+    {% endif %}
+
     <p class="auth-link" style="margin-top:16px;"><a href="{% url 'vols:signup' %}">{% trans "العودة إلى التسجيل" %}</a></p>
   </div>
 </section>
