@@ -34,6 +34,7 @@ urlpatterns = [
     # ── Auth ──────────────────────────────────────────────────────────────
     path('inscription/', views.signup_view, name='signup'),
     path('verifier-email/', views.otp_verify_view, name='otp_verify'),
+    path('renvoyer-code/', views.resend_otp_view, name='resend_otp'),
     path('connexion/', views.login_view, name='login'),
     path('deconnexion/', views.logout_view, name='logout'),
     

@@ -228,6 +228,7 @@ def otp_verify_view(request):
                 # Clear session keys
                 del request.session['registration_otp']
                 del request.session['registration_user_id']
+                request.session.pop('otp_last_sent', None)
                 
                 messages.success(request, 'تم تفعيل الحساب بنجاح! مرحباً بك.')
                 return redirect('vols:home')
@@ -238,6 +239,60 @@ def otp_verify_view(request):
             messages.error(request, 'رمز التفعيل غير صحيح. يرجى المحاولة مرة أخرى.')
             
     return render(request, 'vols/otp_verify.html')
+
+
+import time as _time
+
+def resend_otp_view(request):
+    """Regenerate & resend the OTP email. Rate-limited to once every 60 seconds."""
+    if request.user.is_authenticated:
+        return redirect('vols:home')
+
+    user_id = request.session.get('registration_user_id')
+    if not user_id:
+        messages.error(request, 'انتهت صلاحية جلسة التسجيل. يرجى المحاولة مرة أخرى.')
+        return redirect('vols:signup')
+
+    # Rate-limit: 60 seconds between resends
+    last_sent = request.session.get('otp_last_sent', 0)
+    elapsed = _time.time() - last_sent
+    if elapsed < 60:
+        wait = int(60 - elapsed)
+        messages.warning(request, f'يرجى الانتظار {wait} ثانية قبل طلب رمز جديد.')
+        return redirect('vols:otp_verify')
+
+    # Generate fresh OTP
+    User = get_user_model()
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        messages.error(request, 'حدث خطأ. يرجى التسجيل مجدداً.')
+        return redirect('vols:signup')
+
+    otp = str(random.randint(100000, 999999))
+    request.session['registration_otp'] = otp
+    request.session['otp_last_sent'] = _time.time()
+
+    subject = 'تفعيل حسابك - وكالة أبو منية'
+    message = (
+        f'مرحباً {user.first_name or user.username}،\n\n'
+        f'رمز التفعيل الجديد الخاص بك هو: {otp}\n\n'
+        f'هذا الرمز صالح لمدة 10 دقائق.\n\n'
+        f'شكراً لتسجيلك معنا!'
+    )
+    try:
+        send_mail(
+            subject, message,
+            getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@abumonyaagency.com'),
+            [user.email],
+            fail_silently=False,
+        )
+        messages.success(request, f'تم إرسال رمز جديد إلى {user.email}. يرجى التحقق من صندوق الوارد والبريد العشوائي.')
+    except Exception as e:
+        print(f"Resend OTP email error: {e}")
+        messages.error(request, 'حدث خطأ أثناء إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى.')
+
+    return redirect('vols:otp_verify')
 
 
 def login_view(request):

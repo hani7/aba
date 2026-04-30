@@ -1,24 +1,83 @@
 {% extends 'base.html' %}
-{% load i18n %}%}
+{% load i18n %}
 {% block title %}{% trans "وكالة أبو منية" %} — {% trans "تأكيد البريد الإلكتروني" %}{% endblock %}
 {% block content %}
 <section class="auth-section">
   <div class="auth-card">
     <div class="auth-logo">📧</div>
     <h1 class="auth-title">{% trans "تأكيد البريد الإلكتروني" %}</h1>
-    <p class="auth-sub">{% trans "لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني" %}.</p>
+    <p class="auth-sub">{% trans "لقد أرسلنا رمز تفعيل إلى بريدك الإلكتروني" %}.<br>
+      <small style="opacity:.7;">{% trans "تحقق من مجلد البريد العشوائي (Spam) إذا لم تجده." %}</small>
+    </p>
 
     <form method="post" class="auth-form">
       {% csrf_token %}
       <div class="form-field">
-        <label class="field-label" style="text-align: center;">{% trans "رمز التفعيل" %} (6 {% trans "أرقام" %}) *</label>
-        <input type="text" name="otp" required class="field-input" placeholder="123456" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;" maxlength="6" pattern="\d{6}">
+        <label class="field-label" style="text-align:center;">{% trans "رمز التفعيل" %} (6 {% trans "أرقام" %}) *</label>
+        <input type="text" name="otp" required class="field-input"
+               placeholder="123456"
+               style="text-align:center; font-size:1.5rem; letter-spacing:0.5rem;"
+               maxlength="6" pattern="\d{6}" inputmode="numeric" autofocus>
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; height:48px; font-size:1rem; margin-top:8px;">
         ✔️ {% trans "تفعيل الحساب" %}
       </button>
     </form>
-    <p class="auth-link"><a href="{% url 'vols:signup' %}">{% trans "العودة إلى التسجيل" %}</a></p>
+
+    <!-- Resend Code -->
+    <div style="text-align:center; margin-top:20px;">
+      <a id="resend-btn" href="{% url 'vols:resend_otp' %}"
+         style="display:inline-block; padding:10px 24px; border-radius:8px;
+                background:var(--color-primary,#1a6f4f); color:#fff;
+                font-size:.95rem; text-decoration:none; transition:opacity .3s;">
+        🔄 {% trans "إعادة إرسال الرمز" %}
+      </a>
+      <p id="resend-timer" style="margin-top:8px; font-size:.85rem; opacity:.6; display:none;">
+        {% trans "يمكنك طلب رمز جديد بعد" %} <strong id="countdown">60</strong> {% trans "ثانية" %}
+      </p>
+    </div>
+
+    <p class="auth-link" style="margin-top:16px;"><a href="{% url 'vols:signup' %}">{% trans "العودة إلى التسجيل" %}</a></p>
   </div>
 </section>
+
+<script>
+(function () {
+  var btn = document.getElementById('resend-btn');
+  var timerEl = document.getElementById('resend-timer');
+  var countEl = document.getElementById('countdown');
+
+  // Check if the page was just loaded after a resend (server sets a flag via query or we just check sessionStorage)
+  var lastSent = parseInt(sessionStorage.getItem('otpLastSent') || '0', 10);
+  var now = Math.floor(Date.now() / 1000);
+  var elapsed = now - lastSent;
+  var remaining = 60 - elapsed;
+
+  function startCountdown(seconds) {
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.45';
+    timerEl.style.display = 'block';
+    countEl.textContent = seconds;
+
+    var interval = setInterval(function () {
+      seconds--;
+      countEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        btn.style.pointerEvents = '';
+        btn.style.opacity = '1';
+        timerEl.style.display = 'none';
+      }
+    }, 1000);
+  }
+
+  if (remaining > 0) {
+    startCountdown(remaining);
+  }
+
+  btn.addEventListener('click', function () {
+    sessionStorage.setItem('otpLastSent', Math.floor(Date.now() / 1000));
+  });
+})();
+</script>
 {% endblock %}
