@@ -195,7 +195,7 @@ def signup_view(request):
         subject = 'تفعيل حسابك - وكالة أبو منية'
         message = f'مرحباً {user.first_name or user.username}،\n\nرمز التفعيل الخاص بك هو: {otp}\n\nشكراً لتسجيلك معنا!'
         try:
-            send_mail(subject, message, getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@abomonya.com'), [user.email], fail_silently=False)
+            send_mail(subject, message, getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@abumonyaagency.com'), [user.email], fail_silently=False)
         except Exception as e:
             print(f"Error sending email: {e}")
             

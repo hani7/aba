@@ -217,7 +217,7 @@ AGODA_MARKUP_PCT = float(os.environ.get('AGODA_MARKUP_PCT', 10))     # % profit 
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@abomonya.com'
+DEFAULT_FROM_EMAIL = 'noreply@abumonyaagency.com'
 
 # Force SSL in Production
 if not DEBUG:
