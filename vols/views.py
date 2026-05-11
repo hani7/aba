@@ -116,7 +116,7 @@ def convert_to_usd(amount, currency):
 def apply_flight_markup(offer):
     original_str = str(offer.get('total_amount', '0'))
     original_price = float(original_str)
-    markup = original_price * 0.10
+    markup = original_price * 0.05
     new_price = original_price + markup
     
     # Store the exact verbatim string for backend booking (Duffel's payment validation is strictly typed and can 500 on altered decimals)
@@ -659,7 +659,7 @@ def search_results(request):
             # -----------------------------------
 
 
-            # Enrich offers with formatted duration and 10% markup
+            # Enrich offers with formatted duration and 5% markup
             for offer in offers:
                 apply_flight_markup(offer)
                 for sl in offer.get('slices', []):
