@@ -657,14 +657,26 @@
     var o = document.getElementById(originId);
     var d = document.getElementById(destId);
     if (o && d) {
+      // Swap input values
       var tmp = o.value;
       o.value = d.value;
       d.value = tmp;
-      // Animate the button
+
+      // Swap city hints (ferry mode labels below each field)
+      var oHint = document.getElementById('origin_city_hint');
+      var dHint = document.getElementById('dest_city_hint');
+      if (oHint && dHint) {
+        var tmpHtml = oHint.innerHTML;
+        oHint.innerHTML = dHint.innerHTML;
+        dHint.innerHTML = tmpHtml;
+      }
+
+      // Rotate animation
       var btn = document.querySelector('[onclick*="' + originId + '"]');
       if (btn) {
+        btn.style.transition = 'transform 0.3s ease';
         btn.style.transform = 'rotate(180deg)';
-        setTimeout(function() { btn.style.transform = ''; }, 300);
+        setTimeout(function() { btn.style.transform = ''; }, 320);
       }
     }
   };
