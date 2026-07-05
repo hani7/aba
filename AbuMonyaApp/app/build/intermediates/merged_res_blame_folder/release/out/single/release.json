@@ -12,6 +12,10 @@
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
+        "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\drawable_splash_overlay.xml.flat",
+        "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\drawable\\splash_overlay.xml"
+    },
+    {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
@@ -24,16 +28,16 @@
         "source": "com.abumonyaagency.app-main-33:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\drawable_hero_bg.jpg.flat",
+        "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\drawable\\hero_bg.jpg"
+    },
+    {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\drawable_ic_airplane.xml.flat",
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\drawable\\ic_airplane.xml"
     },
     {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\mipmap-xxxhdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "com.abumonyaagency.app-merged_res-32:/drawable_hero_bg.jpg.flat",
-        "source": "com.abumonyaagency.app-main-33:/drawable/hero_bg.jpg"
     },
     {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\mipmap-hdpi_ic_launcher.png.flat",
@@ -58,10 +62,6 @@
     {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\mipmap-xxhdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "com.abumonyaagency.app-merged_res-32:/drawable_splash_overlay.xml.flat",
-        "source": "com.abumonyaagency.app-main-33:/drawable/splash_overlay.xml"
     },
     {
         "merged": "com.abumonyaagency.app-merged_res-32:/mipmap-mdpi_ic_launcher_round.png.flat",
@@ -130,9 +130,5 @@
     {
         "merged": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-merged_res-32:\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\PC\\.gradle\\daemon\\8.2\\com.abumonyaagency.app-main-33:\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "com.abumonyaagency.app-merged_res-32:/layout_activity_splash.xml.flat",
-        "source": "com.abumonyaagency.app-main-33:/layout/activity_splash.xml"
     }
 ]
