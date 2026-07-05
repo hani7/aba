@@ -47,8 +47,9 @@
 
     <!-- ══ Slices Container (Dynamic) ══ -->
     <div id="slices-container">
-      <!-- All inputs on ONE line -->
       <div class="search-all-fields" id="slice_0">
+
+        <!-- ── ROW 1: Origin | Swap | Destination ── -->
 
         <!-- Origin -->
         <div class="form-field field-origin autocomplete-wrapper" id="origin_wrapper_0">
@@ -61,6 +62,7 @@
               value="{{ search.slices.0.origin|default:'' }}">
           </div>
           <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
+          <div class="ferry-city-hint" id="origin_city_hint">🇸🇩 بورتسودان — Port Sudan</div>
         </div>
 
         <!-- Swap -->
@@ -77,82 +79,89 @@
               value="{{ search.slices.0.destination|default:'' }}">
           </div>
           <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
+          <div class="ferry-city-hint" id="dest_city_hint">🇸🇦 جدة — Jeddah Islamic Port</div>
         </div>
 
-        <!-- Departure date -->
-        <div class="form-field field-date">
-          <label class="field-label">{% trans "تاريخ الذهاب" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">📅</span>
-            <input type="date" name="departure_date_0" id="departure_date_0"
-              required class="field-input date-input"
-              value="{{ search.slices.0.departure_date|default:'' }}">
+        <!-- ── ROW 2: Dates | Passengers | Cabin | Search ── -->
+        <div class="search-row2">
+
+          <!-- Departure date -->
+          <div class="form-field field-date">
+            <label class="field-label">{% trans "تاريخ الذهاب" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">📅</span>
+              <input type="date" name="departure_date_0" id="departure_date_0"
+                required class="field-input date-input"
+                value="{{ search.slices.0.departure_date|default:'' }}">
+            </div>
           </div>
-        </div>
 
-        <!-- Return date (round-trip flights) -->
-        <div class="form-field field-date" id="return_date_wrapper" style="display:none;">
-          <label class="field-label">{% trans "تاريخ العودة" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">📅</span>
-            <input type="date" name="return_date" id="return_date"
-              class="field-input date-input"
-              value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
+          <!-- Return date (round-trip flights) -->
+          <div class="form-field field-date" id="return_date_wrapper" style="display:none;">
+            <label class="field-label">{% trans "تاريخ العودة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">📅</span>
+              <input type="date" name="return_date" id="return_date"
+                class="field-input date-input"
+                value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
+            </div>
           </div>
-        </div>
 
-        <!-- Ferry return date -->
-        <div class="form-field field-date" id="ferry_return_wrapper" style="display:none;">
-          <label class="field-label">⛴↩ {% trans "عودة من جدة" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">📅</span>
-            <input type="date" name="ferry_return_date" id="ferry_return_date" class="field-input date-input">
+          <!-- Ferry return date -->
+          <div class="form-field field-date" id="ferry_return_wrapper" style="display:none;">
+            <label class="field-label">⛴↩ {% trans "عودة من جدة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">📅</span>
+              <input type="date" name="ferry_return_date" id="ferry_return_date" class="field-input date-input">
+            </div>
           </div>
-        </div>
 
-        <!-- Passengers -->
-        <div class="form-field field-pax" style="position:relative;">
-          <label class="field-label">{% trans "المسافرون" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">&#128101;</span>
-            <button type="button" id="paxToggle" class="field-input"
-              style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
-              data-t-adult1="{% trans 'بالغ واحد' %}"
-              data-t-adult2="{% trans 'بالغان' %}"
-              data-t-adults="{% trans 'بالغين' %}"
-              data-t-child1="{% trans '+ طفل واحد' %}"
-              data-t-children="{% trans 'أطفال' %}">
-              <span id="paxSummary">{% trans "بالغ واحد" %}</span>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <!-- Passengers -->
+          <div class="form-field field-pax" style="position:relative;">
+            <label class="field-label">{% trans "المسافرون" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">&#128101;</span>
+              <button type="button" id="paxToggle" class="field-input"
+                style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
+                data-t-adult1="{% trans 'بالغ واحد' %}"
+                data-t-adult2="{% trans 'بالغان' %}"
+                data-t-adults="{% trans 'بالغين' %}"
+                data-t-child1="{% trans '+ طفل واحد' %}"
+                data-t-children="{% trans 'أطفال' %}">
+                <span id="paxSummary">{% trans "بالغ واحد" %}</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
+            <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
+          </div><!-- /field-pax -->
+
+          <!-- Cabin class -->
+          <div class="form-field field-cabin">
+            <label class="field-label">{% trans "الدرجة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">💺</span>
+              <select name="cabin_class" class="field-input">
+                <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
+                <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
+                <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
+                <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Search button -->
+          <div class="form-actions-submit">
+            <button type="submit" class="btn btn-primary search-submit" id="searchBtn" style="white-space:nowrap; height:48px; padding:0 22px;">
+              🔍 <span id="searchBtnLabel">{% trans "ابحث" %}</span>
             </button>
           </div>
-          <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
-          <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
-        </div><!-- /field-pax -->
 
-        <!-- Cabin class -->
-        <div class="form-field field-cabin">
-          <label class="field-label">{% trans "الدرجة" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">💺</span>
-            <select name="cabin_class" class="field-input">
-              <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
-              <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
-              <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
-              <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Search button -->
-        <div class="form-actions-submit">
-          <button type="submit" class="btn btn-primary search-submit" id="searchBtn" style="white-space:nowrap; height:48px; padding:0 22px;">
-            🔍 <span id="searchBtnLabel">{% trans "ابحث" %}</span>
-          </button>
-        </div>
+        </div><!-- /search-row2 -->
 
       </div><!-- /search-all-fields -->
     </div><!-- /slices-container -->
+
 
     <!-- Multi-city add flight (hidden by default) -->
     <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display:none; margin-top:10px;">
@@ -374,11 +383,11 @@
             if (tripRow)  tripRow.style.display  = 'none';
             var ferryRow = document.getElementById('ferryTripTypeRow');
             if (ferryRow) ferryRow.style.display = '';
-            // Show city labels
-            var ol = document.getElementById('ferry_origin_label');
-            var dl = document.getElementById('ferry_dest_label');
-            if (ol) ol.style.display = 'block';
-            if (dl) dl.style.display = 'block';
+            // Show city hints for ferry ports
+            var oh = document.getElementById('origin_city_hint');
+            var dh = document.getElementById('dest_city_hint');
+            if (oh) oh.style.display = 'block';
+            if (dh) dh.style.display = 'block';
             // Reset ferry return date
             var frw = document.getElementById('ferry_return_wrapper');
             if (frw) frw.style.display = 'none';
@@ -388,11 +397,11 @@
             form.action    = FLIGHT_URL;
             orig0.readOnly = false;
             dest0.readOnly = false;
-            // Hide ferry labels
-            var ol = document.getElementById('ferry_origin_label');
-            var dl = document.getElementById('ferry_dest_label');
-            if (ol) ol.style.display = 'none';
-            if (dl) dl.style.display = 'none';
+            // Hide city hints
+            var oh = document.getElementById('origin_city_hint');
+            var dh = document.getElementById('dest_city_hint');
+            if (oh) oh.style.display = 'none';
+            if (dh) dh.style.display = 'none';
             var ferryRow = document.getElementById('ferryTripTypeRow');
             if (ferryRow) ferryRow.style.display = 'none';
             var frw = document.getElementById('ferry_return_wrapper');
