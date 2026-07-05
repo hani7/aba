@@ -48,7 +48,10 @@
           <!-- Origin -->
           <div style="text-align:center; min-width:80px;">
             <div style="font-size:1.9rem; font-weight:900; color:var(--text); letter-spacing:0.03em; line-height:1;">{{ first_seg.origin.iata_code }}</div>
-            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;">{{ first_seg.origin.city_name|default:first_seg.origin.name }}</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px; line-height:1.4;">
+              {{ first_seg.origin.city_name_ar|default:first_seg.origin.city_name }}<br>
+              <span style="font-size:0.72rem; opacity:0.75;">{{ first_seg.origin.city_name }}</span>
+            </div>
             <div style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-top:4px;">{{ first_seg.departing_at|slice:"11:16" }}</div>
             <div style="font-size:0.72rem; color:var(--text-muted);">{{ first_seg.departing_at|slice:"0:10" }}</div>
           </div>
@@ -69,7 +72,10 @@
           <!-- Destination -->
           <div style="text-align:center; min-width:80px;">
             <div style="font-size:1.9rem; font-weight:900; color:var(--text); letter-spacing:0.03em; line-height:1;">{{ last_seg.destination.iata_code }}</div>
-            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;">{{ last_seg.destination.city_name|default:last_seg.destination.name }}</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px; line-height:1.4;">
+              {{ last_seg.destination.city_name_ar|default:last_seg.destination.city_name }}<br>
+              <span style="font-size:0.72rem; opacity:0.75;">{{ last_seg.destination.city_name }}</span>
+            </div>
             <div style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-top:4px;">{{ last_seg.arriving_at|slice:"11:16" }}</div>
             <div style="font-size:0.72rem; color:var(--text-muted);">{{ last_seg.arriving_at|slice:"0:10" }}</div>
           </div>
@@ -461,19 +467,28 @@
   // ── Build WhatsApp message from form + flight data ──
   function buildWhatsAppMsg() {
     var lines = [];
-    lines.push('🛫 *طلب حجز رحلة - وكالة أبو منية*');
-    lines.push('────────────────────');
+    lines.push('\ud83d\udeb2 *\u0637\u0644\u0628 \u062d\u062c\u0632 \u0631\u062d\u0644\u0629 - \u0648\u0643\u0627\u0644\u0629 \u0623\u0628\u0648 \u0645\u0646\u064a\u0629*');
+    lines.push('\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500');
 
-    // Flight info from Django context
-    {% for slice in offer.slices %}
-    lines.push('✈️ *الرحلة {{ forloop.counter }}:* {{ slice.origin.iata_code }} → {{ slice.destination.iata_code }}');
-    lines.push('📅 التاريخ: {{ slice.segments.0.departing_at|slice:"0:10" }}');
-    lines.push('⏰ المغادرة: {{ slice.segments.0.departing_at|slice:"11:16" }} | الوصول: {{ slice.segments|last }}');
-    lines.push('💺 الشركة: {{ slice.segments.0.marketing_carrier.name }}  | المدة: {{ slice.duration_fmt }}');
-    {% endfor %}
-    lines.push('💰 *إجمالي التذكرة: {{ offer.total_amount }} {{ offer.total_currency }}*');
+    // ── Flight slices (rendered server-side with proper field access) ──
+    {% for slice in offer.slices %}{% with first=slice.segments.0 last=slice.segments|last %}
+    lines.push('\u2708\ufe0f *\u0627\u0644\u0631\u062d\u0644\u0629 {{ forloop.counter }}:*  {{ first.origin.iata_code }} - {{ first.origin.city_name_ar|default:first.origin.city_name }} ({{ first.origin.city_name }})  \u2192  {{ last.destination.iata_code }} - {{ last.destination.city_name_ar|default:last.destination.city_name }} ({{ last.destination.city_name }})');
+    lines.push('\ud83c\udff3 \u0645\u0637\u0627\u0631 \u0627\u0644\u0645\u063a\u0627\u062f\u0631\u0629: {{ first.origin.name_ar|default:first.origin.name }}');
+    lines.push('\ud83c\udff3 \u0645\u0637\u0627\u0631 \u0627\u0644\u0648\u0635\u0648\u0644: {{ last.destination.name_ar|default:last.destination.name }}');
+    lines.push('\ud83d\udcc5 \u0627\u0644\u062a\u0627\u0631\u064a\u062e: {{ first.departing_at|slice:"0:10" }}');
+    lines.push('\u23f0 \u0627\u0644\u0645\u063a\u0627\u062f\u0631\u0629: {{ first.departing_at|slice:"11:16" }}  |\u0627\u0644\u0648\u0635\u0648\u0644: {{ last.arriving_at|slice:"11:16" }}  |\u0627\u0644\u0645\u062f\u0629: {{ slice.duration_fmt }}');
+    lines.push('\ud83c\udfe2 \u0627\u0644\u0634\u0631\u0643\u0629: {{ first.marketing_carrier.name }}{% if first.marketing_carrier_flight_number %}  |\u0631\u062d\u0644\u0629: {{ first.marketing_carrier.iata_code }}{{ first.marketing_carrier_flight_number }}{% endif %}');
+    lines.push('\ud83d\udcba \u0627\u0644\u062f\u0631\u062c\u0629: {% if offer.cabin_class == "economy" %}\u0633\u064a\u0627\u062d\u064a\u0629{% elif offer.cabin_class == "business" %}\u0623\u0639\u0645\u0627\u0644{% elif offer.cabin_class == "first" %}\u0623\u0648\u0644\u0649{% else %}{{ offer.cabin_class }}{% endif %}{% if slice.segments|length > 1 %}  |{% trans "\u062a\u0648\u0642\u0641\u0627\u062a" %}: {{ slice.segments|length|add:"-1" }}{% else %}  |\u0645\u0628\u0627\u0634\u0631{% endif %}');
+    {% with p=first.passengers|first %}{% if p %}{% for bag in p.baggages %}{% if bag.type == 'checked' %}
+    lines.push('\ud83e\uddf3 \u0623\u0645\u062a\u0639\u0629 \u0645\u0633\u062c\u0651\u0644\u0629: {{ bag.quantity }}\u00d7{{ bag.weight }}{{ bag.weight_unit }}');
+    {% endif %}{% if bag.type == 'carry_on' %}
+    lines.push('\ud83d\udc5c \u062d\u0642\u064a\u0628\u0629 \u064a\u062f: {{ bag.quantity }}\u00d7{{ bag.weight }}{{ bag.weight_unit }}');
+    {% endif %}{% endfor %}{% endif %}{% endwith %}
+    {% endwith %}{% endfor %}
+
+    lines.push('\ud83d\udcb0 *\u0625\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062a\u0630\u0643\u0631\u0629: {{ offer.total_amount }} {{ offer.total_currency }}*');
     lines.push('');
-    lines.push('👥 *بيانات المسافرين:*');
+    lines.push('\ud83d\udc65 *\u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0645\u0633\u0627\u0641\u0631\u064a\u0646:*');
 
     // Collect each passenger block from the form
     var form = document.getElementById('passengerForm');
@@ -482,33 +497,34 @@
       var fn  = form.querySelector('[name="first_name_' + p + '"]');
       var ln  = form.querySelector('[name="last_name_'  + p + '"]');
       var dob = form.querySelector('[name="born_on_'    + p + '"]');
-      var gen = form.querySelector('[name="gender_'    + p + '"]');
-      var em  = form.querySelector('[name="email_'     + p + '"]');
-      var ph  = form.querySelector('[name="phone_'     + p + '"]');
-      var pp  = form.querySelector('[name="passport_'  + p + '"]');
+      var gen = form.querySelector('[name="gender_'     + p + '"]');
+      var em  = form.querySelector('[name="email_'      + p + '"]');
+      var ph  = form.querySelector('[name="phone_'      + p + '"]');
+      var pp  = form.querySelector('[name="passport_'   + p + '"]');
 
-      var pLabel = p <= {{ num_adults }} ? '👤 بالغ ' + p : '👦 طفل ' + (p - {{ num_adults }});
-      lines.push('───');
+      var pLabel = p <= {{ num_adults }} ? '\ud83d\udc64 \u0628\u0627\u0644\u063a ' + p : '\ud83d\udc66 \u0637\u0641\u0644 ' + (p - {{ num_adults }});
+      lines.push('\u2500\u2500\u2500');
       lines.push(pLabel);
-      if (fn && ln) lines.push('الاسم: ' + (fn.value + ' ' + ln.value).trim().toUpperCase());
-      if (dob)       lines.push('تاريخ الميلاد: ' + dob.value);
-      if (gen)       lines.push('الجنس: ' + (gen.value === 'm' ? 'ذكر' : 'أنثى'));
-      if (em && em.value)  lines.push('البريد: ' + em.value);
-      if (ph && ph.value)  lines.push('الهاتف: ' + ph.value);
-      if (pp && pp.value)  lines.push('الجواز/الهوية: ' + pp.value.toUpperCase());
+      if (fn && ln)       lines.push('\u0627\u0644\u0627\u0633\u0645: ' + (fn.value + ' ' + ln.value).trim().toUpperCase());
+      if (dob && dob.value) lines.push('\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0645\u064a\u0644\u0627\u062f: ' + dob.value);
+      if (gen)            lines.push('\u0627\u0644\u062c\u0646\u0633: ' + (gen.value === 'm' ? '\u0630\u0643\u0631' : '\u0623\u0646\u062b\u0649'));
+      if (em && em.value)   lines.push('\u0627\u0644\u0628\u0631\u064a\u062f: ' + em.value);
+      if (ph && ph.value)   lines.push('\u0627\u0644\u0647\u0627\u062a\u0641: ' + ph.value);
+      if (pp && pp.value)   lines.push('\u0627\u0644\u062c\u0648\u0627\u0632/\u0627\u0644\u0647\u0648\u064a\u0629: ' + pp.value.toUpperCase());
     }
 
     // Payment note if present
     var note = form.querySelector('[name="payment_note"]');
     if (note && note.value.trim()) {
       lines.push('');
-      lines.push('📝 ملاحظة: ' + note.value.trim());
+      lines.push('\ud83d\udcdd \u0645\u0644\u0627\u062d\u0638\u0629: ' + note.value.trim());
     }
 
     lines.push('');
-    lines.push('👍 شكراً لاختياركم وكالة أبو منية');
+    lines.push('\ud83d\udc4d \u0634\u0643\u0631\u0627\u064b \u0644\u0627\u062e\u062a\u064a\u0627\u0631\u0643\u0645 \u0648\u0643\u0627\u0644\u0629 \u0623\u0628\u0648 \u0645\u0646\u064a\u0629');
     return lines.join('\n');
   }
+
 
   // ── Open WhatsApp after validating ──
   window.openWhatsApp = function() {
