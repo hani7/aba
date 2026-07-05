@@ -14,6 +14,7 @@
           <span>💰 <strong class="gold" data-eur="{{ offer.total_amount }}">{{ offer.total_amount }} {{ offer.total_currency }}</strong></span>
           <span>💺 {{ offer.cabin_class|capfirst }}</span>
           <span>👤 {{ num_adults }} {% trans "بالغ" %}{% if num_children > 0 %} · 👦 {{ num_children }} {% trans "طفل" %}{% endif %}</span>
+          {% if offer.is_sudan_domestic %}<span style="background:linear-gradient(135deg,#007229,#009933); color:#fff; font-size:0.72rem; font-weight:800; padding:3px 10px; border-radius:999px;">🇸🇩 {% trans "داخلي" %}</span>{% endif %}
         </div>
       </div>
       {% for slice in offer.slices %}
@@ -68,8 +69,13 @@
             <input type="tel" name="phone_{{ i }}" required class="field-input" placeholder="+249 91 234 5678" style="width:100%;">
           </div>
           <div class="form-field" style="grid-column:1/-1;">
-            <label class="field-label">{% trans "رقم جواز السفر" %} *</label>
-            <input type="text" name="passport_{{ i }}" required class="field-input" placeholder="A1234567" style="text-transform:uppercase; width:100%;">
+            <label class="field-label">
+              {% if offer.is_sudan_domestic %}{% trans "رقم الجواز أو البطاقة الوطنية" %}{% else %}{% trans "رقم جواز السفر" %} *{% endif %}
+            </label>
+            <input type="text" name="passport_{{ i }}" {% if not offer.is_sudan_domestic %}required{% endif %}
+              class="field-input"
+              placeholder="{% if offer.is_sudan_domestic %}A1234567 أو 123456789{% else %}A1234567{% endif %}"
+              style="text-transform:uppercase; width:100%;">
           </div>
         </div>
       </div>
@@ -108,8 +114,13 @@
             </select>
           </div>
           <div class="form-field" style="grid-column:1/-1;">
-            <label class="field-label">{% trans "رقم جواز السفر" %} *</label>
-            <input type="text" name="passport_{{ i }}" required class="field-input" placeholder="A1234567" style="text-transform:uppercase; width:100%;">
+            <label class="field-label">
+              {% if offer.is_sudan_domestic %}{% trans "رقم الجواز أو البطاقة الوطنية" %}{% else %}{% trans "رقم جواز السفر" %} *{% endif %}
+            </label>
+            <input type="text" name="passport_{{ i }}" {% if not offer.is_sudan_domestic %}required{% endif %}
+              class="field-input"
+              placeholder="{% if offer.is_sudan_domestic %}A1234567 أو 123456789{% else %}A1234567{% endif %}"
+              style="text-transform:uppercase; width:100%;">
           </div>
         </div>
       </div>
@@ -145,12 +156,71 @@
         </div>
       </div>
 
-      <div class="form-actions" style="margin-top:24px;">
+      <!-- ══ BOOKING ACTION SECTION ══ -->
+      <div class="form-actions" style="margin-top:24px; flex-wrap:wrap; align-items:flex-start; gap:16px;">
         <a href="javascript:history.back()" class="btn btn-ghost">← {% trans "العودة إلى العروض" %}</a>
+
+        {% if offer.is_sudan_domestic %}
+        <!-- ── Sudan Domestic: choose booking method ── -->
+        <div style="flex:1; min-width:280px;">
+          <div style="background:linear-gradient(135deg,rgba(0,114,41,0.06),rgba(0,114,41,0.02)); border:1.5px solid rgba(0,114,41,0.2); border-radius:16px; padding:20px 22px;">
+            <div style="font-weight:800; font-size:0.95rem; color:var(--text); margin-bottom:14px; font-family:'Tajawal',sans-serif;">
+              🇸🇩 {% trans "اختر طريقة الحجز" %}
+            </div>
+
+            <!-- Method toggle -->
+            <div style="display:flex; gap:10px; margin-bottom:18px;">
+              <button type="button" id="btnMethodCard" onclick="setBookMethod('card')"
+                style="flex:1; padding:11px 8px; border-radius:12px; border:2px solid var(--primary); background:var(--primary); color:#fff; font-family:'Tajawal',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:0.2s;">
+                💳 {% trans "البطاقة الوطنية" %}
+              </button>
+              <button type="button" id="btnMethodWA" onclick="setBookMethod('whatsapp')"
+                style="flex:1; padding:11px 8px; border-radius:12px; border:2px solid #ccc; background:transparent; color:var(--text-muted); font-family:'Tajawal',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:0.2s;">
+                📲 {% trans "واتساب" %}
+              </button>
+            </div>
+
+            <!-- National card panel -->
+            <div id="panelCard">
+              <div style="margin-bottom:14px;">
+                <label class="field-label" style="display:block; margin-bottom:6px;">{% trans "رقم البطاقة الوطنية" %} *</label>
+                <input type="text" id="nationalCardInput" name="national_card_number"
+                  class="field-input" placeholder="123456789012"
+                  style="width:100%; letter-spacing:0.05em;" inputmode="numeric">
+              </div>
+              <div style="padding:10px 14px; background:rgba(27,164,186,0.06); border-radius:8px; font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
+                💡 {% trans "سيتواصل معك فريقنا خلال 24 ساعة لتأكيد الحجز وتفاصيل الدفع" %}
+              </div>
+              <button type="submit" class="btn btn-primary btn-large" id="bookBtn" style="width:100%;">
+                <span class="btn-text">💳 {% trans "تأكيد الحجز" %}</span>
+                <span class="btn-loader" style="display:none;">⏳ {% trans "جاري الإرسال" %}...</span>
+              </button>
+            </div>
+
+            <!-- WhatsApp panel -->
+            <div id="panelWA" style="display:none;">
+              <div style="padding:12px 16px; background:rgba(37,211,102,0.07); border:1px solid rgba(37,211,102,0.25); border-radius:12px; font-size:0.85rem; color:var(--text); margin-bottom:14px; line-height:1.7;">
+                📲 {% trans "سيتم فتح واتساب لإتمام الحجز مع فريق أبو منية" %}<br>
+                <span style="color:var(--text-muted); font-size:0.78rem;">{% trans "تأكد من إدخال بيانات المسافرين أعلاه قبل المتابعة" %}</span>
+              </div>
+              <a id="waBookLink" href="https://wa.me/249906888886" target="_blank"
+                class="btn btn-large"
+                style="display:block; width:100%; text-align:center; background:#25d366; color:#fff; border-color:#25d366;">
+                📲 {% trans "فتح واتساب" %}
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        {% else %}
+        <!-- International — normal secure payment -->
         <button type="submit" class="btn btn-primary btn-large" id="bookBtn">
           <span class="btn-text">💳 {% trans "المتابعة للدفع الآمن" %}</span>
           <span class="btn-loader" style="display:none;">⏳ {% trans "التحويل لبوابة الدفع" %}...</span>
         </button>
+        {% endif %}
+
       </div>
     </form>
   </div>
@@ -159,26 +229,71 @@
 
 {% block extra_scripts %}
 <script>
-  document.getElementById('passengerForm').addEventListener('submit', () => {
-    document.querySelector('.btn-text').style.display = 'none';
-    document.querySelector('.btn-loader').style.display = 'inline';
-    setTimeout(() => { document.getElementById('bookBtn').disabled = true; }, 50);
-  });
-  document.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('currency') || 'USD';
-    const noteEl = document.getElementById('currentCurrencyNote');
+  var _formEl = document.getElementById('passengerForm');
+  if (_formEl) {
+    _formEl.addEventListener('submit', function() {
+      var btnText   = document.querySelector('.btn-text');
+      var btnLoader = document.querySelector('.btn-loader');
+      if (btnText)   btnText.style.display   = 'none';
+      if (btnLoader) btnLoader.style.display  = 'inline';
+      var bookBtn = document.getElementById('bookBtn');
+      setTimeout(function() { if (bookBtn) bookBtn.disabled = true; }, 50);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var saved  = localStorage.getItem('currency') || 'USD';
+    var noteEl = document.getElementById('currentCurrencyNote');
     if (noteEl) noteEl.textContent = saved;
     if (typeof applyConversion === 'function') applyConversion();
 
-    // Set child DOB date range: min = 11 years ago, max = 2 years ago
-    const today = new Date();
-    const maxDate = new Date(today); maxDate.setFullYear(today.getFullYear() - 2);
-    const minDate = new Date(today); minDate.setFullYear(today.getFullYear() - 12);
-    const fmt = d => d.toISOString().split('T')[0];
-    document.querySelectorAll('.child-dob').forEach(el => {
+    // Child DOB range
+    var today   = new Date();
+    var maxDate = new Date(today); maxDate.setFullYear(today.getFullYear() - 2);
+    var minDate = new Date(today); minDate.setFullYear(today.getFullYear() - 12);
+    var fmt = function(d) { return d.toISOString().split('T')[0]; };
+    document.querySelectorAll('.child-dob').forEach(function(el) {
       el.max = fmt(maxDate);
       el.min = fmt(minDate);
     });
+
+    // Build WhatsApp link dynamically from flight info
+    var waLink = document.getElementById('waBookLink');
+    if (waLink) {
+      {% for slice in offer.slices %}
+      var msgText = '{{ offer.owner.name }} - {{ slice.origin.iata_code }} → {{ slice.destination.iata_code }} - {{ slice.departure_date }}';
+      {% endfor %}
+      waLink.href = 'https://wa.me/249906888886?text=' + encodeURIComponent(msgText);
+    }
   });
+
+  // Sudan domestic booking method toggle
+  window.setBookMethod = function(method) {
+    var panelCard = document.getElementById('panelCard');
+    var panelWA   = document.getElementById('panelWA');
+    var btnCard   = document.getElementById('btnMethodCard');
+    var btnWA     = document.getElementById('btnMethodWA');
+    if (!panelCard) return;
+
+    if (method === 'card') {
+      panelCard.style.display = '';
+      panelWA.style.display   = 'none';
+      btnCard.style.background = 'var(--primary)';
+      btnCard.style.color      = '#fff';
+      btnCard.style.borderColor= 'var(--primary)';
+      btnWA.style.background   = 'transparent';
+      btnWA.style.color        = 'var(--text-muted)';
+      btnWA.style.borderColor  = '#ccc';
+    } else {
+      panelCard.style.display = 'none';
+      panelWA.style.display   = '';
+      btnWA.style.background   = '#25d366';
+      btnWA.style.color        = '#fff';
+      btnWA.style.borderColor  = '#25d366';
+      btnCard.style.background = 'transparent';
+      btnCard.style.color      = 'var(--text-muted)';
+      btnCard.style.borderColor= '#ccc';
+    }
+  };
 </script>
 {% endblock %}
