@@ -1,195 +1,198 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "وكالة أبو منية" %} — {% trans "رحلات الباخرة: بورتسودان ← جدة" %}{% endblock %}
+{% block title %}{% trans "وكالة أبو منية" %} — {% trans "رحلات الباخرة: بورتسودان ↔ جدة" %}{% endblock %}
 
 {% block content %}
 <section class="section" style="padding-top:32px;">
-<div class="container" style="max-width:960px;">
+<div class="container" style="max-width:920px;">
 
-  <!-- ══ Search recap bar ══ -->
-  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:16px; padding:16px 22px; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-    <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+  <!-- ══ Search Recap ══ -->
+  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:14px; padding:14px 20px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
       <div style="text-align:center;">
-        <div style="font-size:1.4rem; font-weight:900; color:var(--text);">PZU</div>
-        <div style="font-size:0.75rem; color:var(--text-muted);">بورتسودان</div>
+        <div style="font-size:1.3rem; font-weight:900; color:var(--text);">PZU</div>
+        <div style="font-size:0.72rem; color:var(--text-muted);">بورتسودان</div>
       </div>
-      <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-        <div style="font-size:0.72rem; color:var(--text-muted);">⛴ ~36–40 ساعة</div>
-        <div style="display:flex; align-items:center; gap:0;">
-          <div style="width:40px; height:2px; background:var(--border);"></div>
-          <span style="font-size:1.1rem; color:var(--primary);">⛴</span>
-          <div style="width:40px; height:2px; background:var(--border);"></div>
-        </div>
-        <div style="font-size:0.7rem; color:#059669; font-weight:700;">رحلة بحرية</div>
-      </div>
+      <div style="color:var(--primary); font-size:1.3rem; font-weight:300;">⛴ →</div>
       <div style="text-align:center;">
-        <div style="font-size:1.4rem; font-weight:900; color:var(--text);">JED</div>
-        <div style="font-size:0.75rem; color:var(--text-muted);">جدة</div>
+        <div style="font-size:1.3rem; font-weight:900; color:var(--text);">JED</div>
+        <div style="font-size:0.72rem; color:var(--text-muted);">جدة</div>
       </div>
-      <div style="color:var(--text-muted); font-size:0.85rem;">📅 {{ search.dep_date }} &nbsp;·&nbsp; 👤 {{ search.adults }} {% trans "بالغ" %}{% if search.children > 0 %} · 👦 {{ search.children }} {% trans "طفل" %}{% endif %}</div>
+      <div style="color:var(--text-muted); font-size:0.82rem; padding-right:8px; border-right:1px solid var(--border);">
+        📅 {{ search.dep_date }}
+      </div>
+      <div style="color:var(--text-muted); font-size:0.82rem;">
+        👤 {{ search.adults }} {% trans "بالغ" %}{% if search.children > 0 %} · 👦 {{ search.children }} {% trans "طفل" %}{% endif %}
+        &nbsp;·&nbsp; 💺 {{ search.cabin_class }}
+      </div>
     </div>
-    <a href="{% url 'vols:home' %}" class="btn btn-ghost" style="font-size:0.85rem;">✏️ {% trans "تعديل البحث" %}</a>
+    <a href="{% url 'vols:home' %}" class="btn btn-ghost" style="font-size:0.82rem;">✏️ {% trans "تعديل" %}</a>
   </div>
 
-  <!-- ══ Sudan-KSA Ferry Banner ══ -->
-  <div style="background:linear-gradient(135deg,#003087,#0052cc); border-radius:16px; padding:20px 24px; margin-bottom:28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; box-shadow:0 4px 20px rgba(0,48,135,0.25);">
-    <div style="display:flex; align-items:center; gap:16px;">
-      <span style="font-size:2.5rem;">⛴</span>
-      <div>
-        <div style="color:#fff; font-weight:900; font-size:1.1rem; font-family:'Tajawal',sans-serif; margin-bottom:4px;">{% trans "رحلات الباخرة — بورتسودان ↔ جدة" %}</div>
-        <div style="color:rgba(255,255,255,0.75); font-size:0.82rem;">{% trans "شركة وادي النيل للنقل · شركة بوابة الجزيرة · شركة مكة للشحن والنقل" %}</div>
-      </div>
-    </div>
-    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-      <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.25);">⏱ ~36–40h</span>
-      <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.25);">📅 {% trans "ثلاثاء وسبت" %}</span>
-      <span style="background:rgba(37,211,102,0.25); color:#25d366; font-size:0.78rem; font-weight:700; padding:5px 14px; border-radius:999px; border:1px solid rgba(37,211,102,0.4);">✅ {% trans "حجز مباشر" %}</span>
-    </div>
+  <!-- ══ Important notice ══ -->
+  <div style="background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.4); border-radius:12px; padding:12px 18px; margin-bottom:22px; font-size:0.82rem; color:#92400e; display:flex; align-items:center; gap:10px;">
+    <span style="font-size:1.1rem; flex-shrink:0;">ℹ️</span>
+    <span>{% trans "رحلات الباخرة تنطلق أيام" %} <strong>{% trans "الثلاثاء والسبت" %}</strong> {% trans "من بورتسودان. المواعيد والأسعار المعروضة حقيقية. الحجز يتم عبر واتساب مع فريق أبو منية." %}</span>
   </div>
 
-  <!-- ══ Offers ══ -->
   {% if offers %}
-  <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-    <span style="font-size:0.88rem; color:var(--text-muted);">{{ offers|length }} {% trans "عروض متاحة" %}</span>
-    <span style="font-size:0.82rem; color:var(--text-muted);">💡 {% trans "الأسعار بالدولار الأمريكي لجميع المسافرين" %}</span>
-  </div>
-
+  <!-- ══ Offer cards ══ -->
   {% for offer in offers %}
-  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:18px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.06); transition:box-shadow 0.2s, transform 0.2s;"
-       onmouseenter="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.12)';this.style.transform='translateY(-2px)'"
-       onmouseleave="this.style.boxShadow='0 2px 16px rgba(0,0,0,0.06)';this.style.transform=''">
+  {% with seg=offer.slices.0.segments.0 %}
+  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:18px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 14px rgba(0,0,0,0.06); transition:transform 0.2s, box-shadow 0.2s;"
+       onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(0,0,0,0.11)'"
+       onmouseleave="this.style.transform='';this.style.boxShadow='0 2px 14px rgba(0,0,0,0.06)'">
 
-    <!-- Company header -->
-    <div style="background:linear-gradient(135deg,{{ offer.ferry_company.color }},{{ offer.ferry_company.color }}cc); padding:14px 20px; display:flex; justify-content:space-between; align-items:center;">
+    <!-- Company bar -->
+    <div style="background:linear-gradient(135deg,{{ offer.ferry_company.color }},{{ offer.ferry_company.color }}bb); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
       <div style="display:flex; align-items:center; gap:12px;">
-        <span style="font-size:1.8rem;">{{ offer.ferry_company.logo }}</span>
+        <span style="font-size:1.8rem; line-height:1;">{{ offer.ferry_company.logo }}</span>
         <div>
-          <div style="color:#fff; font-weight:800; font-size:0.95rem;">{{ offer.ferry_company.name_ar }}</div>
-          <div style="color:rgba(255,255,255,0.75); font-size:0.75rem;">{{ offer.ferry_company.name }} · {{ offer.ferry_company.vessel }}</div>
+          <div style="color:#fff; font-weight:800; font-size:0.95rem; font-family:'Tajawal',sans-serif;">{{ offer.ferry_company.name_ar }}</div>
+          <div style="color:rgba(255,255,255,0.7); font-size:0.75rem;">{{ offer.ferry_company.name }} &nbsp;·&nbsp; {{ seg.vessel }}</div>
         </div>
       </div>
       {% if forloop.first %}
-      <span style="background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; font-size:0.72rem; font-weight:800; padding:4px 12px; border-radius:999px;">🏆 {% trans "الأرخص" %}</span>
+      <span style="background:rgba(255,255,255,0.2); color:#fff; font-size:0.72rem; font-weight:800; padding:3px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.35);">⭐ الأوفر</span>
       {% endif %}
     </div>
 
-    <!-- Route details -->
-    <div style="padding:20px 22px;">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px;">
+    <!-- Route + Time + Price -->
+    <div style="padding:20px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
 
-        <!-- Origin -->
-        <div style="text-align:center; min-width:90px;">
-          <div style="font-size:2rem; font-weight:900; color:var(--text); line-height:1;">PZU</div>
-          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:3px; line-height:1.4;">بورتسودان<br><span style="font-size:0.72rem; opacity:0.75;">Port Sudan</span></div>
-          <div style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-top:6px;">
-            {{ offer.slices.0.segments.0.departing_at|slice:"11:16" }}
-          </div>
-          <div style="font-size:0.72rem; color:var(--text-muted);">{{ offer.slices.0.segments.0.departing_at|slice:"0:10" }}</div>
-        </div>
-
-        <!-- Line -->
-        <div style="flex:1; text-align:center; min-width:100px;">
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:4px;">⏱ ~36–40 ساعة</div>
-          <div style="display:flex; align-items:center;">
-            <div style="flex:1; height:2px; background:linear-gradient(90deg,#003087,#0052cc);"></div>
-            <span style="font-size:1.4rem; padding:0 8px;">⛴</span>
-            <div style="flex:1; height:2px; background:linear-gradient(90deg,#0052cc,#003087);"></div>
-          </div>
-          <div style="font-size:0.72rem; margin-top:4px; color:#059669; font-weight:700;">مباشر</div>
-        </div>
-
-        <!-- Destination -->
-        <div style="text-align:center; min-width:90px;">
-          <div style="font-size:2rem; font-weight:900; color:var(--text); line-height:1;">JED</div>
-          <div style="font-size:0.82rem; color:var(--text-muted); margin-top:3px; line-height:1.4;">جدة<br><span style="font-size:0.72rem; opacity:0.75;">Jeddah</span></div>
-          <div style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-top:6px;">
-            {{ offer.slices.0.segments.0.arriving_at|slice:"11:16" }}
-          </div>
-          <div style="font-size:0.72rem; color:var(--text-muted);">{{ offer.slices.0.segments.0.arriving_at|slice:"0:10" }}</div>
-        </div>
-
-        <!-- Price + Book -->
-        <div style="text-align:center; min-width:130px; border-right:1px solid var(--border); padding-right:20px;">
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:2px;">{% trans "المجموع" %} ({{ search.passengers }} {% trans "مسافر" %})</div>
-          <div style="font-size:1.6rem; font-weight:900; color:var(--primary);">{{ offer.total_amount }}</div>
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">USD</div>
-          <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm" style="width:100%; text-align:center; font-size:0.88rem; padding:10px 16px;">
-            {% trans "احجز" %} ←
-          </a>
+      <!-- Departure -->
+      <div style="text-align:center; min-width:100px;">
+        <div style="font-size:2rem; font-weight:900; color:var(--text); line-height:1;">{{ seg.departing_at|slice:"11:16" }}</div>
+        <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-top:3px;">{{ seg.departing_at|slice:"0:10" }}</div>
+        <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; line-height:1.4;">
+          بورتسودان<br><span style="opacity:0.65; font-size:0.7rem;">Port Sudan</span>
         </div>
       </div>
 
-      <!-- Info chips -->
-      <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:14px; border-top:1px dashed var(--border);">
-        <span style="background:rgba(27,164,186,0.08); color:var(--primary); border:1px solid rgba(27,164,186,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
-          💺 {{ offer.cabin_info.name_ar }}
-        </span>
-        <span style="background:rgba(124,58,237,0.07); color:#7c3aed; border:1px solid rgba(124,58,237,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
-          🧳 {% trans "أمتعة" %}: 2×30kg
-        </span>
-        <span style="background:rgba(16,185,129,0.07); color:#059669; border:1px solid rgba(16,185,129,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
-          ✅ {% trans "قابل للاسترداد" %}
-        </span>
-        <span style="background:rgba(245,158,11,0.08); color:#d97706; border:1px solid rgba(245,158,11,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
-          🍽 {% trans "وجبات على المتن" %}
-        </span>
+      <!-- Connector -->
+      <div style="flex:1; text-align:center; min-width:90px;">
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:5px;">⏱ {{ offer.slices.0.duration_fmt }}</div>
+        <div style="display:flex; align-items:center;">
+          <div style="flex:1; height:2px; background:linear-gradient(90deg,{{ offer.ferry_company.color }},{{ offer.ferry_company.color }}55);"></div>
+          <span style="font-size:1.3rem; margin:0 6px;">⛴</span>
+          <div style="flex:1; height:2px; background:linear-gradient(90deg,{{ offer.ferry_company.color }}55,{{ offer.ferry_company.color }});"></div>
+        </div>
+        <div style="font-size:0.7rem; color:#059669; font-weight:700; margin-top:5px;">✅ مباشر</div>
+      </div>
+
+      <!-- Arrival -->
+      <div style="text-align:center; min-width:100px;">
+        <div style="font-size:2rem; font-weight:900; color:var(--text); line-height:1;">{{ seg.arriving_at|slice:"11:16" }}</div>
+        <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-top:3px;">{{ seg.arriving_at|slice:"0:10" }}</div>
+        <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; line-height:1.4;">
+          جدة<br><span style="opacity:0.65; font-size:0.7rem;">Jeddah Islamic Port</span>
+        </div>
+      </div>
+
+      <!-- Price + WhatsApp button -->
+      <div style="text-align:center; min-width:150px; padding-right:20px; border-right:2px solid var(--border);">
+        <!-- Per person -->
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">
+          {% trans "للشخص الواحد" %}
+        </div>
+        <div style="font-size:2rem; font-weight:900; color:var(--primary); line-height:1;">{{ offer.adult_per_person }}</div>
+        <div style="font-size:0.75rem; color:var(--text-muted);">USD</div>
+        {% if search.passengers > 1 %}
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px; padding-top:4px; border-top:1px dashed var(--border);">
+          {% trans "الإجمالي" %} ({{ search.passengers }} {% trans "مسافر" %}): <strong style="color:var(--text);">{{ offer.total_amount }} USD</strong>
+        </div>
+        {% endif %}
+        <!-- WhatsApp Book button -->
+        <button onclick="bookViaWhatsApp('{{ offer.ferry_company.name_ar }}', '{{ seg.departing_at }}', '{{ seg.arriving_at }}', '{{ offer.adult_per_person }}', '{{ offer.total_amount }}', '{{ offer.slices.0.duration_fmt }}', '{{ offer.cabin_info.name_ar }}')"
+          style="margin-top:12px; width:100%; padding:11px 8px; background:#25d366; color:#fff; border:none; border-radius:12px; font-size:0.9rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; font-family:inherit; transition:background 0.2s;"
+          onmouseenter="this.style.background='#1ebe5d'" onmouseleave="this.style.background='#25d366'">
+          📲 {% trans "احجز عبر واتساب" %}
+        </button>
       </div>
     </div>
+
+    <!-- Info chips -->
+    <div style="display:flex; flex-wrap:wrap; gap:8px; padding:0 22px 16px;">
+      <span style="background:rgba(27,164,186,0.08); color:var(--primary); border:1px solid rgba(27,164,186,0.2); padding:3px 10px; border-radius:999px; font-size:0.73rem; font-weight:700;">
+        💺 {{ offer.cabin_info.name_ar }}
+      </span>
+      <span style="background:rgba(124,58,237,0.07); color:#7c3aed; border:1px solid rgba(124,58,237,0.2); padding:3px 10px; border-radius:999px; font-size:0.73rem; font-weight:700;">
+        🧳 {% trans "أمتعة" %}: 2×30kg
+      </span>
+      <span style="background:rgba(16,185,129,0.07); color:#059669; border:1px solid rgba(16,185,129,0.2); padding:3px 10px; border-radius:999px; font-size:0.73rem; font-weight:700;">
+        🍽 {% trans "وجبات على المتن" %}
+      </span>
+      <span style="background:rgba(16,185,129,0.07); color:#059669; border:1px solid rgba(16,185,129,0.2); padding:3px 10px; border-radius:999px; font-size:0.73rem; font-weight:700;">
+        ✅ {% trans "قابل للاسترداد" %} (20% {% trans "غرامة" %})
+      </span>
+    </div>
   </div>
+  {% endwith %}
   {% endfor %}
 
   {% else %}
-  <!-- No results -->
   <div style="text-align:center; padding:60px 20px; color:var(--text-muted);">
     <div style="font-size:3rem; margin-bottom:16px;">⛴</div>
     <div style="font-size:1.1rem; font-weight:700; margin-bottom:8px;">{% trans "لا توجد رحلات في هذا التاريخ" %}</div>
-    <div style="font-size:0.88rem; margin-bottom:20px;">{% trans "رحلات الباخرة متاحة أيام الثلاثاء والسبت من كل أسبوع" %}</div>
+    <div style="font-size:0.85rem; margin-bottom:8px;">{% trans "رحلات الباخرة تغادر أيام الثلاثاء والسبت فقط من بورتسودان" %}</div>
+    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:24px;">{% trans "حاول اختيار تاريخ ثلاثاء أو سبت مختلف" %}</div>
     <a href="{% url 'vols:home' %}" class="btn btn-primary">← {% trans "بحث في تاريخ آخر" %}</a>
   </div>
   {% endif %}
 
-  <!-- ══ Ferry info box ══ -->
-  <div style="background:linear-gradient(135deg,rgba(0,48,135,0.05),rgba(0,48,135,0.02)); border:1.5px solid rgba(0,48,135,0.15); border-radius:16px; padding:22px 24px; margin-top:28px;">
-    <div style="font-weight:800; font-size:0.95rem; color:var(--text); margin-bottom:14px; font-family:'Tajawal',sans-serif;">ℹ️ {% trans "معلومات مفيدة عن الرحلة" %}</div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-      <div style="display:flex; gap:10px; align-items:flex-start;">
-        <span style="font-size:1.2rem; flex-shrink:0;">📍</span>
-        <div>
-          <div style="font-weight:700; font-size:0.85rem; color:var(--text);">{% trans "ميناء المغادرة" %}</div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "ميناء بورتسودان الجديد، شرق السودان" %}</div>
-        </div>
-      </div>
-      <div style="display:flex; gap:10px; align-items:flex-start;">
-        <span style="font-size:1.2rem; flex-shrink:0;">🛬</span>
-        <div>
-          <div style="font-weight:700; font-size:0.85rem; color:var(--text);">{% trans "ميناء الوصول" %}</div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "الميناء الإسلامي — جدة، المملكة العربية السعودية" %}</div>
-        </div>
-      </div>
-      <div style="display:flex; gap:10px; align-items:flex-start;">
-        <span style="font-size:1.2rem; flex-shrink:0;">📅</span>
-        <div>
-          <div style="font-weight:700; font-size:0.85rem; color:var(--text);">{% trans "جدول الإبحار" %}</div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "من بورتسودان: ثلاثاء وسبت | من جدة: اثنين وخميس" %}</div>
-        </div>
-      </div>
-      <div style="display:flex; gap:10px; align-items:flex-start;">
-        <span style="font-size:1.2rem; flex-shrink:0;">🧳</span>
-        <div>
-          <div style="font-weight:700; font-size:0.85rem; color:var(--text);">{% trans "الأمتعة المسموح بها" %}</div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "2 حقيبة × 30 كغ + حقيبة يد" %}</div>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:16px; padding:12px 16px; background:rgba(37,211,102,0.07); border:1px solid rgba(37,211,102,0.25); border-radius:10px; font-size:0.82rem; color:var(--text); display:flex; align-items:center; gap:10px;">
-      <span style="font-size:1.1rem;">📲</span>
-      <span>{% trans "للاستفسار والحجز المسبق تواصل مع فريق أبو منية" %} &nbsp;
-        <a href="https://wa.me/249906888886" target="_blank" style="color:#25d366; font-weight:700; text-decoration:none;">+249 906 888 886 واتساب</a>
-      </span>
+  <!-- ══ Route Info Box ══ -->
+  <div style="background:linear-gradient(135deg,rgba(0,48,135,0.04),rgba(0,48,135,0.01)); border:1.5px solid rgba(0,48,135,0.12); border-radius:16px; padding:20px 22px; margin-top:24px;">
+    <div style="font-weight:800; font-size:0.9rem; color:var(--text); margin-bottom:14px;">ℹ️ {% trans "تفاصيل الرحلة البحرية" %}</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; font-size:0.8rem;">
+      <div><span style="font-weight:700;">📍 {% trans "الميناء" %}:</span><br><span style="color:var(--text-muted);">{% trans "بورتسودان الجديد — شرق السودان" %}</span></div>
+      <div><span style="font-weight:700;">🛬 {% trans "الوصول" %}:</span><br><span style="color:var(--text-muted);">{% trans "الميناء الإسلامي — جدة، السعودية" %}</span></div>
+      <div><span style="font-weight:700;">📅 {% trans "الجدول" %}:</span><br><span style="color:var(--text-muted);">{% trans "ثلاثاء وسبت من بورتسودان" %}</span></div>
+      <div><span style="font-weight:700;">⏱ {% trans "المدة" %}:</span><br><span style="color:var(--text-muted);">~36 {% trans "ساعة" %}</span></div>
     </div>
   </div>
 
 </div>
 </section>
+
+<script>
+function bookViaWhatsApp(company, depAt, arrAt, pricePP, total, duration, cabin) {
+  var depDate = depAt.slice(0,10);
+  var depTime = depAt.slice(11,16);
+  var arrDate = arrAt.slice(0,10);
+  var arrTime = arrAt.slice(11,16);
+  var adults  = {{ search.adults }};
+  var children = {{ search.children }};
+
+  var msg = [];
+  msg.push('⛴ *طلب حجز باخرة — وكالة أبو منية*');
+  msg.push('────────────────────');
+  msg.push('🚢 الشركة: ' + company);
+  msg.push('📍 المسار: بورتسودان (PZU)  →  جدة (JED)');
+  msg.push('');
+  msg.push('📅 تاريخ المغادرة: ' + depDate);
+  msg.push('⏰ وقت الإبحار: ' + depTime + ' من ميناء بورتسودان');
+  msg.push('🛬 وقت الوصول:  ' + arrTime + ' — ' + arrDate + ' إلى الميناء الإسلامي جدة');
+  msg.push('⏱ مدة الرحلة: ' + duration);
+  msg.push('');
+  msg.push('💺 الدرجة: ' + cabin);
+  msg.push('🧳 الأمتعة: 2 حقيبة × 30كغ لكل مسافر');
+  msg.push('');
+  msg.push('👥 المسافرون:');
+  msg.push('  • البالغون: ' + adults);
+  if (children > 0) msg.push('  • الأطفال: ' + children);
+  msg.push('');
+  msg.push('💰 السعر للشخص: ' + pricePP + ' USD');
+  if (adults + children > 1) {
+    msg.push('💰 الإجمالي الكلي: ' + total + ' USD');
+  }
+  msg.push('');
+  msg.push('*يرجى تأكيد الحجز وإرسال بيانات المسافرين (الاسم الكامل، رقم الجواز/الهوية، تاريخ الميلاد)*');
+  msg.push('');
+  msg.push('👍 شكراً لاختياركم وكالة أبو منية');
+
+  var url = 'https://wa.me/249906888886?text=' + encodeURIComponent(msg.join('\n'));
+  window.open(url, '_blank');
+}
+</script>
 {% endblock %}
