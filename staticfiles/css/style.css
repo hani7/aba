@@ -112,7 +112,13 @@ main { flex: 1; }
    ═══════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
-  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-2) 40%, var(--navy-3) 70%, #102050 100%);
+  background:
+    linear-gradient(145deg,
+      rgba(11,20,55,0.82)  0%,
+      rgba(19,28,71,0.75) 35%,
+      rgba(11,32,80,0.70) 65%,
+      rgba(0,10,40,0.88) 100%),
+    url('/static/images/hero_bg.jpg') center center / cover no-repeat;
   padding: 72px 0 96px;
   overflow: hidden;
 }
