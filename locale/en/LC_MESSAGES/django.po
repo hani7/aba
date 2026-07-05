@@ -850,6 +850,42 @@ msgstr "Business Class"
 msgid "أولى"
 msgstr "First Class"
 
+msgid "مثل: باريس، LHR، JFK"
+msgstr "E.g. Paris, LHR, JFK"
+
+msgid "مثل: لندن، DXB"
+msgstr "E.g. London, DXB"
+
+msgid "مثل: الخرطوم، PZU"
+msgstr "E.g. Khartoum, PZU"
+
+msgid "مثل: بورتسودان، KSL"
+msgstr "E.g. Port Sudan, KSL"
+
+msgid "مثل: باريس، LHR"
+msgstr "E.g. Paris, LHR"
+
+msgid "مثل: لندن، DXB، JFK"
+msgstr "E.g. London, DXB"
+
+msgid "المغادرة"
+msgstr "From"
+
+msgid "الوجهة"
+msgstr "To"
+
+msgid "إضافة وجهة أخرى"
+msgstr "Add Another Destination"
+
+msgid "تاريخ الذهاب"
+msgstr "Departure Date"
+
+msgid "حذف"
+msgstr "Remove"
+
+msgid "بالغ واحد"
+msgstr "1 Adult"
+
 msgid "أضف فندقاً لرحلتي"
 msgstr ""
 
