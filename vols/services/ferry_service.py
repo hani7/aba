@@ -9,13 +9,16 @@ Operating companies:
   - Makkah Shipping                (شركة مكة للشحن)
 
 Route: Port Sudan (PZU) ↔ Jeddah Islamic Port (JED)
-Distance: ~800 km  |  Duration: ~36–40 hours
+Distance: ~800 km  |  Duration: ~12 hours
 
-Cabin classes:
-  economy   — shared dormitory berths
-  standard  — shared 4-berth cabin
-  first     — private 2-berth cabin
-  vip       — private suite
+REAL PRICES (SAR-based, per adult one-way):
+  Economy   — 500-600 SAR  (~135-160 USD)
+  Standard  — 650-750 SAR  (~175-200 USD)
+  First     — 800-900 SAR  (~215-245 USD)
+  VIP       — 1200+ SAR   (~320+ USD)
+
+NOTE: Service is currently subject to availability due to
+regional conditions. Always verify with company before booking.
 """
 
 import uuid
@@ -69,18 +72,18 @@ PORTS = {
     },
 }
 
-# ── Cabin classes & pricing (USD, per person, one-way) ────────────────────────
+# ── Cabin classes & pricing (USD, per adult, one-way) ────────────────────
 CABIN_PRICES = {
-    'economy':  {'price': 80,  'name_ar': 'اقتصادي (بدون كابينة)',   'name_en': 'Economy (Open Deck)', 'capacity': '— مقعد مشترك'},
-    'standard': {'price': 130, 'name_ar': 'درجة عادية (4 أشخاص)',    'name_en': 'Standard (4-berth)',  'capacity': '4 في الكابينة'},
-    'first':    {'price': 200, 'name_ar': 'درجة أولى (كابينة خاصة)', 'name_en': 'First (2-berth)',     'capacity': '2 في الكابينة'},
-    'vip':      {'price': 320, 'name_ar': 'VIP (جناح فاخر)',          'name_en': 'VIP Suite',           'capacity': 'كابينة خاصة'},
+    'economy':  {'price': 150, 'name_ar': 'اقتصادي (بدون كابينة)',   'name_en': 'Economy (Open Deck)', 'capacity': '— مقعد مشترك', 'sar': '500-600'},
+    'standard': {'price': 200, 'name_ar': 'درجة عادية (4 أشخاص)',    'name_en': 'Standard (4-berth)',  'capacity': '4 في الكابينة', 'sar': '650-750'},
+    'first':    {'price': 245, 'name_ar': 'درجة أولى (كابينة خاصة)', 'name_en': 'First (2-berth)',     'capacity': '2 في الكابينة', 'sar': '800-900'},
+    'vip':      {'price': 320, 'name_ar': 'VIP (جناح فاخر)',          'name_en': 'VIP Suite',           'capacity': 'كابينة خاصة',   'sar': '1200+'},
 }
 
-# ── Fixed schedule: Tue & Sat from each direction ─────────────────────────────
+# ── Fixed schedule: Tue & Sat from each direction ─────────────────────────
 SCHEDULE_DAYS = {
-    'PZU-JED': {'days': [1, 5], 'dep': '20:00', 'arr': '+1 08:00', 'duration': '36h'},  # Tue & Sat
-    'JED-PZU': {'days': [3, 0], 'dep': '22:00', 'arr': '+1 10:00', 'duration': '36h'},  # Mon & Thu
+    'PZU-JED': {'days': [1, 5], 'dep': '20:00', 'arr': '+1 08:00', 'duration': '12h', 'duration_fmt': '12 ساعة'},  # Tue & Sat depart 20:00, arrive next day 08:00
+    'JED-PZU': {'days': [3, 0], 'dep': '22:00', 'arr': '+1 10:00', 'duration': '12h', 'duration_fmt': '12 ساعة'},  # Mon & Thu
 }
 
 
@@ -179,7 +182,7 @@ def search_ferry(origin: str, destination: str, departure_date: str,
             'destination':    segment['destination'],
             'departure_date': departure_date,
             'duration':       segment['duration'],
-            'duration_fmt':   schedule['duration'],
+            'duration_fmt':   schedule['duration_fmt'],
             'segments':       [segment],
         }
 
