@@ -17,6 +17,7 @@ from .services import travelpayouts_service
 from .services import booking_service
 from .services import agoda_service
 from .services import sudan_domestic_service
+from .services import ferry_service
 from .models import Booking, Passenger, HotelBooking
 
 

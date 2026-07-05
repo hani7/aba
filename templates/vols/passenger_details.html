@@ -160,19 +160,19 @@
       <div class="form-actions" style="margin-top:24px; flex-wrap:wrap; align-items:flex-start; gap:16px;">
         <a href="javascript:history.back()" class="btn btn-ghost">← {% trans "العودة إلى العروض" %}</a>
 
-        {% if offer.is_sudan_domestic %}
-        <!-- ── Sudan Domestic: choose booking method ── -->
-        <div style="flex:1; min-width:280px;">
-          <div style="background:linear-gradient(135deg,rgba(0,114,41,0.06),rgba(0,114,41,0.02)); border:1.5px solid rgba(0,114,41,0.2); border-radius:16px; padding:20px 22px;">
-            <div style="font-weight:800; font-size:0.95rem; color:var(--text); margin-bottom:14px; font-family:'Tajawal',sans-serif;">
-              🇸🇩 {% trans "اختر طريقة الحجز" %}
+        {% if offer.is_sudan_domestic or offer.is_ferry %}
+        <!-- ── Sudan Domestic / Ferry: choose booking method ── -->
+        <div style="flex:1; min-width:300px;">
+          <div style="background:linear-gradient(135deg,rgba(0,114,41,0.06),rgba(0,114,41,0.02)); border:1.5px solid rgba(0,114,41,0.2); border-radius:16px; padding:22px 24px;">
+            <div style="font-weight:800; font-size:0.95rem; color:var(--text); margin-bottom:16px; font-family:'Tajawal',sans-serif;">
+              🇸🇩 {% trans "اختر طريقة الدفع" %}
             </div>
 
             <!-- Method toggle -->
-            <div style="display:flex; gap:10px; margin-bottom:18px;">
-              <button type="button" id="btnMethodCard" onclick="setBookMethod('card')"
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+              <button type="button" id="btnMethodBank" onclick="setBookMethod('bank')"
                 style="flex:1; padding:11px 8px; border-radius:12px; border:2px solid var(--primary); background:var(--primary); color:#fff; font-family:'Tajawal',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:0.2s;">
-                💳 {% trans "البطاقة الوطنية" %}
+                🏦 {% trans "تحويل بنكي" %}
               </button>
               <button type="button" id="btnMethodWA" onclick="setBookMethod('whatsapp')"
                 style="flex:1; padding:11px 8px; border-radius:12px; border:2px solid #ccc; background:transparent; color:var(--text-muted); font-family:'Tajawal',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:0.2s;">
@@ -180,33 +180,109 @@
               </button>
             </div>
 
-            <!-- National card panel -->
-            <div id="panelCard">
+            <!-- ── Bank Transfer panel ── -->
+            <div id="panelBank">
+
+              <!-- Bank account info card -->
+              <div style="background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:16px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+
+                <!-- Bank header -->
+                <div style="background:linear-gradient(135deg,#003087,#0052cc); padding:14px 18px; display:flex; align-items:center; gap:12px;">
+                  <span style="font-size:1.8rem;">🏦</span>
+                  <div>
+                    <div style="color:#fff; font-weight:800; font-size:0.95rem; font-family:'Tajawal',sans-serif;">{% trans "بنك الخرطوم" %}</div>
+                    <div style="color:rgba(255,255,255,0.8); font-size:0.78rem;">Bank of Khartoum</div>
+                  </div>
+                </div>
+
+                <!-- Account details -->
+                <div style="padding:16px 18px;">
+                  <div style="display:grid; gap:10px;">
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">{% trans "اسم صاحب الحساب" %}</span>
+                      <span style="font-size:0.88rem; font-weight:800; color:var(--text);">وكالة أبو منية للسفر</span>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">{% trans "رقم الحساب" %}</span>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span id="accNum" style="font-size:0.92rem; font-weight:800; color:var(--text); letter-spacing:0.05em; direction:ltr;">1234 5678 9012 3456</span>
+                        <button type="button" onclick="copyText('accNum','copyAccBtn')" id="copyAccBtn"
+                          style="border:none; background:var(--primary); color:#fff; border-radius:6px; padding:3px 8px; font-size:0.72rem; cursor:pointer; font-family:'Tajawal',sans-serif; transition:0.2s;">{% trans "نسخ" %}</button>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">IBAN</span>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span id="ibanNum" style="font-size:0.85rem; font-weight:800; color:var(--text); letter-spacing:0.04em; direction:ltr;">SD12 3456 7890 1234 5678</span>
+                        <button type="button" onclick="copyText('ibanNum','copyIbanBtn')" id="copyIbanBtn"
+                          style="border:none; background:var(--primary); color:#fff; border-radius:6px; padding:3px 8px; font-size:0.72rem; cursor:pointer; font-family:'Tajawal',sans-serif; transition:0.2s;">{% trans "نسخ" %}</button>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">{% trans "رمز التحويل (SWIFT)" %}</span>
+                      <span style="font-size:0.88rem; font-weight:800; color:var(--text); letter-spacing:0.06em; direction:ltr;">BKKHSDKH</span>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#f8fafc; border-radius:8px; border:1px solid var(--border);">
+                      <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">{% trans "المبلغ المطلوب" %}</span>
+                      <span style="font-size:1rem; font-weight:900; color:var(--primary);">{{ offer.total_amount }} {{ offer.total_currency }}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Note strip -->
+                <div style="background:rgba(251,191,36,0.1); border-top:1px solid rgba(251,191,36,0.3); padding:10px 18px; font-size:0.78rem; color:#92400e; display:flex; align-items:flex-start; gap:8px;">
+                  <span style="font-size:1rem; flex-shrink:0;">⚠️</span>
+                  <span>{% trans "بعد إتمام التحويل، أرسل صورة الإيصال عبر واتساب أو أرفقه أدناه لتأكيد الحجز." %}</span>
+                </div>
+              </div>
+
+              <!-- Receipt upload (optional) -->
               <div style="margin-bottom:14px;">
-                <label class="field-label" style="display:block; margin-bottom:6px;">{% trans "رقم البطاقة الوطنية" %} *</label>
-                <input type="text" id="nationalCardInput" name="national_card_number"
-                  class="field-input" placeholder="123456789012"
-                  style="width:100%; letter-spacing:0.05em;" inputmode="numeric">
+                <label class="field-label" style="display:block; margin-bottom:6px;">📎 {% trans "رفع إيصال التحويل (اختياري)" %}</label>
+                <input type="file" name="payment_receipt" accept="image/*,.pdf"
+                  style="width:100%; padding:8px; border:1.5px dashed var(--border); border-radius:10px; font-family:'Tajawal',sans-serif; font-size:0.85rem; background:var(--bg-2);">
               </div>
-              <div style="padding:10px 14px; background:rgba(27,164,186,0.06); border-radius:8px; font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
-                💡 {% trans "سيتواصل معك فريقنا خلال 24 ساعة لتأكيد الحجز وتفاصيل الدفع" %}
+
+              <!-- Reference note -->
+              <div style="margin-bottom:14px;">
+                <label class="field-label" style="display:block; margin-bottom:6px;">📝 {% trans "ملاحظة / رقم مرجعي" %}</label>
+                <input type="text" name="payment_note" class="field-input"
+                  placeholder="{% trans 'مثال: تحويل بنكي بتاريخ 05/07/2026' %}" style="width:100%;">
               </div>
+
               <button type="submit" class="btn btn-primary btn-large" id="bookBtn" style="width:100%;">
-                <span class="btn-text">💳 {% trans "تأكيد الحجز" %}</span>
+                <span class="btn-text">✅ {% trans "تأكيد الحجز بعد التحويل" %}</span>
                 <span class="btn-loader" style="display:none;">⏳ {% trans "جاري الإرسال" %}...</span>
               </button>
+
+              <!-- Quick WhatsApp receipt link -->
+              <div style="text-align:center; margin-top:12px;">
+                <a href="https://wa.me/249906888886?text={% trans 'مرحباً، أود إرسال إيصال الدفع للحجز' %}" target="_blank"
+                  style="font-size:0.82rem; color:#25d366; font-weight:700; text-decoration:none;">
+                  📲 {% trans "أو أرسل الإيصال عبر واتساب مباشرة" %}
+                </a>
+              </div>
             </div>
 
-            <!-- WhatsApp panel -->
+            <!-- ── WhatsApp panel ── -->
             <div id="panelWA" style="display:none;">
-              <div style="padding:12px 16px; background:rgba(37,211,102,0.07); border:1px solid rgba(37,211,102,0.25); border-radius:12px; font-size:0.85rem; color:var(--text); margin-bottom:14px; line-height:1.7;">
+              <div style="padding:14px 16px; background:rgba(37,211,102,0.07); border:1px solid rgba(37,211,102,0.25); border-radius:12px; font-size:0.85rem; color:var(--text); margin-bottom:14px; line-height:1.8;">
                 📲 {% trans "سيتم فتح واتساب لإتمام الحجز مع فريق أبو منية" %}<br>
                 <span style="color:var(--text-muted); font-size:0.78rem;">{% trans "تأكد من إدخال بيانات المسافرين أعلاه قبل المتابعة" %}</span>
               </div>
+              <div style="padding:12px 16px; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.3); border-radius:10px; font-size:0.8rem; color:#92400e; margin-bottom:14px;">
+                💡 {% trans "سيُرسل لك فريقنا تفاصيل الدفع والحجز عبر واتساب" %}
+              </div>
               <a id="waBookLink" href="https://wa.me/249906888886" target="_blank"
                 class="btn btn-large"
-                style="display:block; width:100%; text-align:center; background:#25d366; color:#fff; border-color:#25d366;">
-                📲 {% trans "فتح واتساب" %}
+                style="display:block; width:100%; text-align:center; background:#25d366; color:#fff; border-color:#25d366; font-size:1rem;">
+                📲 {% trans "فتح واتساب الآن" %}
               </a>
             </div>
 
