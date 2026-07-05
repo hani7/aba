@@ -60,9 +60,6 @@
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.origin|default:'' }}">
           </div>
-          <div id="ferry_origin_label" style="display:none; font-size:0.72rem; color:var(--primary); font-weight:700; margin-top:3px;">
-            🇸🇩 بورتسودان <span style="opacity:0.6;">Port Sudan</span>
-          </div>
           <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
         </div>
 
@@ -78,9 +75,6 @@
               placeholder="{% trans 'مثل: لندن، DXB' %}"
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.destination|default:'' }}">
-          </div>
-          <div id="ferry_dest_label" style="display:none; font-size:0.72rem; color:var(--primary); font-weight:700; margin-top:3px;">
-            🇸🇦 جدة <span style="opacity:0.6;">Jeddah Islamic Port</span>
           </div>
           <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
         </div>
