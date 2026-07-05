@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Colors -->
+    <color name="navy">#0B1437</color>
+    <color name="navy_dark">#070D26</color>
+    <color name="navy_light">#132052</color>
+    <color name="gold">#F7BC35</color>
+    <color name="gold_light">#FBDF97</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+</resources>

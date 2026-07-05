@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme -->
+    <style name="Theme.AbuMonyaApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/navy</item>
+        <item name="colorPrimaryDark">@color/navy_dark</item>
+        <item name="colorAccent">@color/gold</item>
+        <item name="android:windowBackground">@color/navy</item>
+        <item name="android:statusBarColor">@color/navy_dark</item>
+        <item name="android:navigationBarColor">@color/navy_dark</item>
+    </style>
+
+    <!-- Splash screen theme — fully transparent so our layout shows cleanly -->
+    <style name="Theme.Splash" parent="Theme.AbuMonyaApp">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/navy</item>
+    </style>
+
+</resources>

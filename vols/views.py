@@ -16,6 +16,7 @@ from .services import duffel_service
 from .services import travelpayouts_service
 from .services import booking_service
 from .services import agoda_service
+from .services import sudan_domestic_service
 from .models import Booking, Passenger, HotelBooking
 
 
@@ -343,6 +344,15 @@ ARABIC_CITY_MAP = {
     'الرباط': 'Rabat', 'مراكش': 'Marrakech', 'فاس': 'Fes',
     'خرطوم': 'Khartoum', 'بنغازي': 'Benghazi',
     'عدن': 'Aden', 'صنعاء': 'Sanaa',
+    # Sudan domestic airports
+    'بورتسودان': 'Port Sudan', 'بور سودان': 'Port Sudan',
+    'كسلا': 'Kassala', 'كسلا مطار': 'Kassala',
+    'دنقلا': 'Dongola', 'الفاشر': 'El Fasher',
+    'نيالا': 'Nyala', 'الأبيض': 'El Obeid',
+    'عطبرة': 'Atbara', 'مروي': 'Merowe',
+    'الدمازين': 'Damazin', 'كادقلي': 'Kadugli',
+    'الجنينة': 'Geneina', 'وادي حلفا': 'Wadi Halfa',
+    'القضارف': 'Gedaref', 'كوستي': 'Kosti',
     'تريبولي': 'Tripoli', 'فرانكفورت': 'Frankfurt',
     'أمستردام': 'Amsterdam', 'برلين': 'Berlin',
     'ميونخ': 'Munich', 'جنيف': 'Geneva',
@@ -418,6 +428,25 @@ def api_places(request):
     except Exception as e:
         print(f"Places API Error: {e}")
         return JsonResponse({'results': []})
+
+
+def api_sudan_airports(request):
+    """
+    JSON endpoint: returns all Sudan domestic airports for autocomplete.
+    Usage: GET /api/sudan-airports/?q=بور
+    """
+    q = request.GET.get('q', '').strip().lower()
+    airports = sudan_domestic_service.get_sudan_airports()
+    if q:
+        airports = [
+            a for a in airports
+            if q in a['city'].lower()
+            or q in a['city_en'].lower()
+            or q in a['iata_code'].lower()
+            or q in a['name'].lower()
+            or q in a['name_en'].lower()
+        ]
+    return JsonResponse({'results': airports})
 
 
 # ---------------------------------------------------------------------------
@@ -499,7 +528,37 @@ def search_results(request):
             'add_hotel': request.POST.get('add_hotel') == 'yes',
         }
 
+        # ── Detect Sudan domestic route and use dedicated service ──────────────
+        first_origin = (slices[0].get('origin') or '').upper()
+        first_dest   = (slices[0].get('destination') or '').upper()
+        is_sudan_dom = sudan_domestic_service.is_sudan_domestic(first_origin, first_dest)
+
         try:
+            if is_sudan_dom:
+                offers = sudan_domestic_service.search_sudan_domestic(
+                    first_origin, first_dest,
+                    slices[0].get('departure_date', ''),
+                    adults, children, cabin_class,
+                )
+                # Apply 5% markup same as international
+                for offer in offers:
+                    apply_flight_markup(offer)
+                    for sl in offer.get('slices', []):
+                        sl['duration_fmt'] = duffel_service.format_duration(sl.get('duration'))
+
+                unique_airlines = sorted({seg.get('marketing_carrier', {}).get('name', '')
+                    for offer in offers
+                    for sl in offer.get('slices', [])
+                    for seg in sl.get('segments', []) if seg.get('marketing_carrier', {}).get('name')})
+
+                request.session['offers'] = offers[:30]
+                return render(request, 'vols/results.html', {
+                    'offers': offers[:30],
+                    'search': request.session['search'],
+                    'airlines': unique_airlines,
+                    'is_sudan_domestic': True,
+                })
+
             offers = duffel_service.search_flights(slices, adults, children, cabin_class)
 
             # --- Exclude Duffel Airways (virtual/sandbox carrier) ---

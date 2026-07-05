@@ -18,6 +18,7 @@ urlpatterns = [
 
     # ── Flights (Duffel) ──────────────────────────────────────────────────
     path('api/places/', views.api_places, name='api_places'),
+    path('api/sudan-airports/', views.api_sudan_airports, name='api_sudan_airports'),
     path('rechercher/', views.search_results, name='search_results'),
     path('offre/<str:offer_id>/', views.passenger_details, name='passenger_details'),
     path('confirmer/', views.confirm_booking, name='confirm_booking'),

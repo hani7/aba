@@ -1,239 +1,398 @@
 {% load i18n %}
-    <form action="{% url 'vols:search_results' %}" method="post" class="search-card" id="searchForm">
-      {% csrf_token %}
+  <form action="{% url 'vols:search_results' %}" method="post" class="search-card" id="searchForm">
+    {% csrf_token %}
 
-      <!-- Trip Type Selector -->
-      <div class="trip-type-selector">
-        <label class="radio-tab">
-          <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %}>
-          <span>{% trans "ذهاب فقط" %}</span>
-        </label>
-        <label class="radio-tab">
-          <input type="radio" name="trip_type" value="roundtrip" {% if search.trip_type == 'roundtrip' %}checked{% endif %}>
-          <span>{% trans "ذهاب وعودة" %}</span>
-        </label>
-        <label class="radio-tab">
-          <input type="radio" name="trip_type" value="multicity" {% if search.trip_type == 'multicity' %}checked{% endif %}>
-          <span>{% trans "وجهات متعددة" %}</span>
-        </label>
-      </div>
-
-      <!-- Slices Container (Dynamic) -->
-      <div id="slices-container">
-        <!-- Slice 0 (Always present) -->
-        <div class="slice-row search-grid" id="slice_0">
-          
-          <div class="form-field autocomplete-wrapper">
-            <label class="field-label">{% trans "المغادرة" %}</label>
-            <div class="input-icon-wrap">
-              <span class="fi">🛫</span>
-              <input type="text" name="origin_0" id="origin_0" placeholder="{% trans 'مثل: باريس، LHR، JFK' %}" required class="field-input autocomplete-input" autocomplete="off" value="{{ search.slices.0.origin|default:'' }}">
-            </div>
-            <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
-          </div>
-
-          <button type="button" class="swap-btn" id="swapBtn_0" title="Invertir">⇄</button>
-
-          <div class="form-field autocomplete-wrapper">
-            <label class="field-label">{% trans "الوجهة" %}</label>
-            <div class="input-icon-wrap">
-              <span class="fi">🛬</span>
-              <input type="text" name="destination_0" id="destination_0" placeholder="{% trans 'مثل: لندن، DXB' %}" required class="field-input autocomplete-input" autocomplete="off" value="{{ search.slices.0.destination|default:'' }}">
-            </div>
-            <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
-          </div>
-
-          <div class="form-field">
-            <label class="field-label">{% trans "تاريخ (الذهاب)" %}</label>
-            <div class="input-icon-wrap">
-              <span class="fi">📅</span>
-              <input type="date" name="departure_date_0" id="departure_date_0" required class="field-input date-input" value="{{ search.slices.0.departure_date|default:'' }}">
-            </div>
-          </div>
-
-          <!-- Return Date (Hidden by default, shown for Round-trip) -->
-          <div class="form-field" id="return_date_wrapper" style="display: none;">
-            <label class="field-label">{% trans "تاريخ (العودة)" %}</label>
-            <div class="input-icon-wrap">
-              <span class="fi">📅</span>
-              <input type="date" name="return_date" id="return_date" class="field-input date-input" value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Add Flight Button (Hidden by default, shown for Multi-city) -->
-      <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display: none; margin-bottom: 24px;">
-        + {% trans "إضافة رحلة" %}
+    <!-- ══ Flight Mode Tabs (International / Sudan Domestic) ══ -->
+    <div class="flight-mode-tabs" id="flightModeTabs">
+      <button type="button" class="flight-mode-tab active" id="tab-international" onclick="setFlightMode('international')">
+        🌍 {% trans "دولي" %}
       </button>
+      <button type="button" class="flight-mode-tab" id="tab-domestic" onclick="setFlightMode('domestic')">
+        🇸🇩 {% trans "داخلي (السودان)" %}
+      </button>
+    </div>
+    <!-- Hidden field carries the mode to the backend (for UX only – detection is done server-side) -->
+    <input type="hidden" name="flight_mode" id="flight_mode_input" value="international">
 
-      <hr class="form-divider">
+    <!-- ══ Trip Type Selector ══ -->
+    <div class="trip-type-selector" id="tripTypeRow">
+      <label class="radio-tab">
+        <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %}>
+        <span>{% trans "ذهاب فقط" %}</span>
+      </label>
+      <label class="radio-tab">
+        <input type="radio" name="trip_type" value="roundtrip" {% if search.trip_type == 'roundtrip' %}checked{% endif %}>
+        <span>{% trans "ذهاب وعودة" %}</span>
+      </label>
+      <label class="radio-tab" id="multicityTab">
+        <input type="radio" name="trip_type" value="multicity" {% if search.trip_type == 'multicity' %}checked{% endif %}>
+        <span>{% trans "وجهات متعددة" %}</span>
+      </label>
+    </div>
 
-      <!-- Passengers & Cabin -->
-      <div class="search-grid search-bottom">
-        <!-- Passenger Picker -->
-        <div class="form-field" style="position:relative;">
-          <label class="field-label">{% trans "المسافرون" %}</label>
+    <!-- ══ Slices Container (Dynamic) ══ -->
+    <div id="slices-container">
+      <!-- Slice 0 (Always present) -->
+      <div class="slice-row search-grid" id="slice_0">
+        
+        <div class="form-field autocomplete-wrapper" id="origin_wrapper_0">
+          <label class="field-label">{% trans "المغادرة" %}</label>
           <div class="input-icon-wrap">
-            <span class="fi">&#128101;</span>
-            <button type="button" id="paxToggle" class="field-input"
-              style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
-              data-t-adult1="{% trans 'بالغ واحد' %}"
-              data-t-adult2="{% trans 'بالغان' %}"
-              data-t-adults="{% trans 'بالغين' %}"
-              data-t-child1="{% trans '+ طفل واحد' %}"
-              data-t-children="{% trans 'أطفال' %}">
-              <span id="paxSummary">{% trans "بالغ واحد" %}</span>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+            <span class="fi">🛫</span>
+            <input type="text" name="origin_0" id="origin_0"
+              placeholder="{% trans 'مثل: باريس، LHR، JFK' %}"
+              required class="field-input autocomplete-input" autocomplete="off"
+              value="{{ search.slices.0.origin|default:'' }}">
           </div>
-          <!-- Hidden inputs always in the form -->
-          <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
-          <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
+          <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
         </div>
 
-        {% comment %}Dropdown teleported to body via JS to escape overflow:hidden{% endcomment %}
-        <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
-          background:var(--bg-2,#fff); padding:20px; border-radius:16px;
-          box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid var(--border,#e2e8f0);
-          width:290px;">
-          <!-- Adults row -->
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
-            <div>
-              <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "بالغون" %}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "12 سنة وما فوق" %}</div>
-            </div>
-            <div style="display:flex; align-items:center; gap:14px;">
-              <button type="button" onclick="changePax('adults',-1)" class="pax-ctrl-btn">&#8722;</button>
-              <span id="adults_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.adults|default:1 }}</span>
-              <button type="button" onclick="changePax('adults',1)" class="pax-ctrl-btn">&#43;</button>
-            </div>
+        <button type="button" class="swap-btn" id="swapBtn_0" title="Swap">⇄</button>
+
+        <div class="form-field autocomplete-wrapper" id="dest_wrapper_0">
+          <label class="field-label">{% trans "الوجهة" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">🛬</span>
+            <input type="text" name="destination_0" id="destination_0"
+              placeholder="{% trans 'مثل: لندن، DXB' %}"
+              required class="field-input autocomplete-input" autocomplete="off"
+              value="{{ search.slices.0.destination|default:'' }}">
           </div>
-          <!-- Children row -->
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
-            <div>
-              <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "أطفال" %}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "من 2 إلى 11 سنة" %} &middot; <span style="color:#d97706;">75% {% trans "من سعر البالغ" %}</span></div>
-            </div>
-            <div style="display:flex; align-items:center; gap:14px;">
-              <button type="button" onclick="changePax('children',-1)" class="pax-ctrl-btn">&#8722;</button>
-              <span id="children_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.children|default:0 }}</span>
-              <button type="button" onclick="changePax('children',1)" class="pax-ctrl-btn">&#43;</button>
-            </div>
-          </div>
-          <button type="button" onclick="closePaxDropdown()"
-            style="width:100%; background:var(--primary,#1ba4ba); color:#fff; border:none; padding:11px; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Tajawal',sans-serif; font-size:0.95rem;">
-            &#10003; {% trans "تأكيد" %}
-          </button>
+          <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
         </div>
-
-        <style>
-          .pax-ctrl-btn {
-            width:34px; height:34px; border-radius:50%;
-            border:2px solid var(--primary,#1ba4ba);
-            background:transparent; color:var(--primary,#1ba4ba);
-            font-size:1.2rem; font-weight:800; cursor:pointer;
-            display:flex; align-items:center; justify-content:center;
-            transition:0.2s; line-height:1; padding:0;
-          }
-          .pax-ctrl-btn:hover { background:var(--primary,#1ba4ba); color:#fff; }
-        </style>
-        <script>
-        (function() {
-          var _adults   = parseInt('{{ search.adults|default:1 }}') || 1;
-          var _children = parseInt('{{ search.children|default:0}}') || 0;
-          var _ddOpen   = false;
-
-          function syncInputs() {
-            document.getElementById('adults_input').value   = _adults;
-            document.getElementById('children_input').value = _children;
-            document.getElementById('adults_display').textContent   = _adults;
-            document.getElementById('children_display').textContent = _children;
-            // Read translated strings from data attributes (set by Django trans tags)
-            var btn = document.getElementById('paxToggle');
-            var t = {
-              adult1:   btn.dataset.tAdult1,
-              adult2:   btn.dataset.tAdult2,
-              adults:   btn.dataset.tAdults,
-              child1:   btn.dataset.tChild1,
-              children: btn.dataset.tChildren
-            };
-            var parts = [];
-            if (_adults === 1) parts.push(t.adult1);
-            else if (_adults === 2) parts.push(t.adult2);
-            else parts.push(_adults + ' ' + t.adults);
-            if (_children === 1) parts.push(t.child1);
-            else if (_children >= 2) parts.push(_children + ' ' + t.children);
-            document.getElementById('paxSummary').textContent = parts.join(' ');
-          }
-
-          window.changePax = function(type, delta) {
-            if (type === 'adults')   _adults   = Math.max(1, Math.min(9, _adults   + delta));
-            if (type === 'children') _children = Math.max(0, Math.min(6, _children + delta));
-            syncInputs();
-          };
-
-          function openDropdown() {
-            var dd  = document.getElementById('paxDropdown');
-            var btn = document.getElementById('paxToggle');
-            var r   = btn.getBoundingClientRect();
-            // Teleport to body if not already there
-            if (dd.parentElement !== document.body) document.body.appendChild(dd);
-            // Position below the button, align to its left edge (or right for RTL)
-            var left = r.left;
-            if (left + 300 > window.innerWidth) left = window.innerWidth - 300;
-            dd.style.top  = (r.bottom + 6) + 'px';
-            dd.style.left = Math.max(4, left) + 'px';
-            dd.style.display = 'block';
-            _ddOpen = true;
-          }
-
-          window.closePaxDropdown = function() {
-            document.getElementById('paxDropdown').style.display = 'none';
-            _ddOpen = false;
-          };
-
-          document.getElementById('paxToggle').addEventListener('click', function(e) {
-            e.stopPropagation();
-            _ddOpen ? closePaxDropdown() : openDropdown();
-          });
-
-          document.addEventListener('click', function(e) {
-            if (_ddOpen &&
-                !e.target.closest('#paxDropdown') &&
-                !e.target.closest('#paxToggle')) {
-              closePaxDropdown();
-            }
-          });
-
-          // Reposition on scroll/resize
-          window.addEventListener('scroll', function() { if (_ddOpen) closePaxDropdown(); }, true);
-          window.addEventListener('resize', function() { if (_ddOpen) closePaxDropdown(); });
-
-          syncInputs();
-        })();
-        </script>
-
 
         <div class="form-field">
-          <label class="field-label">{% trans "الدرجة" %}</label>
+          <label class="field-label">{% trans "تاريخ (الذهاب)" %}</label>
           <div class="input-icon-wrap">
-            <span class="fi">💺</span>
-            <select name="cabin_class" class="field-input">
-              <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
-              <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
-              <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
-              <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
-            </select>
+            <span class="fi">📅</span>
+            <input type="date" name="departure_date_0" id="departure_date_0"
+              required class="field-input date-input"
+              value="{{ search.slices.0.departure_date|default:'' }}">
           </div>
         </div>
 
-
-        <div class="form-actions-submit">
-            <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
-                🔍 {% trans "ابحث عن رحلات" %}
-            </button>
+        <!-- Return Date (Hidden by default, shown for Round-trip) -->
+        <div class="form-field" id="return_date_wrapper" style="display: none;">
+          <label class="field-label">{% trans "تاريخ (العودة)" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">📅</span>
+            <input type="date" name="return_date" id="return_date"
+              class="field-input date-input"
+              value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
+          </div>
         </div>
       </div>
-    </form>
+    </div>
+
+    <!-- Add Flight Button (Hidden by default, shown for Multi-city) -->
+    <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display: none; margin-bottom: 24px;">
+      + {% trans "إضافة رحلة" %}
+    </button>
+
+    <hr class="form-divider">
+
+    <!-- ══ Passengers & Cabin ══ -->
+    <div class="search-grid search-bottom">
+      <!-- Passenger Picker -->
+      <div class="form-field" style="position:relative;">
+        <label class="field-label">{% trans "المسافرون" %}</label>
+        <div class="input-icon-wrap">
+          <span class="fi">&#128101;</span>
+          <button type="button" id="paxToggle" class="field-input"
+            style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
+            data-t-adult1="{% trans 'بالغ واحد' %}"
+            data-t-adult2="{% trans 'بالغان' %}"
+            data-t-adults="{% trans 'بالغين' %}"
+            data-t-child1="{% trans '+ طفل واحد' %}"
+            data-t-children="{% trans 'أطفال' %}">
+            <span id="paxSummary">{% trans "بالغ واحد" %}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
+        <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
+      </div>
+
+      <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
+        background:var(--bg-2,#fff); padding:20px; border-radius:16px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid var(--border,#e2e8f0);
+        width:290px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
+          <div>
+            <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "بالغون" %}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "12 سنة وما فوق" %}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <button type="button" onclick="changePax('adults',-1)" class="pax-ctrl-btn">&#8722;</button>
+            <span id="adults_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.adults|default:1 }}</span>
+            <button type="button" onclick="changePax('adults',1)" class="pax-ctrl-btn">&#43;</button>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border,#e2e8f0);">
+          <div>
+            <div style="font-weight:700; font-size:0.95rem; color:var(--text,#1a202c);">{% trans "أطفال" %}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted,#718096);">{% trans "من 2 إلى 11 سنة" %} &middot; <span style="color:#d97706;">75% {% trans "من سعر البالغ" %}</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <button type="button" onclick="changePax('children',-1)" class="pax-ctrl-btn">&#8722;</button>
+            <span id="children_display" style="font-weight:800; font-size:1.15rem; min-width:24px; text-align:center; color:var(--text,#1a202c);">{{ search.children|default:0 }}</span>
+            <button type="button" onclick="changePax('children',1)" class="pax-ctrl-btn">&#43;</button>
+          </div>
+        </div>
+        <button type="button" onclick="closePaxDropdown()"
+          style="width:100%; background:var(--primary,#1ba4ba); color:#fff; border:none; padding:11px; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Tajawal',sans-serif; font-size:0.95rem;">
+          &#10003; {% trans "تأكيد" %}
+        </button>
+      </div>
+
+      <style>
+        /* ── Flight Mode Tabs ──────────────────────────────────── */
+        .flight-mode-tabs {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 20px;
+          background: rgba(0,0,0,0.06);
+          padding: 5px;
+          border-radius: 14px;
+          width: fit-content;
+        }
+        .flight-mode-tab {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 9px 22px;
+          border-radius: 10px;
+          border: none;
+          background: transparent;
+          font-family: 'Tajawal', sans-serif;
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: var(--text-muted, #718096);
+          cursor: pointer;
+          transition: all 0.22s ease;
+          white-space: nowrap;
+        }
+        .flight-mode-tab.active {
+          background: var(--primary, #1ba4ba);
+          color: #fff;
+          box-shadow: 0 4px 14px rgba(27,164,186,0.35);
+        }
+        .flight-mode-tab:not(.active):hover {
+          background: rgba(27,164,186,0.1);
+          color: var(--primary, #1ba4ba);
+        }
+
+        /* Sudan domestic badge on airport dropdown items */
+        .ac-item-domestic .ac-iata {
+          background: #007229;
+          color: #fff;
+        }
+
+        .pax-ctrl-btn {
+          width:34px; height:34px; border-radius:50%;
+          border:2px solid var(--primary,#1ba4ba);
+          background:transparent; color:var(--primary,#1ba4ba);
+          font-size:1.2rem; font-weight:800; cursor:pointer;
+          display:flex; align-items:center; justify-content:center;
+          transition:0.2s; line-height:1; padding:0;
+        }
+        .pax-ctrl-btn:hover { background:var(--primary,#1ba4ba); color:#fff; }
+      </style>
+
+      <script>
+      (function() {
+        /* ── Passenger picker ─────────────────────────────────── */
+        var _adults   = parseInt('{{ search.adults|default:1 }}') || 1;
+        var _children = parseInt('{{ search.children|default:0}}') || 0;
+        var _ddOpen   = false;
+
+        function syncInputs() {
+          document.getElementById('adults_input').value   = _adults;
+          document.getElementById('children_input').value = _children;
+          document.getElementById('adults_display').textContent   = _adults;
+          document.getElementById('children_display').textContent = _children;
+          var btn = document.getElementById('paxToggle');
+          var t = {
+            adult1:   btn.dataset.tAdult1,
+            adult2:   btn.dataset.tAdult2,
+            adults:   btn.dataset.tAdults,
+            child1:   btn.dataset.tChild1,
+            children: btn.dataset.tChildren
+          };
+          var parts = [];
+          if (_adults === 1) parts.push(t.adult1);
+          else if (_adults === 2) parts.push(t.adult2);
+          else parts.push(_adults + ' ' + t.adults);
+          if (_children === 1) parts.push(t.child1);
+          else if (_children >= 2) parts.push(_children + ' ' + t.children);
+          document.getElementById('paxSummary').textContent = parts.join(' ');
+        }
+
+        window.changePax = function(type, delta) {
+          if (type === 'adults')   _adults   = Math.max(1, Math.min(9, _adults   + delta));
+          if (type === 'children') _children = Math.max(0, Math.min(6, _children + delta));
+          syncInputs();
+        };
+
+        function openDropdown() {
+          var dd  = document.getElementById('paxDropdown');
+          var btn = document.getElementById('paxToggle');
+          var r   = btn.getBoundingClientRect();
+          if (dd.parentElement !== document.body) document.body.appendChild(dd);
+          var left = r.left;
+          if (left + 300 > window.innerWidth) left = window.innerWidth - 300;
+          dd.style.top  = (r.bottom + 6) + 'px';
+          dd.style.left = Math.max(4, left) + 'px';
+          dd.style.display = 'block';
+          _ddOpen = true;
+        }
+
+        window.closePaxDropdown = function() {
+          document.getElementById('paxDropdown').style.display = 'none';
+          _ddOpen = false;
+        };
+
+        document.getElementById('paxToggle').addEventListener('click', function(e) {
+          e.stopPropagation();
+          _ddOpen ? closePaxDropdown() : openDropdown();
+        });
+        document.addEventListener('click', function(e) {
+          if (_ddOpen && !e.target.closest('#paxDropdown') && !e.target.closest('#paxToggle'))
+            closePaxDropdown();
+        });
+        window.addEventListener('scroll', function() { if (_ddOpen) closePaxDropdown(); }, true);
+        window.addEventListener('resize',  function() { if (_ddOpen) closePaxDropdown(); });
+        syncInputs();
+
+        /* ── Flight mode tabs ─────────────────────────────────── */
+        var INTL_PH_ORIG = "{% trans 'مثل: باريس، LHR، JFK' %}";
+        var INTL_PH_DEST = "{% trans 'مثل: لندن، DXB' %}";
+        var DOM_PH_ORIG  = "{% trans 'مثل: الخرطوم، PZU' %}";
+        var DOM_PH_DEST  = "{% trans 'مثل: بورتسودان، KSL' %}";
+
+        var _mode = 'international';
+
+        window.setFlightMode = function(mode) {
+          _mode = mode;
+          document.getElementById('flight_mode_input').value = mode;
+
+          // Update tab styles
+          document.getElementById('tab-international').classList.toggle('active', mode === 'international');
+          document.getElementById('tab-domestic').classList.toggle('active', mode === 'domestic');
+
+          // Swap placeholders & clear values
+          var orig0 = document.getElementById('origin_0');
+          var dest0 = document.getElementById('destination_0');
+
+          if (mode === 'domestic') {
+            orig0.placeholder = DOM_PH_ORIG;
+            dest0.placeholder = DOM_PH_DEST;
+            // Hide multi-city for domestic (not supported yet)
+            document.getElementById('multicityTab').style.display = 'none';
+            // Switch to one-way if multi-city was selected
+            var mt = document.querySelector('input[name="trip_type"][value="multicity"]');
+            if (mt && mt.checked) document.querySelector('input[name="trip_type"][value="oneway"]').click();
+          } else {
+            orig0.placeholder = INTL_PH_ORIG;
+            dest0.placeholder = INTL_PH_DEST;
+            document.getElementById('multicityTab').style.display = '';
+          }
+
+          // Clear current inputs so user picks fresh
+          orig0.value = '';
+          dest0.value = '';
+          orig0.focus();
+        };
+
+        /* ── Autocomplete (unified – handles both modes) ─────── */
+        var SUDAN_AIRPORTS_URL = "{% url 'vols:api_sudan_airports' %}";
+        var PLACES_URL         = "{% url 'vols:api_places' %}";
+
+        function renderDropdown(dropdownEl, items, inputEl) {
+          dropdownEl.innerHTML = '';
+          if (!items.length) { dropdownEl.style.display = 'none'; return; }
+          items.forEach(function(item) {
+            var div = document.createElement('div');
+            div.className = 'ac-item' + (item.is_domestic ? ' ac-item-domestic' : '');
+            div.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border,#f0f0f0);transition:background 0.15s;';
+            div.innerHTML =
+              '<span class="ac-iata" style="font-weight:800;font-size:0.8rem;padding:3px 7px;border-radius:6px;background:var(--primary,#1ba4ba);color:#fff;min-width:38px;text-align:center;">'
+              + (item.iata_code || '') + '</span>'
+              + '<span style="font-size:0.9rem;color:var(--text,#1a202c);">'
+              + (item.city || item.city_name || item.name || '') + '</span>';
+            div.addEventListener('mouseenter', function() { this.style.background = 'var(--bg-hover,#f7fafc)'; });
+            div.addEventListener('mouseleave', function() { this.style.background = ''; });
+            div.addEventListener('mousedown', function(e) {
+              e.preventDefault();
+              inputEl.value = item.iata_code || item.id || '';
+              dropdownEl.style.display = 'none';
+            });
+            dropdownEl.appendChild(div);
+          });
+          dropdownEl.style.display = 'block';
+        }
+
+        var _timers = {};
+        function attachAutocomplete(inputId, dropdownId) {
+          var inp = document.getElementById(inputId);
+          var dd  = document.getElementById(dropdownId);
+          if (!inp || !dd) return;
+
+          inp.addEventListener('input', function() {
+            var q = inp.value.trim();
+            clearTimeout(_timers[inputId]);
+            if (q.length < 1) { dd.style.display = 'none'; return; }
+            _timers[inputId] = setTimeout(function() {
+              var url = (_mode === 'domestic')
+                ? SUDAN_AIRPORTS_URL + '?q=' + encodeURIComponent(q)
+                : PLACES_URL + '?q=' + encodeURIComponent(q);
+              fetch(url)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                  var results = data.results || [];
+                  if (_mode === 'domestic') {
+                    results = results.map(function(a) {
+                      return { iata_code: a.iata_code, city: a.city + ' (' + a.city_en + ')', is_domestic: true };
+                    });
+                  } else {
+                    results = results.map(function(p) {
+                      return { iata_code: p.iata_code, city: p.name + (p.city_name ? ' – ' + p.city_name : ''), id: p.id };
+                    });
+                  }
+                  renderDropdown(dd, results, inp);
+                })
+                .catch(function() { dd.style.display = 'none'; });
+            }, 250);
+          });
+
+          inp.addEventListener('blur', function() {
+            setTimeout(function() { dd.style.display = 'none'; }, 180);
+          });
+        }
+
+        attachAutocomplete('origin_0',      'dropdown_origin_0');
+        attachAutocomplete('destination_0', 'dropdown_destination_0');
+
+      })();
+      </script>
+
+      <div class="form-field">
+        <label class="field-label">{% trans "الدرجة" %}</label>
+        <div class="input-icon-wrap">
+          <span class="fi">💺</span>
+          <select name="cabin_class" class="field-input">
+            <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
+            <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
+            <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
+            <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions-submit">
+        <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
+          🔍 {% trans "ابحث عن رحلات" %}
+        </button>
+      </div>
+    </div>
+  </form>
