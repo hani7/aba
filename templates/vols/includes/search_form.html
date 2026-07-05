@@ -5,13 +5,13 @@
     <!-- ══ Mode Tabs: International / Domestic / Ferry ══ -->
     <div class="flight-mode-tabs" id="flightModeTabs">
       <button type="button" class="flight-mode-tab active" id="tab-international" onclick="setFlightMode('international')">
-        🌍 <span class="tab-label-ar">{% trans "دولي" %}</span><span class="tab-label-en">Intl</span>
+        🌍 {% trans "دولي" %}
       </button>
       <button type="button" class="flight-mode-tab" id="tab-domestic" onclick="setFlightMode('domestic')">
-        🇸🇩 <span class="tab-label-ar">{% trans "داخلي" %}</span><span class="tab-label-en">National</span>
+        🇸🇩 {% trans "داخلي" %}
       </button>
       <button type="button" class="flight-mode-tab" id="tab-ferry" onclick="setFlightMode('ferry')">
-        ⛴ <span class="tab-label-ar">{% trans "باخرة" %}</span><span class="tab-label-en">Ferry</span>
+        ⛴ {% trans "باخرة" %}
       </button>
     </div>
     <!-- Hidden field carries the mode to the backend -->

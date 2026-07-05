@@ -793,6 +793,30 @@ msgstr "Return Date"
 msgid "إضافة رحلة"
 msgstr "Add Flight"
 
+msgid "إضافة وجهة أخرى"
+msgstr "Add Another Destination"
+
+msgid "دولي"
+msgstr "International"
+
+msgid "داخلي"
+msgstr "National"
+
+msgid "باخرة"
+msgstr "Ferry"
+
+msgid "تاريخ الذهاب"
+msgstr "Departure Date"
+
+msgid "تاريخ العودة"
+msgstr "Return Date"
+
+msgid "الدرجة"
+msgstr "Class"
+
+msgid "ابحث"
+msgstr "Search"
+
 msgid "المسافرون"
 msgstr "Passengers"
 
