@@ -7,28 +7,82 @@
 <section class="section" style="padding-top:32px;">
 <div class="container" style="max-width:920px;">
 
-  <!-- ══ Search Recap ══ -->
-  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:14px; padding:14px 20px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem; font-weight:900; color:var(--text);">PZU</div>
-        <div style="font-size:0.72rem; color:var(--text-muted);">بورتسودان</div>
+  <!-- ══ Search Recap + inline Edit panel ══ -->
+  <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+
+    <!-- Recap bar -->
+    <div style="padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:1.3rem; font-weight:900; color:var(--text);">PZU</div>
+          <div style="font-size:0.72rem; color:var(--text-muted);">بورتسودان</div>
+        </div>
+        <div style="color:var(--primary); font-size:1.3rem; font-weight:300;">⛴ →</div>
+        <div style="text-align:center;">
+          <div style="font-size:1.3rem; font-weight:900; color:var(--text);">JED</div>
+          <div style="font-size:0.72rem; color:var(--text-muted);">جدة</div>
+        </div>
+        <div style="color:var(--text-muted); font-size:0.82rem; padding-right:8px; border-right:1px solid var(--border);">
+          📅 {{ search.dep_date }}
+        </div>
+        <div style="color:var(--text-muted); font-size:0.82rem;">
+          👤 {{ search.adults }} {% trans "بالغ" %}{% if search.children > 0 %} · 👦 {{ search.children }} {% trans "طفل" %}{% endif %}
+          &nbsp;·&nbsp; 💺 {{ search.cabin_class }}
+        </div>
       </div>
-      <div style="color:var(--primary); font-size:1.3rem; font-weight:300;">⛴ →</div>
-      <div style="text-align:center;">
-        <div style="font-size:1.3rem; font-weight:900; color:var(--text);">JED</div>
-        <div style="font-size:0.72rem; color:var(--text-muted);">جدة</div>
-      </div>
-      <div style="color:var(--text-muted); font-size:0.82rem; padding-right:8px; border-right:1px solid var(--border);">
-        📅 {{ search.dep_date }}
-      </div>
-      <div style="color:var(--text-muted); font-size:0.82rem;">
-        👤 {{ search.adults }} {% trans "بالغ" %}{% if search.children > 0 %} · 👦 {{ search.children }} {% trans "طفل" %}{% endif %}
-        &nbsp;·&nbsp; 💺 {{ search.cabin_class }}
-      </div>
+      <button onclick="document.getElementById('inlineEditPanel').style.display = document.getElementById('inlineEditPanel').style.display === 'none' ? 'block' : 'none';"
+        style="background:transparent; border:1.5px solid var(--primary); color:var(--primary); padding:7px 18px; border-radius:8px; font-size:0.84rem; font-weight:700; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px;">
+        ✏️ {% trans "تعديل البحث" %}
+      </button>
     </div>
-    <a href="{% url 'vols:home' %}" class="btn btn-ghost" style="font-size:0.82rem;">✏️ {% trans "تعديل" %}</a>
+
+    <!-- Inline edit panel (hidden by default) -->
+    <div id="inlineEditPanel" style="display:none; border-top:1px solid var(--border); padding:20px; background:var(--bg);">
+      <form action="{% url 'vols:ferry_search' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="flight_mode" value="ferry">
+        <input type="hidden" name="ferry_trip_type" value="oneway">
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+          <div style="flex:1; min-width:120px;">
+            <label style="font-size:0.72rem; font-weight:800; color:var(--text-muted); display:block; margin-bottom:4px; text-transform:uppercase;">{% trans "المغادرة" %}</label>
+            <input type="text" value="PZU" name="origin_0" readonly
+              style="width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; background:#f8fafc; font-family:inherit; font-size:0.9rem; color:var(--text-muted);">
+            <div style="font-size:0.7rem; color:var(--primary); font-weight:700; margin-top:3px;">🇸🇩 بورتسودان</div>
+          </div>
+          <div style="font-size:1.5rem; color:var(--primary); margin-bottom:14px;">⛴</div>
+          <div style="flex:1; min-width:120px;">
+            <label style="font-size:0.72rem; font-weight:800; color:var(--text-muted); display:block; margin-bottom:4px; text-transform:uppercase;">{% trans "الوجهة" %}</label>
+            <input type="text" value="JED" name="destination_0" readonly
+              style="width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; background:#f8fafc; font-family:inherit; font-size:0.9rem; color:var(--text-muted);">
+            <div style="font-size:0.7rem; color:var(--primary); font-weight:700; margin-top:3px;">🇸🇦 جدة</div>
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label style="font-size:0.72rem; font-weight:800; color:var(--text-muted); display:block; margin-bottom:4px; text-transform:uppercase;">📅 {% trans "تاريخ الذهاب" %}</label>
+            <input type="date" name="departure_date_0" value="{{ search.dep_date }}" required
+              style="width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:0.9rem;">
+          </div>
+          <div style="flex:1; min-width:120px;">
+            <label style="font-size:0.72rem; font-weight:800; color:var(--text-muted); display:block; margin-bottom:4px; text-transform:uppercase;">👥 {% trans "المسافرون" %}</label>
+            <input type="number" name="adults" value="{{ search.adults }}" min="1" max="9"
+              style="width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:0.9rem;">
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label style="font-size:0.72rem; font-weight:800; color:var(--text-muted); display:block; margin-bottom:4px; text-transform:uppercase;">💺 {% trans "الدرجة" %}</label>
+            <select name="cabin_class" style="width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:0.9rem;">
+              <option value="economy" {% if search.cabin_class == 'economy' %}selected{% endif %}>اقتصادي</option>
+              <option value="standard" {% if search.cabin_class == 'standard' %}selected{% endif %}>عادي (4 أشخاص)</option>
+              <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>أولى - كابينة خاصة</option>
+              <option value="vip" {% if search.cabin_class == 'vip' %}selected{% endif %}>VIP</option>
+            </select>
+          </div>
+          <button type="submit" style="height:46px; padding:0 22px; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#1a1a2e; border:none; border-radius:9px; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:inherit; white-space:nowrap;">
+            🔍 {% trans "بحث" %}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+
 
   <!-- ══ Important notice ══ -->
   <div style="background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.4); border-radius:12px; padding:12px 18px; margin-bottom:22px; font-size:0.82rem; color:#92400e; display:flex; align-items:center; gap:10px;">

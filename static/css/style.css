@@ -285,9 +285,41 @@ main { flex: 1; }
 }
 .radio-tab:hover span { color: var(--text); background: var(--bg); }
 
-.search-grid { display: grid; gap: 14px; align-items: end; margin-bottom: 20px; }
+.search-grid { display: grid; gap: 12px; align-items: end; margin-bottom: 0; }
 .slice-row { align-items: flex-end; }
+/* All-in-one row: origin | swap | destination | date | [return] */
+.slice-row.search-grid {
+  grid-template-columns: 1fr 36px 1fr 1fr;
+  margin-bottom: 0;
+}
 .hotel-search-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; align-items: flex-end; }
+/* Bottom row: passengers | cabin | search btn */
+.search-bottom { grid-template-columns: 1fr 1.4fr 1.2fr; margin-bottom: 0; }
+/* single‑line wrapper that unites slice + bottom into one flex row */
+.search-all-fields {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  margin-bottom: 0;
+}
+.search-all-fields .form-field { flex: 1; min-width: 0; }
+.search-all-fields .form-field.field-origin  { flex: 1.3; }
+.search-all-fields .form-field.field-dest    { flex: 1.3; }
+.search-all-fields .form-field.field-date    { flex: 1; }
+.search-all-fields .form-field.field-pax     { flex: 0.9; }
+.search-all-fields .form-field.field-cabin   { flex: 1.1; }
+.search-all-fields .form-actions-submit      { flex: 0 0 auto; }
+.search-all-fields .swap-btn                 { flex: 0 0 36px; margin-bottom: 1px; }
+@media (max-width: 900px) {
+  .search-all-fields { flex-wrap: wrap; }
+  .search-all-fields .form-field,
+  .search-all-fields .form-field.field-origin,
+  .search-all-fields .form-field.field-dest { flex: 1 1 calc(50% - 20px); }
+  .search-all-fields .form-field.field-date,
+  .search-all-fields .form-field.field-pax  { flex: 1 1 calc(50% - 20px); }
+  .search-all-fields .form-actions-submit   { flex: 1 1 100%; }
+}
 @media (max-width: 800px) {
   .slice-row.search-grid { grid-template-columns: 1fr !important; }
   .hotel-search-grid { grid-template-columns: 1fr 1fr !important; }
@@ -297,9 +329,7 @@ main { flex: 1; }
 @media (max-width: 600px) {
   .hotel-search-grid { grid-template-columns: 1fr !important; }
 }
-.search-bottom { grid-template-columns: 1fr 1fr 2fr; margin-bottom: 0; }
-@media (max-width: 480px) { .search-bottom { grid-template-columns: 1fr 1fr; } }
-.form-divider { border: 0; height: 1.5px; background: var(--border); margin: 0 -36px 22px; }
+.form-divider { border: 0; height: 1.5px; background: var(--border); margin: 0 -36px 16px; }
 
 /* ── Inputs ────────────────────────────────────────────────── */
 .form-field { display: flex; flex-direction: column; gap: 6px; position: relative; }

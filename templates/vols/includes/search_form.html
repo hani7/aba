@@ -47,28 +47,30 @@
 
     <!-- ══ Slices Container (Dynamic) ══ -->
     <div id="slices-container">
-      <!-- Slice 0 (Always present) -->
-      <div class="slice-row search-grid" id="slice_0">
-        
-        <div class="form-field autocomplete-wrapper" id="origin_wrapper_0">
+      <!-- All inputs on ONE line -->
+      <div class="search-all-fields" id="slice_0">
+
+        <!-- Origin -->
+        <div class="form-field field-origin autocomplete-wrapper" id="origin_wrapper_0">
           <label class="field-label">{% trans "المغادرة" %}</label>
           <div class="input-icon-wrap">
-            <span class="fi">🚳</span>
+            <span class="fi">🛫</span>
             <input type="text" name="origin_0" id="origin_0"
-              placeholder="{% trans 'مثل: باريس، LHR، JFK' %}"
+              placeholder="{% trans 'مثل: باريس، LHR' %}"
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.origin|default:'' }}">
           </div>
-          <!-- Ferry city label -->
-          <div id="ferry_origin_label" style="display:none; font-size:0.78rem; color:var(--primary); font-weight:700; margin-top:5px; padding-right:4px;">
-            🇯🤝 بورتسودان &nbsp;<span style="opacity:0.6; font-weight:400;">Port Sudan</span>
+          <div id="ferry_origin_label" style="display:none; font-size:0.72rem; color:var(--primary); font-weight:700; margin-top:3px;">
+            🇸🇩 بورتسودان <span style="opacity:0.6;">Port Sudan</span>
           </div>
           <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
         </div>
 
+        <!-- Swap -->
         <button type="button" class="swap-btn" id="swapBtn_0" title="Swap">⇄</button>
 
-        <div class="form-field autocomplete-wrapper" id="dest_wrapper_0">
+        <!-- Destination -->
+        <div class="form-field field-dest autocomplete-wrapper" id="dest_wrapper_0">
           <label class="field-label">{% trans "الوجهة" %}</label>
           <div class="input-icon-wrap">
             <span class="fi">🛬</span>
@@ -77,15 +79,15 @@
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.destination|default:'' }}">
           </div>
-          <!-- Ferry city label -->
-          <div id="ferry_dest_label" style="display:none; font-size:0.78rem; color:var(--primary); font-weight:700; margin-top:5px; padding-right:4px;">
-            🇸🇦 جدة الإسلامي &nbsp;<span style="opacity:0.6; font-weight:400;">Jeddah Islamic Port</span>
+          <div id="ferry_dest_label" style="display:none; font-size:0.72rem; color:var(--primary); font-weight:700; margin-top:3px;">
+            🇸🇦 جدة <span style="opacity:0.6;">Jeddah Islamic Port</span>
           </div>
           <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
         </div>
 
-        <div class="form-field">
-          <label class="field-label">{% trans "تاريخ (الذهاب)" %}</label>
+        <!-- Departure date -->
+        <div class="form-field field-date">
+          <label class="field-label">{% trans "تاريخ الذهاب" %}</label>
           <div class="input-icon-wrap">
             <span class="fi">📅</span>
             <input type="date" name="departure_date_0" id="departure_date_0"
@@ -94,9 +96,9 @@
           </div>
         </div>
 
-        <!-- Return Date (flights round-trip) -->
-        <div class="form-field" id="return_date_wrapper" style="display: none;">
-          <label class="field-label">{% trans "تاريخ (العودة)" %}</label>
+        <!-- Return date (round-trip flights) -->
+        <div class="form-field field-date" id="return_date_wrapper" style="display:none;">
+          <label class="field-label">{% trans "تاريخ العودة" %}</label>
           <div class="input-icon-wrap">
             <span class="fi">📅</span>
             <input type="date" name="return_date" id="return_date"
@@ -105,48 +107,65 @@
           </div>
         </div>
 
-        <!-- Ferry Return Date (hidden by default) -->
-        <div class="form-field" id="ferry_return_wrapper" style="display: none;">
-          <label class="field-label">⛴↩ {% trans "تاريخ العودة من جدة" %}</label>
+        <!-- Ferry return date -->
+        <div class="form-field field-date" id="ferry_return_wrapper" style="display:none;">
+          <label class="field-label">⛴↩ {% trans "عودة من جدة" %}</label>
           <div class="input-icon-wrap">
             <span class="fi">📅</span>
-            <input type="date" name="ferry_return_date" id="ferry_return_date"
-              class="field-input date-input">
+            <input type="date" name="ferry_return_date" id="ferry_return_date" class="field-input date-input">
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Add Flight Button (Hidden by default, shown for Multi-city) -->
-    <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display: none; margin-bottom: 24px;">
+        <!-- Passengers -->
+        <div class="form-field field-pax" style="position:relative;">
+          <label class="field-label">{% trans "المسافرون" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">&#128101;</span>
+            <button type="button" id="paxToggle" class="field-input"
+              style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
+              data-t-adult1="{% trans 'بالغ واحد' %}"
+              data-t-adult2="{% trans 'بالغان' %}"
+              data-t-adults="{% trans 'بالغين' %}"
+              data-t-child1="{% trans '+ طفل واحد' %}"
+              data-t-children="{% trans 'أطفال' %}">
+              <span id="paxSummary">{% trans "بالغ واحد" %}</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
+          <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
+        </div><!-- /field-pax -->
+
+        <!-- Cabin class -->
+        <div class="form-field field-cabin">
+          <label class="field-label">{% trans "الدرجة" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">💺</span>
+            <select name="cabin_class" class="field-input">
+              <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
+              <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
+              <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
+              <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Search button -->
+        <div class="form-actions-submit">
+          <button type="submit" class="btn btn-primary search-submit" id="searchBtn" style="white-space:nowrap; height:48px; padding:0 22px;">
+            🔍 <span id="searchBtnLabel">{% trans "ابحث" %}</span>
+          </button>
+        </div>
+
+      </div><!-- /search-all-fields -->
+    </div><!-- /slices-container -->
+
+    <!-- Multi-city add flight (hidden by default) -->
+    <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display:none; margin-top:10px;">
       + {% trans "إضافة رحلة" %}
     </button>
 
-    <hr class="form-divider">
-
-    <!-- ══ Passengers & Cabin ══ -->
-    <div class="search-grid search-bottom">
-      <!-- Passenger Picker -->
-      <div class="form-field" style="position:relative;">
-        <label class="field-label">{% trans "المسافرون" %}</label>
-        <div class="input-icon-wrap">
-          <span class="fi">&#128101;</span>
-          <button type="button" id="paxToggle" class="field-input"
-            style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
-            data-t-adult1="{% trans 'بالغ واحد' %}"
-            data-t-adult2="{% trans 'بالغان' %}"
-            data-t-adults="{% trans 'بالغين' %}"
-            data-t-child1="{% trans '+ طفل واحد' %}"
-            data-t-children="{% trans 'أطفال' %}">
-            <span id="paxSummary">{% trans "بالغ واحد" %}</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-        <input type="hidden" name="adults"   id="adults_input"   value="{{ search.adults|default:1 }}">
-        <input type="hidden" name="children" id="children_input" value="{{ search.children|default:0 }}">
-      </div>
-
-      <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
+    <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
         background:var(--bg-2,#fff); padding:20px; border-radius:16px;
         box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid var(--border,#e2e8f0);
         width:290px;">
@@ -449,26 +468,8 @@
       })();
       </script>
 
-      <div class="form-field">
-        <label class="field-label">{% trans "الدرجة" %}</label>
-        <div class="input-icon-wrap">
-          <span class="fi">💺</span>
-          <select name="cabin_class" class="field-input">
-            <option value="economy" {% if search.cabin_class == 'economy' or not search.cabin_class %}selected{% endif %}>{% trans "سياحية" %}</option>
-            <option value="premium_economy" {% if search.cabin_class == 'premium_economy' %}selected{% endif %}>{% trans "سياحية ممتازة" %}</option>
-            <option value="business" {% if search.cabin_class == 'business' %}selected{% endif %}>{% trans "أعمال" %}</option>
-            <option value="first" {% if search.cabin_class == 'first' %}selected{% endif %}>{% trans "أولى" %}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-actions-submit">
-        <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
-          🔍 <span id="searchBtnLabel">{% trans "ابحث عن رحلات" %}</span>
-        </button>
-      </div>
-    </div>
   </form>
+
 
 <script>
   /* Ferry return date toggle — lives outside the IIFE so onclick can reach it */
