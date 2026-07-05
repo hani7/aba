@@ -163,10 +163,53 @@
     </div><!-- /slices-container -->
 
 
-    <!-- Multi-city add flight (hidden by default) -->
-    <button type="button" id="addSliceBtn" style="display:none; margin-top:12px; width:100%; padding:12px; border:2px dashed var(--primary,#1ba4ba); border-radius:12px; background:rgba(27,164,186,0.05); color:var(--primary,#1ba4ba); font-family:'Tajawal',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.2s; letter-spacing:0.3px;" onmouseover="this.style.background='rgba(27,164,186,0.12)'" onmouseout="this.style.background='rgba(27,164,186,0.05)'">
-      ✈ + {% trans "إضافة وجهة أخرى" %}
-    </button>
+    <!-- ══ Multi-city Container (hidden until multicity tab selected) ══ -->
+    <div id="multicitySection" style="display:none; margin-top:4px;">
+
+      <!-- Slices (flight segments) -->
+      <div id="multicity-slices">
+        <!-- JS will inject rows here -->
+      </div>
+
+      <!-- Bottom bar: Add + Pax + Cabin + Search -->
+      <div class="mc-bottom-bar" style="margin-top:10px;">
+        <button type="button" class="mc-add-btn" id="mcAddBtn" onclick="mcAddSlice()">
+          ✈ + {% trans "إضافة وجهة أخرى" %}
+        </button>
+        <!-- Pax (shared with main form) -->
+        <div class="form-field" style="position:relative; flex:1; min-width:140px;">
+          <label class="field-label">{% trans "المسافرون" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">&#128101;</span>
+            <button type="button" id="paxToggle2" class="field-input"
+              style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
+              onclick="document.getElementById('paxToggle').click()">
+              <span id="paxSummary2">{% trans "بالغ واحد" %}</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Cabin -->
+        <div class="form-field" style="flex:1; min-width:140px;">
+          <label class="field-label">{% trans "الدرجة" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">💺</span>
+            <select name="cabin_class_mc" class="field-input" onchange="document.querySelector('select[name=cabin_class]').value=this.value">
+              <option value="economy">{% trans "سياحية" %}</option>
+              <option value="premium_economy">{% trans "سياحية ممتازة" %}</option>
+              <option value="business">{% trans "أعمال" %}</option>
+              <option value="first">{% trans "أولى" %}</option>
+            </select>
+          </div>
+        </div>
+        <!-- Search -->
+        <div style="flex:0 0 auto;">
+          <button type="submit" form="searchForm" class="btn btn-primary search-submit" style="height:48px; padding:0 28px; border-radius:50px; color:#fff; font-size:1rem; font-weight:800; white-space:nowrap;">
+            🔍 {% trans "ابحث" %}
+          </button>
+        </div>
+      </div>
+    </div><!-- /multicitySection -->
 
     <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
         background:var(--bg-2,#fff); padding:20px; border-radius:16px;
@@ -494,20 +537,87 @@
         }
 
         /* ── Trip type change handler ────────────────────────── */
-        window.onTripTypeChange = function(radio) {
-          var val = radio.value;
-          var retWrap   = document.getElementById('return_date_wrapper');
-          var addBtn    = document.getElementById('addSliceBtn');
-          var slice0    = document.getElementById('slice_0');
+        var _mcSliceCount = 0;
 
-          // Return date: only show for roundtrip
-          if (retWrap) retWrap.style.display = (val === 'roundtrip') ? '' : 'none';
-
-          // Multi-city: show add-flight button, hide slice_0 return date
-          if (addBtn) addBtn.style.display = (val === 'multicity') ? '' : 'none';
+        window.mcAddSlice = function() {
+          if (_mcSliceCount >= 5) return; // max 5 segments
+          _mcSliceCount++;
+          var idx = _mcSliceCount;
+          var container = document.getElementById('multicity-slices');
+          var div = document.createElement('div');
+          div.className = 'mc-slice';
+          div.id = 'mc_slice_' + idx;
+          div.innerHTML =
+            '<div class="form-field autocomplete-wrapper">' +
+              '<label class="field-label">{% trans "المغادرة" %}</label>' +
+              '<div class="input-icon-wrap">' +
+                '<span class="fi">🛫</span>' +
+                '<input type="text" name="origin_' + idx + '" id="mc_origin_' + idx + '" placeholder="{% trans "مثل: باريس، LHR" %}" class="field-input autocomplete-input" autocomplete="off" required>' +
+              '</div>' +
+              '<div class="autocomplete-dropdown" id="mc_dd_orig_' + idx + '" style="display:none;"></div>' +
+            '</div>' +
+            '<button type="button" class="swap-btn" onclick="mcSwap(' + idx + ')">⇄</button>' +
+            '<div class="form-field autocomplete-wrapper">' +
+              '<label class="field-label">{% trans "الوجهة" %}</label>' +
+              '<div class="input-icon-wrap">' +
+                '<span class="fi">🛬</span>' +
+                '<input type="text" name="destination_' + idx + '" id="mc_dest_' + idx + '" placeholder="{% trans "مثل: لندن، DXB" %>" class="field-input autocomplete-input" autocomplete="off" required>' +
+              '</div>' +
+              '<div class="autocomplete-dropdown" id="mc_dd_dest_' + idx + '" style="display:none;"></div>' +
+            '</div>' +
+            '<div class="form-field mc-date">' +
+              '<label class="field-label">{% trans "تاريخ الذهاب" %}</label>' +
+              '<div class="input-icon-wrap">' +
+                '<span class="fi">📅</span>' +
+                '<input type="date" name="departure_date_' + idx + '" class="field-input" required>' +
+              '</div>' +
+            '</div>' +
+            '<button type="button" class="mc-remove" onclick="mcRemoveSlice(' + idx + ')" title="{% trans "حذف" %}">✕</button>';
+          container.appendChild(div);
+          // Attach autocomplete
+          attachAutocomplete('mc_origin_' + idx, 'mc_dd_orig_' + idx);
+          attachAutocomplete('mc_dest_' + idx,   'mc_dd_dest_' + idx);
         };
 
-        // Init on page load for pre-selected state
+        window.mcRemoveSlice = function(idx) {
+          var el = document.getElementById('mc_slice_' + idx);
+          if (el) el.remove();
+        };
+
+        window.mcSwap = function(idx) {
+          var o = document.getElementById('mc_origin_' + idx);
+          var d = document.getElementById('mc_dest_' + idx);
+          if (o && d) { var t = o.value; o.value = d.value; d.value = t; }
+        };
+
+        window.onTripTypeChange = function(radio) {
+          var val = radio.value;
+          var retWrap      = document.getElementById('return_date_wrapper');
+          var slicesWrap   = document.getElementById('slices-container');
+          var mcSection    = document.getElementById('multicitySection');
+          var mcSlices     = document.getElementById('multicity-slices');
+
+          if (val === 'roundtrip') {
+            if (retWrap)    retWrap.style.display = '';
+            if (slicesWrap) slicesWrap.style.display = '';
+            if (mcSection)  mcSection.style.display = 'none';
+          } else if (val === 'multicity') {
+            if (retWrap)    retWrap.style.display = 'none';
+            if (slicesWrap) slicesWrap.style.display = 'none';
+            if (mcSection)  mcSection.style.display = '';
+            // Seed with 3 slices if empty
+            if (mcSlices && mcSlices.children.length === 0) {
+              mcAddSlice(); mcAddSlice(); mcAddSlice();
+            }
+          } else {
+            // oneway
+            if (retWrap)    retWrap.style.display = 'none';
+            if (slicesWrap) slicesWrap.style.display = '';
+            if (mcSection)  mcSection.style.display = 'none';
+          }
+        };
+
+        // Init on page load
         (function() {
           var checked = document.querySelector('input[name="trip_type"]:checked');
           if (checked) window.onTripTypeChange(checked);
@@ -515,6 +625,7 @@
 
         attachAutocomplete('origin_0',      'dropdown_origin_0');
         attachAutocomplete('destination_0', 'dropdown_destination_0');
+
 
       })();
       </script>
