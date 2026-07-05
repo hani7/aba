@@ -17,7 +17,7 @@
     <!-- Hidden field carries the mode to the backend -->
     <input type="hidden" name="flight_mode" id="flight_mode_input" value="international">
 
-    <!-- ══ Trip Type Selector ══ -->
+    <!-- ══ Trip Type (Flights) ══ -->
     <div class="trip-type-selector" id="tripTypeRow">
       <label class="radio-tab">
         <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %}>
@@ -33,6 +33,18 @@
       </label>
     </div>
 
+    <!-- ══ Trip Type (Ferry only) ══ -->
+    <div class="trip-type-selector" id="ferryTripTypeRow" style="display:none;">
+      <label class="radio-tab">
+        <input type="radio" name="ferry_trip_type" id="ferryOneway" value="oneway" checked onchange="toggleFerryReturn()">
+        <span>⛴ {% trans "ذهاب فقط" %}</span>
+      </label>
+      <label class="radio-tab">
+        <input type="radio" name="ferry_trip_type" id="ferryRoundtrip" value="roundtrip" onchange="toggleFerryReturn()">
+        <span>⛴↩ {% trans "ذهاب وإياب" %}</span>
+      </label>
+    </div>
+
     <!-- ══ Slices Container (Dynamic) ══ -->
     <div id="slices-container">
       <!-- Slice 0 (Always present) -->
@@ -41,11 +53,15 @@
         <div class="form-field autocomplete-wrapper" id="origin_wrapper_0">
           <label class="field-label">{% trans "المغادرة" %}</label>
           <div class="input-icon-wrap">
-            <span class="fi">🛫</span>
+            <span class="fi">🚳</span>
             <input type="text" name="origin_0" id="origin_0"
               placeholder="{% trans 'مثل: باريس، LHR، JFK' %}"
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.origin|default:'' }}">
+          </div>
+          <!-- Ferry city label -->
+          <div id="ferry_origin_label" style="display:none; font-size:0.78rem; color:var(--primary); font-weight:700; margin-top:5px; padding-right:4px;">
+            🇯🤝 بورتسودان &nbsp;<span style="opacity:0.6; font-weight:400;">Port Sudan</span>
           </div>
           <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
         </div>
@@ -61,6 +77,10 @@
               required class="field-input autocomplete-input" autocomplete="off"
               value="{{ search.slices.0.destination|default:'' }}">
           </div>
+          <!-- Ferry city label -->
+          <div id="ferry_dest_label" style="display:none; font-size:0.78rem; color:var(--primary); font-weight:700; margin-top:5px; padding-right:4px;">
+            🇸🇦 جدة الإسلامي &nbsp;<span style="opacity:0.6; font-weight:400;">Jeddah Islamic Port</span>
+          </div>
           <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
         </div>
 
@@ -74,7 +94,7 @@
           </div>
         </div>
 
-        <!-- Return Date (Hidden by default, shown for Round-trip) -->
+        <!-- Return Date (flights round-trip) -->
         <div class="form-field" id="return_date_wrapper" style="display: none;">
           <label class="field-label">{% trans "تاريخ (العودة)" %}</label>
           <div class="input-icon-wrap">
@@ -82,6 +102,16 @@
             <input type="date" name="return_date" id="return_date"
               class="field-input date-input"
               value="{% if search.trip_type == 'roundtrip' %}{{ search.slices.1.departure_date|default:'' }}{% endif %}">
+          </div>
+        </div>
+
+        <!-- Ferry Return Date (hidden by default) -->
+        <div class="form-field" id="ferry_return_wrapper" style="display: none;">
+          <label class="field-label">⛴↩ {% trans "تاريخ العودة من جدة" %}</label>
+          <div class="input-icon-wrap">
+            <span class="fi">📅</span>
+            <input type="date" name="ferry_return_date" id="ferry_return_date"
+              class="field-input date-input">
           </div>
         </div>
       </div>
@@ -300,12 +330,32 @@
             dest0.value       = 'JED';
             dest0.placeholder = 'ميناء جدة الإسلامي (JED)';
             dest0.readOnly    = true;
-            if (tripRow) tripRow.style.display = 'none';
+            if (tripRow)  tripRow.style.display  = 'none';
+            var ferryRow = document.getElementById('ferryTripTypeRow');
+            if (ferryRow) ferryRow.style.display = '';
+            // Show city labels
+            var ol = document.getElementById('ferry_origin_label');
+            var dl = document.getElementById('ferry_dest_label');
+            if (ol) ol.style.display = 'block';
+            if (dl) dl.style.display = 'block';
+            // Reset ferry return date
+            var frw = document.getElementById('ferry_return_wrapper');
+            if (frw) frw.style.display = 'none';
+            document.getElementById('ferryOneway').checked = true;
             if (cabinSel) cabinSel.innerHTML = '<option value="economy">اقتصادي (بدون كابينة)</option><option value="standard">عادي - 4 أشخاص</option><option value="first">أولى - كابينة خاصة</option><option value="vip">VIP - جناح فاخر</option>';
           } else {
             form.action    = FLIGHT_URL;
             orig0.readOnly = false;
             dest0.readOnly = false;
+            // Hide ferry labels
+            var ol = document.getElementById('ferry_origin_label');
+            var dl = document.getElementById('ferry_dest_label');
+            if (ol) ol.style.display = 'none';
+            if (dl) dl.style.display = 'none';
+            var ferryRow = document.getElementById('ferryTripTypeRow');
+            if (ferryRow) ferryRow.style.display = 'none';
+            var frw = document.getElementById('ferry_return_wrapper');
+            if (frw) frw.style.display = 'none';
             if (tripRow) tripRow.style.display = '';
             if (cabinSel) cabinSel.innerHTML = '<option value="economy">{% trans "سياحية" %}</option><option value="premium_economy">{% trans "سياحية ممتازة" %}</option><option value="business">{% trans "أعمال" %}</option><option value="first">{% trans "أولى" %}</option>';
             if (mode === 'domestic') {
@@ -414,8 +464,23 @@
 
       <div class="form-actions-submit">
         <button type="submit" class="btn btn-primary btn-large search-submit" id="searchBtn">
-          🔍 {% trans "ابحث عن رحلات" %}
+          🔍 <span id="searchBtnLabel">{% trans "ابحث عن رحلات" %}</span>
         </button>
       </div>
     </div>
   </form>
+
+<script>
+  /* Ferry return date toggle — lives outside the IIFE so onclick can reach it */
+  window.toggleFerryReturn = function() {
+    var isRound = document.getElementById('ferryRoundtrip').checked;
+    var frw     = document.getElementById('ferry_return_wrapper');
+    var frd     = document.getElementById('ferry_return_date');
+    var lbl     = document.getElementById('searchBtnLabel');
+    if (frw) frw.style.display = isRound ? '' : 'none';
+    if (frd) frd.required = isRound;
+    if (lbl) lbl.textContent = isRound
+      ? '⛴ ابحث — ذهاب وإياب'
+      : '⛴ ابحث عن رحلة';
+  };
+</script>
