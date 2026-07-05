@@ -20,16 +20,16 @@
     <!-- ══ Trip Type (Flights) ══ -->
     <div class="trip-type-selector" id="tripTypeRow">
       <label class="radio-tab">
-        <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %}>
-        <span>{% trans "ذهاب فقط" %}</span>
+        <input type="radio" name="trip_type" value="oneway" {% if search.trip_type == 'oneway' or not search %}checked{% endif %} onchange="onTripTypeChange(this)">
+        <span>🡒 {% trans "ذهاب فقط" %}</span>
       </label>
       <label class="radio-tab">
-        <input type="radio" name="trip_type" value="roundtrip" {% if search.trip_type == 'roundtrip' %}checked{% endif %}>
-        <span>{% trans "ذهاب وعودة" %}</span>
+        <input type="radio" name="trip_type" value="roundtrip" {% if search.trip_type == 'roundtrip' %}checked{% endif %} onchange="onTripTypeChange(this)">
+        <span>⇄ {% trans "ذهاب وعودة" %}</span>
       </label>
       <label class="radio-tab" id="multicityTab">
-        <input type="radio" name="trip_type" value="multicity" {% if search.trip_type == 'multicity' %}checked{% endif %}>
-        <span>{% trans "وجهات متعددة" %}</span>
+        <input type="radio" name="trip_type" value="multicity" {% if search.trip_type == 'multicity' %}checked{% endif %} onchange="onTripTypeChange(this)">
+        <span>✈✈ {% trans "وجهات متعددة" %}</span>
       </label>
     </div>
 
@@ -164,8 +164,8 @@
 
 
     <!-- Multi-city add flight (hidden by default) -->
-    <button type="button" class="btn btn-ghost btn-sm" id="addSliceBtn" style="display:none; margin-top:10px;">
-      + {% trans "إضافة رحلة" %}
+    <button type="button" id="addSliceBtn" style="display:none; margin-top:12px; width:100%; padding:12px; border:2px dashed var(--primary,#1ba4ba); border-radius:12px; background:rgba(27,164,186,0.05); color:var(--primary,#1ba4ba); font-family:'Tajawal',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.2s; letter-spacing:0.3px;" onmouseover="this.style.background='rgba(27,164,186,0.12)'" onmouseout="this.style.background='rgba(27,164,186,0.05)'">
+      ✈ + {% trans "إضافة وجهة أخرى" %}
     </button>
 
     <div id="paxDropdown" style="display:none; position:fixed; z-index:99999;
@@ -492,6 +492,26 @@
             setTimeout(function() { dd.style.display = 'none'; }, 180);
           });
         }
+
+        /* ── Trip type change handler ────────────────────────── */
+        window.onTripTypeChange = function(radio) {
+          var val = radio.value;
+          var retWrap   = document.getElementById('return_date_wrapper');
+          var addBtn    = document.getElementById('addSliceBtn');
+          var slice0    = document.getElementById('slice_0');
+
+          // Return date: only show for roundtrip
+          if (retWrap) retWrap.style.display = (val === 'roundtrip') ? '' : 'none';
+
+          // Multi-city: show add-flight button, hide slice_0 return date
+          if (addBtn) addBtn.style.display = (val === 'multicity') ? '' : 'none';
+        };
+
+        // Init on page load for pre-selected state
+        (function() {
+          var checked = document.querySelector('input[name="trip_type"]:checked');
+          if (checked) window.onTripTypeChange(checked);
+        })();
 
         attachAutocomplete('origin_0',      'dropdown_origin_0');
         attachAutocomplete('destination_0', 'dropdown_destination_0');
