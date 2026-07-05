@@ -2,19 +2,18 @@
   <form action="{% url 'vols:search_results' %}" method="post" class="search-card" id="searchForm">
     {% csrf_token %}
 
-    <!-- ══ Mode Tabs: International / Domestic / Ferry ══ -->
+    <!-- ══ Mode Tabs ══ -->
     <div class="flight-mode-tabs" id="flightModeTabs">
       <button type="button" class="flight-mode-tab active" id="tab-international" onclick="setFlightMode('international')">
         🌍 {% trans "دولي" %}
       </button>
       <button type="button" class="flight-mode-tab" id="tab-domestic" onclick="setFlightMode('domestic')">
-        🇸🇩 {% trans "داخلي" %}
+        ✈ {% trans "داخلي" %}
       </button>
       <button type="button" class="flight-mode-tab" id="tab-ferry" onclick="setFlightMode('ferry')">
         ⛴ {% trans "باخرة" %}
       </button>
     </div>
-    <!-- Hidden field carries the mode to the backend -->
     <input type="hidden" name="flight_mode" id="flight_mode_input" value="international">
 
     <!-- ══ Trip Type (Flights) ══ -->
@@ -150,14 +149,15 @@
             </div>
           </div>
 
-          <!-- Search button -->
-          <div class="form-actions-submit">
-            <button type="submit" class="btn btn-primary search-submit" id="searchBtn" style="white-space:nowrap; height:48px; padding:0 22px;">
-              🔍 <span id="searchBtnLabel">{% trans "ابحث" %}</span>
-            </button>
-          </div>
-
         </div><!-- /search-row2 -->
+
+        <!-- Search Button — Row 3, full width -->
+        <div class="form-actions-submit">
+          <button type="submit" class="btn btn-primary search-submit" id="searchBtn">
+            🔍 <span id="searchBtnLabel">{% trans "ابحث" %}</span>
+          </button>
+        </div>
+
 
       </div><!-- /search-all-fields -->
     </div><!-- /slices-container -->
