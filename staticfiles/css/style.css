@@ -424,18 +424,59 @@ main { flex: 1; }
 .mc-add-btn:hover { background: rgba(27,164,186,0.13); }
 .mc-bottom-bar .form-field { flex: 1; min-width: 140px; }
 
-@media (max-width: 700px) {
-  .mc-slice { grid-template-columns: 1fr 30px 1fr; }
-  .mc-slice .form-field.mc-date,
-  .mc-slice .mc-remove { grid-column: 1 / -1; }
-  .mc-slice .mc-remove { width: 100%; border-radius: 8px; }
+/* ── Tablet (< 900px) ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .search-all-fields .search-row2 { flex-wrap: wrap; }
+  .search-all-fields .search-row2 .form-field { flex: 1 1 calc(50% - 8px); min-width: 0; }
 }
 
 /* ── Mobile (< 600px) ────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .search-route-row .swap-btn { flex: 0 0 30px; margin: 0 2px; }
-  .search-all-fields .search-row2 .form-field { flex: 1 1 calc(50% - 8px); min-width: 0; }
-  .search-all-fields .form-actions-submit .search-submit { height: 48px; font-size: 1rem; }
+  /* Route row: keep 50/50 but shrink swap */
+  .search-route-row .swap-btn { flex: 0 0 28px; margin: 0 2px; font-size: 0.85rem; }
+
+  /* Row 2: every field is 50% on mobile */
+  .search-all-fields .search-row2 {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .search-all-fields .search-row2 .form-field {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+
+  /* Search button */
+  .search-all-fields .form-actions-submit .search-submit {
+    height: 48px;
+    font-size: 0.95rem;
+  }
+
+  /* Passengers summary: no overflow clip */
+  #paxSummary, #paxSummary2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 90px;
+  }
+
+  /* Multi-city slice: collapse to 2 col */
+  .mc-slice {
+    grid-template-columns: 1fr 28px 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 10px 8px;
+  }
+  .mc-slice .form-field.mc-date { grid-column: 1 / -1; }
+  .mc-slice .mc-remove {
+    grid-column: 1 / -1;
+    width: 100%;
+    border-radius: 8px;
+    height: 34px;
+  }
+
+  /* Multi-city bottom bar: stack */
+  .mc-bottom-bar { flex-direction: column; align-items: stretch; }
+  .mc-bottom-bar .form-field { min-width: 0; }
+  .mc-add-btn { width: 100%; text-align: center; }
 }
 
 @media (max-width: 800px) {
@@ -447,6 +488,8 @@ main { flex: 1; }
   .hotel-search-grid { grid-template-columns: 1fr !important; }
 }
 .form-divider { border: 0; height: 1.5px; background: var(--border); margin: 0 -36px 16px; }
+
+
 
 
 /* ── Inputs ────────────────────────────────────────────────── */

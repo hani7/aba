@@ -121,13 +121,13 @@
             <div class="input-icon-wrap">
               <span class="fi">&#128101;</span>
               <button type="button" id="paxToggle" class="field-input"
-                style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; border:none; font-family:inherit; font-size:inherit;"
+                style="text-align:right; cursor:pointer; background:var(--bg-2,#fff); display:flex; align-items:center; justify-content:space-between; gap:4px; width:100%; min-width:0; border:none; font-family:inherit; font-size:inherit; overflow:hidden;"
                 data-t-adult1="{% trans 'بالغ واحد' %}"
                 data-t-adult2="{% trans 'بالغان' %}"
                 data-t-adults="{% trans 'بالغين' %}"
                 data-t-child1="{% trans '+ طفل واحد' %}"
                 data-t-children="{% trans 'أطفال' %}">
-                <span id="paxSummary">{% trans "بالغ واحد" %}</span>
+                <span id="paxSummary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; min-width:0;">{% trans "بالغ واحد" %}</span>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0; opacity:0.5;"><path d="M1 4l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
