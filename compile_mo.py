@@ -102,4 +102,8 @@ if __name__ == '__main__':
         'locale/fr/LC_MESSAGES/django.po',
         'locale/fr/LC_MESSAGES/django.mo',
     )
+    compile_po_to_mo(
+        'locale/ar/LC_MESSAGES/django.po',
+        'locale/ar/LC_MESSAGES/django.mo',
+    )
     print('Done!')
