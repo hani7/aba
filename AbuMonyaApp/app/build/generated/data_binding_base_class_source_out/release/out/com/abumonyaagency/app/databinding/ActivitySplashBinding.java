@@ -4,9 +4,9 @@ package com.abumonyaagency.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +19,7 @@ import java.lang.String;
 
 public final class ActivitySplashBinding implements ViewBinding {
   @NonNull
-  private final RelativeLayout rootView;
+  private final FrameLayout rootView;
 
   @NonNull
   public final LinearLayout splashCenter;
@@ -39,9 +39,8 @@ public final class ActivitySplashBinding implements ViewBinding {
   @NonNull
   public final TextView splashTitle;
 
-  private ActivitySplashBinding(@NonNull RelativeLayout rootView,
-      @NonNull LinearLayout splashCenter, @NonNull View splashDivider,
-      @NonNull ImageView splashLogo, @NonNull TextView splashSubtitle,
+  private ActivitySplashBinding(@NonNull FrameLayout rootView, @NonNull LinearLayout splashCenter,
+      @NonNull View splashDivider, @NonNull ImageView splashLogo, @NonNull TextView splashSubtitle,
       @NonNull TextView splashTagline, @NonNull TextView splashTitle) {
     this.rootView = rootView;
     this.splashCenter = splashCenter;
@@ -54,7 +53,7 @@ public final class ActivitySplashBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public RelativeLayout getRoot() {
+  public FrameLayout getRoot() {
     return rootView;
   }
 
@@ -115,7 +114,7 @@ public final class ActivitySplashBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivitySplashBinding((RelativeLayout) rootView, splashCenter, splashDivider,
+      return new ActivitySplashBinding((FrameLayout) rootView, splashCenter, splashDivider,
           splashLogo, splashSubtitle, splashTagline, splashTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);

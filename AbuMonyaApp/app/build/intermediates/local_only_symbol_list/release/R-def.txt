@@ -12,9 +12,11 @@ drawable circle_decoration_bottom
 drawable circle_decoration_top
 drawable dot_active
 drawable dot_inactive
+drawable hero_bg
 drawable ic_airplane
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable splash_overlay
 id errorLayout
 id errorMessage
 id progressBar
