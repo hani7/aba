@@ -79,6 +79,24 @@
       {% include 'vols/includes/search_form.html' %}
     </div>
 
+    {% if is_sudan_domestic %}
+    <!-- ── Sudan Domestic Info Banner ── -->
+    <div style="background:linear-gradient(135deg,#007229,#009933); padding:16px 24px; border-radius:14px; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 4px 16px rgba(0,114,41,0.25);">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span style="font-size:2rem;">🇸🇩</span>
+        <div>
+          <div style="font-weight:800; font-size:1rem; color:#fff; font-family:'Tajawal',sans-serif;">{% trans "رحلات داخلية سودانية" %}</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.85); margin-top:2px;">{% trans "الخطوط الجوية السودانية · بدر للطيران · تركو للطيران" %}</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:5px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.3);">✅ {% trans "حجز مباشر" %}</span>
+        <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:5px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.3);">💲 {% trans "أسعار بالدولار" %}</span>
+        <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:5px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.3);">🔄 {% trans "قابل للاسترداد" %}</span>
+      </div>
+    </div>
+    {% endif %}
+
     {% if search.add_hotel %}
     <div style="background:linear-gradient(135deg,var(--gold),#d4af37); padding:16px 24px; border-radius:12px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; color:#fff; box-shadow:0 4px 12px rgba(212,175,55,0.3); flex-wrap:wrap; gap:16px;">
       <div>
@@ -110,7 +128,7 @@
           </p>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <select id="priceSort" class="field-input" style="padding:8px 14px; width:auto; border-radius:999px; font-size:0.85rem;">
-              <option value="none">{% trans "المقترح: بدر أولاً" %}</option>
+              <option value="none">{% if is_sudan_domestic %}{% trans "المقترح: السودانية أولاً" %}{% else %}{% trans "المقترح: بدر أولاً" %}{% endif %}</option>
               <option value="asc">{% trans "الأرخص أولاً" %}</option>
               <option value="desc">{% trans "الأغلى أولاً" %}</option>
             </select>
@@ -211,7 +229,11 @@
                 <div style="font-size:0.7rem; font-weight:700; color:#dc2626; margin-top:4px; padding:2px 8px; background:rgba(239,68,68,0.08); border-radius:999px; border:1px solid rgba(239,68,68,0.2); display:inline-block;">❌ {% trans "غير قابل للاسترداد" %}</div>
                 {% endif %}
               </div>
+              {% if offer.is_sudan_domestic %}
+              <a href="https://wa.me/249906888886?text={{ offer.owner.name }}%20-%20{{ first_slice.origin.iata_code }}%20%E2%86%92%20{{ first_slice.destination.iata_code }}%20-%20{{ first_slice.departure_date }}" target="_blank" class="btn btn-sm offer-btn" style="margin-top:8px; background:#25d366; color:#fff; border-color:#25d366;" onclick="event.stopPropagation();">📲 {% trans "احجز عبر واتساب" %}</a>
+              {% else %}
               <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary btn-sm offer-btn" style="margin-top:8px;" onclick="event.stopPropagation();">{% trans "احجز" %} ←</a>
+              {% endif %}
             </div>
           </div>
 
@@ -362,7 +384,11 @@
                   <div style="font-size:0.8rem; color:var(--text-muted);">{% trans "المجموع لجميع المسافرين" %}</div>
                   {% endif %}
                 </div>
+                {% if offer.is_sudan_domestic %}
+                <a href="https://wa.me/249906888886?text={{ offer.owner.name }}%20-%20{{ first_slice.origin.iata_code }}%20%E2%86%92%20{{ first_slice.destination.iata_code }}%20-%20{{ first_slice.departure_date }}" target="_blank" class="btn" style="padding:12px 28px; font-size:1rem; font-weight:700; background:#25d366; color:#fff; border-color:#25d366;">📲 {% trans "احجز عبر واتساب" %}</a>
+                {% else %}
                 <a href="{% url 'vols:passenger_details' offer.id %}" class="btn btn-primary" style="padding:12px 28px; font-size:1rem; font-weight:700;">{% trans "احجز الآن" %} ←</a>
+                {% endif %}
                 {# Cheapest-badge label for JS — must be inside a block to render in child templates #}
                 {% if forloop.first %}<span id="cheapest-badge-label" data-label="🏆 {% trans 'الأرخص سعراً' %}" style="display:none;"></span>{% endif %}
               </div>
