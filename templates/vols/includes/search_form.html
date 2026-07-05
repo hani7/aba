@@ -536,45 +536,63 @@
           });
         }
 
-        /* ── Trip type change handler ────────────────────────── */
+        /* ── Multi-city: pre-defined labels (safe in JS strings) ── */
+        var MC_LBL_FROM  = "{% trans 'المغادرة' %}";
+        var MC_LBL_TO    = "{% trans 'الوجهة' %}";
+        var MC_LBL_DATE  = "{% trans 'تاريخ الذهاب' %}";
+        var MC_PH_ORIG   = INTL_PH_ORIG;
+        var MC_PH_DEST   = INTL_PH_DEST;
+
+        /* ── Multi-city slice counter ─────────────────────────── */
         var _mcSliceCount = 0;
 
         window.mcAddSlice = function() {
-          if (_mcSliceCount >= 5) return; // max 5 segments
+          if (_mcSliceCount >= 6) return; // max 6 segments
           _mcSliceCount++;
           var idx = _mcSliceCount;
           var container = document.getElementById('multicity-slices');
           var div = document.createElement('div');
           div.className = 'mc-slice';
           div.id = 'mc_slice_' + idx;
-          div.innerHTML =
-            '<div class="form-field autocomplete-wrapper">' +
-              '<label class="field-label">{% trans "المغادرة" %}</label>' +
-              '<div class="input-icon-wrap">' +
-                '<span class="fi">🛫</span>' +
-                '<input type="text" name="origin_' + idx + '" id="mc_origin_' + idx + '" placeholder="{% trans "مثل: باريس، LHR" %}" class="field-input autocomplete-input" autocomplete="off" required>' +
-              '</div>' +
-              '<div class="autocomplete-dropdown" id="mc_dd_orig_' + idx + '" style="display:none;"></div>' +
-            '</div>' +
-            '<button type="button" class="swap-btn" onclick="mcSwap(' + idx + ')">⇄</button>' +
-            '<div class="form-field autocomplete-wrapper">' +
-              '<label class="field-label">{% trans "الوجهة" %}</label>' +
-              '<div class="input-icon-wrap">' +
-                '<span class="fi">🛬</span>' +
-                '<input type="text" name="destination_' + idx + '" id="mc_dest_' + idx + '" placeholder="{% trans "مثل: لندن، DXB" %>" class="field-input autocomplete-input" autocomplete="off" required>' +
-              '</div>' +
-              '<div class="autocomplete-dropdown" id="mc_dd_dest_' + idx + '" style="display:none;"></div>' +
-            '</div>' +
-            '<div class="form-field mc-date">' +
-              '<label class="field-label">{% trans "تاريخ الذهاب" %}</label>' +
-              '<div class="input-icon-wrap">' +
-                '<span class="fi">📅</span>' +
-                '<input type="date" name="departure_date_' + idx + '" class="field-input" required>' +
-              '</div>' +
-            '</div>' +
-            '<button type="button" class="mc-remove" onclick="mcRemoveSlice(' + idx + ')" title="{% trans "حذف" %}">✕</button>';
+
+          var html = '';
+          // Origin field
+          html += '<div class="form-field autocomplete-wrapper">';
+          html +=   '<label class="field-label">' + MC_LBL_FROM + '</label>';
+          html +=   '<div class="input-icon-wrap">';
+          html +=     '<span class="fi">🛫</span>';
+          html +=     '<input type="text" name="origin_' + idx + '" id="mc_origin_' + idx + '"';
+          html +=       ' placeholder="' + MC_PH_ORIG + '" class="field-input autocomplete-input"';
+          html +=       ' autocomplete="off" required>';
+          html +=   '</div>';
+          html +=   '<div class="autocomplete-dropdown" id="mc_dd_orig_' + idx + '" style="display:none;"></div>';
+          html += '</div>';
+          // Swap btn
+          html += '<button type="button" class="swap-btn" onclick="mcSwap(' + idx + ')">⇄</button>';
+          // Destination field
+          html += '<div class="form-field autocomplete-wrapper">';
+          html +=   '<label class="field-label">' + MC_LBL_TO + '</label>';
+          html +=   '<div class="input-icon-wrap">';
+          html +=     '<span class="fi">🛬</span>';
+          html +=     '<input type="text" name="destination_' + idx + '" id="mc_dest_' + idx + '"';
+          html +=       ' placeholder="' + MC_PH_DEST + '" class="field-input autocomplete-input"';
+          html +=       ' autocomplete="off" required>';
+          html +=   '</div>';
+          html +=   '<div class="autocomplete-dropdown" id="mc_dd_dest_' + idx + '" style="display:none;"></div>';
+          html += '</div>';
+          // Date field
+          html += '<div class="form-field mc-date">';
+          html +=   '<label class="field-label">' + MC_LBL_DATE + '</label>';
+          html +=   '<div class="input-icon-wrap">';
+          html +=     '<span class="fi">📅</span>';
+          html +=     '<input type="date" name="departure_date_' + idx + '" class="field-input" required>';
+          html +=   '</div>';
+          html += '</div>';
+          // Remove button
+          html += '<button type="button" class="mc-remove" onclick="mcRemoveSlice(' + idx + ')">✕</button>';
+
+          div.innerHTML = html;
           container.appendChild(div);
-          // Attach autocomplete
           attachAutocomplete('mc_origin_' + idx, 'mc_dd_orig_' + idx);
           attachAutocomplete('mc_dest_' + idx,   'mc_dd_dest_' + idx);
         };
@@ -592,10 +610,10 @@
 
         window.onTripTypeChange = function(radio) {
           var val = radio.value;
-          var retWrap      = document.getElementById('return_date_wrapper');
-          var slicesWrap   = document.getElementById('slices-container');
-          var mcSection    = document.getElementById('multicitySection');
-          var mcSlices     = document.getElementById('multicity-slices');
+          var retWrap    = document.getElementById('return_date_wrapper');
+          var slicesWrap = document.getElementById('slices-container');
+          var mcSection  = document.getElementById('multicitySection');
+          var mcSlices   = document.getElementById('multicity-slices');
 
           if (val === 'roundtrip') {
             if (retWrap)    retWrap.style.display = '';
@@ -605,9 +623,9 @@
             if (retWrap)    retWrap.style.display = 'none';
             if (slicesWrap) slicesWrap.style.display = 'none';
             if (mcSection)  mcSection.style.display = '';
-            // Seed with 3 slices if empty
+            // Seed with ONE slice if empty
             if (mcSlices && mcSlices.children.length === 0) {
-              mcAddSlice(); mcAddSlice(); mcAddSlice();
+              mcAddSlice();
             }
           } else {
             // oneway
