@@ -64,7 +64,7 @@
             <div class="ferry-city-hint" id="origin_city_hint">🛳 بورتسودان — Port Sudan</div>
           </div>
 
-          <button type="button" class="swap-btn" id="swapBtn_0" title="Swap">⇄</button>
+          <button type="button" class="swap-btn" id="swapBtn_0" title="Swap" onclick="swapFields('origin_0','destination_0')">⇄</button>
 
           <div class="form-field field-dest autocomplete-wrapper" id="dest_wrapper_0">
             <label class="field-label">{% trans "الوجهة" %}</label>
@@ -652,7 +652,24 @@
 
 
 <script>
-  /* Ferry return date toggle — lives outside the IIFE so onclick can reach it */
+  /* Global swap function — used by main route row and multi-city rows */
+  window.swapFields = function(originId, destId) {
+    var o = document.getElementById(originId);
+    var d = document.getElementById(destId);
+    if (o && d) {
+      var tmp = o.value;
+      o.value = d.value;
+      d.value = tmp;
+      // Animate the button
+      var btn = document.querySelector('[onclick*="' + originId + '"]');
+      if (btn) {
+        btn.style.transform = 'rotate(180deg)';
+        setTimeout(function() { btn.style.transform = ''; }, 300);
+      }
+    }
+  };
+
+  /* Ferry return date toggle */
   window.toggleFerryReturn = function() {
     var isRound = document.getElementById('ferryRoundtrip').checked;
     var frw     = document.getElementById('ferry_return_wrapper');
