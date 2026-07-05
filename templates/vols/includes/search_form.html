@@ -48,38 +48,38 @@
     <div id="slices-container">
       <div class="search-all-fields" id="slice_0">
 
-        <!-- ── ROW 1: Origin | Swap | Destination ── -->
+        <!-- ── ROW 1: Origin 50% | Swap | Destination 50% ── -->
+        <div class="search-route-row">
 
-        <!-- Origin -->
-        <div class="form-field field-origin autocomplete-wrapper" id="origin_wrapper_0">
-          <label class="field-label">{% trans "المغادرة" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">🛫</span>
-            <input type="text" name="origin_0" id="origin_0"
-              placeholder="{% trans 'مثل: باريس، LHR' %}"
-              required class="field-input autocomplete-input" autocomplete="off"
-              value="{{ search.slices.0.origin|default:'' }}">
+          <div class="form-field field-origin autocomplete-wrapper" id="origin_wrapper_0">
+            <label class="field-label">{% trans "المغادرة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">🛫</span>
+              <input type="text" name="origin_0" id="origin_0"
+                placeholder="{% trans 'مثل: باريس، LHR' %}"
+                required class="field-input autocomplete-input" autocomplete="off"
+                value="{{ search.slices.0.origin|default:'' }}">
+            </div>
+            <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display:none;"></div>
+            <div class="ferry-city-hint" id="origin_city_hint">🛳 بورتسودان — Port Sudan</div>
           </div>
-          <div class="autocomplete-dropdown" id="dropdown_origin_0" style="display: none;"></div>
-          <div class="ferry-city-hint" id="origin_city_hint">🇸🇩 بورتسودان — Port Sudan</div>
-        </div>
 
-        <!-- Swap -->
-        <button type="button" class="swap-btn" id="swapBtn_0" title="Swap">⇄</button>
+          <button type="button" class="swap-btn" id="swapBtn_0" title="Swap">⇄</button>
 
-        <!-- Destination -->
-        <div class="form-field field-dest autocomplete-wrapper" id="dest_wrapper_0">
-          <label class="field-label">{% trans "الوجهة" %}</label>
-          <div class="input-icon-wrap">
-            <span class="fi">🛬</span>
-            <input type="text" name="destination_0" id="destination_0"
-              placeholder="{% trans 'مثل: لندن، DXB' %}"
-              required class="field-input autocomplete-input" autocomplete="off"
-              value="{{ search.slices.0.destination|default:'' }}">
+          <div class="form-field field-dest autocomplete-wrapper" id="dest_wrapper_0">
+            <label class="field-label">{% trans "الوجهة" %}</label>
+            <div class="input-icon-wrap">
+              <span class="fi">🛬</span>
+              <input type="text" name="destination_0" id="destination_0"
+                placeholder="{% trans 'مثل: لندن، DXB' %}"
+                required class="field-input autocomplete-input" autocomplete="off"
+                value="{{ search.slices.0.destination|default:'' }}">
+            </div>
+            <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display:none;"></div>
+            <div class="ferry-city-hint" id="dest_city_hint">🛳 جدة — Jeddah Islamic Port</div>
           </div>
-          <div class="autocomplete-dropdown" id="dropdown_destination_0" style="display: none;"></div>
-          <div class="ferry-city-hint" id="dest_city_hint">🇸🇦 جدة — Jeddah Islamic Port</div>
-        </div>
+
+        </div><!-- /search-route-row -->
 
         <!-- ── ROW 2: Dates | Passengers | Cabin | Search ── -->
         <div class="search-row2">
