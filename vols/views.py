@@ -451,6 +451,59 @@ def api_sudan_airports(request):
 
 
 # ---------------------------------------------------------------------------
+# Ferry Search – Port Sudan ↔ Jeddah
+# ---------------------------------------------------------------------------
+
+def ferry_search(request):
+    """
+    Handles the ferry booking search form submission and displays results.
+    """
+    from datetime import date as _date
+
+    if request.method != 'POST':
+        return redirect('vols:home')
+
+    origin      = request.POST.get('origin_0', 'PZU').strip().upper()
+    destination = request.POST.get('destination_0', 'JED').strip().upper()
+    dep_date    = request.POST.get('departure_date_0', str(_date.today()))
+    adults      = int(request.POST.get('adults', request.POST.get('passengers', 1)))
+    children    = int(request.POST.get('children', 0))
+    cabin_class = request.POST.get('cabin_class', 'economy')
+
+    offers = ferry_service.search_ferry(
+        origin=origin,
+        destination=destination,
+        departure_date=dep_date,
+        adults=adults,
+        children=children,
+        cabin_class=cabin_class,
+    )
+
+    ports   = ferry_service.get_ferry_ports()
+    ori_info = next((p for p in ports if p['code'] == origin), None)
+    dst_info = next((p for p in ports if p['code'] == destination), None)
+
+    context = {
+        'offers':       offers,
+        'search': {
+            'origin':       origin,
+            'destination':  destination,
+            'dep_date':     dep_date,
+            'adults':       adults,
+            'children':     children,
+            'cabin_class':  cabin_class,
+            'passengers':   adults + children,
+        },
+        'origin_info':      ori_info,
+        'destination_info': dst_info,
+        'num_adults':       adults,
+        'num_children':     children,
+        'is_ferry':         True,
+    }
+    return render(request, 'vols/ferry_results.html', context)
+
+
+# ---------------------------------------------------------------------------
 # Search – Call Duffel and display offers
 # ---------------------------------------------------------------------------
 

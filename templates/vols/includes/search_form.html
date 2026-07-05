@@ -2,7 +2,7 @@
   <form action="{% url 'vols:search_results' %}" method="post" class="search-card" id="searchForm">
     {% csrf_token %}
 
-    <!-- ══ Flight Mode Tabs (International / Sudan Domestic) ══ -->
+    <!-- ══ Mode Tabs: International / Domestic / Ferry ══ -->
     <div class="flight-mode-tabs" id="flightModeTabs">
       <button type="button" class="flight-mode-tab active" id="tab-international" onclick="setFlightMode('international')">
         🌍 {% trans "دولي" %}
@@ -10,8 +10,11 @@
       <button type="button" class="flight-mode-tab" id="tab-domestic" onclick="setFlightMode('domestic')">
         🇸🇩 {% trans "داخلي (السودان)" %}
       </button>
+      <button type="button" class="flight-mode-tab" id="tab-ferry" onclick="setFlightMode('ferry')">
+        ⛴ {% trans "باخرة" %}
+      </button>
     </div>
-    <!-- Hidden field carries the mode to the backend (for UX only – detection is done server-side) -->
+    <!-- Hidden field carries the mode to the backend -->
     <input type="hidden" name="flight_mode" id="flight_mode_input" value="international">
 
     <!-- ══ Trip Type Selector ══ -->
@@ -269,6 +272,8 @@
         var INTL_PH_DEST = "{% trans 'مثل: لندن، DXB' %}";
         var DOM_PH_ORIG  = "{% trans 'مثل: الخرطوم، PZU' %}";
         var DOM_PH_DEST  = "{% trans 'مثل: بورتسودان، KSL' %}";
+        var FERRY_URL    = "{% url 'vols:ferry_search' %}";
+        var FLIGHT_URL   = "{% url 'vols:search_results' %}";
 
         var _mode = 'international';
 
@@ -276,37 +281,52 @@
           _mode = mode;
           document.getElementById('flight_mode_input').value = mode;
 
-          // Update tab styles
+          // Update all 3 tab styles
           document.getElementById('tab-international').classList.toggle('active', mode === 'international');
           document.getElementById('tab-domestic').classList.toggle('active', mode === 'domestic');
+          document.getElementById('tab-ferry').classList.toggle('active', mode === 'ferry');
 
-          // Swap placeholders & clear values
-          var orig0 = document.getElementById('origin_0');
-          var dest0 = document.getElementById('destination_0');
+          var orig0    = document.getElementById('origin_0');
+          var dest0    = document.getElementById('destination_0');
+          var form     = document.getElementById('searchForm');
+          var tripRow  = document.getElementById('tripTypeRow');
+          var cabinSel = document.querySelector('select[name="cabin_class"]');
 
-          if (mode === 'domestic') {
-            orig0.placeholder = DOM_PH_ORIG;
-            dest0.placeholder = DOM_PH_DEST;
-            // Hide multi-city for domestic (not supported yet)
-            document.getElementById('multicityTab').style.display = 'none';
-            // Switch to one-way if multi-city was selected
-            var mt = document.querySelector('input[name="trip_type"][value="multicity"]');
-            if (mt && mt.checked) document.querySelector('input[name="trip_type"][value="oneway"]').click();
+          if (mode === 'ferry') {
+            form.action       = FERRY_URL;
+            orig0.value       = 'PZU';
+            orig0.placeholder = 'ميناء بورتسودان (PZU)';
+            orig0.readOnly    = true;
+            dest0.value       = 'JED';
+            dest0.placeholder = 'ميناء جدة الإسلامي (JED)';
+            dest0.readOnly    = true;
+            if (tripRow) tripRow.style.display = 'none';
+            if (cabinSel) cabinSel.innerHTML = '<option value="economy">اقتصادي (بدون كابينة)</option><option value="standard">عادي - 4 أشخاص</option><option value="first">أولى - كابينة خاصة</option><option value="vip">VIP - جناح فاخر</option>';
           } else {
-            orig0.placeholder = INTL_PH_ORIG;
-            dest0.placeholder = INTL_PH_DEST;
-            document.getElementById('multicityTab').style.display = '';
+            form.action    = FLIGHT_URL;
+            orig0.readOnly = false;
+            dest0.readOnly = false;
+            if (tripRow) tripRow.style.display = '';
+            if (cabinSel) cabinSel.innerHTML = '<option value="economy">{% trans "سياحية" %}</option><option value="premium_economy">{% trans "سياحية ممتازة" %}</option><option value="business">{% trans "أعمال" %}</option><option value="first">{% trans "أولى" %}</option>';
+            if (mode === 'domestic') {
+              orig0.value = ''; orig0.placeholder = DOM_PH_ORIG;
+              dest0.value = ''; dest0.placeholder = DOM_PH_DEST;
+              document.getElementById('multicityTab').style.display = 'none';
+              var mt = document.querySelector('input[name="trip_type"][value="multicity"]');
+              if (mt && mt.checked) document.querySelector('input[name="trip_type"][value="oneway"]').click();
+            } else {
+              orig0.value = ''; orig0.placeholder = INTL_PH_ORIG;
+              dest0.value = ''; dest0.placeholder = INTL_PH_DEST;
+              document.getElementById('multicityTab').style.display = '';
+            }
+            orig0.focus();
           }
-
-          // Clear current inputs so user picks fresh
-          orig0.value = '';
-          dest0.value = '';
-          orig0.focus();
         };
 
-        /* ── Autocomplete (unified – handles both modes) ─────── */
+        /* ── Autocomplete (unified – handles all modes) ─────── */
         var SUDAN_AIRPORTS_URL = "{% url 'vols:api_sudan_airports' %}";
         var PLACES_URL         = "{% url 'vols:api_places' %}";
+
 
         function renderDropdown(dropdownEl, items, inputEl) {
           dropdownEl.innerHTML = '';
@@ -345,7 +365,10 @@
             _timers[inputId] = setTimeout(function() {
               var url = (_mode === 'domestic')
                 ? SUDAN_AIRPORTS_URL + '?q=' + encodeURIComponent(q)
-                : PLACES_URL + '?q=' + encodeURIComponent(q);
+                : (_mode === 'ferry')
+                  ? null   // ferry uses fixed ports, no autocomplete needed
+                  : PLACES_URL + '?q=' + encodeURIComponent(q);
+              if (!url) { dd.style.display = 'none'; return; }
               fetch(url)
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
