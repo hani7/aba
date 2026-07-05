@@ -7,26 +7,114 @@
 <section class="section">
   <div class="container" style="max-width:820px;">
 
-    <!-- Flight Recap -->
-    <div class="recap-card" style="flex-direction:column; align-items:flex-start; margin-bottom:28px;">
-      <div style="display:flex; justify-content:space-between; width:100%; align-items:center; border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
-        <div class="recap-meta" style="font-size:1.05rem; flex-wrap:wrap; gap:12px;">
-          <span>💰 <strong class="gold" data-eur="{{ offer.total_amount }}">{{ offer.total_amount }} {{ offer.total_currency }}</strong></span>
-          <span>💺 {{ offer.cabin_class|capfirst }}</span>
-          <span>👤 {{ num_adults }} {% trans "بالغ" %}{% if num_children > 0 %} · 👦 {{ num_children }} {% trans "طفل" %}{% endif %}</span>
-          {% if offer.is_sudan_domestic %}<span style="background:linear-gradient(135deg,#007229,#009933); color:#fff; font-size:0.72rem; font-weight:800; padding:3px 10px; border-radius:999px;">🇸🇩 {% trans "داخلي" %}</span>{% endif %}
+    <!-- ══ Enhanced Flight / Trip Recap ══ -->
+    <div style="background:var(--bg-2); border:1px solid var(--border); border-radius:18px; margin-bottom:28px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+
+      <!-- Header bar -->
+      <div style="background:linear-gradient(135deg,var(--navy,#0b1f45),#1a3a6e); padding:16px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          {% with seg=offer.slices.0.segments.0 %}
+          {% if seg.marketing_carrier.logo_symbol_url %}
+            <img src="{{ seg.marketing_carrier.logo_symbol_url }}" alt="{{ seg.marketing_carrier.name }}" style="width:40px; height:40px; border-radius:8px; background:#fff; padding:4px; object-fit:contain;">
+          {% else %}
+            <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:1.4rem;">✈</div>
+          {% endif %}
+          <div>
+            <div style="color:#fff; font-weight:800; font-size:1rem; font-family:'Tajawal',sans-serif;">{{ seg.marketing_carrier.name|default:offer.owner.name }}</div>
+            {% if seg.marketing_carrier_flight_number %}
+            <div style="color:rgba(255,255,255,0.7); font-size:0.78rem;">{% trans "رحلة" %} {{ seg.marketing_carrier.iata_code }}{{ seg.marketing_carrier_flight_number }}</div>
+            {% endif %}
+          </div>
+          {% endwith %}
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          {% if offer.is_sudan_domestic %}
+          <span style="background:linear-gradient(135deg,#007229,#009933); color:#fff; font-size:0.72rem; font-weight:800; padding:4px 12px; border-radius:999px;">🇸🇩 {% trans "داخلي" %}</span>
+          {% endif %}
+          <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.78rem; font-weight:700; padding:4px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.25);">
+            💰 <strong>{{ offer.total_amount }} {{ offer.total_currency }}</strong>
+          </span>
         </div>
       </div>
+
+      <!-- Slice details -->
       {% for slice in offer.slices %}
-      <div class="recap-route" style="margin-bottom:8px;">
-        <span class="gold" style="font-size:0.88rem; margin-inline-end:12px;">{% trans "رحلة" %} {{ forloop.counter }}</span>
-        <span class="recap-city" style="font-size:1.15rem;">{{ slice.origin.iata_code }}</span>
-        <span class="route-arrow">→</span>
-        <span class="recap-city" style="font-size:1.15rem;">{{ slice.destination.iata_code }}</span>
-        <span style="color:var(--text-muted); font-size:0.88rem; margin-inline-start:16px;">📅 {{ slice.segments.0.departing_at|slice:":10" }} — ⏱ {{ slice.duration_fmt }}</span>
+      {% with first_seg=slice.segments.0 last_seg=slice.segments|last %}
+      <div style="padding:20px 22px; {% if not forloop.last %}border-bottom:1px solid var(--border);{% endif %}">
+
+        <!-- Route row -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+
+          <!-- Origin -->
+          <div style="text-align:center; min-width:80px;">
+            <div style="font-size:1.9rem; font-weight:900; color:var(--text); letter-spacing:0.03em; line-height:1;">{{ first_seg.origin.iata_code }}</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;">{{ first_seg.origin.city_name|default:first_seg.origin.name }}</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-top:4px;">{{ first_seg.departing_at|slice:"11:16" }}</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">{{ first_seg.departing_at|slice:"0:10" }}</div>
+          </div>
+
+          <!-- Line -->
+          <div style="flex:1; text-align:center; min-width:100px;">
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:4px;">⏱ {{ slice.duration_fmt }}</div>
+            <div style="display:flex; align-items:center; gap:0;">
+              <div style="flex:1; height:2px; background:var(--border-h);"></div>
+              <span style="color:var(--primary); font-size:1rem; padding:0 6px;">✈</span>
+              <div style="flex:1; height:2px; background:var(--border-h);"></div>
+            </div>
+            <div style="font-size:0.72rem; margin-top:4px; color:{% if slice.segments|length > 1 %}var(--gold){% else %}#059669{% endif %}; font-weight:700;">
+              {% if slice.segments|length > 1 %}{{ slice.segments|length|add:"-1" }} {% trans "توقف" %}{% else %}{% trans "مباشر" %}{% endif %}
+            </div>
+          </div>
+
+          <!-- Destination -->
+          <div style="text-align:center; min-width:80px;">
+            <div style="font-size:1.9rem; font-weight:900; color:var(--text); letter-spacing:0.03em; line-height:1;">{{ last_seg.destination.iata_code }}</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;">{{ last_seg.destination.city_name|default:last_seg.destination.name }}</div>
+            <div style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-top:4px;">{{ last_seg.arriving_at|slice:"11:16" }}</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">{{ last_seg.arriving_at|slice:"0:10" }}</div>
+          </div>
+        </div>
+
+        <!-- Extra info chips -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:12px; border-top:1px dashed var(--border);">
+          <span style="background:rgba(27,164,186,0.08); color:var(--primary); border:1px solid rgba(27,164,186,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+            💺 {% if offer.cabin_class == 'economy' %}{% trans "سياحية" %}{% elif offer.cabin_class == 'premium_economy' %}{% trans "سياحية ممتازة" %}{% elif offer.cabin_class == 'business' %}{% trans "أعمال" %}{% elif offer.cabin_class == 'first' %}{% trans "أولى" %}{% else %}{{ offer.cabin_class|capfirst }}{% endif %}
+          </span>
+          <span style="background:rgba(27,164,186,0.08); color:var(--primary); border:1px solid rgba(27,164,186,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+            👤 {{ num_adults }} {% trans "بالغ" %}{% if num_children > 0 %} · 👦 {{ num_children }} {% trans "طفل" %}{% endif %}
+          </span>
+          {% with p=first_seg.passengers|first %}
+          {% if p %}
+            {% for bag in p.baggages %}
+              {% if bag.type == 'checked' %}
+              <span style="background:rgba(124,58,237,0.07); color:#7c3aed; border:1px solid rgba(124,58,237,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+                🧳 {% trans "أمتعة" %}: {{ bag.quantity }}×{{ bag.weight }}{{ bag.weight_unit }}
+              </span>
+              {% endif %}
+              {% if bag.type == 'carry_on' %}
+              <span style="background:rgba(245,158,11,0.08); color:#d97706; border:1px solid rgba(245,158,11,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+                👜 {% trans "يد" %}: {{ bag.quantity }}×{{ bag.weight }}{{ bag.weight_unit }}
+              </span>
+              {% endif %}
+            {% endfor %}
+            {% if p.meal %}
+            <span style="background:rgba(16,185,129,0.07); color:#059669; border:1px solid rgba(16,185,129,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+              🍽 {{ p.meal }}
+            </span>
+            {% endif %}
+          {% endif %}
+          {% endwith %}
+          {% if offer.conditions.refund_before_departure.allowed %}
+          <span style="background:rgba(16,185,129,0.07); color:#059669; border:1px solid rgba(16,185,129,0.2); padding:4px 12px; border-radius:999px; font-size:0.75rem; font-weight:700;">
+            ✅ {% trans "قابل للاسترداد" %}
+          </span>
+          {% endif %}
+        </div>
       </div>
+      {% endwith %}
       {% endfor %}
     </div>
+
 
     <form action="{% url 'vols:confirm_booking' %}" method="post" id="passengerForm">
       {% csrf_token %}
@@ -37,8 +125,8 @@
       <h2 class="section-title" style="font-size:1.1rem; margin-bottom:16px;">👤 {% trans "البالغون" %}</h2>
       {% for i in adult_range %}
       <div class="passenger-card" style="margin-bottom:20px;">
-        <div class="passenger-header">
-          <span class="passenger-badge" style="background:var(--primary);">{% trans "بالغ" %} {{ forloop.counter }}</span>
+        <div style="font-size:0.88rem; font-weight:800; color:var(--primary); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); font-family:'Tajawal',sans-serif;">
+          👤 {% trans "بالغ" %} {{ forloop.counter }}
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
           <div class="form-field">
@@ -90,8 +178,8 @@
       </div>
       {% for i in child_range %}
       <div class="passenger-card" style="margin-bottom:20px; border-color:rgba(245,158,11,0.3);">
-        <div class="passenger-header">
-          <span class="passenger-badge" style="background:var(--gold,#d4af37); color:#000;">👦 {% trans "طفل" %} {{ forloop.counter }} <small style="font-weight:400; opacity:0.7;">· {% trans "سعر مخفض 75%" %}</small></span>
+        <div style="font-size:0.88rem; font-weight:800; color:var(--gold,#d4af37); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(245,158,11,0.25); font-family:'Tajawal',sans-serif;">
+          👦 {% trans "طفل" %} {{ forloop.counter }} &nbsp;<small style="font-weight:400; opacity:0.7; font-size:0.78rem;">· {% trans "سعر مخفض 75%" %}</small>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
           <div class="form-field">
@@ -273,17 +361,18 @@
             <!-- ── WhatsApp panel ── -->
             <div id="panelWA" style="display:none;">
               <div style="padding:14px 16px; background:rgba(37,211,102,0.07); border:1px solid rgba(37,211,102,0.25); border-radius:12px; font-size:0.85rem; color:var(--text); margin-bottom:14px; line-height:1.8;">
-                📲 {% trans "سيتم فتح واتساب لإتمام الحجز مع فريق أبو منية" %}<br>
-                <span style="color:var(--text-muted); font-size:0.78rem;">{% trans "تأكد من إدخال بيانات المسافرين أعلاه قبل المتابعة" %}</span>
+                📲 {% trans "سيتم فتح واتساب مع جميع بيانات المسافرين تلقائياً" %}<br>
+                <span style="color:var(--text-muted); font-size:0.78rem;">{% trans "يجب ملء جميع حقول النموذج أعلاه قبل المتابعة" %}</span>
               </div>
-              <div style="padding:12px 16px; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.3); border-radius:10px; font-size:0.8rem; color:#92400e; margin-bottom:14px;">
-                💡 {% trans "سيُرسل لك فريقنا تفاصيل الدفع والحجز عبر واتساب" %}
+              <!-- Validation error box (hidden by default) -->
+              <div id="waValidationError" style="display:none; padding:10px 14px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:10px; font-size:0.82rem; color:#dc2626; margin-bottom:14px;">
+                ⚠️ <span id="waErrorMsg"></span>
               </div>
-              <a id="waBookLink" href="https://wa.me/249906888886" target="_blank"
+              <button type="button" onclick="openWhatsApp()"
                 class="btn btn-large"
-                style="display:block; width:100%; text-align:center; background:#25d366; color:#fff; border-color:#25d366; font-size:1rem;">
-                📲 {% trans "فتح واتساب الآن" %}
-              </a>
+                style="display:block; width:100%; text-align:center; background:#25d366; color:#fff; border-color:#25d366; font-size:1rem; cursor:pointer;">
+                📲 {% trans "ملء النموذج وفتح واتساب" %}
+              </button>
             </div>
 
           </div>
@@ -343,32 +432,138 @@
     }
   });
 
-  // Sudan domestic booking method toggle
-  window.setBookMethod = function(method) {
-    var panelCard = document.getElementById('panelCard');
-    var panelWA   = document.getElementById('panelWA');
-    var btnCard   = document.getElementById('btnMethodCard');
-    var btnWA     = document.getElementById('btnMethodWA');
-    if (!panelCard) return;
+  // ── Copy to clipboard ──
+  window.copyText = function(elId, btnId) {
+    var el  = document.getElementById(elId);
+    var btn = document.getElementById(btnId);
+    if (!el) return;
+    navigator.clipboard.writeText(el.textContent.replace(/\s/g,'')).then(function() {
+      if (btn) { btn.textContent = '✔'; setTimeout(function(){ btn.textContent = 'نسخ'; }, 2000); }
+    });
+  };
 
-    if (method === 'card') {
-      panelCard.style.display = '';
+  // ── Passenger form validator ──
+  function validateForm() {
+    var required = document.querySelectorAll('#passengerForm input[required], #passengerForm select[required]');
+    for (var i = 0; i < required.length; i++) {
+      var el = required[i];
+      if (!el.value.trim()) {
+        el.focus();
+        el.style.borderColor = '#dc2626';
+        el.style.boxShadow   = '0 0 0 3px rgba(220,38,38,0.15)';
+        setTimeout(function(f){ return function(){ f.style.borderColor=''; f.style.boxShadow=''; }; }(el), 3000);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // ── Build WhatsApp message from form + flight data ──
+  function buildWhatsAppMsg() {
+    var lines = [];
+    lines.push('🛫 *طلب حجز رحلة - وكالة أبو منية*');
+    lines.push('────────────────────');
+
+    // Flight info from Django context
+    {% for slice in offer.slices %}
+    lines.push('✈️ *الرحلة {{ forloop.counter }}:* {{ slice.origin.iata_code }} → {{ slice.destination.iata_code }}');
+    lines.push('📅 التاريخ: {{ slice.segments.0.departing_at|slice:"0:10" }}');
+    lines.push('⏰ المغادرة: {{ slice.segments.0.departing_at|slice:"11:16" }} | الوصول: {{ slice.segments|last }}');
+    lines.push('💺 الشركة: {{ slice.segments.0.marketing_carrier.name }}  | المدة: {{ slice.duration_fmt }}');
+    {% endfor %}
+    lines.push('💰 *إجمالي التذكرة: {{ offer.total_amount }} {{ offer.total_currency }}*');
+    lines.push('');
+    lines.push('👥 *بيانات المسافرين:*');
+
+    // Collect each passenger block from the form
+    var form = document.getElementById('passengerForm');
+    var paxCount = {{ num_adults }} + {{ num_children|default:0 }};
+    for (var p = 1; p <= paxCount; p++) {
+      var fn  = form.querySelector('[name="first_name_' + p + '"]');
+      var ln  = form.querySelector('[name="last_name_'  + p + '"]');
+      var dob = form.querySelector('[name="born_on_'    + p + '"]');
+      var gen = form.querySelector('[name="gender_'    + p + '"]');
+      var em  = form.querySelector('[name="email_'     + p + '"]');
+      var ph  = form.querySelector('[name="phone_'     + p + '"]');
+      var pp  = form.querySelector('[name="passport_'  + p + '"]');
+
+      var pLabel = p <= {{ num_adults }} ? '👤 بالغ ' + p : '👦 طفل ' + (p - {{ num_adults }});
+      lines.push('───');
+      lines.push(pLabel);
+      if (fn && ln) lines.push('الاسم: ' + (fn.value + ' ' + ln.value).trim().toUpperCase());
+      if (dob)       lines.push('تاريخ الميلاد: ' + dob.value);
+      if (gen)       lines.push('الجنس: ' + (gen.value === 'm' ? 'ذكر' : 'أنثى'));
+      if (em && em.value)  lines.push('البريد: ' + em.value);
+      if (ph && ph.value)  lines.push('الهاتف: ' + ph.value);
+      if (pp && pp.value)  lines.push('الجواز/الهوية: ' + pp.value.toUpperCase());
+    }
+
+    // Payment note if present
+    var note = form.querySelector('[name="payment_note"]');
+    if (note && note.value.trim()) {
+      lines.push('');
+      lines.push('📝 ملاحظة: ' + note.value.trim());
+    }
+
+    lines.push('');
+    lines.push('👍 شكراً لاختياركم وكالة أبو منية');
+    return lines.join('\n');
+  }
+
+  // ── Open WhatsApp after validating ──
+  window.openWhatsApp = function() {
+    var errBox = document.getElementById('waValidationError');
+    var errMsg = document.getElementById('waErrorMsg');
+
+    if (!validateForm()) {
+      if (errBox) {
+        errMsg.textContent = 'يُرجى ملء جميع الحقول المطلوبة (باللون الأحمر) قبل المتابعة.';
+        errBox.style.display = 'block';
+        errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+    if (errBox) errBox.style.display = 'none';
+
+    var msg = buildWhatsAppMsg();
+    var url = 'https://wa.me/249906888886?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
+  };
+
+  // ── Bank / WA method toggle ──
+  window.setBookMethod = function(method) {
+    var panelBank = document.getElementById('panelBank');
+    var panelWA   = document.getElementById('panelWA');
+    var btnBank   = document.getElementById('btnMethodBank');
+    var btnWA     = document.getElementById('btnMethodWA');
+    if (!panelWA) return;
+
+    if (method === 'bank') {
+      if (panelBank) panelBank.style.display = '';
       panelWA.style.display   = 'none';
-      btnCard.style.background = 'var(--primary)';
-      btnCard.style.color      = '#fff';
-      btnCard.style.borderColor= 'var(--primary)';
-      btnWA.style.background   = 'transparent';
-      btnWA.style.color        = 'var(--text-muted)';
-      btnWA.style.borderColor  = '#ccc';
+      if (btnBank) {
+        btnBank.style.background  = 'var(--primary)';
+        btnBank.style.color       = '#fff';
+        btnBank.style.borderColor = 'var(--primary)';
+      }
+      if (btnWA) {
+        btnWA.style.background  = 'transparent';
+        btnWA.style.color       = 'var(--text-muted)';
+        btnWA.style.borderColor = '#ccc';
+      }
     } else {
-      panelCard.style.display = 'none';
+      if (panelBank) panelBank.style.display = 'none';
       panelWA.style.display   = '';
-      btnWA.style.background   = '#25d366';
-      btnWA.style.color        = '#fff';
-      btnWA.style.borderColor  = '#25d366';
-      btnCard.style.background = 'transparent';
-      btnCard.style.color      = 'var(--text-muted)';
-      btnCard.style.borderColor= '#ccc';
+      if (btnWA) {
+        btnWA.style.background  = '#25d366';
+        btnWA.style.color       = '#fff';
+        btnWA.style.borderColor = '#25d366';
+      }
+      if (btnBank) {
+        btnBank.style.background  = 'transparent';
+        btnBank.style.color       = 'var(--text-muted)';
+        btnBank.style.borderColor = '#ccc';
+      }
     }
   };
 </script>
