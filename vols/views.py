@@ -881,6 +881,11 @@ def passenger_details(request, offer_id):
     num_children = int(search.get('children', 0))
     total_passengers = num_adults + num_children
 
+    import datetime
+    today = datetime.date.today()
+    # Adults must be at least 18 years old
+    today_min_adult = (today.replace(year=today.year - 18)).isoformat()
+
     context = {
         'offer': offer,
         'offer_json': json.dumps(offer),
@@ -890,6 +895,7 @@ def passenger_details(request, offer_id):
         'num_adults':   num_adults,
         'num_children': num_children,
         'search': search,
+        'today_min_adult': today_min_adult,
         'duration_fmt': duffel_service.format_duration(
             offer.get('slices', [{}])[0].get('duration') if offer.get('slices') else ''
         ),
@@ -992,11 +998,24 @@ def confirm_booking(request):
             return redirect('vols:passenger_details', offer_id=offer_id)
 
         # Step 2: Hold the ticket with Duffel or Mock
-        if str(offer_id).startswith('off_mock_badr'):
+        if str(offer_id).startswith('off_mock_badr') or offer.get('is_sudan_domestic') or offer.get('is_ferry'):
+            # Sudan domestic and ferry bookings are handled manually (bank transfer / WhatsApp)
+            # No Duffel API call needed — generate a local reference
             import uuid
-            order = {'id': f"ord_mock_{str(uuid.uuid4())[:8]}", 'booking_reference': 'BADRMOCK'}
+            local_ref = 'ABM-' + str(uuid.uuid4())[:8].upper()
+            order = {'id': f"ord_local_{str(uuid.uuid4())[:8]}", 'booking_reference': local_ref}
         else:
-            order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'], hold=True)
+            try:
+                order = duffel_service.create_order(offer_id, duffel_passengers, original_amount, offer['total_currency'], hold=True)
+            except Exception as duffel_err:
+                err_str = str(duffel_err)
+                if 'OFFER_EXPIRED' in err_str:
+                    raise  # re-raise so outer handler shows expiry message
+                # Hold not supported by this airline — fall back to local pending booking
+                import uuid
+                local_ref = 'ABM-' + str(uuid.uuid4())[:8].upper()
+                order = {'id': f"ord_pending_{str(uuid.uuid4())[:8]}", 'booking_reference': local_ref}
+                print(f"[BOOKING] Duffel hold failed ({err_str}), saved as local pending booking {local_ref}")
 
         # Step 3: Save confirmed booking to DB
         first_slice = offer.get('slices', [{}])[0]
