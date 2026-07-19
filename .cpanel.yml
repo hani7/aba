@@ -1,9 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/adanof06/adan-office-services.com/temp_code
+    - export DEPLOYPATH=/home/adanof06/aba.adan-office-services.com/app
+    - export VENV=/home/adanof06/virtualenv/aba.adan-office-services.com/app/3.12
     - cd $DEPLOYPATH
-    - pip install -r requirements.txt --quiet
-    - python manage.py collectstatic --noinput
-    - python manage.py migrate --run-syncdb
+    - $VENV/bin/pip install -r requirements.txt --quiet
+    - $VENV/bin/python manage.py collectstatic --noinput
+    - $VENV/bin/python manage.py migrate --run-syncdb
     - touch tmp/restart.txt
