@@ -5,9 +5,6 @@ from . import views
 app_name = 'vols'
 
 urlpatterns = [
-    # ── Temporary diagnostic ──────────────────────────────────────────────
-    path('debug-info/', views.debug_info, name='debug_info'),
-
     # ── Home ──────────────────────────────────────────────────────────────
     path('', views.home, name='home'),
     path('about/', views.about_us, name='about_us'),
