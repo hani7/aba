@@ -1,6 +1,5 @@
 import os
 import sys
-import glob
 import site
 from pathlib import Path
 
@@ -8,34 +7,20 @@ from pathlib import Path
 cwd = Path(__file__).resolve().parent
 sys.path.insert(0, str(cwd))
 
-# ── Add virtual environment site-packages ────────────────────────────────────
-# site.addsitedir() is more reliable than sys.path.insert — it processes .pth files too
-_found_venv = False
-for _pattern in [
-    str(cwd / 'env' / 'lib' / 'python*' / 'site-packages'),   # Linux
-    str(cwd / 'env' / 'Lib' / 'site-packages'),                # Windows
-    str(cwd / 'venv' / 'lib' / 'python*' / 'site-packages'),  # Linux alt
-    str(cwd / 'venv' / 'Lib' / 'site-packages'),               # Windows alt
-]:
-    _matches = glob.glob(_pattern)
-    if _matches:
-        site.addsitedir(_matches[0])
-        _found_venv = True
-        break
+# ── cPanel virtualenv: auto-detected from VIRTUAL_ENV env var or hardcoded path ──
+# cPanel creates its own venv outside the project folder
+_venv_root = os.environ.get('VIRTUAL_ENV', '')
+if not _venv_root:
+    # Hardcoded fallback: path visible in cPanel Python App settings
+    _venv_root = '/home/adanof06/virtualenv/aba.adan-office-services.com/app/3.12'
 
-# ── Write debug info to help diagnose production issues ──────────────────────
-try:
-    _debug_path = cwd / 'tmp' / 'wsgi_debug.txt'
-    _debug_path.parent.mkdir(exist_ok=True)
-    with open(_debug_path, 'w') as _f:
-        _f.write(f"Python: {sys.version}\n")
-        _f.write(f"cwd: {cwd}\n")
-        _f.write(f"venv found: {_found_venv}\n")
-        _f.write("sys.path:\n")
-        for _p in sys.path:
-            _f.write(f"  {_p}\n")
-except Exception:
-    pass
+_venv_site = os.path.join(_venv_root, 'lib', f'python{sys.version_info.major}.{sys.version_info.minor}', 'site-packages')
+if os.path.isdir(_venv_site):
+    site.addsitedir(_venv_site)
+
+# Also ensure the venv bin is first in PATH so correct executables are used
+_venv_bin = os.path.join(_venv_root, 'bin')
+os.environ['PATH'] = _venv_bin + os.pathsep + os.environ.get('PATH', '')
 
 # Point to your settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'abo.settings')
