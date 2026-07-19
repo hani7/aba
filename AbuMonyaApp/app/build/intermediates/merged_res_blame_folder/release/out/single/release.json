@@ -92,6 +92,10 @@
         "source": "com.abumonyaagency.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
+        "merged": "com.abumonyaagency.app-merged_res-32:/drawable_ic_logo_hires.png.flat",
+        "source": "com.abumonyaagency.app-main-33:/drawable/ic_logo_hires.png"
+    },
+    {
         "merged": "com.abumonyaagency.app-merged_res-32:/layout_activity_splash.xml.flat",
         "source": "com.abumonyaagency.app-main-33:/layout/activity_splash.xml"
     }

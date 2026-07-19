@@ -57,12 +57,13 @@
             android:gravity="center"
             android:paddingHorizontal="40dp">
 
-            <!-- App Icon / Logo -->
+            <!-- App Icon / Logo - high-res 200dp -->
             <ImageView
                 android:id="@+id/splash_logo"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_logo_hires"
+                android:scaleType="fitCenter"
                 android:contentDescription="شعار وكالة أبو منية" />
 
             <!-- App name in Arabic -->
