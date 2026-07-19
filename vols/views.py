@@ -1,7 +1,7 @@
 import json
 import random
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth import login as auth_login
@@ -19,6 +19,34 @@ from .services import agoda_service
 from .services import sudan_domestic_service
 from .services import ferry_service
 from .models import Booking, Passenger, HotelBooking
+
+
+# ---------------------------------------------------------------------------
+# Diagnostic view — TEMPORARY, remove after fixing production 500
+# ---------------------------------------------------------------------------
+def debug_info(request):
+    import sys, os, platform
+    lines = []
+    lines.append(f"<h2>Server Diagnostic</h2>")
+    lines.append(f"<b>Python:</b> {sys.version}<br>")
+    lines.append(f"<b>Platform:</b> {platform.platform()}<br>")
+    lines.append(f"<b>VIRTUAL_ENV:</b> {os.environ.get('VIRTUAL_ENV', 'NOT SET')}<br>")
+    lines.append(f"<b>Django DEBUG:</b> {settings.DEBUG}<br>")
+    lines.append(f"<b>DJANGO_SETTINGS_MODULE:</b> {os.environ.get('DJANGO_SETTINGS_MODULE', '?')}<br>")
+    lines.append("<br><b>sys.path:</b><br><pre>")
+    for p in sys.path:
+        lines.append(p)
+    lines.append("</pre>")
+    lines.append("<b>Package check:</b><br><pre>")
+    for pkg in ['requests', 'django', 'whitenoise', 'dj_database_url', 'dotenv']:
+        try:
+            mod = __import__(pkg)
+            ver = getattr(mod, '__version__', '?')
+            lines.append(f"  OK  : {pkg} ({ver})")
+        except ImportError as e:
+            lines.append(f"  FAIL: {pkg} — {e}")
+    lines.append("</pre>")
+    return HttpResponse("\n".join(lines))
 
 
 # ---------------------------------------------------------------------------
