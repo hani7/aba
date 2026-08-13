@@ -1,12 +1,12 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.abumonyaagency.app"
-4    android:versionCode="1"
-5    android:versionName="1.0" >
+3    package="com.aboumenia.app"
+4    android:versionCode="2"
+5    android:versionName="1.0.1" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-9        android:targetSdkVersion="34" />
+9        android:targetSdkVersion="35" />
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
 11-->C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\src\main\AndroidManifest.xml:4:5-67
@@ -32,12 +32,12 @@
 18
 19    <permission
 19-->[androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
-20        android:name="com.abumonyaagency.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20        android:name="com.aboumenia.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
 20-->[androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 21        android:protectionLevel="signature" />
 21-->[androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 22
-23    <uses-permission android:name="com.abumonyaagency.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23    <uses-permission android:name="com.aboumenia.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 23-->[androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
 23-->[androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 24
@@ -102,7 +102,7 @@
 57-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PC\.gradle\caches\transforms-3\4ef2d37eca9ad04b2c397a091ea18fe4\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 58            android:name="androidx.startup.InitializationProvider"
 58-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PC\.gradle\caches\transforms-3\4ef2d37eca9ad04b2c397a091ea18fe4\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-59            android:authorities="com.abumonyaagency.app.androidx-startup"
+59            android:authorities="com.aboumenia.app.androidx-startup"
 59-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PC\.gradle\caches\transforms-3\4ef2d37eca9ad04b2c397a091ea18fe4\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
 60            android:exported="false" >
 60-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PC\.gradle\caches\transforms-3\4ef2d37eca9ad04b2c397a091ea18fe4\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37

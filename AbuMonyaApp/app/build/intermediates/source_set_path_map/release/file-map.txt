@@ -30,6 +30,7 @@ com.abumonyaagency.app-pngs-28 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\a
 com.abumonyaagency.app-resValues-29 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\generated\res\resValues\release
 com.abumonyaagency.app-packageReleaseResources-30 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\intermediates\incremental\release\packageReleaseResources\merged.dir
 com.abumonyaagency.app-packageReleaseResources-31 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\intermediates\incremental\release\packageReleaseResources\stripped.dir
-com.abumonyaagency.app-merged_res-32 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\intermediates\merged_res\release
-com.abumonyaagency.app-main-33 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\src\main\res
-com.abumonyaagency.app-release-34 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\src\release\res
+com.abumonyaagency.app-merged-not-compiled-resources-32 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\intermediates\merged-not-compiled-resources\release
+com.abumonyaagency.app-merged_res-33 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\build\intermediates\merged_res\release
+com.abumonyaagency.app-main-34 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\src\main\res
+com.abumonyaagency.app-release-35 C:\Users\PC\Desktop\New folder\test\AbuMonyaApp\app\src\release\res

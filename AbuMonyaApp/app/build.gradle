@@ -4,21 +4,31 @@ plugins {
 
 android {
     namespace 'com.abumonyaagency.app'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
-        applicationId "com.abumonyaagency.app"
+        applicationId "com.aboumenia.app"
         minSdk 21
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        targetSdk 35
+        versionCode 2
+        versionName "1.0.1"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("release-key.jks")
+            storePassword "password123"
+            keyAlias "my-key-alias"
+            keyPassword "password123"
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 

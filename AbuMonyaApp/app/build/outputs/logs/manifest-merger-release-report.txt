@@ -280,7 +280,7 @@ ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0
 		ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 	android:name
 		ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
-permission#com.abumonyaagency.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+permission#com.aboumenia.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
 		ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
@@ -290,7 +290,7 @@ uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
-uses-permission#com.abumonyaagency.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission#com.aboumenia.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] C:\Users\PC\.gradle\caches\transforms-3\f0f4ee7c3b88100b2d2cd4b05ab423cd\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
