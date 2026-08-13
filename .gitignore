@@ -22,3 +22,9 @@ frontend/build_err.txt
 frontend/build_err_utf8.txt
 frontend/build_log.txt
 frontend/build_out.txt
+
+# Android Application & APK
+AbuMonyaApp/
+abumonyaapp/
+*.apk
+app/
